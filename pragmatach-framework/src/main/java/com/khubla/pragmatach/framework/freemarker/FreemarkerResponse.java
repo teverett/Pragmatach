@@ -29,6 +29,11 @@ public class FreemarkerResponse implements Response {
    }
 
    @Override
+   public int getHTTPCode() {
+      return 200;
+   }
+
+   @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
          final Writer writer = new PrintWriter(outputStream);

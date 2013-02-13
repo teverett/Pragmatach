@@ -94,15 +94,17 @@ public class Routes {
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {
                if (false == line.startsWith("#")) {
-                  final Route route = parseRoute(line.trim());
-                  if (null != route) {
-                     if (route.getMethod() == Route.Method.get) {
-                        GETRoutes.add(route);
+                  if (line.trim().length() > 0) {
+                     final Route route = parseRoute(line.trim());
+                     if (null != route) {
+                        if (route.getMethod() == Route.Method.get) {
+                           GETRoutes.add(route);
+                        } else {
+                           POSTRoutes.add(route);
+                        }
                      } else {
-                        POSTRoutes.add(route);
+                        throw new Exception("Failed to read route '" + line + "'");
                      }
-                  } else {
-                     throw new Exception("Failed to read route '" + line + "'");
                   }
                }
             }

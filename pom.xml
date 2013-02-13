@@ -4,7 +4,7 @@
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>khubla.com Pragmatach Web Framework</name>
+	<name>khubla.com Pragmatach</name>
 	<properties>
 		<target.jvm>1.6</target.jvm>
 		<testng.version>6.8</testng.version>

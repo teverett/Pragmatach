@@ -29,6 +29,7 @@ public class PragmatachServlet extends HttpServlet {
       try {
          final Response response = requestRouter.routeGET(new Request(req, resp));
          if (null != response) {
+            resp.setStatus(response.getHTTPCode());
             response.render(resp.getOutputStream());
          }
       } catch (final Exception e) {
@@ -40,6 +41,7 @@ public class PragmatachServlet extends HttpServlet {
       try {
          final Response response = requestRouter.routePOST(new Request(req, resp));
          if (null != response) {
+            resp.setStatus(response.getHTTPCode());
             response.render(resp.getOutputStream());
          }
       } catch (final Exception e) {

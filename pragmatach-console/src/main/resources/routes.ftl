@@ -1,4 +1,4 @@
 # ${namespace}
 
-GET / indexController.render()
+GET / ${namespace}.IndexController.render()
 

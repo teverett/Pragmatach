@@ -43,4 +43,8 @@ public class Route {
    public String getPath() {
       return path;
    }
+
+   public boolean matches(String path) {
+      return false;
+   }
 }
