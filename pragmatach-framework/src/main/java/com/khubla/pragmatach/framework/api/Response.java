@@ -1,0 +1,10 @@
+package com.khubla.pragmatach.framework.api;
+
+import java.io.OutputStream;
+
+/**
+ * @author tome
+ */
+public interface Response {
+   void render(OutputStream outputStream) throws PragmatachException;
+}

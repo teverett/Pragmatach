@@ -1,0 +1,2 @@
+GET /dostuff/$1/$2	ExampleController.doStuff($1,$2)
+POST /poststuff/$1	ExampleController2.postStuff($1)
