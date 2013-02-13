@@ -11,3 +11,7 @@
 /pragmatach-console/.settings/
 /exampleproject/
 /.DS_Store
+/pragmatach-freemarker/target/
+/pragmatach-freemarker/.settings/
+/pragmatach-freemarker/.project
+/pragmatach-freemarker/.classpath

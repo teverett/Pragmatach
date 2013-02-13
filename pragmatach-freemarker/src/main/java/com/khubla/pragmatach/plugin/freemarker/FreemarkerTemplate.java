@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.freemarker;
+package com.khubla.pragmatach.plugin.freemarker;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

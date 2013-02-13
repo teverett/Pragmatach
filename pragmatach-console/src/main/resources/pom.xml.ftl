@@ -13,6 +13,13 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-freemarker</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	   <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

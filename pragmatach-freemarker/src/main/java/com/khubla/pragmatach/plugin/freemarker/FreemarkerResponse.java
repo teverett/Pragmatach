@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.freemarker;
+package com.khubla.pragmatach.plugin.freemarker;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;

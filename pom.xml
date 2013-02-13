@@ -12,6 +12,7 @@
 	<modules>
 		<module>pragmatach-console</module>
 		<module>pragmatach-framework</module>
+		<module>pragmatach-freemarker</module>	
 	</modules>
 	<dependencies>
 		<dependency>
