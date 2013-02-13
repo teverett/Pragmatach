@@ -20,7 +20,7 @@ To create the skeleton of a test project run:
 
 This will generate:
 
-* A maven pom.xml which includes the Pragmatch framework
+* A maven pom.xml which includes the Pragmatach framework
 * A simple controller and freemarker template for an index page
 * A web.xml that includes the Pragmatach servlet
 
