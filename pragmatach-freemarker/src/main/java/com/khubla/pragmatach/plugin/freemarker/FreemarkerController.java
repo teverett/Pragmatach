@@ -55,7 +55,7 @@ public class FreemarkerController extends AbstractController {
          final Map<String, Object> context = new HashMap<String, Object>();
          context.put(SESSION, request.getHttpServletRequest().getSession());
          context.put(CONTROLLER, this);
-         return new FreemarkerResponse(template, null);
+         return new FreemarkerResponse(template, context);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

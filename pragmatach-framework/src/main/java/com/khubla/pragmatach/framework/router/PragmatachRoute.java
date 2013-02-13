@@ -68,7 +68,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    public boolean matches(String uri) throws PragmatachException {
       try {
          final String routeURI = route.uri();
-         if (uri.startsWith(uri)) {
+         if (uri.startsWith(routeURI)) {
             final String parametersPartOfURI = uri.substring(routeURI.length());
             final String[] parsedParameters = parseParameters(parametersPartOfURI);
             final int methodParameterCount = method.getParameterTypes().length;

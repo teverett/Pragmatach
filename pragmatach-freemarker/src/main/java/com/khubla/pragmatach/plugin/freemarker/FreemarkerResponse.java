@@ -3,7 +3,7 @@ package com.khubla.pragmatach.plugin.freemarker;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.Hashtable;
+import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -21,9 +21,9 @@ public class FreemarkerResponse implements Response {
    /**
     * context
     */
-   private final Hashtable<String, String> context;
+   private final Map<String, Object> context;
 
-   public FreemarkerResponse(Template template, Hashtable<String, String> context) {
+   public FreemarkerResponse(Template template, Map<String, Object> context) {
       this.template = template;
       this.context = context;
    }
