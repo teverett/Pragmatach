@@ -2,6 +2,7 @@ package com.khubla.pragmatach.console;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class ProjectGenerator {
    private static void generateLog4JXML(String dir, String name, String namespace) throws Exception {
       try {
          final Configuration cfg = new Configuration();
-         final Template template = cfg.getTemplate("src/main/resources/log4j.xml.ftl");
+         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/log4j.xml.ftl")), cfg);
          final Map<String, Object> input = new HashMap<String, Object>();
          input.put("name", name);
          input.put("namespace", namespace);
@@ -38,7 +39,7 @@ public class ProjectGenerator {
    private static void generatePOM(String dir, String name, String namespace) throws Exception {
       try {
          final Configuration cfg = new Configuration();
-         final Template template = cfg.getTemplate("src/main/resources/pom.xml.ftl");
+         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/pom.xml.ftl")), cfg);
          final Map<String, Object> input = new HashMap<String, Object>();
          input.put("name", name);
          input.put("namespace", namespace);
@@ -55,7 +56,7 @@ public class ProjectGenerator {
    private static void generateWebXML(String dir, String name, String namespace) throws Exception {
       try {
          final Configuration cfg = new Configuration();
-         final Template template = cfg.getTemplate("src/main/resources/web.xml.ftl");
+         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/web.xml.ftl")), cfg);
          final Map<String, Object> input = new HashMap<String, Object>();
          input.put("name", name);
          input.put("namespace", namespace);

@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.framework.freemarker;
 
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,10 +22,20 @@ public class FreemarkerController extends AbstractController {
    private static final String SESSION = "session";
    private static final String CONTROLLER = "controller";
 
+   private Template getTemplate() throws PragmatachException {
+      try {
+         final Configuration cfg = new Configuration();
+         final String templateName = getTemplateName();
+         return new Template(templateName, new InputStreamReader(FreemarkerController.class.getResourceAsStream("/" + templateName)), cfg);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getTemplate", e);
+      }
+   }
+
    /**
     * get the name of the template from the annotation
     */
-   private String getTemplate() {
+   private String getTemplateName() {
       final FreemarkerTemplate controller = this.getClass().getAnnotation(FreemarkerTemplate.class);
       if (null != controller) {
          final String template = controller.template();
@@ -40,9 +51,7 @@ public class FreemarkerController extends AbstractController {
     */
    public Response render(Request request) throws PragmatachException {
       try {
-         final Configuration cfg = new Configuration();
-         final String templateFile = getTemplate();
-         final Template template = cfg.getTemplate(templateFile);
+         final Template template = getTemplate();
          final Map<String, Object> context = new HashMap<String, Object>();
          context.put(SESSION, request.getHttpServletRequest().getSession());
          context.put(CONTROLLER, this);
