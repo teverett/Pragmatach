@@ -13,6 +13,6 @@
                 <servlet-name>PragmatachServlet</servlet-name>
                 <url-pattern>/*</url-pattern>
         </servlet-mapping>
-        <welcome-file>index.ftl</welcome-file>        
+        <welcome-file>/</welcome-file>        
 </web-app>
         

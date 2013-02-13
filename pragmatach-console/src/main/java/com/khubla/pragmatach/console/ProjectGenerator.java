@@ -17,6 +17,40 @@ import freemarker.template.Template;
  */
 public class ProjectGenerator {
    /**
+    * generate the indexController
+    */
+   private static void generateIndexController(String dir, String name, String namespace) throws Exception {
+      try {
+         final Configuration cfg = new Configuration();
+         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/IndexController.java.ftl")), cfg);
+         final Map<String, Object> input = new HashMap<String, Object>();
+         input.put("name", name);
+         input.put("namespace", namespace);
+         final Writer writer = new FileWriter(new File(dir + "/IndexController.java"));
+         template.process(input, writer);
+      } catch (final Exception e) {
+         throw new Exception("Exception in generateIndexController", e);
+      }
+   }
+
+   /**
+    * generate index.ftl
+    */
+   private static void generateIndexFTL(String dir, String name, String namespace) throws Exception {
+      try {
+         final Configuration cfg = new Configuration();
+         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/index.ftl.ftl")), cfg);
+         final Map<String, Object> input = new HashMap<String, Object>();
+         input.put("name", name);
+         input.put("namespace", namespace);
+         final Writer writer = new FileWriter(new File(dir + "/index.ftl"));
+         template.process(input, writer);
+      } catch (final Exception e) {
+         throw new Exception("Exception in generateIndexFTL", e);
+      }
+   }
+
+   /**
     * generate the log4j.xml
     */
    private static void generateLog4JXML(String dir, String name, String namespace) throws Exception {
@@ -64,23 +98,6 @@ public class ProjectGenerator {
          template.process(input, writer);
       } catch (final Exception e) {
          throw new Exception("Exception in generateRoutes", e);
-      }
-   }
-
-   /**
-    * generate index.ftl
-    */
-   private static void generateIndexFTL(String dir, String name, String namespace) throws Exception {
-      try {
-         final Configuration cfg = new Configuration();
-         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/index.ftl.ftl")), cfg);
-         final Map<String, Object> input = new HashMap<String, Object>();
-         input.put("name", name);
-         input.put("namespace", namespace);
-         final Writer writer = new FileWriter(new File(dir + "/index.ftl"));
-         template.process(input, writer);
-      } catch (final Exception e) {
-         throw new Exception("Exception in generateIndexFTL", e);
       }
    }
 
@@ -136,6 +153,7 @@ public class ProjectGenerator {
          generateLog4JXML(resourcesDir, name, namespace);
          generateRoutes(resourcesDir, name, namespace);
          generateIndexFTL(webDir, name, namespace);
+         generateIndexController(javaDir, name, namespace);
       } catch (final Exception e) {
          throw new Exception("Exception in generate", e);
       }
