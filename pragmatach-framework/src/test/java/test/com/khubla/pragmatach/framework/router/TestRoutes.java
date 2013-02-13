@@ -15,7 +15,7 @@ public class TestRoutes {
    public void setup() {
       try {
          AnnotationsScanner.scan(null);
-      } catch (Exception e) {
+      } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
       }
@@ -24,11 +24,11 @@ public class TestRoutes {
    @Test
    public void test1() {
       try {
-         Routes routes = Routes.getInstance();
+         final Routes routes = Routes.getInstance();
          Assert.assertNotNull(routes);
-         Assert.assertTrue(routes.getGETMethods().size() == 1);
-         Assert.assertTrue(routes.getPOSTMethods().size() == 1);
-      } catch (Exception e) {
+         Assert.assertTrue(routes.getGETRoutes().size() == 1);
+         Assert.assertTrue(routes.getPOSTRoutes().size() == 1);
+      } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
       }

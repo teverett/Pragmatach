@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -37,11 +38,11 @@ public class Routes {
    /**
     * GET routes
     */
-   private final List<Method> GETMethods = new ArrayList<Method>();
+   private final List<PragmatachRoute> GETRoutes = new ArrayList<PragmatachRoute>();
    /**
     * POST routes
     */
-   private final List<Method> POSTMethods = new ArrayList<Method>();
+   private final List<PragmatachRoute> POSTRoutes = new ArrayList<PragmatachRoute>();
 
    /**
     * ctor
@@ -50,12 +51,12 @@ public class Routes {
       readRoutes();
    }
 
-   public List<Method> getGETMethods() {
-      return GETMethods;
+   public List<PragmatachRoute> getGETRoutes() {
+      return GETRoutes;
    }
 
-   public List<Method> getPOSTMethods() {
-      return POSTMethods;
+   public List<PragmatachRoute> getPOSTRoutes() {
+      return POSTRoutes;
    }
 
    /**
@@ -63,14 +64,24 @@ public class Routes {
     */
    private void readRoutes() throws PragmatachException {
       try {
+         /*
+          * get the routes
+          */
          final Set<Method> routerMethods = AnnotationsScanner.getRouterMethods();
          for (final Method method : routerMethods) {
-            if (method.getAnnotation(Route.class).method() == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {
-               GETMethods.add(method);
+            final Route route = method.getAnnotation(Route.class);
+            final Route.HttpMethod httpMethod = route.method();
+            if (httpMethod == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {
+               GETRoutes.add(new PragmatachRoute(route, method));
             } else {
-               POSTMethods.add(method);
+               POSTRoutes.add(new PragmatachRoute(route, method));
             }
          }
+         /*
+          * sort the routes
+          */
+         Collections.sort(GETRoutes);
+         Collections.sort(POSTRoutes);
       } catch (final Exception e) {
          throw new PragmatachException(e);
       }

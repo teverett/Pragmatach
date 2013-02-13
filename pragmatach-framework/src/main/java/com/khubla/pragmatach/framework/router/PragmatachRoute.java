@@ -2,7 +2,7 @@ package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
 
-import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
+import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 
@@ -11,19 +11,11 @@ import com.khubla.pragmatach.framework.controller.PragmatachController;
  * 
  * @author tome
  */
-public class PragmatachRoute {
+public class PragmatachRoute implements Comparable<PragmatachRoute> {
    /**
-    * post or get
+    * route annotation
     */
-   private final HttpMethod httpMethod;
-   /**
-    * path
-    */
-   private final String path;
-   /**
-    * controller
-    */
-   private final Class<?> controllerClazz;
+   private final Route route;
    /**
     * method
     */
@@ -32,15 +24,15 @@ public class PragmatachRoute {
    /**
     * ctor
     */
-   public PragmatachRoute(HttpMethod httpMethod, Method method, String path, Class<?> clazz) throws PragmatachException {
+   public PragmatachRoute(Route route, Method method) throws PragmatachException {
       this.method = method;
-      this.path = path;
-      controllerClazz = clazz;
-      this.httpMethod = httpMethod;
+      this.route = route;
    }
 
-   public Class<?> getControllerClazz() {
-      return controllerClazz;
+   @Override
+   public int compareTo(PragmatachRoute arg0) {
+      // TODO Auto-generated method stub
+      return 0;
    }
 
    /**
@@ -48,22 +40,18 @@ public class PragmatachRoute {
     */
    public PragmatachController getControllerClazzInstance() throws PragmatachException {
       try {
-         return (PragmatachController) controllerClazz.newInstance();
+         return (PragmatachController) method.getDeclaringClass().newInstance();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
       }
-   }
-
-   public HttpMethod getHttpMethod() {
-      return httpMethod;
    }
 
    public Method getMethod() {
       return method;
    }
 
-   public String getPath() {
-      return path;
+   public Route getRoute() {
+      return route;
    }
 
    public boolean matches(String path) {

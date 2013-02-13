@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.router.Router;
-import com.khubla.pragmatach.framework.router.impl.DefaultRouterImpl;
 
 /**
  * @author tome
@@ -23,7 +22,7 @@ public class PragmatachServlet extends HttpServlet {
    /**
     * router
     */
-   private final Router requestRouter = new DefaultRouterImpl();
+   private final Router requestRouter = new Router();
 
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       try {
