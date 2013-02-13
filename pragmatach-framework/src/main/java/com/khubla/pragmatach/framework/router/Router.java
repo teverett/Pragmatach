@@ -30,6 +30,18 @@ public class Router {
       }
    }
 
+   /**
+    * invoke a request on a route
+    */
+   private Response invoke(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
+      try {
+         final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance();
+         return (Response) pragmatachRoute.getMethod().invoke(pragmatachController, request);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in invoke", e);
+      }
+   }
+
    public Response routeGET(Request request) throws PragmatachException {
       try {
          final String uri = request.getHttpServletRequest().getRequestURI();
@@ -55,18 +67,6 @@ public class Router {
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in routePOST", e);
-      }
-   }
-
-   /**
-    * invoke a request on a route
-    */
-   private Response invoke(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
-      try {
-         final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance();
-         return (Response) pragmatachRoute.getMethod().invoke(pragmatachController, request);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in invoke", e);
       }
    }
 }

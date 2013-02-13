@@ -19,5 +19,5 @@ public @interface Route {
 
    HttpMethod method() default HttpMethod.get;
 
-   String path() default "";
+   String uri() default "";
 }

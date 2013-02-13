@@ -62,8 +62,46 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
       return route;
    }
 
-   public boolean matches(String uri) {
-      return false;
+   /**
+    * in order to match it has to be the right beginning of the path, and what follows the path has to be the right parameters.
+    */
+   public boolean matches(String uri) throws PragmatachException {
+      try {
+         final String routeURI = route.uri();
+         if (uri.startsWith(uri)) {
+            final String parametersPartOfURI = uri.substring(routeURI.length());
+            final String[] parsedParameters = parseParameters(parametersPartOfURI);
+            final int methodParameterCount = method.getParameterTypes().length;
+            if (null != parsedParameters) {
+               if (methodParameterCount == parsedParameters.length) {
+                  return true;
+               } else {
+                  return false;
+               }
+            } else {
+               if (methodParameterCount == 0) {
+                  return true;
+               } else {
+                  return false;
+               }
+            }
+         } else {
+            return false;
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in matches", e);
+      }
+   }
+
+   /**
+    * parse the URL parameters
+    */
+   private String[] parseParameters(String params) throws PragmatachException {
+      try {
+         return params.split("/");
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in parseParameters", e);
+      }
    }
 
    /**
@@ -71,7 +109,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     */
    public boolean scopes(PragmatachRoute pragmatachRoute) {
       if (null != pragmatachRoute) {
-         if ((pragmatachRoute.route.path().startsWith(route.path())) && (pragmatachRoute.route.path().length() > route.path().length())) {
+         if ((pragmatachRoute.route.uri().startsWith(route.uri())) && (pragmatachRoute.route.uri().length() > route.uri().length())) {
             return true;
          }
       }

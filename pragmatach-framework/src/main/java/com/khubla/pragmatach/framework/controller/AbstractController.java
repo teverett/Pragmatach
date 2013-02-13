@@ -3,5 +3,5 @@ package com.khubla.pragmatach.framework.controller;
 /**
  * @author tome
  */
-public abstract class AbstractController {
+public abstract class AbstractController implements PragmatachController {
 }

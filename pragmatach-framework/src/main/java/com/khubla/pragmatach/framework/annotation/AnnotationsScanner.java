@@ -71,6 +71,12 @@ public class AnnotationsScanner {
       return routerMethods;
    }
 
+   private static void reportURLS(URL[] urls) {
+      for (final URL url : urls) {
+         System.out.println(url.toString());
+      }
+   }
+
    /**
     * do the scan
     */
@@ -82,6 +88,7 @@ public class AnnotationsScanner {
    private static void scanClassPath() throws PragmatachException {
       try {
          final URL[] urls = ClasspathUrlFinder.findClassPaths();
+         reportURLS(urls);
          final AnnotationDB annotationDB = new AnnotationDB();
          annotationDB.scanArchives(urls);
          addAnnotations(annotationDB);
@@ -93,9 +100,12 @@ public class AnnotationsScanner {
    private static void scanWar(ServletContext servletContext) throws PragmatachException {
       try {
          if (null != servletContext) {
-            final URL[] urls = WarUrlFinder.findWebInfLibClasspaths(servletContext);
+            final URL[] libURLs = WarUrlFinder.findWebInfLibClasspaths(servletContext);
+            final URL classesURL = WarUrlFinder.findWebInfClassesPath(servletContext);
+            reportURLS(libURLs);
             final AnnotationDB annotationDB = new AnnotationDB();
-            annotationDB.scanArchives(urls);
+            annotationDB.scanArchives(libURLs);
+            annotationDB.scanArchives(classesURL);
             addAnnotations(annotationDB);
          }
       } catch (final Exception e) {

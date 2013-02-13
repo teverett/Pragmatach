@@ -32,9 +32,9 @@ public class TestRoutes {
          reportRoutes(routes.getGETRoutes());
          reportRoutes(routes.getPOSTRoutes());
          Assert.assertTrue(routes.getGETRoutes().size() == 2);
-         Assert.assertTrue(routes.getGETRoutes().get(1).getRoute().path().compareTo("/") == 0);
+         Assert.assertTrue(routes.getGETRoutes().get(1).getRoute().uri().compareTo("/") == 0);
          Assert.assertTrue(routes.getPOSTRoutes().size() == 3);
-         Assert.assertTrue(routes.getPOSTRoutes().get(2).getRoute().path().compareTo("/a") == 0);
+         Assert.assertTrue(routes.getPOSTRoutes().get(2).getRoute().uri().compareTo("/a") == 0);
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
@@ -43,7 +43,7 @@ public class TestRoutes {
 
    private void reportRoutes(List<PragmatachRoute> routes) {
       for (PragmatachRoute pragmatachRoute : routes) {
-         System.out.println(pragmatachRoute.getRoute().path());
+         System.out.println(pragmatachRoute.getRoute().uri());
       }
    }
 }

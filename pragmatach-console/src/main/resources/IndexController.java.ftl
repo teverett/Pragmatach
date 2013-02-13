@@ -12,7 +12,7 @@ import com.khubla.pragmatach.framework.freemarker.FreemarkerTemplate;
 @FreemarkerTemplate(template="index.ftl")
 public class IndexController extends FreemarkerController {
    
-   @Route(path = "/")
+   @Route(uri = "/")
    public Response render(Request request) throws PragmatachException {
       return super.render(request);
    }
