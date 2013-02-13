@@ -12,7 +12,8 @@
 	<modules>
 		<module>pragmatach-console</module>
 		<module>pragmatach-framework</module>
-		<module>pragmatach-freemarker</module>	
+		<module>pragmatach-freemarker</module>		
+		<module>pragmatach-adminapp</module>			
 	</modules>
 	<dependencies>
 		<dependency>
