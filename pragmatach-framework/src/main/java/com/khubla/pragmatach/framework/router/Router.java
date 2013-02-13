@@ -15,11 +15,11 @@ public class Router {
    /**
     * get Method that matches request
     */
-   private PragmatachRoute getRoute(List<PragmatachRoute> PragmatachRoutes, String path) throws PragmatachException {
+   private PragmatachRoute getRoute(List<PragmatachRoute> PragmatachRoutes, String uri) throws PragmatachException {
       try {
          if (null != PragmatachRoutes) {
             for (final PragmatachRoute pragmatachRoute : PragmatachRoutes) {
-               if (pragmatachRoute.matches(path)) {
+               if (pragmatachRoute.matches(uri)) {
                   return pragmatachRoute;
                }
             }
@@ -32,13 +32,12 @@ public class Router {
 
    public Response routeGET(Request request) throws PragmatachException {
       try {
-         final String path = request.getHttpServletRequest().getContextPath();
-         final PragmatachRoute pragmatachRoute = getRoute(Routes.getInstance().getGETRoutes(), path);
+         final String uri = request.getHttpServletRequest().getRequestURI();
+         final PragmatachRoute pragmatachRoute = getRoute(PragmatachRoutes.getInstance().getGETRoutes(), uri);
          if (null != pragmatachRoute) {
-            final PragmatachController controller = pragmatachRoute.getControllerClazzInstance();
-            return controller.render(request);
+            return invoke(pragmatachRoute, request);
          } else {
-            return new TrivialResponse("Unable find controller for route '" + path + "'", 200);
+            return new TrivialResponse("Unable find controller for uri '" + uri + "'", 200);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in routeGET", e);
@@ -47,9 +46,27 @@ public class Router {
 
    public Response routePOST(Request request) throws PragmatachException {
       try {
-         return null;
+         final String uri = request.getHttpServletRequest().getRequestURI();
+         final PragmatachRoute pragmatachRoute = getRoute(PragmatachRoutes.getInstance().getPOSTRoutes(), uri);
+         if (null != pragmatachRoute) {
+            return invoke(pragmatachRoute, request);
+         } else {
+            return new TrivialResponse("Unable find controller for uri '" + uri + "'", 200);
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in routePOST", e);
+      }
+   }
+
+   /**
+    * invoke a request on a route
+    */
+   private Response invoke(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
+      try {
+         final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance();
+         return (Response) pragmatachRoute.getMethod().invoke(pragmatachController, request);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in invoke", e);
       }
    }
 }

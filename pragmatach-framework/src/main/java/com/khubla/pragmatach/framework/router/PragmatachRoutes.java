@@ -15,19 +15,19 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * 
  * @author tome
  */
-public class Routes {
+public class PragmatachRoutes {
    /**
     * singleton
     */
-   private static Routes instance = null;
+   private static PragmatachRoutes instance = null;
 
    /**
     * getter
     */
-   public static Routes getInstance() throws PragmatachException {
+   public static PragmatachRoutes getInstance() throws PragmatachException {
       try {
          if (null == instance) {
-            instance = new Routes();
+            instance = new PragmatachRoutes();
          }
          return instance;
       } catch (final Exception e) {
@@ -47,7 +47,7 @@ public class Routes {
    /**
     * ctor
     */
-   private Routes() throws PragmatachException {
+   private PragmatachRoutes() throws PragmatachException {
       readRoutes();
    }
 

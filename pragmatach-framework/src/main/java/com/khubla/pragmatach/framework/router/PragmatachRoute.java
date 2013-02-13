@@ -62,7 +62,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
       return route;
    }
 
-   public boolean matches(String path) {
+   public boolean matches(String uri) {
       return false;
    }
 

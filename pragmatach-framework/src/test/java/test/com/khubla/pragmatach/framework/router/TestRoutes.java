@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
-import com.khubla.pragmatach.framework.router.Routes;
+import com.khubla.pragmatach.framework.router.PragmatachRoutes;
 
 /**
  * @author tome
@@ -27,7 +27,7 @@ public class TestRoutes {
    @Test
    public void test1() {
       try {
-         final Routes routes = Routes.getInstance();
+         final PragmatachRoutes routes = PragmatachRoutes.getInstance();
          Assert.assertNotNull(routes);
          reportRoutes(routes.getGETRoutes());
          reportRoutes(routes.getPOSTRoutes());
