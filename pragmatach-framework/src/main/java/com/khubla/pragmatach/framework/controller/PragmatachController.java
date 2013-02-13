@@ -7,6 +7,6 @@ import com.khubla.pragmatach.framework.api.Response;
 /**
  * @author tome
  */
-public interface Controller {
+public interface PragmatachController {
    Response render(Request request) throws PragmatachException;
 }

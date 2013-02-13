@@ -85,23 +85,6 @@ public class ProjectGenerator {
    }
 
    /**
-    * generate the routes
-    */
-   private static void generateRoutes(String dir, String name, String namespace) throws Exception {
-      try {
-         final Configuration cfg = new Configuration();
-         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/routes.ftl")), cfg);
-         final Map<String, Object> input = new HashMap<String, Object>();
-         input.put("name", name);
-         input.put("namespace", namespace);
-         final Writer writer = new FileWriter(new File(dir + "/routes"));
-         template.process(input, writer);
-      } catch (final Exception e) {
-         throw new Exception("Exception in generateRoutes", e);
-      }
-   }
-
-   /**
     * generate the web.xml
     */
    private static void generateWebXML(String dir, String name, String namespace) throws Exception {
@@ -151,7 +134,6 @@ public class ProjectGenerator {
          generatePOM(cwd + "/" + name, name, namespace);
          generateWebXML(webINFDir, name, namespace);
          generateLog4JXML(resourcesDir, name, namespace);
-         generateRoutes(resourcesDir, name, namespace);
          generateIndexFTL(webDir, name, namespace);
          generateIndexController(javaDir, name, namespace);
       } catch (final Exception e) {

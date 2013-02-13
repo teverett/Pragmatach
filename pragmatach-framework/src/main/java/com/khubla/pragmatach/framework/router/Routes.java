@@ -1,11 +1,12 @@
 package com.khubla.pragmatach.framework.router;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
+import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
@@ -14,10 +15,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class Routes {
-   /**
-    * routes file
-    */
-   private static final String ROUTES = "/routes";
    /**
     * singleton
     */
@@ -40,11 +37,11 @@ public class Routes {
    /**
     * GET routes
     */
-   private final List<Route> GETRoutes = new ArrayList<Route>();
+   private final List<Method> GETMethods = new ArrayList<Method>();
    /**
     * POST routes
     */
-   private final List<Route> POSTRoutes = new ArrayList<Route>();
+   private final List<Method> POSTMethods = new ArrayList<Method>();
 
    /**
     * ctor
@@ -53,34 +50,12 @@ public class Routes {
       readRoutes();
    }
 
-   public List<Route> getGETRoutes() {
-      return GETRoutes;
+   public List<Method> getGETMethods() {
+      return GETMethods;
    }
 
-   public List<Route> getPOSTRoutes() {
-      return POSTRoutes;
-   }
-
-   /**
-    * read a route
-    */
-   private Route parseRoute(String line) throws PragmatachException {
-      try {
-         final String[] parts = line.replaceAll("\t", " ").split(" ");
-         if ((null != parts) && (parts.length == 3)) {
-            final String method = parts[0];
-            final String parameters = parts[1];
-            final String controller = parts[2];
-            if (method.trim().toLowerCase().compareTo("get") == 0) {
-               return new Route(Route.Method.get, parameters, controller);
-            } else {
-               return new Route(Route.Method.post, parameters, controller);
-            }
-         }
-         return null;
-      } catch (final Exception e) {
-         throw new PragmatachException(e);
-      }
+   public List<Method> getPOSTMethods() {
+      return POSTMethods;
    }
 
    /**
@@ -88,28 +63,13 @@ public class Routes {
     */
    private void readRoutes() throws PragmatachException {
       try {
-         final InputStream inputStream = Routes.class.getResourceAsStream(ROUTES);
-         if (null != inputStream) {
-            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
-               if (false == line.startsWith("#")) {
-                  if (line.trim().length() > 0) {
-                     final Route route = parseRoute(line.trim());
-                     if (null != route) {
-                        if (route.getMethod() == Route.Method.get) {
-                           GETRoutes.add(route);
-                        } else {
-                           POSTRoutes.add(route);
-                        }
-                     } else {
-                        throw new Exception("Failed to read route '" + line + "'");
-                     }
-                  }
-               }
+         final Set<Method> routerMethods = AnnotationsScanner.getRouterMethods();
+         for (final Method method : routerMethods) {
+            if (method.getAnnotation(Route.class).method() == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {
+               GETMethods.add(method);
+            } else {
+               POSTMethods.add(method);
             }
-         } else {
-            throw new Exception("Could not read routes file '" + ROUTES + "'");
          }
       } catch (final Exception e) {
          throw new PragmatachException(e);

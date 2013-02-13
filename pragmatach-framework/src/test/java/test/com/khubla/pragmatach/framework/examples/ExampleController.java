@@ -1,4 +1,4 @@
-package ${namespace};
+package test.com.khubla.pragmatach.framework.examples;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -9,11 +9,15 @@ import com.khubla.pragmatach.framework.freemarker.FreemarkerController;
 import com.khubla.pragmatach.framework.freemarker.FreemarkerTemplate;
 
 @Controller
-@FreemarkerTemplate(template="index.ftl")
-public class IndexController extends FreemarkerController {
-   
+@FreemarkerTemplate(template = "index.ftl")
+public class ExampleController extends FreemarkerController {
    @Route(path = "/")
    public Response render(Request request) throws PragmatachException {
+      return super.render(request);
+   }
+
+   @Route(path = "/", method = Route.HttpMethod.post)
+   public Response doPost(Request request) throws PragmatachException {
       return super.render(request);
    }
 }
