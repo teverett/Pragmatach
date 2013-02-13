@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import org.scannotation.AnnotationDB;
 import org.scannotation.ClasspathUrlFinder;
 import org.scannotation.WarUrlFinder;
+import org.testng.log4testng.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -17,6 +18,10 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class AnnotationsScanner {
+   /**
+    * logger
+    */
+   private static Logger logger = Logger.getLogger(AnnotationsScanner.class);
    /**
     * routes
     */
@@ -73,7 +78,7 @@ public class AnnotationsScanner {
 
    private static void reportURLS(URL[] urls) {
       for (final URL url : urls) {
-         System.out.println(url.toString());
+         logger.debug(url.toString());
       }
    }
 
