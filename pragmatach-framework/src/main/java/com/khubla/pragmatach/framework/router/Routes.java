@@ -11,7 +11,7 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
- * all routes
+ * all routes, both GET and POST, sorted.
  * 
  * @author tome
  */
