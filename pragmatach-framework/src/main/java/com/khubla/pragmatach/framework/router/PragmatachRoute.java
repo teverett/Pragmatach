@@ -30,9 +30,17 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    }
 
    @Override
-   public int compareTo(PragmatachRoute arg0) {
-      // TODO Auto-generated method stub
-      return 0;
+   public int compareTo(PragmatachRoute pragmatachRoute) {
+      if (pragmatachRoute.scopes(this)) {
+         return -1;
+      } else if (scopes(pragmatachRoute)) {
+         return 1;
+      } else {
+         /*
+          * neither route scopes the other, for the purposes of sorting they are equal
+          */
+         return 0;
+      }
    }
 
    /**
@@ -55,6 +63,18 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    }
 
    public boolean matches(String path) {
+      return false;
+   }
+
+   /**
+    * returns true this route is more general than the passed route, false otherwise
+    */
+   public boolean scopes(PragmatachRoute pragmatachRoute) {
+      if (null != pragmatachRoute) {
+         if ((pragmatachRoute.route.path().startsWith(route.path())) && (pragmatachRoute.route.path().length() > route.path().length())) {
+            return true;
+         }
+      }
       return false;
    }
 }
