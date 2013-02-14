@@ -14,7 +14,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
 @Controller
 @FreemarkerTemplate(template = "admin.ftl")
 public class AdminController extends FreemarkerController {
-   @Route(uri = "/")
+   @Route(uri = "/pragmatach")
    public Response render(Request request) throws PragmatachException {
       return super.render(request);
    }

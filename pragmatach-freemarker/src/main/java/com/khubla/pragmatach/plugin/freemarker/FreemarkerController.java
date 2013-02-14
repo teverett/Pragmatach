@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.plugin.freemarker;
 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,12 @@ public class FreemarkerController extends AbstractController {
       try {
          final Configuration cfg = new Configuration();
          final String templateName = getTemplateName();
-         return new Template(templateName, new InputStreamReader(FreemarkerController.class.getResourceAsStream("/" + templateName)), cfg);
+         InputStream templateInputStream = getClass().getResourceAsStream("/" + templateName);
+         if (null != templateInputStream) {
+            return new Template(templateName, new InputStreamReader(templateInputStream), cfg);
+         } else {
+            throw new Exception("Unable to load template '" + templateName + "'");
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);
       }

@@ -15,6 +15,9 @@
         <logger name="${namespace}">
                 <level value="ALL" />
         </logger>
+        <logger name="com.khubla.pragmatach">
+                <level value="ALL" />
+        </logger>        
         <root>
                 <level value="ALL" />
                 <appender-ref ref="CONSOLE" />
