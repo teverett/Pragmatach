@@ -50,8 +50,8 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     */
    public PragmatachController getControllerClazzInstance(Request request) throws PragmatachException {
       try {
-         Class<?> clazz = method.getDeclaringClass();
-         Constructor<?> ctor = clazz.getDeclaredConstructor(Request.class);
+         final Class<?> clazz = method.getDeclaringClass();
+         final Constructor<?> ctor = clazz.getDeclaredConstructor(Request.class);
          return (PragmatachController) ctor.newInstance(request);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
@@ -64,50 +64,6 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
 
    public Route getRoute() {
       return route;
-   }
-
-   /**
-    * in order to match it has to be the right beginning of the path, and what follows the path has to be the right parameters.
-    */
-   public boolean matches(String uri) throws PragmatachException {
-      try {
-         final String routeURI = route.uri();
-         if (routeURI.compareTo(uri) == 0) {
-            return true;
-         } else if (uri.startsWith(routeURI)) {
-            final String parametersPartOfURI = uri.substring(routeURI.length());
-            final String[] parsedParameters = parseParameters(parametersPartOfURI);
-            final int methodParameterCount = method.getParameterTypes().length;
-            if (null != parsedParameters) {
-               if (methodParameterCount == parsedParameters.length) {
-                  return true;
-               } else {
-                  return false;
-               }
-            } else {
-               if (methodParameterCount == 0) {
-                  return true;
-               } else {
-                  return false;
-               }
-            }
-         } else {
-            return false;
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in matches", e);
-      }
-   }
-
-   /**
-    * parse the URL parameters
-    */
-   private String[] parseParameters(String params) throws PragmatachException {
-      try {
-         return params.split("/");
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in parseParameters", e);
-      }
    }
 
    /**

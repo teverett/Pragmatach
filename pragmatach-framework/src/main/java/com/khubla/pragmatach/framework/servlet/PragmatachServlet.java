@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +21,17 @@ public class PragmatachServlet extends HttpServlet {
     */
    private static final long serialVersionUID = 1L;
    /**
-    * router
+    * the context path under which public assets are served
     */
-   private final Router requestRouter = new Router();
+   private String publicContextPath;
+   /**
+    * assets
+    */
+   private static final String PUBLIC = "public";
 
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       try {
+         final Router requestRouter = new Router(publicContextPath);
          final Response response = requestRouter.routeGET(new Request(req, resp));
          if (null != response) {
             resp.setStatus(response.getHTTPCode());
@@ -38,6 +44,7 @@ public class PragmatachServlet extends HttpServlet {
 
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       try {
+         final Router requestRouter = new Router();
          final Response response = requestRouter.routePOST(new Request(req, resp));
          if (null != response) {
             resp.setStatus(response.getHTTPCode());
@@ -46,5 +53,13 @@ public class PragmatachServlet extends HttpServlet {
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
+   }
+
+   /**
+    * init
+    */
+   public void init(ServletConfig servletConfig) throws ServletException {
+      super.init(servletConfig);
+      publicContextPath = servletConfig.getInitParameter(PUBLIC);
    }
 }

@@ -114,6 +114,15 @@ public class ProjectGenerator {
       }
    }
 
+   private void copyImage(String webDir) throws Exception {
+      try {
+         final File f = new File(webDir + "/logo.png");
+         IOUtils.copy(ProjectGenerator.class.getResourceAsStream("/webapp/logo.png"), new FileOutputStream(f));
+      } catch (final Exception e) {
+         throw new Exception("Exception in copyImage", e);
+      }
+   }
+
    public void generate(String name, String namespace) throws Exception {
       try {
          /*
@@ -141,15 +150,6 @@ public class ProjectGenerator {
          copyImage(webDir);
       } catch (final Exception e) {
          throw new Exception("Exception in generate", e);
-      }
-   }
-
-   private void copyImage(String webDir) throws Exception {
-      try {
-         File f = new File(webDir + "/logo.png");
-         IOUtils.copy(ProjectGenerator.class.getResourceAsStream("/webapp/logo.png"), new FileOutputStream(f));
-      } catch (final Exception e) {
-         throw new Exception("Exception in copyImage", e);
       }
    }
 }

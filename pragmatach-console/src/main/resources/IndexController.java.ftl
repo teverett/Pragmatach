@@ -18,11 +18,23 @@ public class IndexController extends FreemarkerController {
     * the message
     */
    private final String message = "hello world";
+   /**
+    * the sum
+    */
+   private int sum = 0;
+
+   public int getSum() {
+      return sum;
+   }
+
+   public void setSum(int sum) {
+      this.sum = sum;
+   }
 
    public String getMessage() {
       return message;
    }
-   
+
    public IndexController(Request request) {
       super(request);
    }
@@ -31,8 +43,14 @@ public class IndexController extends FreemarkerController {
    public Response render() throws PragmatachException {
       return super.render();
    }
-   
+
+   @Route(uri = "/")
+   public Response render(int number) throws PragmatachException {
+      sum = number * 2;
+      return super.render();
+   }
+
    public String getTime() {
-      return new Date().toString(); 
+      return new Date().toString();
    }
 }

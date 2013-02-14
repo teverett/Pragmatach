@@ -10,17 +10,24 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
  */
 public class StaticResourceController extends AbstractController {
    /**
+    * path to static assets
+    */
+   private final String publicContextPath;
+
+   /**
     * ctor
     */
-   public StaticResourceController(Request request) {
+   public StaticResourceController(String publicContextPath, Request request) {
       super(request);
+      this.publicContextPath = publicContextPath;
    }
 
    public Response render() throws PragmatachException {
       try {
-         return new StaticResourceResponse(getRequest().getHttpServletRequest().getRequestURI());
+         final String actualPath = getRequest().getHttpServletRequest().getRequestURI().substring(publicContextPath.length());
+         return new StaticResourceResponse(actualPath);
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in StaticResourceController");
+         throw new PragmatachException("Exception in StaticResourceController", e);
       }
    }
 }

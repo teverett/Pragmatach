@@ -10,7 +10,7 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
  * @author tome
  */
 @Controller
-public abstract class TrivialController extends AbstractController {
+public class TrivialController extends AbstractController {
    /**
     * message
     */

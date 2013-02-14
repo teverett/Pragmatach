@@ -23,11 +23,18 @@ public class FreemarkerController extends AbstractController {
    private static final String SESSION = "session";
    private static final String CONTROLLER = "controller";
 
+   /**
+    * ctor
+    */
+   public FreemarkerController(Request request) {
+      super(request);
+   }
+
    private Template getTemplate() throws PragmatachException {
       try {
          final Configuration cfg = new Configuration();
          final String templateName = getTemplateName();
-         InputStream templateInputStream = getClass().getResourceAsStream("/" + templateName);
+         final InputStream templateInputStream = getClass().getResourceAsStream("/" + templateName);
          if (null != templateInputStream) {
             return new Template(templateName, new InputStreamReader(templateInputStream), cfg);
          } else {
@@ -65,12 +72,5 @@ public class FreemarkerController extends AbstractController {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
-   }
-
-   /**
-    * ctor
-    */
-   public FreemarkerController(Request request) {
-      super(request);
    }
 }

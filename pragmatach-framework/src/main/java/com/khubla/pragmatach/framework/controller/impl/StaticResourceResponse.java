@@ -7,6 +7,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.controller.AbstractController;
 
 /**
  * @author tome
@@ -15,7 +16,7 @@ public class StaticResourceResponse implements Response {
    /**
     * InputStream
     */
-   private InputStream resourceInputStream;
+   private final InputStream resourceInputStream;
 
    /**
     * ctor
@@ -27,9 +28,9 @@ public class StaticResourceResponse implements Response {
    @Override
    public int getHTTPCode() {
       if (null != resourceInputStream) {
-         return 200;
+         return AbstractController.HTTP_OK;
       } else {
-         return 404;
+         return AbstractController.HTTP_NOTFOUND;
       }
    }
 
@@ -41,7 +42,7 @@ public class StaticResourceResponse implements Response {
          }
          outputStream.flush();
          outputStream.close();
-      } catch (Exception e) {
+      } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
    }
