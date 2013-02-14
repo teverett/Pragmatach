@@ -6,9 +6,9 @@ Pragmatach is a simple web framework aimed at providing rapid development of web
 * Automatic generation of project skeletons
 * Projects built via maven
 * Java as the core programming languge, rather than Groovy or Scala
-* Grails-like routing
-* FreeMarker as the templating langauge, rahter than GSP, JSP or Scala pages
-* Simple configuration via annotations, rahter that XML
+* Grails-like routing via annotations
+* FreeMarker as the templating langauge, rather than GSP, JSP or Scala pages
+* Simple configuration via annotations, rather that XML
 * JSON rather than XML
 
 Creating a test project
