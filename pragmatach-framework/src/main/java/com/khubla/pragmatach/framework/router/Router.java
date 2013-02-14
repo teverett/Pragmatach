@@ -7,8 +7,8 @@ import org.testng.log4testng.Logger;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.api.TrivialResponse;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.impl.TrivialResponse;
 
 /**
  * @author tome

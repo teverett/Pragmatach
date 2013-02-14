@@ -5,7 +5,7 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.TrivialController;
+import com.khubla.pragmatach.framework.controller.impl.TrivialController;
 
 @Controller
 public class ExampleController2 extends TrivialController {
