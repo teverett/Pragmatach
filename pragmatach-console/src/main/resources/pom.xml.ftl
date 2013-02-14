@@ -20,6 +20,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
@@ -27,6 +28,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		-->
 	   <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

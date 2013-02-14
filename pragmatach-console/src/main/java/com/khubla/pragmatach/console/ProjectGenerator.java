@@ -1,12 +1,14 @@
 package com.khubla.pragmatach.console;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import freemarker.template.Configuration;
@@ -39,7 +41,7 @@ public class ProjectGenerator {
    private static void generateIndexFTL(String dir, String name, String namespace) throws Exception {
       try {
          final Configuration cfg = new Configuration();
-         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/index.ftl.ftl")), cfg);
+         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/webapp/index.ftl.ftl")), cfg);
          final Map<String, Object> input = new HashMap<String, Object>();
          input.put("name", name);
          input.put("namespace", namespace);
@@ -136,8 +138,18 @@ public class ProjectGenerator {
          generateLog4JXML(resourcesDir, name, namespace);
          generateIndexFTL(webDir, name, namespace);
          generateIndexController(javaDir, name, namespace);
+         copyImage(webDir);
       } catch (final Exception e) {
          throw new Exception("Exception in generate", e);
+      }
+   }
+
+   private void copyImage(String webDir) throws Exception {
+      try {
+         File f = new File(webDir + "/logo.png");
+         IOUtils.copy(ProjectGenerator.class.getResourceAsStream("/webapp/logo.png"), new FileOutputStream(f));
+      } catch (final Exception e) {
+         throw new Exception("Exception in copyImage", e);
       }
    }
 }
