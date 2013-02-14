@@ -35,10 +35,6 @@ public class IndexController extends FreemarkerController {
       return message;
    }
 
-   public IndexController(Request request) {
-      super(request);
-   }
-
    @Route(uri = "/")
    public Response render() throws PragmatachException {
       return super.render();

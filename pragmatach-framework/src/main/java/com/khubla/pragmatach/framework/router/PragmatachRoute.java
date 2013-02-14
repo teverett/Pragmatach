@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.framework.router;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -51,8 +50,9 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    public PragmatachController getControllerClazzInstance(Request request) throws PragmatachException {
       try {
          final Class<?> clazz = method.getDeclaringClass();
-         final Constructor<?> ctor = clazz.getDeclaredConstructor(Request.class);
-         return (PragmatachController) ctor.newInstance(request);
+         final PragmatachController pragmatachController = (PragmatachController) clazz.newInstance();
+         pragmatachController.setRequest(request);
+         return pragmatachController;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
       }

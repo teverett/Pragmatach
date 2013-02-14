@@ -25,7 +25,7 @@ public class PragmatachServlet extends HttpServlet {
     */
    private String publicContextPath;
    /**
-    * assets
+    * public assets
     */
    private static final String PUBLIC = "public";
 

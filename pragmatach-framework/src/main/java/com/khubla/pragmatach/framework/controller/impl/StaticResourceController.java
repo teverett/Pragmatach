@@ -1,7 +1,6 @@
 package com.khubla.pragmatach.framework.controller.impl;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 
@@ -17,8 +16,7 @@ public class StaticResourceController extends AbstractController {
    /**
     * ctor
     */
-   public StaticResourceController(String publicContextPath, Request request) {
-      super(request);
+   public StaticResourceController(String publicContextPath) {
       this.publicContextPath = publicContextPath;
    }
 
@@ -27,7 +25,7 @@ public class StaticResourceController extends AbstractController {
          final String actualPath = getRequest().getHttpServletRequest().getRequestURI().substring(publicContextPath.length());
          return new StaticResourceResponse(actualPath);
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in StaticResourceController", e);
+         throw new PragmatachException("Exception in render", e);
       }
    }
 }

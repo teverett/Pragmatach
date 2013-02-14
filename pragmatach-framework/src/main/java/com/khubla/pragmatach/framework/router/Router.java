@@ -116,7 +116,8 @@ public class Router {
           */
          if (null != publicContextPath) {
             if (isRequestOnStaticAssetPath(request)) {
-               final StaticResourceController staticResourceController = new StaticResourceController(publicContextPath, request);
+               final StaticResourceController staticResourceController = new StaticResourceController(publicContextPath);
+               staticResourceController.setRequest(request);
                return staticResourceController.render();
             }
          }
@@ -145,7 +146,9 @@ public class Router {
          /*
           * no match it is 404
           */
-         return new TrivialController(request, "Unable to find resource ''", AbstractController.HTTP_NOTFOUND).render();
+         final TrivialController trivialController = new TrivialController("Unable to find resource ''", AbstractController.HTTP_NOTFOUND);
+         trivialController.setRequest(request);
+         return trivialController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
       }

@@ -3,7 +3,6 @@ package test.com.khubla.pragmatach.framework.examples;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
@@ -14,8 +13,7 @@ public class ExampleController2 extends FreemarkerController {
    /**
     * ctor
     */
-   public ExampleController2(Request request) {
-      super(request);
+   public ExampleController2() {
    }
 
    @Route(uri = "/abc", method = Route.HttpMethod.post)

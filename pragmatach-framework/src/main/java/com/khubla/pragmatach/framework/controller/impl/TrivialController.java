@@ -2,7 +2,6 @@ package com.khubla.pragmatach.framework.controller.impl;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 
@@ -20,8 +19,7 @@ public class TrivialController extends AbstractController {
     */
    private final int httpCode;
 
-   public TrivialController(Request request, String message, int httpCode) {
-      super(request);
+   public TrivialController(String message, int httpCode) {
       this.message = message;
       this.httpCode = httpCode;
    }

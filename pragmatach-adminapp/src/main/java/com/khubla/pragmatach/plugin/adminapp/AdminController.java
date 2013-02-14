@@ -3,7 +3,6 @@ package com.khubla.pragmatach.plugin.adminapp;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
@@ -17,8 +16,7 @@ public class AdminController extends FreemarkerController {
    /**
     * ctor
     */
-   public AdminController(Request request) {
-      super(request);
+   public AdminController() {
    }
 
    @Route(uri = "/pragmatach")

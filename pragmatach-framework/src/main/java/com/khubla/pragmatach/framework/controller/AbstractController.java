@@ -9,21 +9,18 @@ public abstract class AbstractController implements PragmatachController {
    /**
     * request
     */
-   private static Request request;
+   private Request request;
+   /**
+    * static values
+    */
    public static int HTTP_OK = 200;
    public static int HTTP_NOTFOUND = 404;
 
-   public static Request getRequest() {
+   public Request getRequest() {
       return request;
    }
 
-   public static void setRequest(Request request) {
-      AbstractController.request = request;
-   }
-
-   /**
-    */
-   public AbstractController(Request request) {
-      AbstractController.request = request;
+   public void setRequest(Request request) {
+      this.request = request;
    }
 }

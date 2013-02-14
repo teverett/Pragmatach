@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 
@@ -26,8 +25,7 @@ public class FreemarkerController extends AbstractController {
    /**
     * ctor
     */
-   public FreemarkerController(Request request) {
-      super(request);
+   public FreemarkerController() {
    }
 
    private Template getTemplate() throws PragmatachException {
