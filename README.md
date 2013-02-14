@@ -49,22 +49,3 @@ public class IndexController extends FreemarkerController {
 </code></pre>
 
 
-An example Template
-------------------------
-<pre><code>
-<!DOCTYPE html>
-<head>
-   	<title>exampleproject</title>
-</head>
-<body>
-<h1>exampleproject</h1>
-<img src="logo.png">
-${controller.message}
-
-<h2>Current Time</h2>
-${controller.time}
-
-<a href="/pragmatach">Admin</a>
-</body>
-
-</code></pre>
