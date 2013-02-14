@@ -9,22 +9,22 @@ import com.khubla.pragmatach.framework.controller.impl.TrivialController;
 
 @Controller
 public class ExampleController1 extends TrivialController {
-   public ExampleController1() {
-      super("ExampleController1", 200);
+   public ExampleController1(Request request) {
+      super(request, "ExampleController1", 200);
    }
 
    @Route(uri = "/abc/123", method = Route.HttpMethod.post)
-   public Response doPost(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response doPost() throws PragmatachException {
+      return super.render();
    }
 
    @Route(uri = "/")
-   public Response render(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response render() throws PragmatachException {
+      return super.render();
    }
 
    @Route(uri = "/a", method = Route.HttpMethod.post)
-   public Response renderRoot(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response renderRoot() throws PragmatachException {
+      return super.render();
    }
 }

@@ -11,18 +11,25 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
 @Controller
 @FreemarkerTemplate(template = "index.ftl")
 public class ExampleController1 extends FreemarkerController {
+   /**
+    * ctor
+    */
+   public ExampleController1(Request request) {
+      super(request);
+   }
+
    @Route(uri = "/abc/123", method = Route.HttpMethod.post)
-   public Response doPost(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response doPost() throws PragmatachException {
+      return super.render();
    }
 
    @Route(uri = "/")
-   public Response render(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response render() throws PragmatachException {
+      return super.render();
    }
 
    @Route(uri = "/a", method = Route.HttpMethod.post)
-   public Response renderRoot(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response renderRoot() throws PragmatachException {
+      return super.render();
    }
 }

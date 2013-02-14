@@ -23,9 +23,13 @@ public class IndexController extends FreemarkerController {
       return message;
    }
    
+   public IndexController(Request request) {
+      super(request);
+   }
+
    @Route(uri = "/")
-   public Response render(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response render() throws PragmatachException {
+      return super.render();
    }
    
    public String getTime() {

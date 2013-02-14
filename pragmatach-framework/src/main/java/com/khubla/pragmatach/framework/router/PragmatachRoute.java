@@ -1,9 +1,11 @@
 package com.khubla.pragmatach.framework.router;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 
 /**
@@ -46,9 +48,11 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    /**
     * get a class instance of the controller
     */
-   public PragmatachController getControllerClazzInstance() throws PragmatachException {
+   public PragmatachController getControllerClazzInstance(Request request) throws PragmatachException {
       try {
-         return (PragmatachController) method.getDeclaringClass().newInstance();
+         Class<?> clazz = method.getDeclaringClass();
+         Constructor<?> ctor = clazz.getDeclaredConstructor(Request.class);
+         return (PragmatachController) ctor.newInstance(request);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
       }
@@ -68,7 +72,9 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    public boolean matches(String uri) throws PragmatachException {
       try {
          final String routeURI = route.uri();
-         if (uri.startsWith(routeURI)) {
+         if (routeURI.compareTo(uri) == 0) {
+            return true;
+         } else if (uri.startsWith(routeURI)) {
             final String parametersPartOfURI = uri.substring(routeURI.length());
             final String[] parsedParameters = parseParameters(parametersPartOfURI);
             final int methodParameterCount = method.getParameterTypes().length;

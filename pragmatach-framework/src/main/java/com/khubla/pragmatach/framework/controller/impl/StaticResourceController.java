@@ -9,10 +9,16 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
  * @author tome
  */
 public class StaticResourceController extends AbstractController {
-   @Override
-   public Response render(Request request) throws PragmatachException {
+   /**
+    * ctor
+    */
+   public StaticResourceController(Request request) {
+      super(request);
+   }
+
+   public Response render() throws PragmatachException {
       try {
-         return new StaticResourceResponse("");
+         return new StaticResourceResponse(getRequest().getHttpServletRequest().getRequestURI());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in StaticResourceController");
       }

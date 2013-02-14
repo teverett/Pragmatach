@@ -8,6 +8,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
 import com.khubla.pragmatach.framework.controller.impl.TrivialResponse;
 
 /**
@@ -49,8 +50,8 @@ public class Router {
     */
    private Response invoke(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
       try {
-         final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance();
-         return (Response) pragmatachRoute.getMethod().invoke(pragmatachController, request);
+         final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance(request);
+         return (Response) pragmatachRoute.getMethod().invoke(pragmatachController);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in invoke", e);
       }
@@ -61,9 +62,16 @@ public class Router {
          final String uri = request.getHttpServletRequest().getRequestURI();
          final PragmatachRoute pragmatachRoute = getRoute(PragmatachRoutes.getInstance().getGETRoutes(), uri);
          if (null != pragmatachRoute) {
+            /*
+             * there is a router. invoke it.
+             */
             return invoke(pragmatachRoute, request);
          } else {
-            return new TrivialResponse("Unable find controller for uri '" + uri + "'", 200);
+            /*
+             * well, there is no router. Maybe its a static resource
+             */
+            StaticResourceController staticResourceController = new StaticResourceController(request);
+            return staticResourceController.render();
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in routeGET", e);

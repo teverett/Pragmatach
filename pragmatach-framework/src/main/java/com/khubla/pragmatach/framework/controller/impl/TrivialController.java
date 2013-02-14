@@ -20,13 +20,13 @@ public abstract class TrivialController extends AbstractController {
     */
    private final int httpCode;
 
-   public TrivialController(String message, int httpCode) {
+   public TrivialController(Request request, String message, int httpCode) {
+      super(request);
       this.message = message;
       this.httpCode = httpCode;
    }
 
-   @Override
-   public Response render(Request request) throws PragmatachException {
+   public Response render() throws PragmatachException {
       return new TrivialResponse(message, httpCode);
    }
 }
