@@ -10,7 +10,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
-import com.khubla.pragmatach.framework.controller.impl.RedirectController;
+import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
 import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
 
 /**
@@ -169,11 +169,11 @@ public class Router {
             }
          }
          /*
-          * no match, redirect to 404
+          * no match, return 404
           */
-         final RedirectController redirectController = new RedirectController("/pragmatach/404", new String[] { uri });
-         redirectController.setRequest(request);
-         return redirectController.render();
+         final NotFoundController notFoundController = new NotFoundController();
+         notFoundController.setRequest(request);
+         return notFoundController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
       }

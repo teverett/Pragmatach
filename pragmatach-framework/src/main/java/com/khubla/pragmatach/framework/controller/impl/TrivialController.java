@@ -19,6 +19,11 @@ public class TrivialController extends AbstractController {
     */
    private final int httpCode;
 
+   public TrivialController(int httpCode) {
+      message = null;
+      this.httpCode = httpCode;
+   }
+
    public TrivialController(String message, int httpCode) {
       this.message = message;
       this.httpCode = httpCode;

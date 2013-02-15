@@ -23,6 +23,14 @@ public class TrivialResponse implements Response {
    /**
     * ctor
     */
+   public TrivialResponse(int httpCode) {
+      response = null;
+      this.httpCode = httpCode;
+   }
+
+   /**
+    * ctor
+    */
    public TrivialResponse(String response, int httpCode) {
       this.response = response;
       this.httpCode = httpCode;
@@ -40,9 +48,11 @@ public class TrivialResponse implements Response {
 
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
-      final PrintWriter printWriter = new PrintWriter(outputStream);
-      printWriter.write(response);
-      printWriter.flush();
-      printWriter.close();
+      if (null != response) {
+         final PrintWriter printWriter = new PrintWriter(outputStream);
+         printWriter.write(response);
+         printWriter.flush();
+         printWriter.close();
+      }
    }
 }

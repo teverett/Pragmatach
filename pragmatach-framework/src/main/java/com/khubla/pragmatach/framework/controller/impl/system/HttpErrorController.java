@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.framework.controller.impl.system;
 
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,13 +11,12 @@ import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
 /**
  * @author tome
  */
-public class Http404Controller extends SimpleTemplateController {
-   @Route(uri = "/pragmatach/404")
-   public Response render(String uri) throws PragmatachException {
+public class HttpErrorController extends SimpleTemplateController {
+   @Route(uri = "/pragmatach/error")
+   public Response render() throws PragmatachException {
       try {
          final Map<String, String> parameters = new HashMap<String, String>();
-         parameters.put("uri", URLDecoder.decode(uri, "UTF-8"));
-         return template("system/http404.html", parameters);
+         return template("system/httperror.html", parameters);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
