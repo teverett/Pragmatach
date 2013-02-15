@@ -32,7 +32,7 @@ public class FreemarkerController extends AbstractController {
       try {
          final Configuration cfg = new Configuration();
          final String templateName = getTemplateName();
-         final InputStream templateInputStream = getClass().getResourceAsStream("/" + templateName);
+         final InputStream templateInputStream = getResource(templateName);
          if (null != templateInputStream) {
             return new Template(templateName, new InputStreamReader(templateInputStream), cfg);
          } else {

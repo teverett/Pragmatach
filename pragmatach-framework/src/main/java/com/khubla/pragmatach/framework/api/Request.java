@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +45,13 @@ public class Request {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getInputStream", e);
       }
+   }
+
+   /**
+    * servlet context
+    */
+   public ServletContext getServletContext() {
+      return httpServletRequest.getSession().getServletContext();
    }
 
    /**

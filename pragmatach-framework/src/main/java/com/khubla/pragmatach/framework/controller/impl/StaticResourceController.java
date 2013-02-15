@@ -23,7 +23,7 @@ public class StaticResourceController extends AbstractController {
    public Response render() throws PragmatachException {
       try {
          final String actualPath = getRequest().getURI().substring(publicContextPath.length());
-         return new StaticResourceResponse(actualPath);
+         return new StaticResourceResponse(getResource(actualPath));
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

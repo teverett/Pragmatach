@@ -22,22 +22,8 @@ public class StaticResourceResponse implements Response {
    /**
     * ctor
     */
-   public StaticResourceResponse(String uri) {
-      if (null != uri) {
-         /*
-          * some people are just jerks
-          */
-         if ((uri.contains("WEB-INF")) || (uri.contains("META-INF")) || (uri.startsWith("."))) {
-            resourceInputStream = null;
-         } else {
-            /*
-             * ok, go for it
-             */
-            resourceInputStream = getClass().getResourceAsStream("/" + uri);
-         }
-      } else {
-         resourceInputStream = null;
-      }
+   public StaticResourceResponse(InputStream resourceInputStream) {
+      this.resourceInputStream = resourceInputStream;
    }
 
    @Override
