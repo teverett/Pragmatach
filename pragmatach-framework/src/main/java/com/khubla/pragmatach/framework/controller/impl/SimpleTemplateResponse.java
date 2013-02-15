@@ -70,6 +70,11 @@ public class SimpleTemplateResponse implements Response {
    }
 
    @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return null;
+   }
+
+   @Override
    public int getHTTPCode() {
       return AbstractController.HTTP_OK;
    }

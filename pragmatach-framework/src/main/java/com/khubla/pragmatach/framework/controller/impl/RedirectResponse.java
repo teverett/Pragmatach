@@ -1,48 +1,44 @@
-package com.khubla.pragmatach.plugin.freemarker;
+package com.khubla.pragmatach.framework.controller.impl;
 
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-
-import freemarker.template.Template;
+import com.khubla.pragmatach.framework.controller.AbstractController;
 
 /**
  * @author tome
  */
-public class FreemarkerResponse implements Response {
+public class RedirectResponse implements Response {
    /**
-    * template
+    * uri
     */
-   private final Template template;
-   /**
-    * context
-    */
-   private final Map<String, Object> context;
+   private final String uri;
 
-   public FreemarkerResponse(Template template, Map<String, Object> context) {
-      this.template = template;
-      this.context = context;
+   /**
+    * ctor
+    */
+   public RedirectResponse(String uri) {
+      this.uri = uri;
    }
 
    @Override
    public Map<String, String> getHeaders() throws PragmatachException {
-      return null;
+      final Map<String, String> map = new HashMap<String, String>();
+      map.put("Location", uri);
+      return map;
    }
 
    @Override
    public int getHTTPCode() {
-      return 200;
+      return AbstractController.HTTP_REDIRECT;
    }
 
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
-         final Writer writer = new PrintWriter(outputStream);
-         template.process(context, writer);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

@@ -15,6 +15,7 @@ public abstract class AbstractController implements PragmatachController {
     */
    public static int HTTP_OK = 200;
    public static int HTTP_NOTFOUND = 404;
+   public static int HTTP_REDIRECT = 302;
 
    public Request getRequest() {
       return request;

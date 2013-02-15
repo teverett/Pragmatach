@@ -14,6 +14,12 @@ import com.khubla.pragmatach.framework.router.PragmatachRoutes;
  * @author tome
  */
 public class TestRoutes {
+   private void reportRoutes(List<PragmatachRoute> routes) {
+      for (final PragmatachRoute pragmatachRoute : routes) {
+         System.out.println(pragmatachRoute.getRoute().uri());
+      }
+   }
+
    @BeforeTest
    public void setup() {
       try {
@@ -38,12 +44,6 @@ public class TestRoutes {
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
-      }
-   }
-
-   private void reportRoutes(List<PragmatachRoute> routes) {
-      for (PragmatachRoute pragmatachRoute : routes) {
-         System.out.println(pragmatachRoute.getRoute().uri());
       }
    }
 }

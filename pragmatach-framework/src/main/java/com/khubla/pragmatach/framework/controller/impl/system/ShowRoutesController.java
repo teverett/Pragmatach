@@ -16,27 +16,10 @@ import com.khubla.pragmatach.framework.router.PragmatachRoutes;
  * @author tome
  */
 public class ShowRoutesController extends SimpleTemplateController {
-   @Route(uri = "/pragmatach/routes")
-   public Response render() throws PragmatachException {
-      Map<String, String> parameters = new HashMap<String, String>();
-      parameters.put("getroutes", getGETRoutes());
-      parameters.put("postroutes", getPOSTRoutes());
-      return template("system/routes.html", parameters);
-   }
-
    private String getGETRoutes() throws PragmatachException {
       String ret = "";
-      List<PragmatachRoute> routes = PragmatachRoutes.getInstance().getGETRoutes();
-      for (PragmatachRoute route : routes) {
-         ret += route.getRoute().uri() + " " + route.getMethod().getDeclaringClass().getName() + ":" + route.getMethod().getName() + "(" + getParameterTypes(route.getMethod()) + ")\n";
-      }
-      return ret;
-   }
-
-   private String getPOSTRoutes() throws PragmatachException {
-      String ret = "";
-      List<PragmatachRoute> routes = PragmatachRoutes.getInstance().getPOSTRoutes();
-      for (PragmatachRoute route : routes) {
+      final List<PragmatachRoute> routes = PragmatachRoutes.getInstance().getGETRoutes();
+      for (final PragmatachRoute route : routes) {
          ret += route.getRoute().uri() + " " + route.getMethod().getDeclaringClass().getName() + ":" + route.getMethod().getName() + "(" + getParameterTypes(route.getMethod()) + ")\n";
       }
       return ret;
@@ -45,9 +28,9 @@ public class ShowRoutesController extends SimpleTemplateController {
    private String getParameterTypes(Method method) {
       String ret = "";
       int i = 0;
-      Class<?>[] types = method.getParameterTypes();
+      final Class<?>[] types = method.getParameterTypes();
       if (null != types) {
-         for (Class<?> type : types) {
+         for (final Class<?> type : types) {
             if (i != 0) {
                ret += ",";
             }
@@ -56,5 +39,22 @@ public class ShowRoutesController extends SimpleTemplateController {
          }
       }
       return ret;
+   }
+
+   private String getPOSTRoutes() throws PragmatachException {
+      String ret = "";
+      final List<PragmatachRoute> routes = PragmatachRoutes.getInstance().getPOSTRoutes();
+      for (final PragmatachRoute route : routes) {
+         ret += route.getRoute().uri() + " " + route.getMethod().getDeclaringClass().getName() + ":" + route.getMethod().getName() + "(" + getParameterTypes(route.getMethod()) + ")\n";
+      }
+      return ret;
+   }
+
+   @Route(uri = "/pragmatach/routes")
+   public Response render() throws PragmatachException {
+      final Map<String, String> parameters = new HashMap<String, String>();
+      parameters.put("getroutes", getGETRoutes());
+      parameters.put("postroutes", getPOSTRoutes());
+      return template("system/routes.html", parameters);
    }
 }

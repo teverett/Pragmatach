@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.controller.impl;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -25,6 +26,11 @@ public class TrivialResponse implements Response {
    public TrivialResponse(String response, int httpCode) {
       this.response = response;
       this.httpCode = httpCode;
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return null;
    }
 
    @Override

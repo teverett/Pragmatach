@@ -1,6 +1,7 @@
 package com.khubla.pragmatach.framework.servlet;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -29,27 +30,21 @@ public class PragmatachServlet extends HttpServlet {
     */
    private static final String PUBLIC = "public";
 
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router(publicContextPath);
-         final Response response = requestRouter.routeGET(new Request(req, resp));
-         if (null != response) {
-            resp.setStatus(response.getHTTPCode());
-            response.render(resp.getOutputStream());
-         }
+         final Response response = requestRouter.routeGET(new Request(httpServletRequest, httpServletResponse));
+         processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
    }
 
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Response response = requestRouter.routePOST(new Request(req, resp));
-         if (null != response) {
-            resp.setStatus(response.getHTTPCode());
-            response.render(resp.getOutputStream());
-         }
+         final Response response = requestRouter.routePOST(new Request(httpServletRequest, httpServletResponse));
+         processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
@@ -61,5 +56,22 @@ public class PragmatachServlet extends HttpServlet {
    public void init(ServletConfig servletConfig) throws ServletException {
       super.init(servletConfig);
       publicContextPath = servletConfig.getInitParameter(PUBLIC);
+   }
+
+   private void processResponse(Response response, HttpServletResponse httpServletResponse) throws ServletException {
+      try {
+         if (null != response) {
+            final Map<String, String> headers = response.getHeaders();
+            if (null != headers) {
+               for (final String key : headers.keySet()) {
+                  httpServletResponse.setHeader(key, headers.get(key));
+               }
+            }
+            response.render(httpServletResponse.getOutputStream());
+            httpServletResponse.setStatus(response.getHTTPCode());
+         }
+      } catch (final Exception e) {
+         throw new ServletException("Exception in processResponse", e);
+      }
    }
 }

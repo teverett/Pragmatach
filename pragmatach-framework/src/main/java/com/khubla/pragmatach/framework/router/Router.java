@@ -3,15 +3,15 @@ package com.khubla.pragmatach.framework.router;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.apache.commons.beanutils.ConvertUtils;
 import org.testng.log4testng.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.impl.RedirectController;
 import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
-import com.khubla.pragmatach.framework.controller.impl.TrivialController;
 
 /**
  * @author tome
@@ -43,11 +43,22 @@ public class Router {
    /**
     * invoke a request on a route
     */
-   private Response invoke(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
+   private Response invoke(PragmatachRoute pragmatachRoute, Request request, String[] parsedParameters) throws PragmatachException {
       try {
          final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance(request);
          final Method method = pragmatachRoute.getMethod();
-         return (Response) method.invoke(pragmatachController);
+         final Class<?>[] methodParameterTypes = pragmatachRoute.getMethod().getParameterTypes();
+         if ((null == methodParameterTypes) || (methodParameterTypes.length == 0)) {
+            return (Response) method.invoke(pragmatachController);
+         } else {
+            final Object[] params = new Object[methodParameterTypes.length];
+            int i = 0;
+            for (final Class<?> type : methodParameterTypes) {
+               params[i] = ConvertUtils.convert(parsedParameters[i], type);
+               i++;
+            }
+            return (Response) method.invoke(pragmatachController, params);
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in invoke", e);
       }
@@ -71,6 +82,9 @@ public class Router {
             final String[] parsedParameters = parseParameters(parametersPartOfURI);
             final int methodParameterCount = pragmatachRoute.getMethod().getParameterTypes().length;
             if (null != parsedParameters) {
+               /*
+                * number of parameters matches?
+                */
                if (methodParameterCount == parsedParameters.length) {
                   return parsedParameters;
                } else {
@@ -96,10 +110,18 @@ public class Router {
     */
    private String[] parseParameters(String params) throws PragmatachException {
       try {
-         if ((params.length() > 0) && (params.contains("/"))) {
-            return params.split("/");
+         String p = params;
+         if (p.startsWith("/")) {
+            p = p.substring(1);
+         }
+         if ((p.length() > 0) && (p.contains("/"))) {
+            return p.split("/");
          } else {
-            return null;
+            if (p.length() > 0) {
+               return new String[] { p };
+            } else {
+               return null;
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in parseParameters", e);
@@ -111,6 +133,10 @@ public class Router {
     */
    private Response route(List<PragmatachRoute> PragmatachRoutes, Request request) throws PragmatachException {
       try {
+         /*
+          * get the uri
+          */
+         final String uri = request.getHttpServletRequest().getRequestURI();
          /*
           * check if it's a static asset
           */
@@ -126,7 +152,6 @@ public class Router {
           */
          if (null != PragmatachRoutes) {
             for (final PragmatachRoute pragmatachRoute : PragmatachRoutes) {
-               final String uri = request.getHttpServletRequest().getRequestURI();
                /*
                 * get the parameters
                 */
@@ -139,16 +164,16 @@ public class Router {
                   /*
                    * invoke
                    */
-                  return invoke(pragmatachRoute, request);
+                  return invoke(pragmatachRoute, request, parameters);
                }
             }
          }
          /*
-          * no match it is 404
+          * no match, redirect to 404
           */
-         final TrivialController trivialController = new TrivialController("Unable to find resource ''", AbstractController.HTTP_NOTFOUND);
-         trivialController.setRequest(request);
-         return trivialController.render();
+         final RedirectController redirectController = new RedirectController("/pragmatach/404", new String[] { uri });
+         redirectController.setRequest(request);
+         return redirectController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
       }

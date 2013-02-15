@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.controller.impl;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
@@ -37,6 +38,11 @@ public class StaticResourceResponse implements Response {
       } else {
          resourceInputStream = null;
       }
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return null;
    }
 
    @Override
