@@ -33,7 +33,7 @@ public class PragmatachServlet extends HttpServlet {
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router(publicContextPath);
-         final Response response = requestRouter.routeGET(new Request(httpServletRequest, httpServletResponse));
+         final Response response = requestRouter.routeGET(new Request(httpServletRequest));
          processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
@@ -43,7 +43,7 @@ public class PragmatachServlet extends HttpServlet {
    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Response response = requestRouter.routePOST(new Request(httpServletRequest, httpServletResponse));
+         final Response response = requestRouter.routePOST(new Request(httpServletRequest));
          processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);

@@ -68,7 +68,7 @@ public class Router {
     * check if request is on the static asset path
     */
    private boolean isRequestOnStaticAssetPath(Request request) {
-      return (true == request.getHttpServletRequest().getRequestURI().startsWith(publicContextPath));
+      return (true == request.getURI().startsWith(publicContextPath));
    }
 
    /**
@@ -136,7 +136,7 @@ public class Router {
          /*
           * get the uri
           */
-         final String uri = request.getHttpServletRequest().getRequestURI();
+         final String uri = request.getURI();
          /*
           * check if it's a static asset
           */

@@ -64,7 +64,7 @@ public class FreemarkerController extends AbstractController {
       try {
          final Template template = getTemplate();
          final Map<String, Object> context = new HashMap<String, Object>();
-         context.put(SESSION, getRequest().getHttpServletRequest().getSession());
+         context.put(SESSION, getRequest().getSession());
          context.put(CONTROLLER, this);
          return new FreemarkerResponse(template, context);
       } catch (final Exception e) {
