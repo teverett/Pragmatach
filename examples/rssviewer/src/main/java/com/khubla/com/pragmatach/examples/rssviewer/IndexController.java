@@ -8,7 +8,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
 
 @Controller
-@FreemarkerTemplate(template = "index.ftl")
+@FreemarkerTemplate(template = "index.html")
 public class IndexController extends FreemarkerController {
    @Route(uri = "/")
    public Response render() throws PragmatachException {
