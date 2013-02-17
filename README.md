@@ -16,6 +16,8 @@ Technologies in use in Pragmatach include:
 * Pluggable template processors; Freemarker and Velocity currently, JSP later
 * Simple configuration of controllers via annotations, rather than XML
 
+Pragmatach does not include ORM support.  Hibernate, iBatis or Ebean can be used if required.
+
 Creating a test project
 ------------------------
 
