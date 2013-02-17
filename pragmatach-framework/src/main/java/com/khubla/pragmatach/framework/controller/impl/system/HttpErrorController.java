@@ -3,7 +3,6 @@ package com.khubla.pragmatach.framework.controller.impl.system;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
@@ -12,11 +11,25 @@ import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
  * @author tome
  */
 public class HttpErrorController extends SimpleTemplateController {
-   @Route(uri = "/pragmatach/error")
+   /**
+    * Exception
+    */
+   private final Exception exception;
+
+   /**
+    * ctor
+    */
+   public HttpErrorController(Exception e) {
+      exception = e;
+   }
+
    public Response render() throws PragmatachException {
       try {
          final Map<String, String> parameters = new HashMap<String, String>();
-         return template("system/httperror.html", parameters);
+         parameters.put("message", exception.getMessage());
+         final String trace = PragmatachException.getExceptionTrace(exception);
+         parameters.put("trace", trace);
+         return template("system/error.html", parameters);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
