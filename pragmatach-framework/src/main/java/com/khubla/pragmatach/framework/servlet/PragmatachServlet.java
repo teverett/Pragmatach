@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.router.Router;
@@ -33,7 +34,7 @@ public class PragmatachServlet extends HttpServlet {
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router(publicContextPath);
-         final Response response = requestRouter.routeGET(new Request(httpServletRequest));
+         final Response response = requestRouter.routeGET(new Request(httpServletRequest, Route.HttpMethod.get));
          processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
@@ -43,7 +44,7 @@ public class PragmatachServlet extends HttpServlet {
    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Response response = requestRouter.routePOST(new Request(httpServletRequest));
+         final Response response = requestRouter.routePOST(new Request(httpServletRequest, Route.HttpMethod.post));
          processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);

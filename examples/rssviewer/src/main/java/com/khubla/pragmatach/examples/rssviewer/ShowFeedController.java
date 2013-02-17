@@ -9,7 +9,6 @@ import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.api.form.Form;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
@@ -46,15 +45,7 @@ public class ShowFeedController extends FreemarkerController {
    @Route(uri = "/showfeed", method = HttpMethod.post)
    public Response showFeed() throws PragmatachException {
       try {
-         /*
-          * get the posted form
-          */
-         final Form form = getRequest().getFormData();
-         if (null != form) {
-            /*
-             * get the url
-             */
-            feedURL = form.getFormItemValue("url");
+         if (null != feedURL) {
             /*
              * get feed
              */

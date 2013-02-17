@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.form.Form;
 import com.khubla.pragmatach.framework.api.form.FormItem;
 
@@ -27,12 +28,21 @@ public class Request {
     * HttpServletRequest
     */
    private final HttpServletRequest httpServletRequest;
+   /**
+    * method
+    */
+   private final Route.HttpMethod method;
 
    /**
     * ctor
     */
-   public Request(HttpServletRequest httpServletRequest) {
+   public Request(HttpServletRequest httpServletRequest, Route.HttpMethod method) {
       this.httpServletRequest = httpServletRequest;
+      this.method = method;
+   }
+
+   public Route.HttpMethod getMethod() {
+      return method;
    }
 
    /**

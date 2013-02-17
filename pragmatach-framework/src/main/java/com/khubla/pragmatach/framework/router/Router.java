@@ -1,14 +1,19 @@
 package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
+import java.util.Hashtable;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.testng.log4testng.Logger;
 
+import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.api.form.Form;
+import com.khubla.pragmatach.framework.api.form.FormItem;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
 import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
@@ -45,7 +50,25 @@ public class Router {
     */
    private Response invoke(PragmatachRoute pragmatachRoute, Request request, String[] parsedParameters) throws PragmatachException {
       try {
+         /*
+          * get the controller
+          */
          final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance(request);
+         /*
+          * form data
+          */
+         /*
+          * process form data?
+          */
+         if (request.getMethod() == Route.HttpMethod.post) {
+            Form form = request.getFormData();
+            if (null != form) {
+               this.processFormData(pragmatachController, form);
+            }
+         }
+         /*
+          * call the method
+          */
          final Method method = pragmatachRoute.getMethod();
          final Class<?>[] methodParameterTypes = pragmatachRoute.getMethod().getParameterTypes();
          if ((null == methodParameterTypes) || (methodParameterTypes.length == 0)) {
@@ -176,6 +199,26 @@ public class Router {
          return notFoundController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
+      }
+   }
+
+   /**
+    * set the controller fields based on the post
+    */
+   private void processFormData(PragmatachController pragmatachController, Form form) throws PragmatachException {
+      try {
+         /*
+          * walk the fields
+          */
+         Hashtable<String, FormItem> formItems = form.getItems();
+         for (FormItem formItem : formItems.values()) {
+            /*
+             * set the fields
+             */
+            BeanUtils.setProperty(pragmatachController, formItem.getName(), formItem.getValue());
+         }
+      } catch (Exception e) {
+         throw new PragmatachException("Exception in processFormData", e);
       }
    }
 
