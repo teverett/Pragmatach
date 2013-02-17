@@ -75,6 +75,7 @@ public class IndexController extends JacksonController {
 An example Velocity Controller
 ------------------------
 
+<pre><code>
 package com.khubla.com.pragmatach.exampleproject;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
