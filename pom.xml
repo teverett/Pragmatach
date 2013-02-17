@@ -8,6 +8,7 @@
 	<properties>
 		<target.jvm>1.6</target.jvm>
 		<testng.version>6.8</testng.version>
+		<servlet.version>2.5</servlet.version>
 	</properties>
 	<modules>
 		<module>pragmatach-console</module>

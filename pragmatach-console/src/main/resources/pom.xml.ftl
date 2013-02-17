@@ -60,4 +60,36 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>tomcat7</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<version>2.0</version>
+						<configuration>
+							<path>/</path>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>tomcat6</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat6-maven-plugin</artifactId>
+						<version>2.0</version>
+						<configuration>
+							<path>/</path>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
