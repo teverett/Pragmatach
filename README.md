@@ -5,7 +5,7 @@ Pragmatach is a simple web framework aimed at providing rapid development of web
 
 * Minimum client-side requirement; browser programmers should be free of restrictions
 * Modular design allowing features such as Freemarker, Velocity and Jackson to be configured via maven dependencies
-* Automatic JSON generation via Jackson
+* Automatic JSON generation via Gson
 * Automatic generation of project skeletons
 * Projects built via maven, with Jetty and Tomcat profiles included
 * Java as the core programming languge, rather than Groovy or Scala
@@ -74,23 +74,47 @@ An example FreeMarker Template
         ${controller.time}
     </body>
 
-An example Jackson Controller
+An example Gson Controller
 ------------------------
 
 <pre><code>
-package com.khubla.com.pragmatach.exampleproject;
+package com.khubla.com.pragmatach.examples.gsonexample;
+
+import java.util.Date;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.plugin.jackson.JacksonController;
+import com.khubla.pragmatach.plugin.gson.GSONController;
 
 @Controller
-public class IndexController extends JacksonController {   
+public class IndexController extends GSONController {
+   /**
+    * the message
+    */
+   private final String message = "hello world";
+   /**
+    * the time
+    */
+   private String time;
+
+   public String getMessage() {
+      return message;
+   }
+
+   public String getTime() {
+      return time;
+   }
+
    @Route(uri = "/")
-   public Response render(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response render() throws PragmatachException {
+      time = new Date().toString();
+      return super.render();
+   }
+
+   public void setTime(String time) {
+      this.time = time;
    }
 }
 </code></pre>
