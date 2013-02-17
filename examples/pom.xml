@@ -16,5 +16,6 @@
 		<module>velocityexample</module>
 		<module>gsonexample</module>
 		<module>cacheexample</module>
+		<module>xstreamexample</module>
 	</modules>
 </project>	
