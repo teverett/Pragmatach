@@ -10,7 +10,6 @@ ${r"${controller.message}"}
 <h2>Current Time</h2>
 ${r"${controller.time}"}
 
-<a href="/velocity">Velocity Example</a>
 <a href="/public/system/pragmatach.html">Admin</a>
 </body>
 
