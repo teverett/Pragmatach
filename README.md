@@ -11,7 +11,6 @@ Pragmatach is a simple web framework aimed at providing rapid development of web
 * FreeMarker and Velocity as the templating langauges, rather than GSP, JSP or Scala pages
 * Pluggable template processors; Freemarker and Velocity currently, JSP later
 * Simple configuration of controllers via annotations, rather that XML
-* JSON rather than XML
 
 Creating a test project
 ------------------------
