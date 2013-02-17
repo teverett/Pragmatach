@@ -6,7 +6,7 @@ Pragmatach is a simple web framework aimed at providing rapid development of web
 Technologies in use in Pragmatach include:
 
 * Minimum client-side requirement; browser programmers should be free of restrictions
-* Modular design allowing features such as Freemarker, Velocity and Jackson to be configured via maven dependencies
+* Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
 * Automatic JSON generation via Gson
 * Automatic generation of project skeletons
 * Projects built via maven, with Jetty and Tomcat profiles included
