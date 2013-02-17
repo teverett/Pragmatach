@@ -5,10 +5,7 @@
 <body>
 <h1>${name}</h1>
 <img src="/public/logo.png">
-${r"${controller.message}"}
-
-<h2>Current Time</h2>
-${r"${controller.time}"}
+${r"$controller.message"}
 
 <a href="/public/system/pragmatach.html">Admin</a>
 </body>

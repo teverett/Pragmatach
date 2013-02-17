@@ -1,12 +1,14 @@
 package com.khubla.pragmatach.plugin.velocity;
 
+import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
@@ -55,8 +57,10 @@ public class VelocityResponse implements Response {
       try {
          final VelocityContext velocityContext = new VelocityContext(context);
          final Reader reader = new StringReader(template);
-         final Writer writer = new OutputStreamWriter(outputStream);
+         final Writer writer = new StringWriter();
          velocityEngine.evaluate(velocityContext, writer, templateName, reader);
+         ByteArrayInputStream bais = new ByteArrayInputStream(writer.toString().getBytes());
+         IOUtils.copy(bais, outputStream);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
