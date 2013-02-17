@@ -23,13 +23,22 @@ Creating a test project
 
 To create the skeleton of a test project run:
 
-`java -jar pragmatach-console --operation=new --name=myeproject --namespace=com.myproject`
+`java -jar pragmatach-console --operation=new --name=myproject --namespace=com.myproject`
 
 This will generate:
 
 * A maven pom.xml which includes the Pragmatach framework
 * A simple controller and freemarker template for an index page
 * A web.xml that includes the Pragmatach servlet
+
+To run the generated project, type:
+
+`cd myproject`
+`mvn clean package jetty:run`
+
+Then browse to:
+
+`http:\\localhost:8080`
 
 Administration Console
 ------------------------
