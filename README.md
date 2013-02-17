@@ -36,6 +36,26 @@ Pragmatach has a built in web administration console, just browse to the context
 
 in your application.
 
+Request Routing
+------------------------
+
+Request routes are declared via the @Route annotation, in conjunction with the signature of the annotated method
+
+In this example, the method "render()" will be called for the context path "/".
+
+<pre><code>
+@Route(uri = "/")
+public Response render() throws PragmatachException
+</code></pre>
+
+In this example the method "myMethod(int)" will be called with the value "2" for the route "/mycontroller/2".
+
+<pre><code>
+@Route(uri = "/mycontroller")
+public Response render(int myValue) throws PragmatachException
+</code></pre>
+
+
 An example FreeMarker Controller
 ------------------------
 
@@ -50,11 +70,11 @@ import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 @Controller
-@View(view="index.ftl")
-public class IndexController extends FreemarkerController {   
+@View(view = "index.html")
+public class IndexController extends FreemarkerController {
    @Route(uri = "/")
-   public Response render(Request request) throws PragmatachException {
-      return super.render(request);
+   public Response render() throws PragmatachException {
+      return super.render();
    }
 }
 </code></pre>
