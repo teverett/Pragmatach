@@ -2,13 +2,13 @@ package com.khubla.pragmatach.plugin.gson;
 
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Modifier;
 
 import org.apache.commons.io.IOUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.controller.AbstractResponse;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 
@@ -31,9 +31,9 @@ public class GSONResponse extends AbstractResponse {
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
-         Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.STATIC).disableInnerClassSerialization().create();
-         String JSON = gson.toJson(pragmatachController);
-         ByteArrayInputStream bais = new ByteArrayInputStream(JSON.getBytes());
+         final Gson gson = new GsonBuilder().setExclusionStrategies(new PragmatachExclusionStrategy(Request.class)).create();
+         final String JSON = gson.toJson(pragmatachController);
+         final ByteArrayInputStream bais = new ByteArrayInputStream(JSON.getBytes());
          IOUtils.copy(bais, outputStream);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
