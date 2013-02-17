@@ -68,3 +68,10 @@
 /examples/gsonexample/target/
 /examples/gsonexample/bin/
 /examples/gsonexample/.settings/
+/examples/cacheexample/target/
+/examples/cacheexample/cacheexample.log
+/examples/cacheexample/bin/
+/examples/cacheexample/.settings/
+/examples/cacheexample/.project
+/examples/cacheexample/.classpath
+/examples/cacheexample/exampleproject.log
