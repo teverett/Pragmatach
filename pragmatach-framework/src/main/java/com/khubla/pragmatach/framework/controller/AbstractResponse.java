@@ -23,7 +23,7 @@ public abstract class AbstractResponse implements Response {
       try {
          final CacheControl cacheControl = this.getClass().getAnnotation(CacheControl.class);
          if (null != cacheControl) {
-            Map<String, String> ret = new HashMap<String, String>();
+            final Map<String, String> ret = new HashMap<String, String>();
             String cacheControlHeader = "";
             boolean first = true;
             /*
@@ -58,7 +58,7 @@ public abstract class AbstractResponse implements Response {
          } else {
             return null;
          }
-      } catch (Exception e) {
+      } catch (final Exception e) {
          throw new PragmatachException("Exception in getHeaders", e);
       }
    }

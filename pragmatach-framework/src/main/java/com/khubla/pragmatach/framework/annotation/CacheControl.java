@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 public @interface CacheControl {
    int maxAge() default -1;
 
-   int sMaxAge() default -1;
-
    String policy() default "public";
+
+   int sMaxAge() default -1;
 }
