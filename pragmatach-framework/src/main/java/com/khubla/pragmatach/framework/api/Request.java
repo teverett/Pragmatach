@@ -41,10 +41,6 @@ public class Request {
       this.method = method;
    }
 
-   public Route.HttpMethod getMethod() {
-      return method;
-   }
-
    /**
     * get form POST data
     */
@@ -113,6 +109,10 @@ public class Request {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getInputStream", e);
       }
+   }
+
+   public Route.HttpMethod getMethod() {
+      return method;
    }
 
    /**

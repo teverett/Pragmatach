@@ -10,13 +10,12 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.AbstractResponse;
 
 /**
  * @author tome
  */
-public class SimpleTemplateResponse implements Response {
+public class SimpleTemplateResponse extends AbstractResponse {
    /**
     * InputStream
     */
@@ -67,16 +66,6 @@ public class SimpleTemplateResponse implements Response {
       } else {
          resourceInputStream = null;
       }
-   }
-
-   @Override
-   public Map<String, String> getHeaders() throws PragmatachException {
-      return null;
-   }
-
-   @Override
-   public int getHTTPCode() {
-      return AbstractController.HTTP_OK;
    }
 
    @Override

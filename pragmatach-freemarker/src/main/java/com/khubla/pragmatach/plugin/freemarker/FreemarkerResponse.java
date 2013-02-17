@@ -6,14 +6,14 @@ import java.io.Writer;
 import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.controller.AbstractResponse;
 
 import freemarker.template.Template;
 
 /**
  * @author tome
  */
-public class FreemarkerResponse implements Response {
+public class FreemarkerResponse extends AbstractResponse {
    /**
     * template
     */
@@ -26,16 +26,6 @@ public class FreemarkerResponse implements Response {
    public FreemarkerResponse(Template template, Map<String, Object> context) {
       this.template = template;
       this.context = context;
-   }
-
-   @Override
-   public Map<String, String> getHeaders() throws PragmatachException {
-      return null;
-   }
-
-   @Override
-   public int getHTTPCode() {
-      return 200;
    }
 
    @Override

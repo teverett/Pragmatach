@@ -4,14 +4,15 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.AbstractResponse;
 
 /**
  * @author tome
  */
-public class RedirectResponse implements Response {
+public class RedirectResponse extends AbstractResponse {
    /**
     * uri
     */
@@ -33,7 +34,7 @@ public class RedirectResponse implements Response {
 
    @Override
    public int getHTTPCode() {
-      return AbstractController.HTTP_REDIRECT;
+      return HttpServletResponse.SC_MOVED_TEMPORARILY;
    }
 
    @Override

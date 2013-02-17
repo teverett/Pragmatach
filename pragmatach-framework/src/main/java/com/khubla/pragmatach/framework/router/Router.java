@@ -61,9 +61,9 @@ public class Router {
           * process form data?
           */
          if (request.getMethod() == Route.HttpMethod.post) {
-            Form form = request.getFormData();
+            final Form form = request.getFormData();
             if (null != form) {
-               this.processFormData(pragmatachController, form);
+               processFormData(pragmatachController, form);
             }
          }
          /*
@@ -152,6 +152,26 @@ public class Router {
    }
 
    /**
+    * set the controller fields based on the post
+    */
+   private void processFormData(PragmatachController pragmatachController, Form form) throws PragmatachException {
+      try {
+         /*
+          * walk the fields
+          */
+         final Hashtable<String, FormItem> formItems = form.getItems();
+         for (final FormItem formItem : formItems.values()) {
+            /*
+             * set the fields
+             */
+            BeanUtils.setProperty(pragmatachController, formItem.getName(), formItem.getValue());
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in processFormData", e);
+      }
+   }
+
+   /**
     * get Method that matches request
     */
    private Response route(List<PragmatachRoute> PragmatachRoutes, Request request) throws PragmatachException {
@@ -199,26 +219,6 @@ public class Router {
          return notFoundController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
-      }
-   }
-
-   /**
-    * set the controller fields based on the post
-    */
-   private void processFormData(PragmatachController pragmatachController, Form form) throws PragmatachException {
-      try {
-         /*
-          * walk the fields
-          */
-         Hashtable<String, FormItem> formItems = form.getItems();
-         for (FormItem formItem : formItems.values()) {
-            /*
-             * set the fields
-             */
-            BeanUtils.setProperty(pragmatachController, formItem.getName(), formItem.getValue());
-         }
-      } catch (Exception e) {
-         throw new PragmatachException("Exception in processFormData", e);
       }
    }
 

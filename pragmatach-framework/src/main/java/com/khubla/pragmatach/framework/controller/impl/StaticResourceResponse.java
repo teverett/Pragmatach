@@ -2,18 +2,18 @@ package com.khubla.pragmatach.framework.controller.impl;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.AbstractResponse;
 
 /**
  * @author tome
  */
-public class StaticResourceResponse implements Response {
+public class StaticResourceResponse extends AbstractResponse {
    /**
     * InputStream
     */
@@ -27,16 +27,11 @@ public class StaticResourceResponse implements Response {
    }
 
    @Override
-   public Map<String, String> getHeaders() throws PragmatachException {
-      return null;
-   }
-
-   @Override
    public int getHTTPCode() {
       if (null != resourceInputStream) {
-         return AbstractController.HTTP_OK;
+         return HttpServletResponse.SC_OK;
       } else {
-         return AbstractController.HTTP_NOTFOUND;
+         return HttpServletResponse.SC_NOT_FOUND;
       }
    }
 

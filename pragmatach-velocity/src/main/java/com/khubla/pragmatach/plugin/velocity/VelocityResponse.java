@@ -13,12 +13,12 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.controller.AbstractResponse;
 
 /**
  * @author tome
  */
-public class VelocityResponse implements Response {
+public class VelocityResponse extends AbstractResponse {
    /**
     * template
     */
@@ -43,23 +43,13 @@ public class VelocityResponse implements Response {
    }
 
    @Override
-   public Map<String, String> getHeaders() throws PragmatachException {
-      return null;
-   }
-
-   @Override
-   public int getHTTPCode() {
-      return 200;
-   }
-
-   @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
          final VelocityContext velocityContext = new VelocityContext(context);
          final Reader reader = new StringReader(template);
          final Writer writer = new StringWriter();
          velocityEngine.evaluate(velocityContext, writer, templateName, reader);
-         ByteArrayInputStream bais = new ByteArrayInputStream(writer.toString().getBytes());
+         final ByteArrayInputStream bais = new ByteArrayInputStream(writer.toString().getBytes());
          IOUtils.copy(bais, outputStream);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

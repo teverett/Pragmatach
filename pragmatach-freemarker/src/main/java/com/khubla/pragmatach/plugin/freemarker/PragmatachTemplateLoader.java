@@ -26,17 +26,17 @@ public class PragmatachTemplateLoader implements TemplateLoader {
 
    @Override
    public void closeTemplateSource(Object object) throws IOException {
-      InputStream inputStream = (InputStream) object;
+      final InputStream inputStream = (InputStream) object;
       inputStream.close();
    }
 
    @Override
    public Object findTemplateSource(String template) throws IOException {
       try {
-         ResourceLoader resourceLoader = new ResourceLoader(servletContext);
-         InputStream is = resourceLoader.getResource(template);
+         final ResourceLoader resourceLoader = new ResourceLoader(servletContext);
+         final InputStream is = resourceLoader.getResource(template);
          return is;
-      } catch (Exception e) {
+      } catch (final Exception e) {
          throw new IOException(e);
       }
    }
@@ -48,7 +48,7 @@ public class PragmatachTemplateLoader implements TemplateLoader {
 
    @Override
    public Reader getReader(Object object, String string) throws IOException {
-      InputStream inputStream = (InputStream) object;
+      final InputStream inputStream = (InputStream) object;
       return new InputStreamReader(inputStream);
    }
 }

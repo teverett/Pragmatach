@@ -18,10 +18,6 @@ public class Form {
       this.items = items;
    }
 
-   public Hashtable<String, FormItem> getItems() {
-      return items;
-   }
-
    public FormItem getFormItem(String name) {
       if (null != items) {
          return items.get(name);
@@ -37,6 +33,10 @@ public class Form {
          }
       }
       return null;
+   }
+
+   public Hashtable<String, FormItem> getItems() {
+      return items;
    }
 
    public int size() {

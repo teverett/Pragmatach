@@ -35,7 +35,7 @@ public class FreemarkerController extends AbstractController {
    private Template getTemplate() throws PragmatachException {
       try {
          final Configuration cfg = new Configuration();
-         PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(this.getRequest().getServletContext());
+         final PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(getRequest().getServletContext());
          cfg.setTemplateLoader(pragmatachTemplateLoader);
          final String templateName = getTemplateName();
          final InputStream templateInputStream = getResource(templateName);
