@@ -179,7 +179,7 @@ public class IndexController extends VelocityController {
 }
 </code></pre>
 
-Population of Controller fields via HTTP POST
+Population of Controller fields via HTTP Form POST
 ------------------------
 
 A typical HTML Form:
@@ -224,6 +224,11 @@ public class AcceptPostController extends FreemarkerController {
    }
 }
 </code></pre>
+
+Static Resources
+------------------------
+
+In order to differentiate static resources from Pragmatach pages, static resources are served from under the context path `/public`.
 
 
 
