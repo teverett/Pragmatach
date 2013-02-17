@@ -27,6 +27,15 @@ This will generate:
 * A simple controller and freemarker template for an index page
 * A web.xml that includes the Pragmatach servlet
 
+Administration Console
+------------------------
+
+Pragmatach has a built in web administration console, just browse to the context path
+
+`/pragmatach/`
+
+in your application.
+
 An example FreeMarker Controller
 ------------------------
 
@@ -154,3 +163,6 @@ public class AcceptPostController extends FreemarkerController {
    }
 }
 </code></pre>
+
+
+
