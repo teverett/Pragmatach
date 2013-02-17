@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.plugin.freemarker;
+package com.khubla.pragmatach.framework.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FreemarkerTemplate {
-   String template() default "";
+public @interface View {
+   String view() default "";
 }

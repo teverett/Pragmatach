@@ -6,17 +6,17 @@ import java.net.URL;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
+import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.api.form.Form;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 @Controller
-@FreemarkerTemplate(template = "showfeed.html")
+@View(view = "showfeed.html")
 public class ShowFeedController extends FreemarkerController {
    /**
     * the URL

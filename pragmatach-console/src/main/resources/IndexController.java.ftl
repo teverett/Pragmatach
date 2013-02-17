@@ -4,14 +4,13 @@ import java.util.Date;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
+import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerTemplate;
 
 @Controller
-@FreemarkerTemplate(template="index.ftl")
+@View(view="index.ftl")
 public class IndexController extends FreemarkerController {
    
    /**

@@ -36,3 +36,8 @@
 /examples/rssviewer/target/
 /examples/rssviewer/.settings/
 /examples/.settings/
+/pragmatach-velocity/target/maven-status/
+/pragmatach-velocity/target/maven-archiver/
+/pragmatach-velocity/target/classes/
+/pragmatach-velocity/target/test-classes/test/com/khubla/pragmatach/plugin/velocity/ExampleController1.class
+/pragmatach-velocity/target/pragmatach-velocity-1.0-SNAPSHOT.jar
