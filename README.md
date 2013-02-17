@@ -141,6 +141,10 @@ public class IndexController extends GSONController {
 }
 </code></pre>
 
+The output produced is
+
+`{"message":"hello world","time":"Sun Feb 17 14:28:34 MST 2013"}`
+
 An example Velocity Controller
 ------------------------
 
