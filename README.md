@@ -1,7 +1,9 @@
-Pragmatach - A pragmatic web framework
+Pragmatach - A pragmatic web framework for Web Developers
 ==========
 
-Pragmatach is a simple web framework aimed at providing rapid development of web applications using technologies which are familiar to developers developing real-world sites.   Technologies in use in Pragmatach include:
+Pragmatach is a simple web framework aimed at providing rapid development of web applications using technologies which are familiar to developers developing real-world sites.  Pragmatach was developed to enable rapid development of sites by Javascript and CSS3 developers who need a supporting MVC framework, but don't wish to have to learn a new programming language such as Groovy or Scala, and who wish to have powerful features such built-in JSON support, and annotation driven request routing.
+
+Technologies in use in Pragmatach include:
 
 * Minimum client-side requirement; browser programmers should be free of restrictions
 * Modular design allowing features such as Freemarker, Velocity and Jackson to be configured via maven dependencies
