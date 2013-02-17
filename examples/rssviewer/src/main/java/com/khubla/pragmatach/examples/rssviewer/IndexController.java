@@ -1,4 +1,4 @@
-package com.khubla.com.pragmatach.examples.rssviewer;
+package com.khubla.pragmatach.examples.rssviewer;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;

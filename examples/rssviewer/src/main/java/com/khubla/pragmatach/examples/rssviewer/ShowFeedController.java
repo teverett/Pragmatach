@@ -1,4 +1,4 @@
-package com.khubla.com.pragmatach.examples.rssviewer;
+package com.khubla.pragmatach.examples.rssviewer;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
