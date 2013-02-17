@@ -1,4 +1,4 @@
-package com.khubla.com.pragmatach.examples.gsonexample;
+package com.khubla.pragmatach.examples.gsonexample;
 
 import java.util.Date;
 

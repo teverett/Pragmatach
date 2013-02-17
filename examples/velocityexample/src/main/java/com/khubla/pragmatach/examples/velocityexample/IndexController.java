@@ -1,4 +1,4 @@
-package com.khubla.com.pragmatach.examples.velocityexample;
+package com.khubla.pragmatach.examples.velocityexample;
 
 import java.util.Date;
 

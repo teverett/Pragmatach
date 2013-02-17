@@ -1,4 +1,4 @@
-package com.khubla.com.pragmatach.examples.xstreamexample;
+package com.khubla.pragmatach.examples.xstreamexample;
 
 import java.util.Date;
 

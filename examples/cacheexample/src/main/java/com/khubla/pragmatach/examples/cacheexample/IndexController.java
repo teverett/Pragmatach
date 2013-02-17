@@ -1,4 +1,4 @@
-package com.khubla.com.pragmatach.examples.cacheexample;
+package com.khubla.pragmatach.examples.cacheexample;
 
 import java.util.Date;
 
