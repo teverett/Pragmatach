@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>${namespace}</groupId>
-	<artifactId>${name}</artifactId>
+	<groupId>com.khubla.com.pragmatach.examples</groupId>
+	<artifactId>velocityexample</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Pragmatach Application</name>
+	<name>Pragmatach Velocity Example</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
@@ -13,9 +13,9 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
+			<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
-			<artifactId>pragmatach-freemarker</artifactId>
+			<artifactId>pragmatach-velocity</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>

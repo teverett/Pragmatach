@@ -49,3 +49,13 @@
 /pragmatach-jackson/.project
 /pragmatach-jackson/.classpath
 /pragmatach-jackson/.settings/
+/examples/jacksonexample/bin/
+/examples/jacksonexample/.settings/
+/examples/jacksonexample/target/
+/examples/jacksonexample/.project
+/examples/jacksonexample/.classpath
+/examples/velocityexample/target/
+/examples/velocityexample/.project
+/examples/velocityexample/.classpath
+/examples/velocityexample/.settings/
+/examples/velocityexample/bin/

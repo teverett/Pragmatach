@@ -36,23 +36,6 @@ public class ProjectGenerator {
    }
 
    /**
-    * generate the ExampleVelocityController
-    */
-   private static void generateExampleVelocityController(String dir, String name, String namespace) throws Exception {
-      try {
-         final Configuration cfg = new Configuration();
-         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/ExampleVelocityController.java.ftl")), cfg);
-         final Map<String, Object> input = new HashMap<String, Object>();
-         input.put("name", name);
-         input.put("namespace", namespace);
-         final Writer writer = new FileWriter(new File(dir + "/ExampleVelocityController.java"));
-         template.process(input, writer);
-      } catch (final Exception e) {
-         throw new Exception("Exception in generateExampleVelocityController", e);
-      }
-   }
-
-   /**
     * generate index.ftl
     */
    private static void generateIndexFTL(String dir, String name, String namespace) throws Exception {
@@ -66,23 +49,6 @@ public class ProjectGenerator {
          template.process(input, writer);
       } catch (final Exception e) {
          throw new Exception("Exception in generateIndexFTL", e);
-      }
-   }
-
-   /**
-    * generate example.vtl
-    */
-   private static void generateExampleVTL(String dir, String name, String namespace) throws Exception {
-      try {
-         final Configuration cfg = new Configuration();
-         final Template template = new Template("", new InputStreamReader(ProjectGenerator.class.getResourceAsStream("/webapp/example.vtl.ftl")), cfg);
-         final Map<String, Object> input = new HashMap<String, Object>();
-         input.put("name", name);
-         input.put("namespace", namespace);
-         final Writer writer = new FileWriter(new File(dir + "/example.vtl"));
-         template.process(input, writer);
-      } catch (final Exception e) {
-         throw new Exception("Exception in generateExampleVTL", e);
       }
    }
 
@@ -180,8 +146,6 @@ public class ProjectGenerator {
          generateWebXML(webINFDir, name, namespace);
          generateLog4JXML(resourcesDir, name, namespace);
          generateIndexFTL(webDir, name, namespace);
-         generateExampleVTL(webDir, name, namespace);
-         generateExampleVelocityController(javaDir, name, namespace);
          generateIndexController(javaDir, name, namespace);
          copyImage(webDir);
       } catch (final Exception e) {
