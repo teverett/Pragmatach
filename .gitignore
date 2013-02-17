@@ -59,3 +59,12 @@
 /examples/velocityexample/.classpath
 /examples/velocityexample/.settings/
 /examples/velocityexample/bin/
+/pragmatach-gson/target/
+/pragmatach-gson/.settings/
+/pragmatach-gson/.project
+/pragmatach-gson/.classpath
+/examples/gsonexample/.project
+/examples/gsonexample/.classpath
+/examples/gsonexample/target/
+/examples/gsonexample/bin/
+/examples/gsonexample/.settings/

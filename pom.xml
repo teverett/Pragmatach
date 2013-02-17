@@ -15,7 +15,7 @@
 		<module>pragmatach-framework</module>
 		<module>pragmatach-freemarker</module>
 		<module>pragmatach-velocity</module>
-		<module>pragmatach-jackson</module>		
+		<module>pragmatach-gson</module>		
 		<module>pragmatach-adminapp</module>		
 		<module>examples</module>		
 	</modules>

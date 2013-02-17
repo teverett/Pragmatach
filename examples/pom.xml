@@ -14,6 +14,6 @@
 	<modules>
 		<module>rssviewer</module>
 		<module>velocityexample</module>
-		<module>jacksonexample</module>
+		<module>gsonexample</module>
 	</modules>
 </project>	
