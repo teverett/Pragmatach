@@ -39,7 +39,7 @@ in your application.
 Request Routing
 ------------------------
 
-Request routes are declared via the @Route annotation, in conjunction with the signature of the annotated method
+Pragmatch uses REST-like route mapping. Request routes are declared via the @Route annotation, in conjunction with the signature of the annotated method
 
 In this example, the method "render()" will be called for the context path "/".
 
@@ -48,7 +48,7 @@ In this example, the method "render()" will be called for the context path "/".
 public Response render() throws PragmatachException
 </code></pre>
 
-In this example the method "myMethod(int)" will be called with the value "2" for the route "/mycontroller/2".
+In this example the method "myMethod(int)" will be called with the value "2" for the context path "/mycontroller/2".
 
 <pre><code>
 @Route(uri = "/mycontroller")
