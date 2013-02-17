@@ -2,6 +2,8 @@ package com.khubla.pragmatach.plugin.gson;
 
 import java.util.Map;
 
+import org.json.JSONArray;
+
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
@@ -19,8 +21,17 @@ public class GSONController extends AbstractController implements BeanBoundContr
 
    @Override
    public Map<String, String> getPostFieldValues() throws PragmatachException {
-      // TODO Auto-generated method stub
-      return null;
+      try {
+         final String JSON = getRequest().getPostBody();
+         if ((null != JSON) && (JSON.length() > 0)) {
+            new JSONArray(JSON);
+            return null;
+         } else {
+            return null;
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getPostFieldValues", e);
+      }
    }
 
    /**

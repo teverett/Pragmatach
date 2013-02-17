@@ -10,10 +10,10 @@ import org.apache.commons.io.IOUtils;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.api.form.Form;
-import com.khubla.pragmatach.framework.api.form.FormItem;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
+import com.khubla.pragmatach.framework.form.Form;
+import com.khubla.pragmatach.framework.form.FormItem;
 
 /**
  * @author tome
@@ -34,7 +34,7 @@ public class VelocityController extends AbstractController implements BeanBoundC
    @Override
    public Map<String, String> getPostFieldValues() throws PragmatachException {
       try {
-         final Form form = getRequest().getFormData();
+         final Form form = Form.parse(getRequest().getHttpServletRequest());
          if (null != form) {
             final Map<String, String> ret = new HashMap<String, String>();
             for (final FormItem formItem : form.getItems().values()) {
@@ -45,7 +45,7 @@ public class VelocityController extends AbstractController implements BeanBoundC
             return null;
          }
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in getFieldValues", e);
+         throw new PragmatachException("Exception in getPostFieldValues", e);
       }
    }
 

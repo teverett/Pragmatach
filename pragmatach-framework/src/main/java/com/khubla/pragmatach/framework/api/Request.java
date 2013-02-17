@@ -4,23 +4,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 
 import com.khubla.pragmatach.framework.annotation.Route;
-import com.khubla.pragmatach.framework.api.form.Form;
-import com.khubla.pragmatach.framework.api.form.FormItem;
 
 /**
  * @author tome
@@ -44,64 +36,10 @@ public class Request {
    }
 
    /**
-    * get the HTTP POST body
+    * get content type
     */
-   public String getPostBody() throws PragmatachException {
-      try {
-         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-         IOUtils.copy(getInputStream(), baos);
-         return baos.toString();
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getRequestBody", e);
-      }
-   }
-
-   /**
-    * get form POST data
-    */
-   public Form getFormData() throws PragmatachException {
-      try {
-         /*
-          * POST is actually a form?
-          */
-         if (ServletFileUpload.isMultipartContent(httpServletRequest)) {
-            /*
-             * item factory
-             */
-            final FileItemFactory fileItemFactory = new DiskFileItemFactory();
-            /*
-             * the upload
-             */
-            final ServletFileUpload servletFileUpload = new ServletFileUpload(fileItemFactory);
-            /*
-             * the items
-             */
-            @SuppressWarnings("unchecked")
-            final List<FileItem> fileItems = servletFileUpload.parseRequest(httpServletRequest);
-            /*
-             * the hashtable
-             */
-            final Hashtable<String, FormItem> formItems = new Hashtable<String, FormItem>();
-            /*
-             * walk the items
-             */
-            for (final FileItem fileItem : fileItems) {
-               final FormItem formItem = new FormItem(fileItem.getFieldName(), fileItem.getString(), fileItem.getContentType());
-               formItems.put(formItem.getName(), formItem);
-            }
-            /*
-             * return the form
-             */
-            return new Form(formItems);
-         } else {
-            /*
-             * invalid form encoding
-             */
-            return null;
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in process", e);
-      }
+   String getContentType() {
+      return httpServletRequest.getContentType();
    }
 
    /**
@@ -118,6 +56,10 @@ public class Request {
       return ret;
    }
 
+   public HttpServletRequest getHttpServletRequest() {
+      return httpServletRequest;
+   }
+
    public InputStream getInputStream() throws PragmatachException {
       try {
          return httpServletRequest.getInputStream();
@@ -128,6 +70,19 @@ public class Request {
 
    public Route.HttpMethod getMethod() {
       return method;
+   }
+
+   /**
+    * get the HTTP POST body
+    */
+   public String getPostBody() throws PragmatachException {
+      try {
+         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         IOUtils.copy(getInputStream(), baos);
+         return baos.toString();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getRequestBody", e);
+      }
    }
 
    /**
