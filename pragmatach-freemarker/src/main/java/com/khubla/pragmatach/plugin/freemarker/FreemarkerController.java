@@ -8,7 +8,10 @@ import java.util.Map;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.api.form.Form;
+import com.khubla.pragmatach.framework.api.form.FormItem;
 import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.BeanBoundController;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -16,7 +19,7 @@ import freemarker.template.Template;
 /**
  * @author tome
  */
-public class FreemarkerController extends AbstractController {
+public class FreemarkerController extends AbstractController implements BeanBoundController {
    /**
     * state variables
     */
@@ -75,6 +78,24 @@ public class FreemarkerController extends AbstractController {
          return new FreemarkerResponse(template, context);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
+      }
+   }
+
+   @Override
+   public Map<String, String> getPostFieldValues() throws PragmatachException {
+      try {
+         final Form form = this.getRequest().getFormData();
+         if (null != form) {
+            Map<String, String> ret = new HashMap<String, String>();
+            for (FormItem formItem : form.getItems().values()) {
+               ret.put(formItem.getName(), formItem.getValue());
+            }
+            return ret;
+         } else {
+            return null;
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getFieldValues", e);
       }
    }
 }

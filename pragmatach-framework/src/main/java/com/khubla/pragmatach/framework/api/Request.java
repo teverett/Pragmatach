@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.framework.api;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.form.Form;
@@ -39,6 +41,19 @@ public class Request {
    public Request(HttpServletRequest httpServletRequest, Route.HttpMethod method) {
       this.httpServletRequest = httpServletRequest;
       this.method = method;
+   }
+
+   /**
+    * get the HTTP POST body
+    */
+   public String getPostBody() throws PragmatachException {
+      try {
+         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         IOUtils.copy(getInputStream(), baos);
+         return baos.toString();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getRequestBody", e);
+      }
    }
 
    /**

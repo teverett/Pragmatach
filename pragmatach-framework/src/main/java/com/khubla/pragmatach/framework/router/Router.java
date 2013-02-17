@@ -1,8 +1,8 @@
 package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -12,8 +12,7 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.api.form.Form;
-import com.khubla.pragmatach.framework.api.form.FormItem;
+import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
 import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
@@ -61,10 +60,7 @@ public class Router {
           * process form data?
           */
          if (request.getMethod() == Route.HttpMethod.post) {
-            final Form form = request.getFormData();
-            if (null != form) {
-               processFormData(pragmatachController, form);
-            }
+            processFormData(pragmatachController);
          }
          /*
           * call the method
@@ -154,17 +150,20 @@ public class Router {
    /**
     * set the controller fields based on the post
     */
-   private void processFormData(PragmatachController pragmatachController, Form form) throws PragmatachException {
+   private void processFormData(PragmatachController pragmatachController) throws PragmatachException {
       try {
          /*
           * walk the fields
           */
-         final Hashtable<String, FormItem> formItems = form.getItems();
-         for (final FormItem formItem : formItems.values()) {
-            /*
-             * set the fields
-             */
-            BeanUtils.setProperty(pragmatachController, formItem.getName(), formItem.getValue());
+         if (pragmatachController instanceof BeanBoundController) {
+            final BeanBoundController beanBoundController = (BeanBoundController) pragmatachController;
+            final Map<String, String> fieldValues = beanBoundController.getPostFieldValues();
+            for (final String fieldName : fieldValues.keySet()) {
+               /*
+                * set the fields
+                */
+               BeanUtils.setProperty(pragmatachController, fieldName, fieldValues.get(fieldName));
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in processFormData", e);
