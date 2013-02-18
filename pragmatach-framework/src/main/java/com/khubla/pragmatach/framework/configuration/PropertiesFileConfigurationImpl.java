@@ -1,5 +1,8 @@
 package com.khubla.pragmatach.framework.configuration;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.khubla.pragmatach.framework.api.Configuration;
@@ -35,5 +38,17 @@ public class PropertiesFileConfigurationImpl implements Configuration {
       } catch (final Exception e) {
          e.printStackTrace();
       }
+   }
+
+   @Override
+   public Map<String, String> getAll() {
+      readProperties();
+      Map<String, String> ret = new HashMap<String, String>();
+      Enumeration<Object> enumer = properties.keys();
+      while (enumer.hasMoreElements()) {
+         String k = (String) enumer.nextElement();
+         ret.put(k, properties.getProperty(k));
+      }
+      return ret;
    }
 }

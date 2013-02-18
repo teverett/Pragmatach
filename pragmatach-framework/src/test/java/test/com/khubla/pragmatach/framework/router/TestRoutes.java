@@ -37,8 +37,8 @@ public class TestRoutes {
          Assert.assertNotNull(routes);
          reportRoutes(routes.getGETRoutes());
          reportRoutes(routes.getPOSTRoutes());
-         Assert.assertTrue(routes.getGETRoutes().size() == 4);
-         Assert.assertTrue(routes.getGETRoutes().get(3).getRoute().uri().compareTo("/") == 0);
+         Assert.assertTrue(routes.getGETRoutes().size() == 5);
+         Assert.assertTrue(routes.getGETRoutes().get(4).getRoute().uri().compareTo("/") == 0);
          Assert.assertTrue(routes.getPOSTRoutes().size() == 3);
          Assert.assertTrue(routes.getPOSTRoutes().get(2).getRoute().uri().compareTo("/a") == 0);
       } catch (final Exception e) {

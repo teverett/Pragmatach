@@ -28,15 +28,23 @@ public class PragmatachServlet extends HttpServlet {
    /**
     * logger
     */
-   private Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = Logger.getLogger(this.getClass());
    /**
     * configuration
     */
-   private Configuration configuration;
+   private static Configuration configuration;
    /**
     * configuration
     */
    private static final String CONFIGURATION = "configuration";
+
+   public static Configuration getConfiguration() {
+      return configuration;
+   }
+
+   public static void setConfiguration(Configuration configuration) {
+      PragmatachServlet.configuration = configuration;
+   }
 
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
@@ -64,10 +72,19 @@ public class PragmatachServlet extends HttpServlet {
    public void init(ServletConfig servletConfig) throws ServletException {
       try {
          super.init(servletConfig);
+         /*
+          * get the name
+          */
          final String configurationClassName = servletConfig.getInitParameter(CONFIGURATION);
          if (null != configurationClassName) {
+            /*
+             * get the class
+             */
             logger.info("Pragmatach configuration loaded from class '" + configurationClassName + "'");
             final Class<?> configurationClazz = Class.forName(configurationClassName);
+            /*
+             * get the configuration
+             */
             configuration = (Configuration) configurationClazz.newInstance();
          } else {
             throw new ServletException("Configuration parameter '" + CONFIGURATION + "' not found");

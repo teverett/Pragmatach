@@ -13,7 +13,7 @@ import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
 /**
  * @author tome
  */
-@Controller(name = "PragmatachShowControllersController")
+@Controller(name = "pragmatachShowControllersController")
 public class ShowControllersController extends SimpleTemplateController {
    private String getRequestControllers() throws PragmatachException {
       String ret = "";
