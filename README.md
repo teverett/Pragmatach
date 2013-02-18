@@ -58,7 +58,7 @@ mvn clean package jetty:run
 
 Then browse to:
 
-`http:\\localhost:8080`
+`http://localhost:8080`
 
 Administration Console
 ------------------------
