@@ -111,3 +111,5 @@
 /examples/jsonexample/.settings/
 /examples/jsonexample/.project
 /examples/jsonexample/.classpath
+/examples/xstreamexample/gsonexample.log
+/examples/velocityexample/velocity.log.1
