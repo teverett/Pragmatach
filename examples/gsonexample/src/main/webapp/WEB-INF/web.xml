@@ -21,10 +21,10 @@
 		<servlet-name>PragmatachServlet</servlet-name>
 		<servlet-class>com.khubla.pragmatach.framework.servlet.PragmatachServlet</servlet-class>
 		<init-param>
-			<param-name>public</param-name>
-			<param-value>/public</param-value>
+			<param-name>configuration</param-name>
+			<param-value>com.khubla.pragmatach.framework.configuration.PropertiesFileConfigurationImpl</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+	<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PragmatachServlet</servlet-name>
