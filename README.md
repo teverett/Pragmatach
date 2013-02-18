@@ -73,6 +73,13 @@ On localhost, the link is:
 
 `http://localhost:8080/public/system/pragmatach.html`
 
+Configuration
+------------------------
+
+Configuration for the Pragmatach framework is contained in the file
+
+`src\main\resources\pragmatach.configuration`
+
 Request Routing
 ------------------------
 
