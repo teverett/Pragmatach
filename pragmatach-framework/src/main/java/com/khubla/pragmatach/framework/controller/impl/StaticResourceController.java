@@ -12,17 +12,22 @@ public class StaticResourceController extends AbstractController {
     * path to static assets
     */
    private final String publicContextPath;
+   /**
+    * resourceUri
+    */
+   private final String resourceUri;
 
    /**
     * ctor
     */
    public StaticResourceController(String resourceUri, String publicContextPath) {
       this.publicContextPath = publicContextPath;
+      this.resourceUri = resourceUri;
    }
 
    public Response render() throws PragmatachException {
       try {
-         final String actualPath = getRequest().getURI().substring(publicContextPath.length());
+         final String actualPath = resourceUri.substring(publicContextPath.length());
          return new StaticResourceResponse(getResource(actualPath));
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
