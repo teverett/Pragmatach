@@ -81,6 +81,12 @@ In this example the method "myMethod(int)" will be called with the value "2" for
 public Response render(int myValue) throws PragmatachException
 </code></pre>
 
+Controller Scope
+------------------------
+
+By default, all Controllers are request scoped.  However, Controllers can be declared as Session Scoped:
+
+`@Controller(scope = Controller.Scope.session)`
 
 An example FreeMarker Controller
 ------------------------
