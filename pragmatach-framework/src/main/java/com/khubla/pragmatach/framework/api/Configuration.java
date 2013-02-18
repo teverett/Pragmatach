@@ -7,12 +7,12 @@ import java.util.Map;
  */
 public interface Configuration {
    /**
-    * get the path where public assets are found
-    */
-   String getPublicResourcePath();
-
-   /**
     * all
     */
    Map<String, String> getAll();
+
+   /**
+    * get the path where public assets are found
+    */
+   String getPublicResourcePath();
 }

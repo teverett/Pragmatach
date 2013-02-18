@@ -16,10 +16,10 @@ import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 @Controller(name = "pragmatachShowRoutesController")
 public class ShowConfigurationController extends SimpleTemplateController {
    private String getConfiguration() throws PragmatachException {
-      Map<String, String> config = PragmatachServlet.getConfiguration().getAll();
+      final Map<String, String> config = PragmatachServlet.getConfiguration().getAll();
       if (null != config) {
          String ret = "";
-         for (String key : config.keySet()) {
+         for (final String key : config.keySet()) {
             ret += key + " : " + config.get(key) + "\n";
          }
          return ret;

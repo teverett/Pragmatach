@@ -10,7 +10,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 /**
  * @author tome
  */
-@Controller(name = "IndexController")
+@Controller(name = "pragmatachAdminController")
 @View(view = "admin.ftl")
 public class AdminController extends FreemarkerController {
    /**
@@ -19,7 +19,7 @@ public class AdminController extends FreemarkerController {
    public AdminController() {
    }
 
-   @Route(uri = "/pragmatach")
+   @Route(uri = "/pragmatach/admin")
    public Response render() throws PragmatachException {
       return super.render();
    }
