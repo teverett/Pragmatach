@@ -39,7 +39,7 @@ public class GSONController extends AbstractController implements BeanBoundContr
     */
    public Response render() throws PragmatachException {
       try {
-         return new GSONResponse(this);
+         return new GSONResponse(getCacheHeaders(), this);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

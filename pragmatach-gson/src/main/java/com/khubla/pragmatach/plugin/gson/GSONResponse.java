@@ -2,6 +2,7 @@ package com.khubla.pragmatach.plugin.gson;
 
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
@@ -24,8 +25,14 @@ public class GSONResponse extends AbstractResponse {
    /**
     * ctor
     */
-   public GSONResponse(PragmatachController pragmatachController) {
+   public GSONResponse(Map<String, String> cacheHeaders, PragmatachController pragmatachController) {
+      super(cacheHeaders);
       this.pragmatachController = pragmatachController;
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return super.getCacheHeaders();
    }
 
    @Override

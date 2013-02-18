@@ -23,9 +23,15 @@ public class FreemarkerResponse extends AbstractResponse {
     */
    private final Map<String, Object> context;
 
-   public FreemarkerResponse(Template template, Map<String, Object> context) {
+   public FreemarkerResponse(Map<String, String> cacheHeaders, Template template, Map<String, Object> context) {
+      super(cacheHeaders);
       this.template = template;
       this.context = context;
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return super.getCacheHeaders();
    }
 
    @Override

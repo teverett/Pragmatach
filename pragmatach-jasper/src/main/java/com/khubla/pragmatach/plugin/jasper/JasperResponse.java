@@ -10,23 +10,13 @@ import com.khubla.pragmatach.framework.controller.AbstractResponse;
  * @author tome
  */
 public class JasperResponse extends AbstractResponse {
-   /**
-    * template
-    */
-   private final String template;
-   /**
-    * templatename
-    */
-   private final String templateName;
-   /**
-    * context
-    */
-   private final Map<String, Object> context;
+   public JasperResponse(Map<String, String> cacheHeaders, String templateName, String template, Map<String, Object> context) {
+      super(cacheHeaders);
+   }
 
-   public JasperResponse(String templateName, String template, Map<String, Object> context) {
-      this.template = template;
-      this.context = context;
-      this.templateName = templateName;
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return super.getCacheHeaders();
    }
 
    @Override

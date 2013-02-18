@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.controller.impl;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,8 +23,14 @@ public class StaticResourceResponse extends AbstractResponse {
    /**
     * ctor
     */
-   public StaticResourceResponse(InputStream resourceInputStream) {
+   public StaticResourceResponse(Map<String, String> cacheHeaders, InputStream resourceInputStream) {
+      super(cacheHeaders);
       this.resourceInputStream = resourceInputStream;
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return getCacheHeaders();
    }
 
    @Override

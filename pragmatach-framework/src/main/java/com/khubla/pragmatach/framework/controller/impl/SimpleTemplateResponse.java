@@ -56,7 +56,8 @@ public class SimpleTemplateResponse extends AbstractResponse {
    /**
     * ctor
     */
-   public SimpleTemplateResponse(String template, Map<String, String> parameters) {
+   public SimpleTemplateResponse(Map<String, String> cacheHeaders, String template, Map<String, String> parameters) {
+      super(cacheHeaders);
       this.parameters = parameters;
       if (null != template) {
          /*
@@ -66,6 +67,11 @@ public class SimpleTemplateResponse extends AbstractResponse {
       } else {
          resourceInputStream = null;
       }
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return getCacheHeaders();
    }
 
    @Override

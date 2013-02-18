@@ -28,7 +28,7 @@ public class XStreamController extends AbstractController implements BeanBoundCo
     */
    public Response render() throws PragmatachException {
       try {
-         return new XStreamResponse(this);
+         return new XStreamResponse(getCacheHeaders(), this);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

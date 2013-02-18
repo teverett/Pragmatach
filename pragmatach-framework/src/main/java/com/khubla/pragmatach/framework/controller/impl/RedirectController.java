@@ -39,6 +39,6 @@ public class RedirectController extends AbstractController {
    }
 
    public Response render() throws PragmatachException {
-      return new RedirectResponse(uri.toASCIIString());
+      return new RedirectResponse(getCacheHeaders(), uri.toASCIIString());
    }
 }

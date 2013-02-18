@@ -21,13 +21,16 @@ public class RedirectResponse extends AbstractResponse {
    /**
     * ctor
     */
-   public RedirectResponse(String uri) {
+   public RedirectResponse(Map<String, String> cacheHeaders, String uri) {
+      super(cacheHeaders);
       this.uri = uri;
    }
 
-   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
-      final Map<String, String> map = new HashMap<String, String>();
+      Map<String, String> map = getCacheHeaders();
+      if (null == map) {
+         map = new HashMap<String, String>();
+      }
       map.put("Location", uri);
       return map;
    }

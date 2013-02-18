@@ -2,6 +2,7 @@ package com.khubla.pragmatach.plugin.xstream;
 
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
@@ -23,8 +24,14 @@ public class XStreamResponse extends AbstractResponse {
    /**
     * ctor
     */
-   public XStreamResponse(PragmatachController pragmatachController) {
+   public XStreamResponse(Map<String, String> cacheHeaders, PragmatachController pragmatachController) {
+      super(cacheHeaders);
       this.pragmatachController = pragmatachController;
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return super.getCacheHeaders();
    }
 
    @Override

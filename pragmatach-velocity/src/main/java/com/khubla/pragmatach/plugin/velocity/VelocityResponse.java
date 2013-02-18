@@ -36,10 +36,16 @@ public class VelocityResponse extends AbstractResponse {
     */
    private final VelocityEngine velocityEngine = new VelocityEngine();
 
-   public VelocityResponse(String templateName, String template, Map<String, Object> context) {
+   public VelocityResponse(Map<String, String> cacheHeaders, String templateName, String template, Map<String, Object> context) {
+      super(cacheHeaders);
       this.template = template;
       this.context = context;
       this.templateName = templateName;
+   }
+
+   @Override
+   public Map<String, String> getHeaders() throws PragmatachException {
+      return super.getCacheHeaders();
    }
 
    @Override

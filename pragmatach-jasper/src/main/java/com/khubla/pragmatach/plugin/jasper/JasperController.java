@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.controller.AbstractTemplateEngineController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
-import com.khubla.pragmatach.framework.controller.impl.AbstractTemplateEngineController;
 import com.khubla.pragmatach.framework.form.Form;
 import com.khubla.pragmatach.framework.form.FormItem;
 
@@ -44,7 +44,7 @@ public class JasperController extends AbstractTemplateEngineController implement
    public Response render() throws PragmatachException {
       try {
          final String template = getTemplate();
-         return new JasperResponse(getTemplateName(), template, getTemplateContext());
+         return new JasperResponse(getCacheHeaders(), getTemplateName(), template, getTemplateContext());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
