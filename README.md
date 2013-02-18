@@ -86,7 +86,14 @@ Controller Scope
 
 By default, all Controllers are Request scoped.  However, Controllers can be declared as Session Scoped:
 
-`@Controller(scope = Controller.Scope.session)`
+`@Controller(name="myController", scope = Controller.Scope.session)`
+
+HTTP Session
+------------------------
+
+Templating engines bind the HttpSession to the name "session".  So, to access the session in FreeMarker:
+
+`${session}`
 
 An example FreeMarker Controller
 ------------------------
@@ -101,7 +108,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
-@Controller(name="index")
+@Controller(name="indexController")
 @View(view = "index.html")
 public class IndexController extends FreemarkerController {
    @Route(uri = "/")
@@ -121,9 +128,9 @@ An example FreeMarker Template
     <body>
     <h1>exampleproject</h1>
         <img src="/public/logo.png">
-        ${controller.message}
+        ${indexController.message}
         <h2>Current Time</h2>
-        ${controller.time}
+        ${indexController.time}
     </body>
 
 An example Gson Controller
