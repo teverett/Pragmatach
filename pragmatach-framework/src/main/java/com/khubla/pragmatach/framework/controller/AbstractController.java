@@ -39,7 +39,7 @@ public abstract class AbstractController implements PragmatachController {
             /*
              * s-max
              */
-            if (-1 != cacheControl.maxAge()) {
+            if (-1 != cacheControl.sMaxAge()) {
                if (false == first) {
                   cacheControlHeader += ",";
                }
