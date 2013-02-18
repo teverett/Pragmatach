@@ -105,3 +105,9 @@
 /pragmatach-json/.classpath
 /pragmatach-json/target/
 /pragmatach-json/test-output/
+/examples/jsonexample/target/
+/examples/jsonexample/gsonexample.log
+/examples/jsonexample/bin/
+/examples/jsonexample/.settings/
+/examples/jsonexample/.project
+/examples/jsonexample/.classpath

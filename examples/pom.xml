@@ -15,6 +15,7 @@
 		<module>rssviewer</module>
 		<module>velocityexample</module>
 		<module>gsonexample</module>
+		<module>jsonexample</module>
 		<module>cacheexample</module>
 		<module>xstreamexample</module>
 		<module>sessionscopeexample</module>
