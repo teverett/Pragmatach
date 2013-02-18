@@ -101,7 +101,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
-@Controller
+@Controller(name="index")
 @View(view = "index.html")
 public class IndexController extends FreemarkerController {
    @Route(uri = "/")
@@ -140,7 +140,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.gson.GSONController;
 
-@Controller
+@Controller(name="index")
 public class IndexController extends GSONController {
    /**
     * the message
@@ -188,7 +188,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.velocity.VelocityController;
 
-@Controller
+@Controller(name="index")
 @View(view="index.ftl")
 public class IndexController extends VelocityController {   
    @Route(uri = "/")
@@ -211,7 +211,7 @@ A typical HTML Form:
 When the form is posted to a controller route of type "HttpMethod.post" the Controller field "feedURL" will be automatically populated
 
 <pre><code>
-@Controller
+@Controller(name="index")
 @View(view = "acceptPost.html")
 public class AcceptPostController extends FreemarkerController {
    /**
