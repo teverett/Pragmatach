@@ -45,6 +45,25 @@ public class Router {
    }
 
    /**
+    * get the resource path, taking off the servlet context path
+    */
+   private String getResourcePath(Request request) throws PragmatachException {
+      try {
+         final String uri = request.getURI();
+         String ret = uri.substring(request.getHttpServletRequest().getContextPath().length());
+         if (ret.endsWith("/")) {
+            ret = ret.substring(0, ret.length() - 1);
+         }
+         if ((null == ret) || (ret.length() == 0)) {
+            ret = "/";
+         }
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in resourcePath", e);
+      }
+   }
+
+   /**
     * invoke a request on a route
     */
    private Response invoke(PragmatachRoute pragmatachRoute, Request request, String[] parsedParameters) throws PragmatachException {
@@ -167,25 +186,6 @@ public class Router {
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in processFormData", e);
-      }
-   }
-
-   /**
-    * get the resource path, taking off the servlet context path
-    */
-   private String getResourcePath(Request request) throws PragmatachException {
-      try {
-         String uri = request.getURI();
-         String ret = uri.substring(request.getHttpServletRequest().getContextPath().length());
-         if (ret.endsWith("/")) {
-            ret = ret.substring(0, ret.length() - 1);
-         }
-         if ((null == ret) || (ret.length() == 0)) {
-            ret = "/";
-         }
-         return ret;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in resourcePath", e);
       }
    }
 
