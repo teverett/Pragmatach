@@ -15,7 +15,7 @@
 			<#list controller.GETRoutes as route>
 			<tr>
 				<td>${route.route.uri()}</td>
-				<td>${route.method.getDeclaringClass().getName()} : ${route.method.getName()}</td>
+				<td>${route.method.getDeclaringClass().getName()} : ${route.method.getName()}(${controller.getRouteParameters(route)})</td>
 			</tr>
 			</#list>
 		</table>
@@ -28,7 +28,7 @@
 			<#list controller.POSTRoutes as route>
 			<tr>
 				<td>${route.route.uri()}</td>
-				<td>${route.method.getDeclaringClass().getName()} : ${route.method.getName()}</td>
+				<td>${route.method.getDeclaringClass().getName()} : ${route.method.getName()}(${controller.getRouteParameters(route)})</td>
 			</tr>
 			</#list>
 		</table>
