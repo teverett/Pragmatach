@@ -177,12 +177,11 @@ public class Router {
       try {
          String uri = request.getURI();
          String ret = uri.substring(request.getHttpServletRequest().getContextPath().length());
+         if (ret.endsWith("/")) {
+            ret = ret.substring(0, ret.length() - 1);
+         }
          if ((null == ret) || (ret.length() == 0)) {
             ret = "/";
-         } else {
-            if (ret.endsWith("/")) {
-               ret = ret.substring(0, ret.length() - 1);
-            }
          }
          return ret;
       } catch (final Exception e) {
@@ -204,7 +203,7 @@ public class Router {
           */
          if (null != publicContextPath) {
             if (isRequestOnStaticAssetPath(uri)) {
-               final StaticResourceController staticResourceController = new StaticResourceController(publicContextPath);
+               final StaticResourceController staticResourceController = new StaticResourceController(uri, publicContextPath);
                staticResourceController.setRequest(request);
                return staticResourceController.render();
             }

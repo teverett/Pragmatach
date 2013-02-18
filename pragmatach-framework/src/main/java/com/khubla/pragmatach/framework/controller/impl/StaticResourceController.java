@@ -16,13 +16,13 @@ public class StaticResourceController extends AbstractController {
    /**
     * ctor
     */
-   public StaticResourceController(String publicContextPath) {
+   public StaticResourceController(String resourceUri, String publicContextPath) {
       this.publicContextPath = publicContextPath;
    }
 
    public Response render() throws PragmatachException {
       try {
-         final String actualPath = getRequest().getURI().substring(getRequest().getHttpServletRequest().getContextPath().length() + publicContextPath.length());
+         final String actualPath = getRequest().getURI().substring(publicContextPath.length());
          return new StaticResourceResponse(getResource(actualPath));
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

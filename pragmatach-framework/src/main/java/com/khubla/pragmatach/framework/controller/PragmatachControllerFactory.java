@@ -26,8 +26,8 @@ public class PragmatachControllerFactory {
       }
    }
 
-   public static StaticResourceController getStaticResourceController(Request request, String publicContextPath) {
-      final StaticResourceController ret = new StaticResourceController(publicContextPath);
+   public static StaticResourceController getStaticResourceController(Request request, String uri, String publicContextPath) {
+      final StaticResourceController ret = new StaticResourceController(uri, publicContextPath);
       ret.setRequest(request);
       return ret;
    }

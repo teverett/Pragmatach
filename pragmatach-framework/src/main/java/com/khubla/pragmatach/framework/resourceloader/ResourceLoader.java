@@ -4,12 +4,18 @@ import java.io.InputStream;
 
 import javax.servlet.ServletContext;
 
+import org.testng.log4testng.Logger;
+
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
  */
 public class ResourceLoader {
+   /**
+    * logger
+    */
+   private final Logger logger = Logger.getLogger(this.getClass());
    /**
     * servlet context
     */
@@ -43,6 +49,12 @@ public class ResourceLoader {
              */
             if (null == ret) {
                ret = ResourceLoader.class.getResourceAsStream(resourcePath);
+            }
+            /*
+             * unable to find, log that
+             */
+            if (null == ret) {
+               logger.info("Unable to load resource '" + resource + "'");
             }
             /*
              * done
