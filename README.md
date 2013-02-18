@@ -21,9 +21,18 @@ Pragmatach does not include ORM support.  Hibernate, iBatis or Ebean can be used
 Creating a test project
 ------------------------
 
-To create the skeleton of a test project run:
+To create the skeleton of a test project use the pragmatach maven archetype
 
-`java -jar pragmatach-console --operation=new --name=myproject --namespace=com.myproject`
+<pre>
+<code>
+mvn archetype:generate                           \
+  -DarchetypeGroupId=com.khubla.pragmatach       \
+  -DarchetypeArtifactId=pragmatach-archetype     \
+  -DarchetypeVersion=1.0-SNAPSHOT                \
+  -DgroupId=com.khubla.exampleproject            \
+  -DartifactId=myexampleproject
+</code>
+</pre>
 
 This will generate:
 
@@ -33,8 +42,12 @@ This will generate:
 
 To run the generated project, type:
 
-`cd myproject`
-`mvn clean package jetty:run`
+<pre>
+<code>
+cd myexampleproject
+mvn clean package jetty:run
+</code>
+</pre>
 
 Then browse to:
 
