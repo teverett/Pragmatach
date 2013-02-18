@@ -84,7 +84,7 @@ public Response render(int myValue) throws PragmatachException
 Controller Scope
 ------------------------
 
-By default, all Controllers are request scoped.  However, Controllers can be declared as Session Scoped:
+By default, all Controllers are Request scoped.  However, Controllers can be declared as Session Scoped:
 
 `@Controller(scope = Controller.Scope.session)`
 
