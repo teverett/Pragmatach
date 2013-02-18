@@ -18,10 +18,10 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 @View(view = "routes.html")
 public class ShowRoutesController extends FreemarkerController {
    private List<PragmatachRoute> POSTRoutes;
-   private List<PragmatachRoute> GETROUTES;
+   private List<PragmatachRoute> GETRoutes;
 
-   public List<PragmatachRoute> getGETROUTES() {
-      return GETROUTES;
+   public List<PragmatachRoute> getGETRoutes() {
+      return GETRoutes;
    }
 
    public List<PragmatachRoute> getPOSTRoutes() {
@@ -31,12 +31,12 @@ public class ShowRoutesController extends FreemarkerController {
    @Route(uri = "/pragmatach/admin/routes")
    public Response render() throws PragmatachException {
       POSTRoutes = PragmatachRoutes.getInstance().getPOSTRoutes();
-      GETROUTES = PragmatachRoutes.getInstance().getGETRoutes();
+      GETRoutes = PragmatachRoutes.getInstance().getGETRoutes();
       return super.render();
    }
 
-   public void setGETROUTES(List<PragmatachRoute> gETROUTES) {
-      GETROUTES = gETROUTES;
+   public void setGETRoutes(List<PragmatachRoute> gETRoutes) {
+      GETRoutes = gETRoutes;
    }
 
    public void setPOSTRoutes(List<PragmatachRoute> pOSTRoutes) {

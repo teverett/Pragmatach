@@ -2,38 +2,26 @@
 <html lang="en">
 <#include "bootstrapheader.html">
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="brand" href="#">Pragmatach</a>
-				<div class="nav-collapse collapse"><#include "adminmenu.html"></div>
-				<!--/.nav-collapse -->
-			</div>
-		</div>
-	</div>
-
+	<#include "adminheader.html">
 	<div class="container">
-
-
 		<h1>Controllers</h1>
-		<h2>Request Scoped</h2>
-		<pre>
-
-</pre>
-		<h2>Session Scoped</h2>
-		<pre>
-
-</pre>
-
-
+		<table class="table">
+			<tr>
+				<th>name</th>
+				<th>scope</th>
+				<th>class</th>
+			</tr>
+			<#list controller.controllers as controllerClazz>
+			<tr>
+				<td>${controller.getControllerAnnotation(controllerClazz).name()}</td>
+				<td>${controller.getControllerAnnotation(controllerClazz).scope()}</td>
+				<td>${controllerClazz.getName()}</td>
+			</tr>
+			</#list>
+		</table>
 	</div>
 	<!-- /container -->
-
 	<#include "bootstrapfooter.html">
-
 </body>
 </html>
 

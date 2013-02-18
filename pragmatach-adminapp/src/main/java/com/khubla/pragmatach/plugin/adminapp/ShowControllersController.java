@@ -18,6 +18,10 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 public class ShowControllersController extends FreemarkerController {
    private Set<Class<?>> controllers;
 
+   public Controller getControllerAnnotation(Class<?> clazz) {
+      return clazz.getAnnotation(Controller.class);
+   }
+
    public Set<Class<?>> getControllers() {
       return controllers;
    }
