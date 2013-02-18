@@ -88,6 +88,13 @@ By default, all Controllers are Request scoped.  However, Controllers can be dec
 
 `@Controller(name="myController", scope = Controller.Scope.session)`
 
+HTTP Session
+------------------------
+
+Templating engines bind the HttpSession to the name "session".  So, to access the session in FreeMarker:
+
+`${session}`
+
 An example FreeMarker Controller
 ------------------------
 
