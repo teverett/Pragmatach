@@ -15,6 +15,7 @@
 		<module>pragmatach-archetype</module>	
 		<module>pragmatach-framework</module>
 		<module>pragmatach-freemarker</module>
+		<module>pragmatach-jasper</module>
 		<module>pragmatach-velocity</module>
 		<module>pragmatach-gson</module>	
 		<module>pragmatach-xstream</module>		
