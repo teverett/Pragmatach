@@ -176,7 +176,11 @@ public class Router {
    private String getResourcePath(Request request) throws PragmatachException {
       try {
          String uri = request.getURI();
-         return uri.substring(request.getHttpServletRequest().getContextPath().length());
+         String ret = uri.substring(request.getHttpServletRequest().getContextPath().length());
+         if ((null == ret) || (ret.length() == 0)) {
+            ret = "/";
+         }
+         return ret;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in resourcePath", e);
       }
