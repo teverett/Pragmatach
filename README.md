@@ -95,8 +95,8 @@ Template Variables
 
 The following variables are available in the templating engines (Velocity and Freemarker)
 
-* "session" - The HttpSession
-* "controller" The current Controller
+* `session` - The HttpSession.
+* `controller` - The current Controller
 * The name of the current controller as specified in the @Controller annotation
 * The names of all Session-scoped controllers as specified in their @Controller annotation
 
