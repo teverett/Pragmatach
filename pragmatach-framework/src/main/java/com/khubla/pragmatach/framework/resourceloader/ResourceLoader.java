@@ -1,12 +1,15 @@
 package com.khubla.pragmatach.framework.resourceloader;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
 import org.testng.log4testng.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.plugin.Plugin;
+import com.khubla.pragmatach.framework.plugin.Plugins;
 
 /**
  * @author tome
@@ -49,6 +52,26 @@ public class ResourceLoader {
              */
             if (null == ret) {
                ret = ResourceLoader.class.getResourceAsStream(resourcePath);
+            }
+            /*
+             * ok, can't find, try the plugins
+             */
+            if (null == ret) {
+               /*
+                * get the plugins
+                */
+               final Map<String, Plugin> plugins = Plugins.getPlugins();
+               if (null != plugins) {
+                  for (final Plugin plugin : plugins.values()) {
+                     ret = plugin.getResource(resource);
+                     if (null != ret) {
+                        /*
+                         * found it!
+                         */
+                        break;
+                     }
+                  }
+               }
             }
             /*
              * unable to find, log that
