@@ -1,7 +1,7 @@
 Pragmatach - A pragmatic MVC framework for Web Developers
 ==========
 
-Pragmatach is a simple web framework aimed at providing rapid development of web applications using technologies which are familiar to developers developing real-world sites.  Pragmatach was developed to enable rapid development of sites by Javascript and CSS3 developers who need a supporting MVC framework, but don't wish to have to learn a new programming language such as Groovy or Scala, and who wish to have powerful features such built-in JSON support, and annotation driven request routing.
+Pragmatach is a simple web framework aimed at providing rapid development of web applications using technologies which are familiar to developers developing real-world sites.  Pragmatach was developed to enable rapid development of sites by Javascript and CSS3 developers who need a supporting MVC framework, but don't wish to have to learn a new programming language such as Groovy or Scala, and who wish to have powerful features such built-in JSON support, Cache Control, and annotation driven request routing.
 
 Technologies in use in Pragmatach include:
 
@@ -17,7 +17,6 @@ Technologies in use in Pragmatach include:
 * Grails-like routing via annotations
 * FreeMarker and Velocity as the templating langauges, rather than GSP, JSP or Scala pages
 * Pluggable template processors; Freemarker and Velocity currently, JSP later
-* Simple configuration of controllers via annotations, rather than XML
 
 Pragmatach does not include ORM support.  Hibernate, iBatis or Ebean can be used if required.
 
