@@ -69,6 +69,10 @@ Pragmatach has a built in web administration console, just browse to the context
 
 in your application.
 
+On localhost, the link is:
+
+`http://localhost:8080/public/system/pragmatach.html`
+
 Request Routing
 ------------------------
 
