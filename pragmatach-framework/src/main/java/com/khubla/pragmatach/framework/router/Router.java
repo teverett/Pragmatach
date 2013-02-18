@@ -86,8 +86,8 @@ public class Router {
    /**
     * check if request is on the static asset path
     */
-   private boolean isRequestOnStaticAssetPath(Request request) {
-      return (true == request.getURI().startsWith(publicContextPath));
+   private boolean isRequestOnStaticAssetPath(String uri) {
+      return (true == uri.startsWith(publicContextPath));
    }
 
    /**
@@ -171,6 +171,18 @@ public class Router {
    }
 
    /**
+    * get the resource path, taking off the servlet context path
+    */
+   private String getResourcePath(Request request) throws PragmatachException {
+      try {
+         String uri = request.getURI();
+         return uri.substring(request.getHttpServletRequest().getContextPath().length());
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in resourcePath", e);
+      }
+   }
+
+   /**
     * get Method that matches request
     */
    private Response route(List<PragmatachRoute> PragmatachRoutes, Request request) throws PragmatachException {
@@ -178,12 +190,12 @@ public class Router {
          /*
           * get the uri
           */
-         final String uri = request.getURI();
+         final String uri = getResourcePath(request);
          /*
           * check if it's a static asset
           */
          if (null != publicContextPath) {
-            if (isRequestOnStaticAssetPath(request)) {
+            if (isRequestOnStaticAssetPath(uri)) {
                final StaticResourceController staticResourceController = new StaticResourceController(publicContextPath);
                staticResourceController.setRequest(request);
                return staticResourceController.render();
