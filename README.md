@@ -8,6 +8,7 @@ Technologies in use in Pragmatach include:
 * Minimum client-side requirement; browser programmers should be free of restrictions
 * Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
 * Automatic JSON generation via Gson
+* Cache control headers specified via Annotations and generated automatically
 * Automatic population of controller fields from Form, JSON or XML POST
 * Support for Session and Request scoped controllers, via Annotations
 * Automatic generation of project skeletons
@@ -112,6 +113,17 @@ To access the Session-scoped controller declared with `@Controller(name="userCon
 
 `${userController}`
 
+Cache Control
+------------------------
+
+Cache control headers are specfied via the @CacheControl annotation on controllers.  For example:
+
+<pre><code>
+@Controller(name = "IndexController")
+@View(view = "index.ftl")
+@CacheControl(maxAge = 10)
+public class IndexController extends FreemarkerController
+</code></pre>
 
 An example FreeMarker Controller
 ------------------------
