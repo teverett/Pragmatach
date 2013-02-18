@@ -84,3 +84,7 @@
 /examples/xstreamexample/.classpath
 /examples/xstreamexample/bin/
 /examples/xstreamexample/.settings/
+/pragmatach-archetype/target/
+/pragmatach-archetype/.project
+/pragmatach-archetype/.classpath
+/pragmatach-archetype/.settings/

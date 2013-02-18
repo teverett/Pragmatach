@@ -1,4 +1,4 @@
-package ${namespace};
+package ${packageName};
 
 import java.util.Date;
 

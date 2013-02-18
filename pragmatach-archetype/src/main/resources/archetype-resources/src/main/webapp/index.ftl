@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <head>
-		<title>${name}</title>
+		<title>Pragmatach</title>
 </head>
 <body>
-<h1>${name}</h1>
+<h1>Pragmatach</h1>
 <img src="public/logo.png">
-${r"${controller.message}"}
+${controller.message}
 
 <h2>Current Time</h2>
-${r"${controller.time}"}
+${controller.time}
 
 <a href="public/system/pragmatach.html">Admin</a>
 </body>
