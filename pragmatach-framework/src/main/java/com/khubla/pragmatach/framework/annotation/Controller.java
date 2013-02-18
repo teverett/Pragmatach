@@ -17,5 +17,5 @@ public @interface Controller {
       session, request
    };
 
-   Scope getScope() default Scope.request;
+   Scope scope() default Scope.request;
 }

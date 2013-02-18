@@ -3,6 +3,7 @@ package com.khubla.pragmatach.framework.controller.impl.system;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
@@ -10,6 +11,7 @@ import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
 /**
  * @author tome
  */
+@Controller
 public class HttpErrorController extends SimpleTemplateController {
    /**
     * Exception

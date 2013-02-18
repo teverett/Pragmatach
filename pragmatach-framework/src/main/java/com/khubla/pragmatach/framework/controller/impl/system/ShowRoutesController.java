@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -15,6 +16,7 @@ import com.khubla.pragmatach.framework.router.PragmatachRoutes;
 /**
  * @author tome
  */
+@Controller
 public class ShowRoutesController extends SimpleTemplateController {
    private String getGETRoutes() throws PragmatachException {
       String ret = "";

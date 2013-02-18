@@ -50,7 +50,7 @@ public class Router {
          final Class<?> clazz = pragmatachRoute.getMethod().getDeclaringClass();
          final Controller controller = clazz.getAnnotation(Controller.class);
          if (null != controller) {
-            if (controller.getScope() == Controller.Scope.request) {
+            if (controller.scope() == Controller.Scope.request) {
                /*
                 * request scope
                 */
@@ -59,7 +59,12 @@ public class Router {
                /*
                 * session scope
                 */
-               return null;
+               PragmatachController pragmatachController = SessionScopedControllers.getController(request.getSession(), clazz);
+               if (null == pragmatachController) {
+                  pragmatachController = pragmatachRoute.getControllerClazzInstance(request);
+                  SessionScopedControllers.setController(request.getSession(), pragmatachController);
+               }
+               return pragmatachController;
             }
          } else {
             throw new PragmatachException("Class '" + clazz + "' does not have an @Controller annotation");

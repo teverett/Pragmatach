@@ -17,5 +17,6 @@
 		<module>gsonexample</module>
 		<module>cacheexample</module>
 		<module>xstreamexample</module>
+		<module>sessionscopeexample</module>
 	</modules>
 </project>	
