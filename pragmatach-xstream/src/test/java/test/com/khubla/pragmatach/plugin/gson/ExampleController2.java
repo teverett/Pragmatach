@@ -6,7 +6,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.xstream.XStreamController;
 
-@Controller
+@Controller(name = "IndexController")
 public class ExampleController2 extends XStreamController {
    /**
     * ctor

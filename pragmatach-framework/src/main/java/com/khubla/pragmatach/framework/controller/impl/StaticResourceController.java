@@ -8,7 +8,7 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
 /**
  * @author tome
  */
-@Controller
+@Controller(name = "pragmatacStaticResourceController")
 public class StaticResourceController extends AbstractController {
    /**
     * path to static assets

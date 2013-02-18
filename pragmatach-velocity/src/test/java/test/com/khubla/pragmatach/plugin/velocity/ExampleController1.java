@@ -7,7 +7,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.velocity.VelocityController;
 
-@Controller
+@Controller(name = "IndexController")
 @View(view = "index.ftl")
 public class ExampleController1 extends VelocityController {
    /**

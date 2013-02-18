@@ -8,7 +8,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.gson.GSONController;
 
-@Controller
+@Controller(name = "IndexController")
 public class IndexController extends GSONController {
    /**
     * the message

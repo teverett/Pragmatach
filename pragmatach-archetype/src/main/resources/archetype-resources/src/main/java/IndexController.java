@@ -9,7 +9,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
-@Controller
+@Controller(name="IndexController")
 @View(view="index.ftl")
 public class IndexController extends FreemarkerController {
    

@@ -5,7 +5,7 @@ import com.khubla.pragmatach.framework.annotation.Controller;
 /**
  * @author tome
  */
-@Controller
+@Controller(name = "pragmatachNotFoundController")
 public class NotFoundController extends TrivialController {
    public NotFoundController() {
       super(404);

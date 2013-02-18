@@ -11,7 +11,7 @@ import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
 /**
  * @author tome
  */
-@Controller
+@Controller(name = "PragmatachHttpErrorController")
 public class HttpErrorController extends SimpleTemplateController {
    /**
     * Exception

@@ -14,6 +14,9 @@
 	<listener>
 		<listener-class>com.khubla.pragmatach.framework.listener.AnnotationScannerListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.khubla.pragmatach.framework.listener.SessionListener</listener-class>
+	</listener>
 	<servlet>
 		<servlet-name>PragmatachServlet</servlet-name>
 		<servlet-class>com.khubla.pragmatach.framework.servlet.PragmatachServlet</servlet-class>

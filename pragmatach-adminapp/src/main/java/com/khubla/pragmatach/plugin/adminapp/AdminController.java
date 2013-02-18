@@ -10,7 +10,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 /**
  * @author tome
  */
-@Controller
+@Controller(name = "IndexController")
 @View(view = "admin.ftl")
 public class AdminController extends FreemarkerController {
    /**

@@ -7,7 +7,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
-@Controller
+@Controller(name = "IndexController")
 @View(view = "index.html")
 public class IndexController extends FreemarkerController {
    @Route(uri = "/")

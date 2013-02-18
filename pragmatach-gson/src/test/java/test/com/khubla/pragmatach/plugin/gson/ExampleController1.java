@@ -6,7 +6,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.gson.GSONController;
 
-@Controller
+@Controller(name = "IndexController")
 public class ExampleController1 extends GSONController {
    /**
     * ctor

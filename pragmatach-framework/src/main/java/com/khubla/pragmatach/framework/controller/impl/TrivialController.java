@@ -8,7 +8,7 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
 /**
  * @author tome
  */
-@Controller
+@Controller(name = "pragmatachTrivialController")
 public class TrivialController extends AbstractController {
    /**
     * message

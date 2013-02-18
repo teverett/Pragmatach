@@ -16,7 +16,7 @@ import com.khubla.pragmatach.framework.router.PragmatachRoutes;
 /**
  * @author tome
  */
-@Controller
+@Controller(name = "PragmatachShowRoutesController")
 public class ShowRoutesController extends SimpleTemplateController {
    private String getGETRoutes() throws PragmatachException {
       String ret = "";

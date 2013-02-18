@@ -15,6 +15,7 @@ import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
 import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
 import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
 

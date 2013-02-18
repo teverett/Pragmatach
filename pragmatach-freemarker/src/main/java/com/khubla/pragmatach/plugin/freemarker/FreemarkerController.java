@@ -2,14 +2,19 @@ package com.khubla.pragmatach.plugin.freemarker;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
+import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
+import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
 import com.khubla.pragmatach.framework.form.Form;
 import com.khubla.pragmatach.framework.form.FormItem;
 
@@ -93,6 +98,25 @@ public class FreemarkerController extends AbstractController implements BeanBoun
          final Map<String, Object> context = new HashMap<String, Object>();
          context.put(SESSION, getRequest().getSession());
          context.put(CONTROLLER, this);
+         /*
+          * add the current controller by name
+          */
+         context.put(this.getClass().getAnnotation(Controller.class).name(), this);
+         /*
+          * add all session scoped controllers
+          */
+         Hashtable<Class<?>, PragmatachController> sessionControllerInstances = SessionScopedControllers.getMap(this.getRequest().getSession());
+         if (null != sessionControllerInstances) {
+            Enumeration<Class<?>> enumer = sessionControllerInstances.keys();
+            while (enumer.hasMoreElements()) {
+               Class<?> key = enumer.nextElement();
+               Controller controller = key.getAnnotation(Controller.class);
+               if (controller.scope() == Controller.Scope.session) {
+                  PragmatachController pragmatachController = sessionControllerInstances.get(key);
+                  context.put(controller.name(), pragmatachController);
+               }
+            }
+         }
          return new FreemarkerResponse(template, context);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

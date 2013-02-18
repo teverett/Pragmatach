@@ -14,7 +14,7 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
-@Controller
+@Controller(name = "ShowFeed")
 @View(view = "showfeed.html")
 public class ShowFeedController extends FreemarkerController {
    /**

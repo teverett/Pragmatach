@@ -41,8 +41,8 @@ body {
 	</div>
 
 	<div class="container">
-		<h1>${controller.feedURL}</h1>
-		<#list controller.syndFeed.getEntries() as entry>
+		<h1>${ShowFeed.feedURL}</h1>
+		<#list ShowFeed.syndFeed.getEntries() as entry>
 			<p><a href="${entry.link}">${entry.title}</a></p>
 		</#list>
 	</div>

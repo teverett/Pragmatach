@@ -6,7 +6,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.impl.TrivialController;
 
-@Controller
+@Controller(name = "IndexController")
 public class ExampleController1 extends TrivialController {
    public ExampleController1() {
       super("ExampleController1", 200);
