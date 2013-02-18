@@ -86,7 +86,7 @@ Controller Scope
 
 By default, all Controllers are Request scoped.  However, Controllers can be declared as Session Scoped:
 
-`@Controller(scope = Controller.Scope.session)`
+`@Controller(name="myController", "scope = Controller.Scope.session)`
 
 An example FreeMarker Controller
 ------------------------
