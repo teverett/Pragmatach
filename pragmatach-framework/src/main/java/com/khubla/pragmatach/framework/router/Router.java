@@ -179,6 +179,10 @@ public class Router {
          String ret = uri.substring(request.getHttpServletRequest().getContextPath().length());
          if ((null == ret) || (ret.length() == 0)) {
             ret = "/";
+         } else {
+            if (ret.endsWith("/")) {
+               ret = ret.substring(0, ret.length() - 1);
+            }
          }
          return ret;
       } catch (final Exception e) {
