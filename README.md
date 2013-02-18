@@ -42,8 +42,12 @@ This will generate:
 
 To run the generated project, type:
 
-`cd myexampleproject`
-`mvn clean package jetty:run`
+<pre>
+<code>
+cd myexampleproject
+mvn clean package jetty:run
+</code>
+</pre>
 
 Then browse to:
 
