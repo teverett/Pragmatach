@@ -45,7 +45,7 @@ Administration Console
 
 Pragmatach has a built in web administration console, just browse to the context path
 
-`/pragmatach/`
+`/public/system/pragmatach.html`
 
 in your application.
 
