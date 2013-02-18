@@ -17,6 +17,7 @@
 		<module>pragmatach-freemarker</module>
 		<module>pragmatach-jasper</module>
 		<module>pragmatach-velocity</module>
+		<module>pragmatach-json</module>	
 		<module>pragmatach-gson</module>	
 		<module>pragmatach-xstream</module>		
 		<module>pragmatach-adminapp</module>	

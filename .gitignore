@@ -100,3 +100,7 @@
 /pragmatach-jasper/target/
 /examples/velocityexample/velocityexample.log
 /examples/velocityexample/velocity.log
+/pragmatach-json/.settings/
+/pragmatach-json/.project
+/pragmatach-json/.classpath
+/pragmatach-json/target/
