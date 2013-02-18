@@ -65,13 +65,15 @@ Administration Console
 
 Pragmatach has a built in web administration console, just browse to the context path
 
-`/public/system/pragmatach.html`
+`/pragmatach/admin`
 
 in your application.
 
 On localhost, the link is:
 
-`http://localhost:8080/public/system/pragmatach.html`
+`http://localhost:8080/pragmatach/admin`
+
+In order for your project to use the Admin plugin, it must include the "pragmatach-adminapp" dependency.
 
 Configuration
 ------------------------
