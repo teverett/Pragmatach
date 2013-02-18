@@ -11,7 +11,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
  * @author tome
  */
 @Controller(name = "pragmatachAdminController")
-@View(view = "admin.ftl")
+@View(view = "admin.html")
 public class AdminController extends FreemarkerController {
    /**
     * ctor
