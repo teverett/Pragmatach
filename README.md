@@ -108,6 +108,10 @@ or to access the current Controller in Velocity
 
 `$controller`
 
+To access the Session-scoped controller declared with `@Controller(name="userController", scope = Controller.Scope.session)` in FreeMarker:
+
+`${userController}`
+
 
 An example FreeMarker Controller
 ------------------------
