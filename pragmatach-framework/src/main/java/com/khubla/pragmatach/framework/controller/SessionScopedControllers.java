@@ -48,7 +48,7 @@ public class SessionScopedControllers {
             for (final Class<?> clazz : controllers) {
                final Controller controller = clazz.getAnnotation(Controller.class);
                if (controller.scope() == Controller.Scope.session) {
-                  final PragmatachController pragmatachController = (PragmatachController) clazz.newInstance();
+                  final PragmatachController pragmatachController = Controllers.getInstance(clazz);
                   SessionScopedControllers.setController(httpSession, pragmatachController);
                }
             }

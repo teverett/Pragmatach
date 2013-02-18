@@ -3,6 +3,7 @@ package com.khubla.pragmatach.framework.controller;
 import java.util.Set;
 
 import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
+import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
@@ -21,6 +22,17 @@ public class Controllers {
          instance = new Controllers();
       }
       return instance;
+   }
+
+   /**
+    * get a PragmatachController instance
+    */
+   public static PragmatachController getInstance(Class<?> clazz) throws PragmatachException {
+      try {
+         return (PragmatachController) clazz.newInstance();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getInstance", e);
+      }
    }
 
    private final Set<Class<?>> controllers;

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
+import com.khubla.pragmatach.framework.controller.Controllers;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 
 /**
@@ -50,9 +51,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    public PragmatachController getControllerClazzInstance(Request request) throws PragmatachException {
       try {
          final Class<?> clazz = method.getDeclaringClass();
-         final PragmatachController pragmatachController = (PragmatachController) clazz.newInstance();
-         pragmatachController.setRequest(request);
-         return pragmatachController;
+         return Controllers.getInstance(clazz);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
       }

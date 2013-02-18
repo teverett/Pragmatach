@@ -104,6 +104,10 @@ public class Router {
           */
          final PragmatachController pragmatachController = getPragmatachControllerInstance(pragmatachRoute, request);
          /*
+          * set the request
+          */
+         pragmatachController.setRequest(request);
+         /*
           * process form data?
           */
          if (request.getMethod() == Route.HttpMethod.post) {
