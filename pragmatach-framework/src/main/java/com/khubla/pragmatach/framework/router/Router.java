@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.testng.log4testng.Logger;
 
+import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
@@ -44,6 +45,30 @@ public class Router {
       this.publicContextPath = publicContextPath;
    }
 
+   private PragmatachController getPragmatachControllerInstance(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
+      try {
+         final Class<?> clazz = pragmatachRoute.getMethod().getDeclaringClass();
+         final Controller controller = clazz.getAnnotation(Controller.class);
+         if (null != controller) {
+            if (controller.getScope() == Controller.Scope.request) {
+               /*
+                * request scope
+                */
+               return pragmatachRoute.getControllerClazzInstance(request);
+            } else {
+               /*
+                * session scope
+                */
+               return null;
+            }
+         } else {
+            throw new PragmatachException("Class '" + clazz + "' does not have an @Controller annotation");
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getPragmatachControllerInstance", e);
+      }
+   }
+
    /**
     * get the resource path, taking off the servlet context path
     */
@@ -71,10 +96,7 @@ public class Router {
          /*
           * get the controller
           */
-         final PragmatachController pragmatachController = pragmatachRoute.getControllerClazzInstance(request);
-         /*
-          * form data
-          */
+         final PragmatachController pragmatachController = getPragmatachControllerInstance(pragmatachRoute, request);
          /*
           * process form data?
           */

@@ -13,4 +13,9 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Controller {
+   public enum Scope {
+      session, request
+   };
+
+   Scope getScope() default Scope.request;
 }
