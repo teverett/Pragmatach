@@ -8,6 +8,8 @@ Technologies in use in Pragmatach include:
 * Minimum client-side requirement; browser programmers should be free of restrictions
 * Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
 * Automatic JSON generation via Gson
+* Automatic population of controller fields from Form, JSON or XML POST
+* Support for Session and Request scoped controllers, via Annotations
 * Automatic generation of project skeletons
 * Projects built via maven, with Jetty and Tomcat profiles included
 * Java as the core programming languge, rather than Groovy or Scala
