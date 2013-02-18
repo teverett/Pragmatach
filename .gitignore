@@ -98,3 +98,5 @@
 /pragmatach-jasper/.project
 /pragmatach-jasper/.classpath
 /pragmatach-jasper/target/
+/examples/velocityexample/velocityexample.log
+/examples/velocityexample/velocity.log
