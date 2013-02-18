@@ -4,10 +4,8 @@
 		<source>src/main/java/IndexController.java</source>
 	</sources>
 	<resources>
-		<resource>src/main/webapp/logo.png</resource>
 		<resource>src/main/webapp/index.ftl</resource>
 		<resource>src/main/webapp/WEB-INF/web.xml</resource>
 		<resource>src/main/resources/log4j.xml</resource>
-
 	</resources>
 </archetype>

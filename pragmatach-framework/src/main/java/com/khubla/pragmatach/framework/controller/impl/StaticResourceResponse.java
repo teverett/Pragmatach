@@ -42,7 +42,6 @@ public class StaticResourceResponse extends AbstractResponse {
             IOUtils.copy(resourceInputStream, outputStream);
          }
          outputStream.flush();
-         outputStream.close();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
