@@ -21,6 +21,11 @@ Technologies in use in Pragmatach include:
 
 Pragmatach does not include ORM support.  Hibernate, iBatis or Ebean can be used if required.
 
+License
+------------------------
+
+Pragmatach is licensed under the GPL.
+
 Creating a test project
 ------------------------
 
