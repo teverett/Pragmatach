@@ -147,6 +147,11 @@ Cache control headers are specfied via the @CacheControl annotation on controlle
 public class IndexController extends FreemarkerController
 </code></pre>
 
+Pragmatach Modules
+------------------------
+
+Pragmatach features such as Velocity support, the Admin console and Gson are added to the project by including maven modules. Modules can include both Controllers and resources.
+
 An example FreeMarker Controller
 ------------------------
 
