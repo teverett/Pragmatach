@@ -8,7 +8,7 @@
 <h2>Current Time</h2>
 ${controller.time}
 
-<a href="/pragmatach/admin">Admin</a>
+<a href="pragmatach/admin">Admin</a>
 </body>
 
 
