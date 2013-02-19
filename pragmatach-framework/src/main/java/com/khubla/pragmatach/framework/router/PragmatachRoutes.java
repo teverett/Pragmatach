@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.testng.log4testng.Logger;
+import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
 import com.khubla.pragmatach.framework.annotation.Route;

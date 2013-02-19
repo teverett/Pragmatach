@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.testng.log4testng.Logger;
+import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.plugin.Plugin;

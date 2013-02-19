@@ -3,7 +3,7 @@ package com.khubla.pragmatach.framework.listener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.testng.log4testng.Logger;
+import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
 

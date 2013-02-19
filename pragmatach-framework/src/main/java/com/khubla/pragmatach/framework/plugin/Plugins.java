@@ -7,11 +7,11 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.scannotation.ClasspathUrlFinder;
 import org.scannotation.WarUrlFinder;
 import org.scannotation.archiveiterator.IteratorFactory;
 import org.scannotation.archiveiterator.StreamIterator;
-import org.testng.log4testng.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
