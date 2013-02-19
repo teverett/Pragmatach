@@ -26,13 +26,13 @@ public class ShowPluginsController extends FreemarkerController {
       return plugins;
    }
 
-   public void setPlugins(Map<String, Plugin> plugins) {
-      this.plugins = plugins;
-   }
-
    @Route(uri = "/pragmatach/admin/plugins")
    public Response render() throws PragmatachException {
       plugins = Plugins.getPlugins();
       return super.render();
+   }
+
+   public void setPlugins(Map<String, Plugin> plugins) {
+      this.plugins = plugins;
    }
 }

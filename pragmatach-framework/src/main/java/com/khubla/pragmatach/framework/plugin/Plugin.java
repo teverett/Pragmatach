@@ -33,6 +33,21 @@ public class Plugin {
       properties.load(inputStream);
    }
 
+   /**
+    * get the plugin jar manifest
+    */
+   public Manifest getManifest() throws PragmatachException {
+      try {
+         final JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
+         if (null != jarURLConnection) {
+            return jarURLConnection.getManifest();
+         }
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getManifest", e);
+      }
+   }
+
    public String getName() {
       return properties.getProperty(NAME);
    }
@@ -55,20 +70,5 @@ public class Plugin {
 
    public URL getUrl() {
       return url;
-   }
-
-   /**
-    * get the plugin jar manifest
-    */
-   public Manifest getManifest() throws PragmatachException {
-      try {
-         JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
-         if (null != jarURLConnection) {
-            return jarURLConnection.getManifest();
-         }
-         return null;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getManifest", e);
-      }
    }
 }
