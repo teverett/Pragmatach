@@ -8,7 +8,7 @@
 <h2>Request Count</h2>
 <p>Request count: ${controller.requestCount}</p>
 
-<a href="pragmatach/admin">Admin</a>
+<a href="${session.getServletContext().getContextPath()}/pragmatach/admin">Admin</a>
 </body>
 
 
