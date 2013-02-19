@@ -93,6 +93,17 @@ public class Request {
    }
 
    /**
+    * pragma
+    */
+   public String[] getPragma() {
+      final String pragmas = httpServletRequest.getHeader("Pragma");
+      if (null != pragmas) {
+         return pragmas.split(",");
+      }
+      return null;
+   }
+
+   /**
     * referer
     */
    public String getReferer() {
