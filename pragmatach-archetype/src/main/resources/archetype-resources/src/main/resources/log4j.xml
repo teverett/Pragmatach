@@ -12,11 +12,11 @@
 			<param name="ConversionPattern" value="%p - %C{1}.%M(%L) | %m%n" />
 		</layout>
 	</appender>
-	<logger name="com.khubla.com.pragmatach.examples.rssviewer">
-		<level value="ALL" />
-	</logger>
 	<logger name="com.khubla.pragmatach">
 		<level value="ALL" />
+	</logger>
+	<logger name="freemarker">
+		<level value="FATAL" />
 	</logger>
 	<logger name=" org.apache.commons">
 		<level value="FATAL" />
