@@ -2,9 +2,11 @@ package com.khubla.pragmatach.framework.plugin;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Properties;
+import java.util.jar.Manifest;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -53,5 +55,20 @@ public class Plugin {
 
    public URL getUrl() {
       return url;
+   }
+
+   /**
+    * get the plugin jar manifest
+    */
+   public Manifest getManifest() throws PragmatachException {
+      try {
+         JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
+         if (null != jarURLConnection) {
+            return jarURLConnection.getManifest();
+         }
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getManifest", e);
+      }
    }
 }
