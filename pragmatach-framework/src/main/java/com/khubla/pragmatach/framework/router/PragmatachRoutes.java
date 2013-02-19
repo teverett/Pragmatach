@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -18,10 +16,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class PragmatachRoutes {
-   /**
-    * logger
-    */
-   private final Logger logger = Logger.getLogger(this.getClass());
    /**
     * singleton
     */
@@ -75,7 +69,6 @@ public class PragmatachRoutes {
           */
          final Set<Method> routerMethods = AnnotationsScanner.getRouterMethods();
          for (final Method method : routerMethods) {
-            logger.info("Found router method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "'");
             final Route route = method.getAnnotation(Route.class);
             final Route.HttpMethod httpMethod = route.method();
             if (httpMethod == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {

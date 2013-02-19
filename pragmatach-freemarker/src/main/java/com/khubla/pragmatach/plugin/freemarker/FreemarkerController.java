@@ -30,13 +30,14 @@ public class FreemarkerController extends AbstractTemplateEngineController imple
     */
    private Template getFreemarkerTemplate() throws PragmatachException {
       try {
-         final Configuration cfg = new Configuration();
+         final Configuration configuration = new Configuration();
+         configuration.setLocalizedLookup(false);
          final PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(getRequest().getServletContext());
-         cfg.setTemplateLoader(pragmatachTemplateLoader);
+         configuration.setTemplateLoader(pragmatachTemplateLoader);
          final String templateName = getTemplateName();
          final InputStream templateInputStream = getResource(templateName);
          if (null != templateInputStream) {
-            return new Template(templateName, new InputStreamReader(templateInputStream), cfg);
+            return new Template(templateName, new InputStreamReader(templateInputStream), configuration);
          } else {
             throw new Exception("Unable to load template '" + templateName + "'");
          }

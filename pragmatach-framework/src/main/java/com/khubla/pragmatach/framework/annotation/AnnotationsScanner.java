@@ -44,6 +44,7 @@ public class AnnotationsScanner {
                 */
                final Class<?> clazz = Class.forName(name);
                controllers.add(clazz);
+               logger.info("Found controller '" + clazz.getName() + "'");
             }
          }
          /*
@@ -58,6 +59,7 @@ public class AnnotationsScanner {
                   for (final Method method : methods) {
                      if (method.isAnnotationPresent(Route.class)) {
                         routerMethods.add(method);
+                        logger.info("Found router method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "'");
                      }
                   }
                }
