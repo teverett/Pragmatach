@@ -25,6 +25,11 @@ public class JSONResponse extends AbstractResponse {
    }
 
    @Override
+   public String getContentType() throws PragmatachException {
+      return "application/json";
+   }
+
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       return super.getCacheHeaders();
    }

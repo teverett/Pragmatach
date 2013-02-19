@@ -39,6 +39,12 @@ public class TrivialResponse extends AbstractResponse {
    }
 
    @Override
+   public String getContentType() throws PragmatachException {
+      // dunno
+      return null;
+   }
+
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       return getCacheHeaders();
    }

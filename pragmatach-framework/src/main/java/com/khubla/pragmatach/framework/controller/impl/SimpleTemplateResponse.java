@@ -70,6 +70,11 @@ public class SimpleTemplateResponse extends AbstractResponse {
    }
 
    @Override
+   public String getContentType() throws PragmatachException {
+      return CONTENT_TYPE_HTML;
+   }
+
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       return getCacheHeaders();
    }

@@ -104,6 +104,10 @@ public class PragmatachServlet extends HttpServlet {
                }
             }
             response.render(httpServletResponse.getOutputStream());
+            final String contentType = response.getContentType();
+            if (null != contentType) {
+               httpServletResponse.setContentType(contentType);
+            }
             httpServletResponse.setStatus(response.getHTTPCode());
          }
       } catch (final Exception e) {

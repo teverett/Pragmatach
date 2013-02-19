@@ -26,6 +26,11 @@ public class RedirectResponse extends AbstractResponse {
       this.uri = uri;
    }
 
+   @Override
+   public String getContentType() throws PragmatachException {
+      return null;
+   }
+
    public Map<String, String> getHeaders() throws PragmatachException {
       Map<String, String> map = getCacheHeaders();
       if (null == map) {
