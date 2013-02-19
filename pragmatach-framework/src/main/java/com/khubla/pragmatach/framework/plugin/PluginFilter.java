@@ -9,7 +9,7 @@ public class PluginFilter implements Filter {
    /**
     * the plugin properties file
     */
-   private static final String PLUGIN_PROPERTIES = "pragmatach-plugin.properties";
+   private static final String PLUGIN_PROPERTIES = "META-INF/pragmatach-plugin.properties";
 
    @Override
    public boolean accepts(String name) {
