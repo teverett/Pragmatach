@@ -15,7 +15,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
  * @author tome
  */
 @Controller(name = "pragmatachShowRoutesController")
-@View(view = "routes.html")
+@View(view = "pragmatach/admin/routes.html")
 public class ShowRoutesController extends FreemarkerController {
    private List<PragmatachRoute> POSTRoutes;
    private List<PragmatachRoute> GETRoutes;

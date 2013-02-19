@@ -14,7 +14,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
  * @author tome
  */
 @Controller(name = "pragmatachShowRoutesController")
-@View(view = "configuration.html")
+@View(view = "pragmatach/admin/configuration.html")
 public class ShowConfigurationController extends FreemarkerController {
    private Map<String, String> configuration;
 

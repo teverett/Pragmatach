@@ -14,7 +14,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
  * @author tome
  */
 @Controller(name = "pragmatachShowControllersController")
-@View(view = "controllers.html")
+@View(view = "pragmatach/admin/controllers.html")
 public class ShowControllersController extends FreemarkerController {
    private Set<Class<?>> controllers;
 
