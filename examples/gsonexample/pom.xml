@@ -2,35 +2,35 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.com.pragmatach.examples</groupId>
 	<artifactId>gsonexample</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<packaging>war</packaging>
 	<name>Pragmatach GSON Example</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-gson</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.12</version>
+			<version>1.2.17</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
