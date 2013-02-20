@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.testng.log4testng.Logger;
+import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.Configuration;
@@ -104,6 +104,10 @@ public class PragmatachServlet extends HttpServlet {
                }
             }
             response.render(httpServletResponse.getOutputStream());
+            final String contentType = response.getContentType();
+            if (null != contentType) {
+               httpServletResponse.setContentType(contentType);
+            }
             httpServletResponse.setStatus(response.getHTTPCode());
          }
       } catch (final Exception e) {

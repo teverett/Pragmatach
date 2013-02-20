@@ -11,6 +11,10 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 public abstract class AbstractResponse implements Response {
    /**
+    * content type
+    */
+   protected final static String CONTENT_TYPE_HTML = "text/html";
+   /**
     * the cache headers
     */
    private final Map<String, String> cacheHeaders;

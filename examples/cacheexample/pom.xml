@@ -2,28 +2,28 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.com.pragmatach.examples</groupId>
 	<artifactId>cacheexample</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>war</packaging>
 	<name>Pragmatach Caching Example</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-freemarker</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

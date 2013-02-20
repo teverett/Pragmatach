@@ -36,6 +36,13 @@ public class Request {
    }
 
    /**
+    * Accept-Language
+    */
+   public String getAcceptLanguage() {
+      return httpServletRequest.getHeader("Accept-Language");
+   }
+
+   /**
     * get content type
     */
    String getContentType() {
@@ -86,6 +93,24 @@ public class Request {
    }
 
    /**
+    * pragma
+    */
+   public String[] getPragma() {
+      final String pragmas = httpServletRequest.getHeader("Pragma");
+      if (null != pragmas) {
+         return pragmas.split(",");
+      }
+      return null;
+   }
+
+   /**
+    * referer
+    */
+   public String getReferer() {
+      return httpServletRequest.getHeader("referer");
+   }
+
+   /**
     * servlet context
     */
    public ServletContext getServletContext() {
@@ -104,5 +129,19 @@ public class Request {
     */
    public String getURI() {
       return httpServletRequest.getRequestURI();
+   }
+
+   /**
+    * User-Agent
+    */
+   public String getUserAgent() {
+      return httpServletRequest.getHeader("User-Agent");
+   }
+
+   /**
+    * Via
+    */
+   public String getVia() {
+      return httpServletRequest.getHeader("Via");
    }
 }

@@ -3,7 +3,7 @@ Pragmatach - A pragmatic MVC framework for Web Developers
 
 Pragmatach is a simple web framework aimed at providing rapid development of web applications using technologies which are familiar to developers developing real-world sites.  Pragmatach was developed to enable rapid development of sites by Javascript and CSS3 developers who need a supporting MVC framework, but don't wish to have to learn a new programming language such as Groovy or Scala, and who wish to have powerful features such built-in JSON support, Cache Control, and annotation driven request routing.
 
-Technologies in use in Pragmatach include:
+Features in Pragmatach include:
 
 * Minimum client-side requirement; browser programmers should be free of restrictions
 * Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
@@ -12,7 +12,7 @@ Technologies in use in Pragmatach include:
 * Automatic population of controller fields from Form, JSON or XML POST
 * Support for Session and Request scoped controllers, via Annotations
 * Automatic generation of project skeletons
-* Projects built via maven, with Jetty and Tomcat profiles included
+* Projects built via maven, with Jetty and Tomcat6 and Tomcat7 profiles included
 * Java as the core programming languge, rather than Groovy or Scala
 * Grails-like routing via annotations
 * FreeMarker and Velocity as the templating langauges, rather than GSP, JSP or Scala pages
@@ -146,6 +146,11 @@ Cache control headers are specfied via the @CacheControl annotation on controlle
 @CacheControl(maxAge = 10)
 public class IndexController extends FreemarkerController
 </code></pre>
+
+Pragmatach Modules
+------------------------
+
+Pragmatach features such as Velocity support, the Admin console and Gson are added to the project by including maven modules. Modules can include both Controllers and resources.
 
 An example FreeMarker Controller
 ------------------------

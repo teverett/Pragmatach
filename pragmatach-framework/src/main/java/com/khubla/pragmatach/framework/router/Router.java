@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-import org.testng.log4testng.Logger;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -27,10 +26,6 @@ public class Router {
     * static asset path
     */
    private final String publicContextPath;
-   /**
-    * logger
-    */
-   private final Logger logger = Logger.getLogger(this.getClass());
 
    /**
     * ctor
@@ -250,10 +245,6 @@ public class Router {
                 */
                final String[] parameters = matchRoute(pragmatachRoute, uri);
                if (null != parameters) {
-                  /*
-                   * log
-                   */
-                  logger.info("Bound method '" + pragmatachRoute.getMethod().getDeclaringClass().getName() + ":" + pragmatachRoute.getMethod().getName() + "' to route '" + uri + "'");
                   /*
                    * invoke
                    */

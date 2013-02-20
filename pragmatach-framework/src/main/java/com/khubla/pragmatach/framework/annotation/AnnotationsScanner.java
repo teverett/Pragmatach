@@ -7,10 +7,10 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.scannotation.AnnotationDB;
 import org.scannotation.ClasspathUrlFinder;
 import org.scannotation.WarUrlFinder;
-import org.testng.log4testng.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -44,6 +44,7 @@ public class AnnotationsScanner {
                 */
                final Class<?> clazz = Class.forName(name);
                controllers.add(clazz);
+               logger.info("Found controller '" + clazz.getName() + "'");
             }
          }
          /*
@@ -58,6 +59,7 @@ public class AnnotationsScanner {
                   for (final Method method : methods) {
                      if (method.isAnnotationPresent(Route.class)) {
                         routerMethods.add(method);
+                        logger.info("Found router method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "'");
                      }
                   }
                }

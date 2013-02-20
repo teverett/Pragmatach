@@ -30,6 +30,11 @@ public class XStreamResponse extends AbstractResponse {
    }
 
    @Override
+   public String getContentType() throws PragmatachException {
+      return "text/xml";
+   }
+
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       return super.getCacheHeaders();
    }

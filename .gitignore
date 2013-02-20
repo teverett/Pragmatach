@@ -113,14 +113,28 @@
 /examples/jsonexample/.classpath
 /examples/xstreamexample/gsonexample.log
 /examples/velocityexample/velocity.log.1
+<<<<<<< HEAD
 /examples/xstreamexample/xstreamexample.log
 /examples/sessionscopeexample/sessionscopeexample.log
+=======
+/examples/jsonexample/jsonexample.log
+/examples/xstreamexample/xstreamexample.log
+/examples/sessionscopeexample/sessionscopeexample.log
+/examples/gsonexample/gsonexample.log
+/pragmatach-adminapp/src/main/resources/pragmatach/admin/bootstrap/.DS_Store
+/pragmatach-adminapp/src/main/resources/bootstrap/.DS_Store
+/pragmatach-adminapp/src/main/resources/pragmatach/.DS_Store
+>>>>>>> bernice/v1.0.1
 /examples/rssviewer/src/main/webapp/bootstrap/.DS_Store
 /examples/rssviewer/src/main/.DS_Store
 /examples/rssviewer/src/.DS_Store
 /examples/rssviewer/.DS_Store
+<<<<<<< HEAD
 /examples/jsonexample/jsonexample.log
 /examples/gsonexample/gsonexample.log
 /examples/.DS_Store
 /pragmatach-adminapp/src/main/resources/pragmatach/admin/bootstrap/.DS_Store
 /pragmatach-adminapp/src/main/resources/pragmatach/.DS_Store
+=======
+/examples/.DS_Store
+>>>>>>> bernice/v1.0.1

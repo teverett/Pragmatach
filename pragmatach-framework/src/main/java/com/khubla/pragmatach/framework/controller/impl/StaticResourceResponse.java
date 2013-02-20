@@ -29,6 +29,14 @@ public class StaticResourceResponse extends AbstractResponse {
    }
 
    @Override
+   public String getContentType() throws PragmatachException {
+      /*
+       * dunno what content type
+       */
+      return null;
+   }
+
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       return getCacheHeaders();
    }
