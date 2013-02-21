@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.khubla.pragmatach.framework.annotation.Route;
+import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.url.RouteSpecificationSegment;
@@ -45,7 +46,7 @@ public class RouteFinder {
    private PragmatachRoute pragmatachRoute;
 
    /**
-    * get the paramter map that the URI actually means
+    * get the parameter map that the URI actually means
     */
    private Hashtable<String, String> buildParameterMap(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
       try {
@@ -55,7 +56,7 @@ public class RouteFinder {
           */
          int i = 0;
          for (final RouteSpecificationSegment routeSpecificationSegment : pragmatachRoute.getRouteSpecification().getSegments()) {
-            final String id = routeSpecificationSegment.getVariableName();
+            final String id = routeSpecificationSegment.getVariableId();
             if ((null != id) && (id.length() > 0)) {
                ret.put(id, crackedURI[i]);
             }
@@ -142,11 +143,11 @@ public class RouteFinder {
           */
          if (crackedURI.length == pragmatachRoute.getParameterCount()) {
             /*
-             * walk the route segments
+             * walk the route annotations
              */
             int i = 0;
-            for (final RouteSpecificationSegment routeSpecificationSegment : pragmatachRoute.getRouteSpecification().getSegments()) {
-               final String regex = routeSpecificationSegment.getRegex();
+            for (RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
+               final String regex = routeParameter.regex();
                if ((null != regex) && (regex.length() > 0)) {
                   if (false == crackedURI[i].matches(regex)) {
                      return false;

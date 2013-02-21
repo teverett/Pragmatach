@@ -16,17 +16,15 @@ options {
 } 
 
 routespecification 
-	: ('/' (staticsegment | dynamicsegment))+;
-	
-staticsegment	
-	: STRING;	
-dynamicsegment
-	: '{' expression '}' ('@' id)?;	
-expression
-	: STRING;
+	: ('/'! segment)+;
+segment	
+	: pathsegment | idsegment;	
+idsegment
+	: '@'^ id;	
+pathsegment
+	: ALPHANUM^;
 id	
-	: STRING;	
-STRING
-    	:   
-    	('a'..'z'|'A'..'Z'|'0'..'9' | '-' )* ;
-	    
+	: ALPHANUM;
+ALPHANUM
+    	: ('a'..'z'|'A'..'Z'|'0'..'9')+ ;
+    

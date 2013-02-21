@@ -45,8 +45,11 @@ public class RouteSpecification {
          if (null != commonTree) {
             for (int i = 0; i < commonTree.getChildCount(); i++) {
                final CommonTree n = (CommonTree) commonTree.getChild(i);
-               if (n.getType() == RouteSpecificationParser.STRING) {
-                  ret.add(new RouteSpecificationSegment(null, n.getText(), null));
+               if (n.getType() == RouteSpecificationParser.ALPHANUM) {
+                  ret.add(new RouteSpecificationSegment(n.getText(), null));
+               } else {
+                  CommonTree m = (CommonTree) n.getChild(0);
+                  ret.add(new RouteSpecificationSegment(null, m.getText()));
                }
             }
          }

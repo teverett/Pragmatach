@@ -25,12 +25,12 @@ public class TestPragmatachURIParser {
    }
 
    @Test
-   public void testRegexURI() {
+   public void testBoundURI() {
       try {
-         List<RouteSpecificationSegment> parts = RouteSpecification.parse("/a/b/c/d/{sdsdsd}").getSegments();
+         List<RouteSpecificationSegment> parts = RouteSpecification.parse("/a/b/c/d/@3").getSegments();
          Assert.assertNotNull(parts);
          Assert.assertTrue(parts.size() == 5);
-         Assert.assertTrue(parts.get(4).getRegex().compareTo("sdsdsd") == 0);
+         Assert.assertTrue(parts.get(4).getVariableId().compareTo("3") == 0);
       } catch (Exception e) {
          e.printStackTrace();
          Assert.fail();

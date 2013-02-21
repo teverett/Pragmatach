@@ -5,13 +5,9 @@ package com.khubla.pragmatach.framework.url;
  */
 public class RouteSpecificationSegment {
    /**
-    * the regex
+    * the variable id
     */
-   private final String regex;
-   /**
-    * the variable name
-    */
-   private final String variableName;
+   private final String variableId;
    /**
     * the static path part
     */
@@ -20,9 +16,8 @@ public class RouteSpecificationSegment {
    /**
     * ctor
     */
-   public RouteSpecificationSegment(String path, String regex, String variableName) {
-      this.regex = regex;
-      this.variableName = variableName;
+   public RouteSpecificationSegment(String path, String variableId) {
+      this.variableId = variableId;
       this.path = path;
    }
 
@@ -30,11 +25,7 @@ public class RouteSpecificationSegment {
       return path;
    }
 
-   public String getRegex() {
-      return regex;
-   }
-
-   public String getVariableName() {
-      return variableName;
+   public String getVariableId() {
+      return variableId;
    }
 }
