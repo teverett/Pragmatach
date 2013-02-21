@@ -146,7 +146,7 @@ public class RouteFinder {
              * walk the route annotations
              */
             int i = 0;
-            for (RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
+            for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
                final String regex = routeParameter.regex();
                if ((null != regex) && (regex.length() > 0)) {
                   if (false == crackedURI[i].matches(regex)) {

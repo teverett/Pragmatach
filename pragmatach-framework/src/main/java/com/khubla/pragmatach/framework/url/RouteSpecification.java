@@ -48,7 +48,7 @@ public class RouteSpecification {
                if (n.getType() == RouteSpecificationParser.ALPHANUM) {
                   ret.add(new RouteSpecificationSegment(n.getText(), null));
                } else {
-                  CommonTree m = (CommonTree) n.getChild(0);
+                  final CommonTree m = (CommonTree) n.getChild(0);
                   ret.add(new RouteSpecificationSegment(null, m.getText()));
                }
             }
