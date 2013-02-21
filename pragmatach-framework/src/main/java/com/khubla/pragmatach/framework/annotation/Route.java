@@ -8,6 +8,12 @@ import java.lang.annotation.Target;
 
 /**
  * @author tome
+ * 
+ *         <pre>
+ * Routes are of the syntax /a/b/c/d. 
+ * If a part is wrapped in {} it's a dynamic part.
+ * The dynamic part consists of an optional regex followed by @ followed by a name.
+ * </pre>
  */
 @Documented
 @Target({ ElementType.METHOD })

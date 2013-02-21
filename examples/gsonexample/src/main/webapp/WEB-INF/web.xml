@@ -17,6 +17,9 @@
 	<listener>
 		<listener-class>com.khubla.pragmatach.framework.listener.SessionListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.khubla.pragmatach.framework.listener.JMXListener</listener-class>
+	</listener>
 	<servlet>
 		<servlet-name>PragmatachServlet</servlet-name>
 		<servlet-class>com.khubla.pragmatach.framework.servlet.PragmatachServlet</servlet-class>
@@ -24,7 +27,7 @@
 			<param-name>configuration</param-name>
 			<param-value>com.khubla.pragmatach.framework.configuration.PropertiesFileConfigurationImpl</param-value>
 		</init-param>
-	<load-on-startup>1</load-on-startup>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PragmatachServlet</servlet-name>

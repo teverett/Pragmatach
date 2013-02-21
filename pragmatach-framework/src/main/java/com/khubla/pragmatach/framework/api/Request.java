@@ -111,6 +111,25 @@ public class Request {
    }
 
    /**
+    * get the resource path, taking off the servlet context path
+    */
+   public String getResourcePath() throws PragmatachException {
+      try {
+         final String uri = getURI();
+         String ret = uri.substring(getHttpServletRequest().getContextPath().length());
+         if (ret.endsWith("/")) {
+            ret = ret.substring(0, ret.length() - 1);
+         }
+         if ((null == ret) || (ret.length() == 0)) {
+            ret = "/";
+         }
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in resourcePath", e);
+      }
+   }
+
+   /**
     * servlet context
     */
    public ServletContext getServletContext() {

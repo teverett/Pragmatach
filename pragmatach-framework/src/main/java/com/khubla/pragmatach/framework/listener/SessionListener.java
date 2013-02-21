@@ -21,7 +21,7 @@ public class SessionListener implements HttpSessionListener {
       try {
          SessionScopedControllers.populateSessionControllers(httpSessionEvent.getSession());
       } catch (final Exception e) {
-         logger.error("Exception in sessionCreated", e);
+         logger.fatal("Exception in contextInitialized", e);
       }
    }
 

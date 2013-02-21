@@ -1,7 +1,7 @@
 package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
-import java.util.List;
+import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.ConvertUtils;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
+import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
@@ -71,28 +72,9 @@ public class Router {
    }
 
    /**
-    * get the resource path, taking off the servlet context path
-    */
-   private String getResourcePath(Request request) throws PragmatachException {
-      try {
-         final String uri = request.getURI();
-         String ret = uri.substring(request.getHttpServletRequest().getContextPath().length());
-         if (ret.endsWith("/")) {
-            ret = ret.substring(0, ret.length() - 1);
-         }
-         if ((null == ret) || (ret.length() == 0)) {
-            ret = "/";
-         }
-         return ret;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in resourcePath", e);
-      }
-   }
-
-   /**
     * invoke a request on a route
     */
-   private Response invoke(PragmatachRoute pragmatachRoute, Request request, String[] parsedParameters) throws PragmatachException {
+   private Response invoke(PragmatachRoute pragmatachRoute, Request request, Hashtable<String, String> parameterMap) throws PragmatachException {
       try {
          /*
           * get the controller
@@ -114,14 +96,38 @@ public class Router {
          final Method method = pragmatachRoute.getMethod();
          final Class<?>[] methodParameterTypes = pragmatachRoute.getMethod().getParameterTypes();
          if ((null == methodParameterTypes) || (methodParameterTypes.length == 0)) {
+            /*
+             * method takes no parameters
+             */
             return (Response) method.invoke(pragmatachController);
          } else {
+            /*
+             * parameters to pass
+             */
             final Object[] params = new Object[methodParameterTypes.length];
+            /*
+             * walk the annotations
+             */
             int i = 0;
-            for (final Class<?> type : methodParameterTypes) {
-               params[i] = ConvertUtils.convert(parsedParameters[i], type);
+            for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
+               /*
+                * get the name to bind
+                */
+               final String boundName = routeParameter.name();
+               /*
+                * that name is there?
+                */
+               if (parameterMap.containsKey(boundName)) {
+                  /*
+                   * set the value in the array
+                   */
+                  params[i] = ConvertUtils.convert(parameterMap.get(boundName), methodParameterTypes[i]);
+               }
                i++;
             }
+            /*
+             * invoke the method
+             */
             return (Response) method.invoke(pragmatachController, params);
          }
       } catch (final Exception e) {
@@ -134,63 +140,6 @@ public class Router {
     */
    private boolean isRequestOnStaticAssetPath(String uri) {
       return (true == uri.startsWith(publicContextPath));
-   }
-
-   /**
-    * in order to match it has to be the right beginning of the path, and what follows the path has to be the right parameters. returns the parameters if it matches, null otherwise
-    */
-   public String[] matchRoute(PragmatachRoute pragmatachRoute, String uri) throws PragmatachException {
-      try {
-         final String routeURI = pragmatachRoute.getRoute().uri();
-         if (uri.startsWith(routeURI)) {
-            final String parametersPartOfURI = uri.substring(routeURI.length());
-            final String[] parsedParameters = parseParameters(parametersPartOfURI);
-            final int methodParameterCount = pragmatachRoute.getMethod().getParameterTypes().length;
-            if (null != parsedParameters) {
-               /*
-                * number of parameters matches?
-                */
-               if (methodParameterCount == parsedParameters.length) {
-                  return parsedParameters;
-               } else {
-                  return null;
-               }
-            } else {
-               if (methodParameterCount == 0) {
-                  return new String[] { "" };
-               } else {
-                  return null;
-               }
-            }
-         } else {
-            return null;
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in matchRoute", e);
-      }
-   }
-
-   /**
-    * parse the URL parameters
-    */
-   private String[] parseParameters(String params) throws PragmatachException {
-      try {
-         String p = params;
-         if (p.startsWith("/")) {
-            p = p.substring(1);
-         }
-         if ((p.length() > 0) && (p.contains("/"))) {
-            return p.split("/");
-         } else {
-            if (p.length() > 0) {
-               return new String[] { p };
-            } else {
-               return null;
-            }
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in parseParameters", e);
-      }
    }
 
    /**
@@ -219,12 +168,12 @@ public class Router {
    /**
     * get Method that matches request
     */
-   private Response route(List<PragmatachRoute> PragmatachRoutes, Request request) throws PragmatachException {
+   public Response route(Request request) throws PragmatachException {
       try {
          /*
           * get the uri
           */
-         final String uri = getResourcePath(request);
+         final String uri = request.getResourcePath();
          /*
           * check if it's a static asset
           */
@@ -238,19 +187,9 @@ public class Router {
          /*
           * try to find a route
           */
-         if (null != PragmatachRoutes) {
-            for (final PragmatachRoute pragmatachRoute : PragmatachRoutes) {
-               /*
-                * get the parameters
-                */
-               final String[] parameters = matchRoute(pragmatachRoute, uri);
-               if (null != parameters) {
-                  /*
-                   * invoke
-                   */
-                  return invoke(pragmatachRoute, request, parameters);
-               }
-            }
+         final RouteFinder routeFinder = new RouteFinder();
+         if (true == routeFinder.match(request)) {
+            return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
          }
          /*
           * no match, return 404
@@ -260,22 +199,6 @@ public class Router {
          return notFoundController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
-      }
-   }
-
-   public Response routeGET(Request request) throws PragmatachException {
-      try {
-         return route(PragmatachRoutes.getInstance().getGETRoutes(), request);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in routeGET", e);
-      }
-   }
-
-   public Response routePOST(Request request) throws PragmatachException {
-      try {
-         return route(PragmatachRoutes.getInstance().getPOSTRoutes(), request);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in routePOST", e);
       }
    }
 }
