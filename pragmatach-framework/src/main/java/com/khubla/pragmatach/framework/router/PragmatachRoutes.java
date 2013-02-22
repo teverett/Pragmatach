@@ -72,9 +72,9 @@ public class PragmatachRoutes {
             final Route route = method.getAnnotation(Route.class);
             final Route.HttpMethod httpMethod = route.method();
             if (httpMethod == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {
-               GETRoutes.add(new PragmatachRoute(route, method));
+               GETRoutes.add(new PragmatachRoute(method));
             } else {
-               POSTRoutes.add(new PragmatachRoute(route, method));
+               POSTRoutes.add(new PragmatachRoute(method));
             }
          }
          /*

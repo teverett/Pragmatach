@@ -13,25 +13,49 @@ import com.khubla.pragmatach.framework.url.RouteSpecificationSegment;
  */
 public class TestPragmatachURIParser {
    @Test
-   public void testSimpleURI() {
+   public void testBoundURI() {
       try {
-         List<RouteSpecificationSegment> parts = RouteSpecification.parse("/a/b/c/d").getSegments();
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/a/b/c/d/@3").getSegments();
          Assert.assertNotNull(parts);
-         Assert.assertTrue(parts.size() == 4);
-      } catch (Exception e) {
+         Assert.assertTrue(parts.size() == 5);
+         Assert.assertTrue(parts.get(4).getVariableId().compareTo("3") == 0);
+      } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
       }
    }
 
    @Test
-   public void testBoundURI() {
+   public void testSimpleURI1() {
       try {
-         List<RouteSpecificationSegment> parts = RouteSpecification.parse("/a/b/c/d/@3").getSegments();
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/a/b/c/d").getSegments();
          Assert.assertNotNull(parts);
-         Assert.assertTrue(parts.size() == 5);
-         Assert.assertTrue(parts.get(4).getVariableId().compareTo("3") == 0);
-      } catch (Exception e) {
+         Assert.assertTrue(parts.size() == 4);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test
+   public void testSimpleURI2() {
+      try {
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/").getSegments();
+         Assert.assertNotNull(parts);
+         Assert.assertTrue(parts.size() == 1);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test
+   public void testSimpleURI3() {
+      try {
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/showfeed").getSegments();
+         Assert.assertNotNull(parts);
+         Assert.assertTrue(parts.size() == 1);
+      } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
       }

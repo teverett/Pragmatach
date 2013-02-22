@@ -59,7 +59,8 @@ public class AnnotationsScanner {
                   for (final Method method : methods) {
                      if (method.isAnnotationPresent(Route.class)) {
                         routerMethods.add(method);
-                        logger.info("Found router method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "'");
+                        logger.info("Found router method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "' with route specification '" + method.getAnnotation(Route.class).uri()
+                              + "'");
                      }
                   }
                }

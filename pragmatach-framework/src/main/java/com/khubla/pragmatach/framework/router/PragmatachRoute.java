@@ -33,10 +33,10 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    /**
     * ctor
     */
-   public PragmatachRoute(Route route, Method method) throws PragmatachException {
+   public PragmatachRoute(Method method) throws PragmatachException {
       this.method = method;
-      this.route = route;
-      routeSpecification = RouteSpecification.parse(route.uri());
+      route = method.getAnnotation(Route.class);
+      routeSpecification = new RouteSpecification(route.uri());
       /*
        * check that the route sp
        */
@@ -69,7 +69,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
              */
             for (final RouteParameter routeParameter : getBoundRouteParameters()) {
                final String boundName = routeParameter.name();
-               if (false == routeSpecification.getIds().containsKey(boundName)) {
+               if (false == routeSpecification.getIds().contains(boundName)) {
                   throw new PragmatachException("Route specfication does not specify an id for bound variable '" + boundName + "'");
                }
             }
@@ -145,6 +145,16 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
 
    public RouteSpecification getRouteSpecification() {
       return routeSpecification;
+   }
+
+   /**
+    * number of route segments
+    */
+   public int getSegmentCount() {
+      if (null != routeSpecification.getSegments()) {
+         return routeSpecification.getSegments().size();
+      }
+      return 0;
    }
 
    /**

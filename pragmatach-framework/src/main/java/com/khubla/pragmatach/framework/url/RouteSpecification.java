@@ -3,7 +3,6 @@ package com.khubla.pragmatach.framework.url;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.antlr.runtime.ANTLRInputStream;
@@ -19,9 +18,43 @@ import com.khubla.pragmatach.framework.uri.antlr.RouteSpecificationParser;
  */
 public class RouteSpecification {
    /**
+    * id fields
+    */
+   private final List<String> ids;
+   /**
+    * segments
+    */
+   private final List<RouteSpecificationSegment> segments;
+
+   /**
+    * ctor
+    */
+   public RouteSpecification(String uri) throws PragmatachException {
+      segments = parse(uri);
+      if ((null != segments) && (segments.size() > 0)) {
+         ids = new ArrayList<String>();
+         for (final RouteSpecificationSegment routeSpecificationSegment : segments) {
+            if (null != routeSpecificationSegment.getVariableId()) {
+               ids.add(routeSpecificationSegment.getVariableId());
+            }
+         }
+      } else {
+         ids = null;
+      }
+   }
+
+   public List<String> getIds() {
+      return ids;
+   }
+
+   public List<RouteSpecificationSegment> getSegments() {
+      return segments;
+   }
+
+   /**
     * parse an inputstream
     */
-   private static CommonTree parse(InputStream inputStream) throws Exception {
+   private CommonTree parse(InputStream inputStream) throws PragmatachException {
       try {
          if (null != inputStream) {
             final RouteSpecificationLexer routeSpecificationLexer = new RouteSpecificationLexer(new ANTLRInputStream(inputStream));
@@ -34,53 +67,53 @@ public class RouteSpecification {
             throw new IllegalArgumentException();
          }
       } catch (final Exception e) {
-         throw new Exception("Exception in parse", e);
+         throw new PragmatachException("Exception in parse", e);
       }
    }
 
-   public static RouteSpecification parse(String uri) throws PragmatachException {
+   /**
+    * parse a URI into parts.
+    */
+   private List<RouteSpecificationSegment> parse(String uri) throws PragmatachException {
       try {
          final List<RouteSpecificationSegment> ret = new ArrayList<RouteSpecificationSegment>();
          final CommonTree commonTree = parse(new ByteArrayInputStream(uri.getBytes()));
          if (null != commonTree) {
-            for (int i = 0; i < commonTree.getChildCount(); i++) {
-               final CommonTree n = (CommonTree) commonTree.getChild(i);
-               if (n.getType() == RouteSpecificationParser.ALPHANUM) {
-                  ret.add(new RouteSpecificationSegment(n.getText(), null));
-               } else {
-                  final CommonTree m = (CommonTree) n.getChild(0);
-                  ret.add(new RouteSpecificationSegment(null, m.getText()));
+            if (commonTree.getChildCount() > 0) {
+               for (int i = 0; i < commonTree.getChildCount(); i++) {
+                  final CommonTree n = (CommonTree) commonTree.getChild(i);
+                  final RouteSpecificationSegment rss = parseNode(n);
+                  if (null != rss) {
+                     ret.add(parseNode(n));
+                  }
                }
+            } else {
+               final RouteSpecificationSegment rss = parseNode(commonTree);
+               ret.add(rss);
             }
+         } else {
+            ret.add(new RouteSpecificationSegment("/", null));
          }
-         return new RouteSpecification(ret);
+         return ret;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in parse", e);
       }
    }
 
-   private Hashtable<String, RouteSpecificationSegment> ids;
-   /**
-    * segments
-    */
-   private final List<RouteSpecificationSegment> segments;
-
-   /**
-    * ctor
-    */
-   private RouteSpecification(List<RouteSpecificationSegment> segments) {
-      this.segments = segments;
-   }
-
-   public Hashtable<String, RouteSpecificationSegment> getIds() {
-      return ids;
-   }
-
-   public List<RouteSpecificationSegment> getSegments() {
-      return segments;
-   }
-
-   public void setIds(Hashtable<String, RouteSpecificationSegment> ids) {
-      this.ids = ids;
+   private RouteSpecificationSegment parseNode(CommonTree commonTree) throws PragmatachException {
+      try {
+         if (commonTree.getType() == RouteSpecificationParser.ALPHANUM) {
+            return new RouteSpecificationSegment(commonTree.getText(), null);
+         } else {
+            final CommonTree m = (CommonTree) commonTree.getChild(0);
+            if (m.getType() == RouteSpecificationParser.ALPHANUM) {
+               return new RouteSpecificationSegment(null, m.getText());
+            } else {
+               return null;
+            }
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in parseNode", e);
+      }
    }
 }

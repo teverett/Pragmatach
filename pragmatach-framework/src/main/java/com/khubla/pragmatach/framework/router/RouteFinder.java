@@ -8,31 +8,33 @@ import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.url.RouteSpecificationSegment;
+import com.khubla.pragmatach.framework.url.URICracker;
 
 /**
  * @author tome
  */
 public class RouteFinder {
    /**
-    * parse the URL parameters. If no parameters, returns null;
+    * check that the static parts of teh route match
     */
-   private static String[] crackURI(String uri) throws PragmatachException {
+   private static boolean staticPartsMatch(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
       try {
-         String p = uri;
-         if (p.startsWith("/")) {
-            p = p.substring(1);
-         }
-         if ((p.length() > 0) && (p.contains("/"))) {
-            return p.split("/");
-         } else {
-            if (p.length() > 0) {
-               return new String[] { p };
-            } else {
-               return null;
+         /*
+          * check that the static path parts match
+          */
+         int j = 0;
+         for (final RouteSpecificationSegment routeSpecificationSegment : pragmatachRoute.getRouteSpecification().getSegments()) {
+            final String staticPathPart = routeSpecificationSegment.getPath();
+            if (null != staticPathPart) {
+               if (false == (crackedURI[j].compareTo(staticPathPart) == 0)) {
+                  return false;
+               }
             }
+            j++;
          }
+         return true;
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in parseParameters", e);
+         throw new PragmatachException("Exception in staticPartsMatch", e);
       }
    }
 
@@ -103,7 +105,7 @@ public class RouteFinder {
          /*
           * crack the URI
           */
-         final String[] crackedURI = crackURI(request.getResourcePath());
+         final String[] crackedURI = URICracker.crackURI(request.getResourcePath());
          /*
           * get the routes
           */
@@ -121,6 +123,14 @@ public class RouteFinder {
                    * build parameter map
                    */
                   parameterMap = buildParameterMap(pragmatachRoute, crackedURI);
+                  /*
+                   * remember the matched controller
+                   */
+                  this.pragmatachRoute = pragmatachRoute;
+                  /*
+                   * return true to indicate a match
+                   */
+                  return true;
                }
             }
          }
@@ -139,31 +149,57 @@ public class RouteFinder {
    private boolean matchesRouteSpecification(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
       try {
          /*
-          * # of segments passed matches the route specification number of segments?
+          * there is a uri?
           */
-         if (crackedURI.length == pragmatachRoute.getParameterCount()) {
+         if (null != crackedURI) {
             /*
-             * walk the route annotations
+             * # of segments passed matches the route specification number of segments?
              */
-            int i = 0;
-            for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
-               final String regex = routeParameter.regex();
-               if ((null != regex) && (regex.length() > 0)) {
-                  if (false == crackedURI[i].matches(regex)) {
-                     return false;
+            if (crackedURI.length == pragmatachRoute.getSegmentCount()) {
+               /*
+                * walk the route annotations
+                */
+               int i = 0;
+               for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
+                  /*
+                   * check regex
+                   */
+                  final String regex = routeParameter.regex();
+                  if ((null != regex) && (regex.length() > 0)) {
+                     if (false == crackedURI[i].matches(regex)) {
+                        return false;
+                     }
                   }
+                  i++;
                }
-               i++;
+               /*
+                * check that the static path parts match
+                */
+               if (false == staticPartsMatch(pragmatachRoute, crackedURI)) {
+                  return false;
+               }
+               /*
+                * everything matches
+                */
+               return true;
+            } else {
+               /*
+                * its not a match
+                */
+               return false;
             }
-            /*
-             * everything matches
-             */
-            return true;
          } else {
-            /*
-             * its not a match
-             */
-            return false;
+            if ((0 == pragmatachRoute.getParameterCount()) && (0 == pragmatachRoute.getSegmentCount())) {
+               /*
+                * no parameters; its a match if the static parts match
+                */
+               return staticPartsMatch(pragmatachRoute, crackedURI);
+            } else {
+               /*
+                * the route requires parameters, and none were passed
+                */
+               return false;
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in matchesRouteSpecification", e);

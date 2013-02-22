@@ -16,7 +16,7 @@ options {
 } 
 
 routespecification 
-	: ('/'! segment)+;
+	: ('/'! segment?)+;
 segment	
 	: pathsegment | idsegment;	
 idsegment
