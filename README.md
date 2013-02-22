@@ -360,4 +360,9 @@ public class AcceptPostController extends JSONController {
 
 Will result in the method `setMessage()` being called with the value `"hello world"`.
 
+JMX Bindings
+------------------------
+
+In order to support runtime inspection of applications, Pragmatach supports JMX bindings using MXBeans.  
+
 
