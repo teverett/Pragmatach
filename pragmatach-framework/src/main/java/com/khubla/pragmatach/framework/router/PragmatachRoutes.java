@@ -68,22 +68,24 @@ public class PragmatachRoutes {
           * get the routes
           */
          final Set<Method> routerMethods = AnnotationsScanner.getRouterMethods();
-         for (final Method method : routerMethods) {
-            final Route route = method.getAnnotation(Route.class);
-            final Route.HttpMethod httpMethod = route.method();
-            if (httpMethod == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {
-               GETRoutes.add(new PragmatachRoute(method));
-            } else {
-               POSTRoutes.add(new PragmatachRoute(method));
+         if (null != routerMethods) {
+            for (final Method method : routerMethods) {
+               final Route route = method.getAnnotation(Route.class);
+               final Route.HttpMethod httpMethod = route.method();
+               if (httpMethod == com.khubla.pragmatach.framework.annotation.Route.HttpMethod.get) {
+                  GETRoutes.add(new PragmatachRoute(method));
+               } else {
+                  POSTRoutes.add(new PragmatachRoute(method));
+               }
             }
+            /*
+             * sort the routes
+             */
+            Collections.sort(GETRoutes);
+            Collections.sort(POSTRoutes);
          }
-         /*
-          * sort the routes
-          */
-         Collections.sort(GETRoutes);
-         Collections.sort(POSTRoutes);
       } catch (final Exception e) {
-         throw new PragmatachException(e);
+         throw new PragmatachException("Exception in readRoutes", e);
       }
    }
 }

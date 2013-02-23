@@ -30,7 +30,11 @@ public class RouteSpecification {
     * ctor
     */
    public RouteSpecification(String uri) throws PragmatachException {
-      segments = parse(uri);
+      String fixedUri = uri;
+      if (false == uri.startsWith("/")) {
+         fixedUri = "/" + uri;
+      }
+      segments = parse(fixedUri);
       if ((null != segments) && (segments.size() > 0)) {
          ids = new ArrayList<String>();
          for (final RouteSpecificationSegment routeSpecificationSegment : segments) {
