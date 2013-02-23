@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.examples.velocityexample;
+package com.khubla.pragmatach.examples.routesexample;
 
 import java.util.Date;
 
@@ -8,11 +8,11 @@ import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.plugin.velocity.VelocityController;
+import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 @Controller(name = "IndexController")
-@View(view = "index.vtl")
-public class IndexController extends VelocityController {
+@View(view = "index.ftl")
+public class IndexController extends FreemarkerController {
    /**
     * the message
     */

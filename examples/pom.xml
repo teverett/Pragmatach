@@ -20,5 +20,6 @@
 		<module>xstreamexample</module>
 		<module>sessionscopeexample</module>
 		<module>jcrexample</module>
+		<module>routesexample</module>
 	</modules>
 </project>	

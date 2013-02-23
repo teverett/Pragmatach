@@ -7,7 +7,7 @@
 		</layout>
 	</appender>
 	<appender name="FILE" class="org.apache.log4j.FileAppender">
-		<param name="file" value="jcrexample.log" />
+		<param name="file" value="routesexample.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%p - %C{1}.%M(%L) | %m%n" />
 		</layout>
@@ -19,9 +19,6 @@
 		<level value="FATAL" />
 	</logger>
 	<logger name=" org.apache.commons">
-		<level value="FATAL" />
-	</logger>
-	<logger name="org.apache.commons.beanutils">
 		<level value="FATAL" />
 	</logger>
 	<root>
