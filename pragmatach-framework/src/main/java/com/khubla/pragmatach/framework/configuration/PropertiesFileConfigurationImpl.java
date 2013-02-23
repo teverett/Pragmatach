@@ -33,9 +33,15 @@ public class PropertiesFileConfigurationImpl implements Configuration {
    }
 
    @Override
+   public String getParameter(String name) {
+      readProperties();
+      return properties.getProperty(name);
+   }
+
+   @Override
    public String getPublicResourcePath() {
       readProperties();
-      return properties.getProperty("publicResourcePath");
+      return properties.getProperty("pragmatach.publicResourcePath");
    }
 
    /**

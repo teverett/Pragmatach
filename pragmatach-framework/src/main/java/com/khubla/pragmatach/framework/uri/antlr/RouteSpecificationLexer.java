@@ -1,4 +1,4 @@
-// $ANTLR 3.5 com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g 2013-02-21 15:59:53
+// $ANTLR 3.5 com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g 2013-02-22 15:49:14
 package com.khubla.pragmatach.framework.uri.antlr;
 
 import org.antlr.runtime.CharStream;
@@ -12,9 +12,9 @@ import org.antlr.runtime.RecognizerSharedState;
 @SuppressWarnings("all")
 public class RouteSpecificationLexer extends Lexer {
    public static final int EOF = -1;
-   public static final int T__5 = 5;
    public static final int T__6 = 6;
    public static final int ALPHANUM = 4;
+   public static final int AMPER = 5;
 
    public RouteSpecificationLexer() {
    }
@@ -85,10 +85,28 @@ public class RouteSpecificationLexer extends Lexer {
    }
 
    // $ANTLR end "ALPHANUM"
-   // $ANTLR start "T__5"
-   public final void mT__5() throws RecognitionException {
+   // $ANTLR start "AMPER"
+   public final void mAMPER() throws RecognitionException {
       try {
-         final int _type = T__5;
+         final int _type = AMPER;
+         final int _channel = DEFAULT_TOKEN_CHANNEL;
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:31:2: ( '@' )
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:31:4: '@'
+         {
+            match('@');
+         }
+         state.type = _type;
+         state.channel = _channel;
+      } finally {
+         // do for sure before leaving
+      }
+   }
+
+   // $ANTLR end "AMPER"
+   // $ANTLR start "T__6"
+   public final void mT__6() throws RecognitionException {
+      try {
+         final int _type = T__6;
          final int _channel = DEFAULT_TOKEN_CHANNEL;
          // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:6:6: ( '/' )
          // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:6:8: '/'
@@ -102,36 +120,14 @@ public class RouteSpecificationLexer extends Lexer {
       }
    }
 
-   // $ANTLR end "T__5"
-   // $ANTLR start "T__6"
-   public final void mT__6() throws RecognitionException {
-      try {
-         final int _type = T__6;
-         final int _channel = DEFAULT_TOKEN_CHANNEL;
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:7:6: ( '@' )
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:7:8: '@'
-         {
-            match('@');
-         }
-         state.type = _type;
-         state.channel = _channel;
-      } finally {
-         // do for sure before leaving
-      }
-   }
-
    // $ANTLR end "T__6"
    @Override
    public void mTokens() throws RecognitionException {
-      // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:8: ( T__5 | T__6 | ALPHANUM )
+      // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:8: ( T__6 | ALPHANUM | AMPER )
       int alt2 = 3;
       switch (input.LA(1)) {
          case '/': {
             alt2 = 1;
-         }
-            break;
-         case '@': {
-            alt2 = 2;
          }
             break;
          case '0':
@@ -196,6 +192,10 @@ public class RouteSpecificationLexer extends Lexer {
          case 'x':
          case 'y':
          case 'z': {
+            alt2 = 2;
+         }
+            break;
+         case '@': {
             alt2 = 3;
          }
             break;
@@ -205,21 +205,21 @@ public class RouteSpecificationLexer extends Lexer {
       }
       switch (alt2) {
          case 1:
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:10: T__5
-         {
-            mT__5();
-         }
-            break;
-         case 2:
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:15: T__6
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:10: T__6
          {
             mT__6();
          }
             break;
-         case 3:
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:20: ALPHANUM
+         case 2:
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:15: ALPHANUM
          {
             mALPHANUM();
+         }
+            break;
+         case 3:
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:1:24: AMPER
+         {
+            mAMPER();
          }
             break;
       }

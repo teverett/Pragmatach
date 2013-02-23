@@ -60,4 +60,18 @@ public class TestPragmatachURIParser {
          Assert.fail();
       }
    }
+
+   @Test
+   public void testSimpleId() {
+      try {
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/@showfeed").getSegments();
+         Assert.assertNotNull(parts);
+         Assert.assertTrue(parts.size() == 1);
+         Assert.assertTrue(parts.get(0).getPath() == null);
+         Assert.assertTrue(parts.get(0).getVariableId().compareTo("showfeed") == 0);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
 }

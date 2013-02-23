@@ -2,6 +2,8 @@ package com.khubla.pragmatach.framework.router;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
@@ -51,7 +53,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
          /*
           * there are parameters?
           */
-         if (false == ((method.getParameterTypes().length == 0) && (null == routeSpecification.getIds()))) {
+         if (false == ((method.getParameterTypes().length == 0) && (0 == routeSpecification.getIds().size()))) {
             /*
              * number of route specification ids must match number of method parameters
              */
@@ -67,11 +69,16 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
             /*
              * each bound name in the method must match up with a id in the route specification
              */
-            for (final RouteParameter routeParameter : getBoundRouteParameters()) {
-               final String boundName = routeParameter.name();
-               if (false == routeSpecification.getIds().contains(boundName)) {
-                  throw new PragmatachException("Route specfication does not specify an id for bound variable '" + boundName + "'");
+            final List<RouteParameter> routeParameters = getBoundRouteParameters();
+            if ((null != routeParameters) && (routeParameters.size() > 0)) {
+               for (final RouteParameter routeParameter : routeParameters) {
+                  final String boundName = routeParameter.name();
+                  if (false == routeSpecification.getIds().contains(boundName)) {
+                     throw new PragmatachException("Route specfication does not specify an id for bound variable '" + boundName + "'");
+                  }
                }
+            } else {
+               throw new PragmatachException("Bound parameter number mismatch. '" + routeSpecification.getIds().size() + "' annotations were expected but none were found");
             }
          }
       } catch (final Exception e) {
@@ -96,20 +103,26 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    /**
     * get bound parameters annotations, in order of the parameters in the method
     */
-   public RouteParameter[] getBoundRouteParameters() {
-      final RouteParameter[] ret = new RouteParameter[getParameterCount()];
+   public List<RouteParameter> getBoundRouteParameters() {
       final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-      int i = 0;
-      for (final Annotation[] p : parameterAnnotations) {
-         for (final Annotation annotation : p) {
-            if (annotation.annotationType() == RouteParameter.class) {
-               ret[i] = (RouteParameter) annotation;
-               break;
+      if (parameterAnnotations.length > 0) {
+         final List<RouteParameter> ret = new ArrayList<RouteParameter>();
+         for (final Annotation[] p : parameterAnnotations) {
+            for (final Annotation annotation : p) {
+               if (annotation.annotationType() == RouteParameter.class) {
+                  ret.add((RouteParameter) annotation);
+                  break;
+               }
             }
          }
-         i++;
+         if (ret.size() > 0) {
+            return ret;
+         } else {
+            return null;
+         }
+      } else {
+         return null;
       }
-      return ret;
    }
 
    /**

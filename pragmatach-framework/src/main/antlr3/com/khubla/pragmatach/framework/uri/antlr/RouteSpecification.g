@@ -20,11 +20,14 @@ routespecification
 segment	
 	: pathsegment | idsegment;	
 idsegment
-	: '@'^ id;	
+	: AMPER ^ id;	
 pathsegment
 	: ALPHANUM^;
 id	
 	: ALPHANUM;
 ALPHANUM
     	: ('a'..'z'|'A'..'Z'|'0'..'9')+ ;
+AMPER	
+	: '@';
+	
     

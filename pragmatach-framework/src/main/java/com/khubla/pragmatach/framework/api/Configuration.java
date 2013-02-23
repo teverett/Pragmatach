@@ -12,6 +12,11 @@ public interface Configuration {
    Map<String, String> getAll();
 
    /**
+    * get a parameter by name
+    */
+   String getParameter(String name);
+
+   /**
     * get the path where public assets are found
     */
    String getPublicResourcePath();

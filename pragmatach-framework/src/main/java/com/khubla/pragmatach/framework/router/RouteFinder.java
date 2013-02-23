@@ -160,17 +160,20 @@ public class RouteFinder {
                 * walk the route annotations
                 */
                int i = 0;
-               for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
-                  /*
-                   * check regex
-                   */
-                  final String regex = routeParameter.regex();
-                  if ((null != regex) && (regex.length() > 0)) {
-                     if (false == crackedURI[i].matches(regex)) {
-                        return false;
+               final List<RouteParameter> routeParameters = pragmatachRoute.getBoundRouteParameters();
+               if ((null != routeParameters) && (routeParameters.size() > 0)) {
+                  for (final RouteParameter routeParameter : routeParameters) {
+                     /*
+                      * check regex
+                      */
+                     final String regex = routeParameter.regex();
+                     if ((null != regex) && (regex.length() > 0)) {
+                        if (false == crackedURI[i].matches(regex)) {
+                           return false;
+                        }
                      }
+                     i++;
                   }
-                  i++;
                }
                /*
                 * check that the static path parts match

@@ -1,4 +1,4 @@
-// $ANTLR 3.5 com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g 2013-02-21 15:59:52
+// $ANTLR 3.5 com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g 2013-02-22 15:49:14
 package com.khubla.pragmatach.framework.uri.antlr;
 
 import org.antlr.runtime.BitSet;
@@ -61,21 +61,21 @@ public class RouteSpecificationParser extends Parser {
       }
    }
 
-   public static final String[] tokenNames = new String[] { "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ALPHANUM", "'/'", "'@'" };
+   public static final String[] tokenNames = new String[] { "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ALPHANUM", "AMPER", "'/'" };
    // delegators
    public static final int EOF = -1;
-   public static final int T__5 = 5;
    public static final int T__6 = 6;
    public static final int ALPHANUM = 4;
+   public static final int AMPER = 5;
    protected TreeAdaptor adaptor = new CommonTreeAdaptor();
-   public static final BitSet FOLLOW_5_in_routespecification74 = new BitSet(new long[] { 0x0000000000000072L });
-   public static final BitSet FOLLOW_segment_in_routespecification77 = new BitSet(new long[] { 0x0000000000000022L });
+   public static final BitSet FOLLOW_6_in_routespecification74 = new BitSet(new long[] { 0x0000000000000072L });
+   public static final BitSet FOLLOW_segment_in_routespecification77 = new BitSet(new long[] { 0x0000000000000042L });
    public static final BitSet FOLLOW_pathsegment_in_segment89 = new BitSet(new long[] { 0x0000000000000002L });;
    public static final BitSet FOLLOW_idsegment_in_segment93 = new BitSet(new long[] { 0x0000000000000002L });
-   public static final BitSet FOLLOW_6_in_idsegment102 = new BitSet(new long[] { 0x0000000000000010L });;
-   public static final BitSet FOLLOW_id_in_idsegment105 = new BitSet(new long[] { 0x0000000000000002L });
-   public static final BitSet FOLLOW_ALPHANUM_in_pathsegment114 = new BitSet(new long[] { 0x0000000000000002L });;
-   public static final BitSet FOLLOW_ALPHANUM_in_id124 = new BitSet(new long[] { 0x0000000000000002L });
+   public static final BitSet FOLLOW_AMPER_in_idsegment102 = new BitSet(new long[] { 0x0000000000000010L });;
+   public static final BitSet FOLLOW_id_in_idsegment106 = new BitSet(new long[] { 0x0000000000000002L });
+   public static final BitSet FOLLOW_ALPHANUM_in_pathsegment115 = new BitSet(new long[] { 0x0000000000000002L });;
+   public static final BitSet FOLLOW_ALPHANUM_in_id125 = new BitSet(new long[] { 0x0000000000000002L });
 
    public RouteSpecificationParser(TokenStream input) {
       this(input, new RecognizerSharedState());
@@ -118,7 +118,7 @@ public class RouteSpecificationParser extends Parser {
          // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:27:4: ALPHANUM
          {
             root_0 = (CommonTree) adaptor.nil();
-            ALPHANUM8 = (Token) match(input, ALPHANUM, FOLLOW_ALPHANUM_in_id124);
+            ALPHANUM8 = (Token) match(input, ALPHANUM, FOLLOW_ALPHANUM_in_id125);
             if (state.failed) {
                return retval;
             }
@@ -144,28 +144,28 @@ public class RouteSpecificationParser extends Parser {
 
    // $ANTLR end "id"
    // $ANTLR start "idsegment"
-   // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:22:1: idsegment : '@' ^ id ;
+   // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:22:1: idsegment : AMPER ^ id ;
    public final RouteSpecificationParser.idsegment_return idsegment() throws RecognitionException {
       final RouteSpecificationParser.idsegment_return retval = new RouteSpecificationParser.idsegment_return();
       retval.start = input.LT(1);
       CommonTree root_0 = null;
-      Token char_literal5 = null;
+      Token AMPER5 = null;
       ParserRuleReturnScope id6 = null;
-      CommonTree char_literal5_tree = null;
+      CommonTree AMPER5_tree = null;
       try {
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:23:2: ( '@' ^ id )
-         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:23:4: '@' ^ id
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:23:2: ( AMPER ^ id )
+         // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:23:4: AMPER ^ id
          {
             root_0 = (CommonTree) adaptor.nil();
-            char_literal5 = (Token) match(input, 6, FOLLOW_6_in_idsegment102);
+            AMPER5 = (Token) match(input, AMPER, FOLLOW_AMPER_in_idsegment102);
             if (state.failed) {
                return retval;
             }
             if (state.backtracking == 0) {
-               char_literal5_tree = (CommonTree) adaptor.create(char_literal5);
-               root_0 = (CommonTree) adaptor.becomeRoot(char_literal5_tree, root_0);
+               AMPER5_tree = (CommonTree) adaptor.create(AMPER5);
+               root_0 = (CommonTree) adaptor.becomeRoot(AMPER5_tree, root_0);
             }
-            pushFollow(FOLLOW_id_in_idsegment105);
+            pushFollow(FOLLOW_id_in_idsegment106);
             id6 = id();
             state._fsp--;
             if (state.failed) {
@@ -204,7 +204,7 @@ public class RouteSpecificationParser extends Parser {
          // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:25:4: ALPHANUM ^
          {
             root_0 = (CommonTree) adaptor.nil();
-            ALPHANUM7 = (Token) match(input, ALPHANUM, FOLLOW_ALPHANUM_in_pathsegment114);
+            ALPHANUM7 = (Token) match(input, ALPHANUM, FOLLOW_ALPHANUM_in_pathsegment115);
             if (state.failed) {
                return retval;
             }
@@ -248,21 +248,21 @@ public class RouteSpecificationParser extends Parser {
             loop2: while (true) {
                int alt2 = 2;
                final int LA2_0 = input.LA(1);
-               if ((LA2_0 == 5)) {
+               if ((LA2_0 == 6)) {
                   alt2 = 1;
                }
                switch (alt2) {
                   case 1:
                   // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:19:5: '/' ! ( segment )?
                   {
-                     char_literal1 = (Token) match(input, 5, FOLLOW_5_in_routespecification74);
+                     char_literal1 = (Token) match(input, 6, FOLLOW_6_in_routespecification74);
                      if (state.failed) {
                         return retval;
                      }
                      // com/khubla/pragmatach/framework/uri/antlr/RouteSpecification.g:19:10: ( segment )?
                      int alt1 = 2;
                      final int LA1_0 = input.LA(1);
-                     if (((LA1_0 == ALPHANUM) || (LA1_0 == 6))) {
+                     if ((((LA1_0 >= ALPHANUM) && (LA1_0 <= AMPER)))) {
                         alt1 = 1;
                      }
                      switch (alt1) {
@@ -327,7 +327,7 @@ public class RouteSpecificationParser extends Parser {
          final int LA3_0 = input.LA(1);
          if ((LA3_0 == ALPHANUM)) {
             alt3 = 1;
-         } else if ((LA3_0 == 6)) {
+         } else if ((LA3_0 == AMPER)) {
             alt3 = 2;
          } else {
             if (state.backtracking > 0) {

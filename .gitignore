@@ -138,3 +138,13 @@
 =======
 /examples/.DS_Store
 >>>>>>> bernice/v1.0.1
+
+/examples/jcrexample/target/
+/examples/jcrexample/jcrexample.log
+/examples/jcrexample/.settings/
+/examples/jcrexample/.project
+/examples/jcrexample/.classpath
+/pragmatach-jcr/target/
+/pragmatach-jcr/.settings/
+/pragmatach-jcr/.project
+/pragmatach-jcr/.classpath

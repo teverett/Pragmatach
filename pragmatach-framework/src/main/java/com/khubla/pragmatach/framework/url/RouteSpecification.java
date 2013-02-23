@@ -79,13 +79,18 @@ public class RouteSpecification {
          final List<RouteSpecificationSegment> ret = new ArrayList<RouteSpecificationSegment>();
          final CommonTree commonTree = parse(new ByteArrayInputStream(uri.getBytes()));
          if (null != commonTree) {
-            if (commonTree.getChildCount() > 0) {
-               for (int i = 0; i < commonTree.getChildCount(); i++) {
-                  final CommonTree n = (CommonTree) commonTree.getChild(i);
-                  final RouteSpecificationSegment rss = parseNode(n);
-                  if (null != rss) {
-                     ret.add(parseNode(n));
+            if (commonTree.getType() != RouteSpecificationParser.AMPER) {
+               if (commonTree.getChildCount() > 0) {
+                  for (int i = 0; i < commonTree.getChildCount(); i++) {
+                     final CommonTree n = (CommonTree) commonTree.getChild(i);
+                     final RouteSpecificationSegment rss = parseNode(n);
+                     if (null != rss) {
+                        ret.add(parseNode(n));
+                     }
                   }
+               } else {
+                  final RouteSpecificationSegment rss = parseNode(commonTree);
+                  ret.add(rss);
                }
             } else {
                final RouteSpecificationSegment rss = parseNode(commonTree);
