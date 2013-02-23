@@ -4,9 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -47,6 +49,34 @@ public class Request {
     */
    String getContentType() {
       return httpServletRequest.getContentType();
+   }
+
+   /**
+    * get a cookie by name
+    */
+   public String getCookie(String name) {
+      if ((null != name) && (name.length() > 0)) {
+         final Hashtable<String, String> cookies = getCookies();
+         if (null != cookies) {
+            return cookies.get(name);
+         }
+      }
+      return null;
+   }
+
+   /**
+    * get all the cookies
+    */
+   public Hashtable<String, String> getCookies() {
+      final Cookie[] cookies = getHttpServletRequest().getCookies();
+      if ((null != cookies) && (cookies.length > 0)) {
+         final Hashtable<String, String> ret = new Hashtable<String, String>();
+         for (final Cookie cookie : cookies) {
+            ret.put(cookie.getName(), cookie.getValue());
+         }
+         return ret;
+      }
+      return null;
    }
 
    /**

@@ -20,9 +20,30 @@ public class AbstractAdminController extends FreemarkerController {
        * user logged in?
        */
       if (null != adminUserController.getUsername()) {
+         /*
+          * user is logged in
+          */
          return super.render();
       } else {
-         return super.forward("/pragmatach/admin/login");
+         /*
+          * check for the cookie
+          */
+         final String userId = getRequest().getCookie("adminUserId");
+         if (null != userId) {
+            /*
+             * set the session state from the cookie
+             */
+            adminUserController.setUsername(userId);
+            /*
+             * redirect back and try again
+             */
+            return super.forward("/pragmatach/admin/login");
+         } else {
+            /*
+             * log in
+             */
+            return super.forward("/pragmatach/admin/login");
+         }
       }
    }
 }
