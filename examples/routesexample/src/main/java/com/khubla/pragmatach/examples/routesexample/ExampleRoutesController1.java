@@ -1,7 +1,5 @@
 package com.khubla.pragmatach.examples.routesexample;
 
-import java.util.Date;
-
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
@@ -28,10 +26,6 @@ public class ExampleRoutesController1 extends FreemarkerController {
 
    public int getSum() {
       return sum;
-   }
-
-   public String getTime() {
-      return new Date().toString();
    }
 
    @Route(uri = "/exampleRoutesController1/@num1/@num2/@message")

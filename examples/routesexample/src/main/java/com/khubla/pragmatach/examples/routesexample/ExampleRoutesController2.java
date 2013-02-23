@@ -1,7 +1,5 @@
 package com.khubla.pragmatach.examples.routesexample;
 
-import java.util.Date;
-
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
@@ -20,10 +18,6 @@ public class ExampleRoutesController2 extends FreemarkerController {
 
    public String getMessage() {
       return message;
-   }
-
-   public String getTime() {
-      return new Date().toString();
    }
 
    @Route(uri = "/exampleRoutesController2/@str1/ststst/@str2")
