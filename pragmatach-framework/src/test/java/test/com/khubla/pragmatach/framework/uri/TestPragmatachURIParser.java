@@ -74,4 +74,17 @@ public class TestPragmatachURIParser {
          Assert.fail();
       }
    }
+
+   @Test
+   public void testNestedRoute() {
+      try {
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/exampleRoutesController1/@num1/@num2/@message").getSegments();
+         Assert.assertNotNull(parts);
+         Assert.assertTrue(parts.size() == 4);
+         Assert.assertTrue(parts.get(0).getPath().compareTo("exampleRoutesController1") == 0);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
 }

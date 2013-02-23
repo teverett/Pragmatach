@@ -111,8 +111,12 @@ public class RouteSpecification {
             return new RouteSpecificationSegment(commonTree.getText(), null);
          } else {
             final CommonTree m = (CommonTree) commonTree.getChild(0);
-            if (m.getType() == RouteSpecificationParser.ALPHANUM) {
-               return new RouteSpecificationSegment(null, m.getText());
+            if (null != m) {
+               if (m.getType() == RouteSpecificationParser.ALPHANUM) {
+                  return new RouteSpecificationSegment(null, m.getText());
+               } else {
+                  return null;
+               }
             } else {
                return null;
             }
