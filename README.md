@@ -6,7 +6,7 @@ Pragmatach is a simple web framework aimed at providing rapid development of web
 Features in Pragmatach include:
 
 * Minimum client-side requirement; browser programmers should be free of restrictions
-* Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
+* Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencie
 * Automatic JSON generation via Gson
 * Cache control headers specified via Annotations and generated automatically
 * Automatic population of controller fields from Form, JSON or XML POST
@@ -24,6 +24,20 @@ License
 ------------------------
 
 Pragmatach is licensed under the GPL.
+
+Plugins
+------------------------
+
+The Pragmatch framework does not include useful functionality by itself; all functionality is provided via plugins. The current plugins are:
+
+* pragmatach-framework; this is the core Pragmatach code
+* pragmatach-freemarker; support for the Freemarker template engine
+* pragmatach-velocity; support for the Velocity template engine
+* pragmatach-adminapp; the Pragmatach admin console
+* pragmatach-gson; support for Google Gson
+* pragmatach-json; support for JSON, including posting JSON to controllers
+* pragmatach-xtream; XML support via XStream
+* pragmatach-jcr; support for the JCR
 
 Creating a test project
 ------------------------
