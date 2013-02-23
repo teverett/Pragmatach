@@ -8,14 +8,13 @@ import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.Controllers;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
  */
 @Controller(name = "pragmatachShowControllersController")
 @View(view = "pragmatach/admin/controllers.html")
-public class ShowControllersController extends FreemarkerController {
+public class ShowControllersController extends AbstractAdminController {
    private Set<Class<?>> controllers;
 
    public Controller getControllerAnnotation(Class<?> clazz) {

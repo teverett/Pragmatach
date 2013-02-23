@@ -9,14 +9,13 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.plugin.Plugin;
 import com.khubla.pragmatach.framework.plugin.Plugins;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
  */
 @Controller(name = "pragmatachShowPluginsController")
 @View(view = "pragmatach/admin/plugins.html")
-public class ShowPluginsController extends FreemarkerController {
+public class ShowPluginsController extends AbstractAdminController {
    /**
     * plugins
     */

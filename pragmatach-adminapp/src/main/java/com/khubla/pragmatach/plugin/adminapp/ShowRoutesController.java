@@ -9,14 +9,13 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 import com.khubla.pragmatach.framework.router.PragmatachRoutes;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
  */
 @Controller(name = "pragmatachShowRoutesController")
 @View(view = "pragmatach/admin/routes.html")
-public class ShowRoutesController extends FreemarkerController {
+public class ShowRoutesController extends AbstractAdminController {
    private List<PragmatachRoute> POSTRoutes;
    private List<PragmatachRoute> GETRoutes;
 

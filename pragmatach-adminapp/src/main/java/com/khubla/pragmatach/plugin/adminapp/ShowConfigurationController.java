@@ -8,14 +8,13 @@ import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
  */
 @Controller(name = "pragmatachShowRoutesController")
 @View(view = "pragmatach/admin/configuration.html")
-public class ShowConfigurationController extends FreemarkerController {
+public class ShowConfigurationController extends AbstractAdminController {
    private Map<String, String> configuration;
 
    public Map<String, String> getConfiguration() {

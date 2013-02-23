@@ -7,7 +7,10 @@ import java.util.Map;
 import com.khubla.pragmatach.framework.annotation.CacheControl;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
+import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.controller.impl.RedirectController;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
+import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
 /**
  * @author tome
@@ -22,6 +25,17 @@ public abstract class AbstractController implements PragmatachController {
     */
    private static final String CACHECONTROL = "Cache-Control: ";
 
+   /**
+    * forward to another controller uri
+    */
+   public Response forward(String uri) throws PragmatachException {
+      final String forwardURI = request.getHttpServletRequest().getContextPath() + uri;
+      return new RedirectController(forwardURI).render();
+   }
+
+   /**
+    * generate the cache headers
+    */
    protected Map<String, String> getCacheHeaders() throws PragmatachException {
       try {
          final CacheControl cacheControl = this.getClass().getAnnotation(CacheControl.class);
@@ -66,6 +80,16 @@ public abstract class AbstractController implements PragmatachController {
       }
    }
 
+   /**
+    * get a configuration parameter from the pragmatatch configuration
+    */
+   public String getConfigurationParameter(String name) {
+      return PragmatachServlet.getConfiguration().getParameter(name);
+   }
+
+   /**
+    * get the request
+    */
    public Request getRequest() {
       return request;
    }
@@ -82,6 +106,24 @@ public abstract class AbstractController implements PragmatachController {
       }
    }
 
+   /**
+    * get the instance of a session-bound controller
+    */
+   @SuppressWarnings("unchecked")
+   public <T> T getSessionScopedController(Class<T> clazz) {
+      return (T) SessionScopedControllers.getController(request.getSession(), clazz);
+   }
+
+   /**
+    * redirect. This API requires a full URL including authority, hostname, port, etc.
+    */
+   public Response redirect(String uri) throws PragmatachException {
+      return new RedirectController(uri).render();
+   }
+
+   /**
+    * set the request
+    */
    public void setRequest(Request request) {
       this.request = request;
    }
