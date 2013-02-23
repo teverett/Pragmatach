@@ -31,7 +31,7 @@ public class TestRoutes {
    }
 
    @Test
-   public void test1() {
+   public void testScoping1() {
       try {
          final PragmatachRoutes routes = PragmatachRoutes.getInstance();
          Assert.assertNotNull(routes);

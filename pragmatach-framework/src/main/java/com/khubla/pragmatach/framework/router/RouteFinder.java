@@ -64,7 +64,7 @@ public class RouteFinder {
                /*
                 * URL decode the parameter
                 */
-               String decodedParameter = URLDecoder.decode(crackedURI[i], "UTF-8");
+               final String decodedParameter = URLDecoder.decode(crackedURI[i], "UTF-8");
                /*
                 * set the parameter
                 */

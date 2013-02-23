@@ -174,9 +174,23 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     * returns true this route is more general than the passed route, false otherwise
     */
    public boolean scopes(PragmatachRoute pragmatachRoute) {
+      /*
+       * the root url is the most general
+       */
+      if (route.uri().compareTo("/") == 0) {
+         return true;
+      }
       if (null != pragmatachRoute) {
-         if ((pragmatachRoute.route.uri().startsWith(route.uri())) && (pragmatachRoute.route.uri().length() > route.uri().length())) {
-            return true;
+         /*
+          * check that the routes are on the same path
+          */
+         if (route.uri().startsWith(pragmatachRoute.route.uri())) {
+            /*
+             * the parameter count for *this* is less than the parameter count for the passed route
+             */
+            if (getSegmentCount() < pragmatachRoute.getSegmentCount()) {
+               return true;
+            }
          }
       }
       return false;

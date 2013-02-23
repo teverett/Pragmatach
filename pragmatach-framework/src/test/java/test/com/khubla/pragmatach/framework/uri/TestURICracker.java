@@ -12,7 +12,7 @@ public class TestURICracker {
    @Test
    public void testRootURI() {
       try {
-         String[] cracked = URICracker.crackURI("/");
+         final String[] cracked = URICracker.crackURI("/");
          Assert.assertNotNull(cracked);
          Assert.assertTrue(cracked.length == 1);
          Assert.assertTrue(cracked[0].compareTo("/") == 0);
@@ -25,7 +25,7 @@ public class TestURICracker {
    @Test
    public void testSimpleURI() {
       try {
-         String[] cracked = URICracker.crackURI("/a/f/r");
+         final String[] cracked = URICracker.crackURI("/a/f/r");
          Assert.assertNotNull(cracked);
          Assert.assertTrue(cracked.length == 3);
          Assert.assertTrue(cracked[0].compareTo("a") == 0);
