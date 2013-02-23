@@ -365,4 +365,8 @@ JMX Bindings
 
 In order to support runtime inspection of applications, Pragmatach supports JMX bindings using MXBeans.  
 
+JCR Support
+------------------------
+
+Support for the JCR is provided via the "pragmatach-jcr" plugin.  This plugin will accept a HTTP GET with an encoded JCR Node path and will return JSON containing the names-value pairs for every JCR Property in that Node.
 
