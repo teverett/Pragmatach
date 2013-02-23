@@ -32,12 +32,19 @@ public class JCRController extends AbstractTemplateEngineController {
           */
          final Session session = jcrSessionFactory.getSession();
          /*
-          * get the property
+          * check
           */
-         final Node root = session.getRootNode();
-         final Node node = root.getNode(propertyName);
-         final String json = renderNodeToJSON(node);
-         return new JCRResponse(getCacheHeaders(), json);
+         if (null != session) {
+            /*
+             * get the property
+             */
+            final Node root = session.getRootNode();
+            final Node node = root.getNode(propertyName);
+            final String json = renderNodeToJSON(node);
+            return new JCRResponse(getCacheHeaders(), json);
+         } else {
+            throw new PragmatachException("Unable to get session");
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

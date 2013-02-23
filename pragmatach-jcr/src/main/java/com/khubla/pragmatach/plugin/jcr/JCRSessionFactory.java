@@ -1,13 +1,10 @@
 package com.khubla.pragmatach.plugin.jcr;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ServiceLoader;
-
 import javax.jcr.Repository;
-import javax.jcr.RepositoryFactory;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
+
+import org.apache.jackrabbit.commons.JcrUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
@@ -31,20 +28,36 @@ public class JCRSessionFactory {
       }
    }
 
+   /**
+    * get a repository Session
+    */
    public Session getSession() throws PragmatachException {
       try {
-         final Map parameters = new HashMap();
-         Repository repository = null;
-         for (final RepositoryFactory factory : ServiceLoader.load(RepositoryFactory.class)) {
-            repository = factory.getRepository(parameters);
-            if (repository != null) {
-               break;
+         final String repositoryName = getURL();
+         if ((null != repositoryName) && (repositoryName.length() > 0)) {
+            final Repository repository = JcrUtils.getRepository(repositoryName);
+            if (null != repository) {
+               final SimpleCredentials credentials = new SimpleCredentials(getUsername(), getPassword());
+               return repository.login(credentials);
+            } else {
+               throw new PragmatachException("Unable to connect to repository '" + repositoryName + "'");
             }
+         } else {
+            throw new PragmatachException("Please suppy a repository URL");
          }
-         final SimpleCredentials credentials = new SimpleCredentials(getUsername(), getPassword());
-         return repository.login(credentials);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRepository", e);
+      }
+   }
+
+   /**
+    * get url
+    */
+   private String getURL() throws PragmatachException {
+      try {
+         return PragmatachServlet.getConfiguration().getParameter("jcr.url");
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getUsername", e);
       }
    }
 
