@@ -42,6 +42,9 @@ public class Router {
       this.publicContextPath = publicContextPath;
    }
 
+   /**
+    * get instance of pragmatatch controller. Either a new request controller or an existing session controller
+    */
    private PragmatachController getPragmatachControllerInstance(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
       try {
          final Class<?> clazz = pragmatachRoute.getMethod().getDeclaringClass();
@@ -166,7 +169,7 @@ public class Router {
    }
 
    /**
-    * get Method that matches request
+    * route request
     */
    public Response route(Request request) throws PragmatachException {
       try {

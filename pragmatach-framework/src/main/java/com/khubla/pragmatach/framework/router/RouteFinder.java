@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.framework.router;
 
+import java.net.URLDecoder;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -60,7 +61,14 @@ public class RouteFinder {
          for (final RouteSpecificationSegment routeSpecificationSegment : pragmatachRoute.getRouteSpecification().getSegments()) {
             final String id = routeSpecificationSegment.getVariableId();
             if ((null != id) && (id.length() > 0)) {
-               ret.put(id, crackedURI[i]);
+               /*
+                * URL decode the parameter
+                */
+               String decodedParameter = URLDecoder.decode(crackedURI[i], "UTF-8");
+               /*
+                * set the parameter
+                */
+               ret.put(id, decodedParameter);
             }
             i++;
          }
