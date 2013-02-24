@@ -9,6 +9,11 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
  */
 public class AbstractAdminController extends FreemarkerController {
    /**
+    * the cookie name
+    */
+   public static final String USERID = "adminUserId";
+
+   /**
     * check security
     */
    public Response render() throws PragmatachException {
@@ -28,7 +33,7 @@ public class AbstractAdminController extends FreemarkerController {
          /*
           * check for the cookie
           */
-         final String userId = getRequest().getCookie("adminUserId");
+         final String userId = getRequest().getCookies().getCookie(USERID);
          if (null != userId) {
             /*
              * set the session state from the cookie

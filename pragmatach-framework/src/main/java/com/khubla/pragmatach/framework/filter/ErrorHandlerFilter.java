@@ -32,7 +32,7 @@ public class ErrorHandlerFilter implements Filter {
          }
          filterChain.doFilter(servletRequest, response);
       } catch (final Exception e) {
-         final HttpErrorController httpErrorController = PragmatachControllerFactory.getHttpErrorController(new Request(request, Route.HttpMethod.get), e);
+         final HttpErrorController httpErrorController = PragmatachControllerFactory.getHttpErrorController(new Request(request, response, Route.HttpMethod.get), e);
          try {
             httpErrorController.render().render(response.getOutputStream());
          } catch (final Exception e2) {

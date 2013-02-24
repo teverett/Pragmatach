@@ -2,14 +2,10 @@ package com.khubla.pragmatach.framework.api;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -28,69 +24,31 @@ public class Request {
     * method
     */
    private final Route.HttpMethod method;
+   /**
+    * headers
+    */
+   private final Headers headers;
+   /**
+    * cookies
+    */
+   private final Cookies cookies;
 
    /**
     * ctor
     */
-   public Request(HttpServletRequest httpServletRequest, Route.HttpMethod method) {
+   public Request(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Route.HttpMethod method) {
       this.httpServletRequest = httpServletRequest;
       this.method = method;
+      headers = new Headers(httpServletRequest, httpServletResponse);
+      cookies = new Cookies(httpServletRequest, httpServletResponse);
    }
 
-   /**
-    * Accept-Language
-    */
-   public String getAcceptLanguage() {
-      return httpServletRequest.getHeader("Accept-Language");
+   public Cookies getCookies() {
+      return cookies;
    }
 
-   /**
-    * get content type
-    */
-   String getContentType() {
-      return httpServletRequest.getContentType();
-   }
-
-   /**
-    * get a cookie by name
-    */
-   public String getCookie(String name) {
-      if ((null != name) && (name.length() > 0)) {
-         final Hashtable<String, String> cookies = getCookies();
-         if (null != cookies) {
-            return cookies.get(name);
-         }
-      }
-      return null;
-   }
-
-   /**
-    * get all the cookies
-    */
-   public Hashtable<String, String> getCookies() {
-      final Cookie[] cookies = getHttpServletRequest().getCookies();
-      if ((null != cookies) && (cookies.length > 0)) {
-         final Hashtable<String, String> ret = new Hashtable<String, String>();
-         for (final Cookie cookie : cookies) {
-            ret.put(cookie.getName(), cookie.getValue());
-         }
-         return ret;
-      }
-      return null;
-   }
-
-   /**
-    * headers
-    */
-   @SuppressWarnings("unchecked")
-   public Map<String, String> getHeaders() {
-      final Map<String, String> ret = new HashMap<String, String>();
-      final Enumeration<String> enumer = httpServletRequest.getHeaderNames();
-      while (enumer.hasMoreElements()) {
-         final String key = enumer.nextElement();
-         ret.put(key, httpServletRequest.getHeader(key));
-      }
-      return ret;
+   public Headers getHeaders() {
+      return headers;
    }
 
    public HttpServletRequest getHttpServletRequest() {
@@ -120,24 +78,6 @@ public class Request {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRequestBody", e);
       }
-   }
-
-   /**
-    * pragma
-    */
-   public String[] getPragma() {
-      final String pragmas = httpServletRequest.getHeader("Pragma");
-      if (null != pragmas) {
-         return pragmas.split(",");
-      }
-      return null;
-   }
-
-   /**
-    * referer
-    */
-   public String getReferer() {
-      return httpServletRequest.getHeader("referer");
    }
 
    /**
@@ -178,19 +118,5 @@ public class Request {
     */
    public String getURI() {
       return httpServletRequest.getRequestURI();
-   }
-
-   /**
-    * User-Agent
-    */
-   public String getUserAgent() {
-      return httpServletRequest.getHeader("User-Agent");
-   }
-
-   /**
-    * Via
-    */
-   public String getVia() {
-      return httpServletRequest.getHeader("Via");
    }
 }

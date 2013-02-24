@@ -1,9 +1,15 @@
-
-<ul class="nav">
+<ul class="nav" role="navigation">
 	<li><a href="${session.getServletContext().getContextPath()}/">Home</a></li>
-	<li class="active"><a href="${session.getServletContext().getContextPath()}/pragmatach/admin">Admin</a></li>
-	<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/configuration">Configuration</a></li>
-	<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/controllers">Controllers</a></li>
-	<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/routes">Routes</a></li>
-	<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/plugins">Plugins</a></li>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">System</a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/configuration">Configuration</a></li>
+			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/controllers">Controllers</a></li>
+			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/routes">Routes</a></li>
+			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/plugins">Plugins</a></li>
+		</ul></li>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Debug</a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/server">Server</a></li>
+			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/environment">Environment</a></li>
+		</ul></li>
 </ul>

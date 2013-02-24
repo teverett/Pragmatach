@@ -38,6 +38,10 @@ public class AdminLoginController extends FreemarkerController {
              */
             this.getSessionScopedController(AdminUserController.class).setUsername(username);
             /*
+             * set cookie
+             */
+            getRequest().getCookies().setCookie(AbstractAdminController.USERID, username);
+            /*
              * go to main page
              */
             return super.forward("/pragmatach/admin/");
