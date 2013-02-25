@@ -9,7 +9,7 @@
 	<properties>
 		<target.jvm>1.6</target.jvm>
 		<testng.version>6.8</testng.version>
-		<servlet.version>2.5</servlet.version>
+		<servlet.version>3.0.1</servlet.version>
 	</properties>
 	<modules>
 		<module>pragmatach-archetype</module>
@@ -31,6 +31,13 @@
 			<version>${testng.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<type>jar</type>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
