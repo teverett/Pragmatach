@@ -22,6 +22,7 @@
 		<module>pragmatach-gson</module>
 		<module>pragmatach-xstream</module>
 		<module>pragmatach-adminapp</module>
+		<module>pragmatach-websocket</module>
 		<module>examples</module>
 	</modules>
 	<dependencies>

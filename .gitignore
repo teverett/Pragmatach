@@ -153,3 +153,7 @@
 /examples/routesexample/.project
 /examples/routesexample/.classpath
 /examples/routesexample/routesexample.log
+/pragmatach-websocket/target/
+/pragmatach-websocket/.settings/
+/pragmatach-websocket/.project
+/pragmatach-websocket/.classpath
