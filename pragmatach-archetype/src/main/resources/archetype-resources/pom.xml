@@ -27,6 +27,13 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-websocket</artifactId>
+			<version>1.0.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
