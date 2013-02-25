@@ -10,6 +10,7 @@
 		<target.jvm>1.6</target.jvm>
 		<testng.version>6.8</testng.version>
 		<servlet.version>3.0.1</servlet.version>
+		<log4j.version>1.2.17</log4j.version>
 	</properties>
 	<modules>
 		<module>pragmatach-archetype</module>
