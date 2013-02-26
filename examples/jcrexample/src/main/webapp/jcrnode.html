@@ -3,7 +3,17 @@
 <title>Pragmatach</title>
 </head>
 <body>
-	<h1>JCR Node</h1>	
+	<h1>Node: ${controller.node.name}</h1>
+	<h2>Children</h2>
+	<ul>
+		<#list controller.subnodes as subnode>
+		<li>${subnode.name}</li> </#list>
+	</ul>
+	<h2>Properties</h2>
+	<ul>
+		<#list controller.nodeProperties(controller.node) as property>
+		<li>${property.name}</li> </#list>
+	</ul>
 </body>
 
 

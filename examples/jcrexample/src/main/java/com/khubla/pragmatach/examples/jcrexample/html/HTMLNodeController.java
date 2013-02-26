@@ -1,6 +1,13 @@
 package com.khubla.pragmatach.examples.jcrexample.html;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.Property;
+import javax.jcr.PropertyIterator;
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
@@ -15,9 +22,9 @@ import com.khubla.pragmatach.plugin.jcr.JCRSessionFactory;
 /**
  * @author tome
  */
-@Controller(name = "HTMLNodePropertiesController")
-@View(view = "jcrproperties.html")
-public class HTMLNodePropertiesController extends FreemarkerController {
+@Controller(name = "HTMLNodeChildrenController")
+@View(view = "jcrnode.html")
+public class HTMLNodeController extends FreemarkerController {
    /***
     * JCRSessionFactory
     */
@@ -26,27 +33,60 @@ public class HTMLNodePropertiesController extends FreemarkerController {
     * the node
     */
    private Node node;
+   /**
+    * subnodes
+    */
+   private Set<Node> subnodes;
 
    public Node getNode() {
       return node;
    }
 
-   @Route(uri = "example/html/properties/")
+   public Set<Property> nodeProperties(Node node) throws RepositoryException {
+      final Set<Property> ret = new HashSet<Property>();
+      final PropertyIterator propertyIterator = node.getProperties();
+      while (propertyIterator.hasNext()) {
+         /*
+          * property
+          */
+         ret.add(propertyIterator.nextProperty());
+      }
+      return ret;
+   }
+
+   public Set<Node> getSubnodes() {
+      return subnodes;
+   }
+
+   private void readSubNodes(Node node) throws RepositoryException {
+      subnodes = new HashSet<Node>();
+      final NodeIterator nodeIterator = node.getNodes();
+      while (nodeIterator.hasNext()) {
+         /*
+          * node
+          */
+         subnodes.add(nodeIterator.nextNode());
+      }
+   }
+
+   @Route(uri = "example/html/")
    public Response render() throws PragmatachException {
       try {
          final Session session = jcrSessionFactory.getSession();
          node = session.getRootNode();
+         readSubNodes(node);
          return super.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
    }
 
-   @Route(uri = "example/html/properties/@nodeName")
+   @Route(uri = "example/html/@nodeName")
    public Response render(@RouteParameter(name = "nodeName") String nodeName) throws PragmatachException {
       try {
          final Session session = jcrSessionFactory.getSession();
          node = session.getRootNode().getNode(nodeName);
+         readSubNodes(node);
          return super.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
@@ -55,5 +95,9 @@ public class HTMLNodePropertiesController extends FreemarkerController {
 
    public void setNode(Node node) {
       this.node = node;
+   }
+
+   public void setSubnodes(Set<Node> subnodes) {
+      this.subnodes = subnodes;
    }
 }
