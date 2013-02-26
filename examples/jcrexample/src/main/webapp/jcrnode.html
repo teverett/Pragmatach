@@ -7,7 +7,7 @@
 	<h2>Children</h2>
 	<ul>
 		<#list controller.subnodes as subnode>
-		<li>${subnode.name}</li> </#list>
+		<li><a href="${session.getServletContext().getContextPath()}/example/html/${controller.path}${subnode.name}">${subnode.name}</a></li> </#list>
 	</ul>
 	<h2>Properties</h2>
 	<ul>
