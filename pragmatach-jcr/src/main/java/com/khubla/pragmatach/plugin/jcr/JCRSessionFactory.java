@@ -5,6 +5,7 @@ import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
 import org.apache.jackrabbit.commons.JcrUtils;
+import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
@@ -13,6 +14,11 @@ import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
  * @author tome
  */
 public class JCRSessionFactory {
+   /**
+    * logger
+    */
+   private final Logger logger = Logger.getLogger(this.getClass());
+
    /**
     * get password
     */
@@ -33,14 +39,33 @@ public class JCRSessionFactory {
     */
    public Session getSession() throws PragmatachException {
       try {
-         final String repositoryName = getURL();
-         if ((null != repositoryName) && (repositoryName.length() > 0)) {
-            final Repository repository = JcrUtils.getRepository(repositoryName);
+         /*
+          * connect to repo
+          */
+         final String repositoryURL = getURL();
+         if ((null != repositoryURL) && (repositoryURL.length() > 0)) {
+            final Repository repository = JcrUtils.getRepository(repositoryURL);
             if (null != repository) {
+               /*
+                * log
+                */
+               logger.info("Found repository '" + repositoryURL + "'");
+               /*
+                * login to workspace
+                */
                final SimpleCredentials credentials = new SimpleCredentials(getUsername(), getPassword());
-               return repository.login(credentials);
+               final String workspace = getWorkspace();
+               final Session session = repository.login(credentials, workspace);
+               /*
+                * log
+                */
+               logger.info("Logged into workspace '" + workspace + "'");
+               /*
+                * done
+                */
+               return session;
             } else {
-               throw new PragmatachException("Unable to connect to repository '" + repositoryName + "'");
+               throw new PragmatachException("Unable to connect to repository '" + repositoryURL + "'");
             }
          } else {
             throw new PragmatachException("Please suppy a repository URL");
@@ -67,6 +92,17 @@ public class JCRSessionFactory {
    private String getUsername() throws PragmatachException {
       try {
          return PragmatachServlet.getConfiguration().getParameter("jcr.username");
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getUsername", e);
+      }
+   }
+
+   /**
+    * get workspace
+    */
+   private String getWorkspace() throws PragmatachException {
+      try {
+         return PragmatachServlet.getConfiguration().getParameter("jcr.workspace");
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getUsername", e);
       }
