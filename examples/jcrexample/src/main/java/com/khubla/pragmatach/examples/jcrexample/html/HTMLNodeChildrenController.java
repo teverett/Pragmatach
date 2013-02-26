@@ -20,13 +20,13 @@ public class HTMLNodeChildrenController extends FreemarkerController {
     */
    protected final JCRSessionFactory jcrSessionFactory = new JCRSessionFactory();
 
-   @Route(uri = "example/html/children/@nodeName")
-   public Response render(@RouteParameter(name = "nodeName") String nodeName) throws PragmatachException {
+   @Route(uri = "example/html/children/")
+   public Response render() throws PragmatachException {
       return super.render();
    }
 
-   @Route(uri = "example/html/children/")
-   public Response render() throws PragmatachException {
+   @Route(uri = "example/html/children/@nodeName")
+   public Response render(@RouteParameter(name = "nodeName") String nodeName) throws PragmatachException {
       return super.render();
    }
 }

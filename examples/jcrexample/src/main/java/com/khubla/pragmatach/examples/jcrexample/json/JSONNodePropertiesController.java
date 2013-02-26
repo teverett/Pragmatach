@@ -12,6 +12,11 @@ import com.khubla.pragmatach.plugin.jcr.JCRJSONController;
  */
 @Controller(name = "JSONNodePropertiesController")
 public class JSONNodePropertiesController extends JCRJSONController {
+   @Route(uri = "example/json/properties/")
+   public Response render() throws PragmatachException {
+      return super.renderProperties(null);
+   }
+
    @Route(uri = "example/json/properties/@nodeName")
    public Response render(@RouteParameter(name = "nodeName") String nodeName) throws PragmatachException {
       return super.renderProperties(nodeName);
