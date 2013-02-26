@@ -87,4 +87,16 @@ public class TestPragmatachURIParser {
          Assert.fail();
       }
    }
+
+   @Test
+   public void testSimpleWildcardURI() {
+      try {
+         final List<RouteSpecificationSegment> parts = new RouteSpecification("/showfeed/*").getSegments();
+         Assert.assertNotNull(parts);
+         Assert.assertTrue(parts.size() == 2);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
 }

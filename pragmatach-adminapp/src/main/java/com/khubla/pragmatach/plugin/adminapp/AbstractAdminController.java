@@ -14,6 +14,23 @@ public class AbstractAdminController extends FreemarkerController {
    public static final String USERID = "adminUserId";
 
    /**
+    * check if user is logged in
+    */
+   public boolean isLoggedIn() {
+      /*
+       * get the user controller
+       */
+      final AdminUserController adminUserController = this.getSessionScopedController(AdminUserController.class);
+      /*
+       * check
+       */
+      if (null != adminUserController.getUsername()) {
+         return false;
+      }
+      return false;
+   }
+
+   /**
     * check security
     */
    public Response render() throws PragmatachException {
