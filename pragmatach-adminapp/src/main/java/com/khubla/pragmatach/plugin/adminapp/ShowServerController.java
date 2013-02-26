@@ -17,14 +17,14 @@ public class ShowServerController extends AbstractAdminController {
     */
    private String serverinfo;
 
-   @Route(uri = "/pragmatach/admin/server")
-   public Response render() throws PragmatachException {
-      serverinfo = this.getRequest().getHttpServletRequest().getSession().getServletContext().getServerInfo();
-      return super.render();
-   }
-
    public String getServerinfo() {
       return serverinfo;
+   }
+
+   @Route(uri = "/pragmatach/admin/server")
+   public Response render() throws PragmatachException {
+      serverinfo = getRequest().getHttpServletRequest().getSession().getServletContext().getServerInfo();
+      return super.render();
    }
 
    public void setServerinfo(String serverinfo) {

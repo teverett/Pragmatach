@@ -23,13 +23,13 @@ public class ShowEnvironmentController extends AbstractAdminController {
       return environment;
    }
 
-   public void setEnvironment(Map<String, String> environment) {
-      this.environment = environment;
-   }
-
    @Route(uri = "/pragmatach/admin/environment")
    public Response render() throws PragmatachException {
-      this.environment = System.getenv();
+      environment = System.getenv();
       return super.render();
+   }
+
+   public void setEnvironment(Map<String, String> environment) {
+      this.environment = environment;
    }
 }
