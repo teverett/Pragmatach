@@ -3,12 +3,12 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>examples</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<name>khubla.com Pragmatach Examples</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
-		<version>1.0.4</version>
+		<version>1.0.5</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modules>
