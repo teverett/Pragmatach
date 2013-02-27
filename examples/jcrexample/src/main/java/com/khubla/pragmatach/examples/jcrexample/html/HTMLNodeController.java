@@ -12,7 +12,6 @@ import javax.jcr.Session;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
-import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -41,6 +40,17 @@ public class HTMLNodeController extends FreemarkerController {
     * current node path
     */
    private String path = "";
+
+   /**
+    * build the path from the variable argument link
+    */
+   private String buildNodePath(String... nodeName) {
+      String ret = "";
+      for (final String s : nodeName) {
+         ret += "/" + s;
+      }
+      return ret;
+   }
 
    public Node getNode() {
       return node;
@@ -90,11 +100,11 @@ public class HTMLNodeController extends FreemarkerController {
       }
    }
 
-   @Route(uri = "example/html/@nodeName")
-   public Response render(@RouteParameter(name = "nodeName") String nodeName) throws PragmatachException {
+   @Route(uri = "example/html/*")
+   public Response render(String... nodeName) throws PragmatachException {
       try {
          final Session session = jcrSessionFactory.getSession();
-         node = session.getRootNode().getNode(nodeName);
+         node = session.getRootNode().getNode(buildNodePath(nodeName));
          readSubNodes(node);
          path = nodeName + "/";
          return super.render();

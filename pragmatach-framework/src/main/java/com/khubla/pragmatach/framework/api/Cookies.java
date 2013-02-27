@@ -32,6 +32,18 @@ public class Cookies {
    }
 
    /**
+    * clear all cookies
+    */
+   public void clearAll() {
+      final Cookie[] cookies = httpServletRequest.getCookies();
+      if ((null != cookies) && (cookies.length > 0)) {
+         for (final Cookie cookie : cookies) {
+            removeCookie(cookie.getName());
+         }
+      }
+   }
+
+   /**
     * get a cookie by name
     */
    public String getCookie(String name) {
@@ -74,6 +86,7 @@ public class Cookies {
    public void setCookie(String name, String value) {
       final Cookie cookie = new Cookie(name, value);
       cookie.setMaxAge(SECONDS_PER_YEAR);
+      cookie.setPath("/");
       httpServletResponse.addCookie(cookie);
    }
 }

@@ -45,7 +45,6 @@ public class Headers {
    /**
     * headers
     */
-   @SuppressWarnings("unchecked")
    public Map<String, String> getHeaders() {
       final Map<String, String> ret = new HashMap<String, String>();
       final Enumeration<String> enumer = httpServletRequest.getHeaderNames();

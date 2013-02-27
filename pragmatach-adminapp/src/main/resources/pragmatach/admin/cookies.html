@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Cookies</h1>
+		<h2>All Cookies</h2>
+		<#if controller.cookies??>
+		<table class="table">
+			<tr>
+				<th>Parameter</th>
+				<th>Value</th>
+			</tr>
+			<#list controller.cookies?keys as prop>
+			<tr>
+				<td>${prop}</td>
+				<td>${controller.cookies[prop]}</td>
+			</tr>
+			</#list>
+		</table>
+		<#else>
+		No cookies found
+		</#if>
+		<h2>Clear Cookies</h2>
+		<form action="${session.getServletContext().getContextPath()}/pragmatach/admin/cookies/clearCookies" method="post" enctype="multipart/form-data">
+			<button type="submit" class="btn">Clear</button>
+		</form>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>
+
+
+
+
+
+
+

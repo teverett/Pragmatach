@@ -59,7 +59,7 @@ public class AbstractAdminController extends FreemarkerController {
             /*
              * redirect back and try again
              */
-            return super.forward("/pragmatach/admin/login");
+            return super.render();
          } else {
             /*
              * log in

@@ -61,7 +61,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
                throw new PragmatachException("Parameter number mismatch");
             }
             /*
-             * check that the number of supplied variable binding annotations matches the number of parameters
+             * check that the number of supplied variable bindings annotations matches the number of parameters
              */
             if (method.getParameterAnnotations().length != method.getParameterTypes().length) {
                throw new PragmatachException("Annotation number mismatch");
