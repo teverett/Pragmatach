@@ -212,3 +212,5 @@ velocityexample.log
 /pragmatach-thymeleaf/.project
 /pragmatach-thymeleaf/.classpath
 thymeleafexample.log
+/pragmatach-archetype/src/main/resources/archetype-resources/src/main/resources/.DS_Store
+/pragmatach-archetype/src/main/resources/archetype-resources/src/main/.DS_Store
