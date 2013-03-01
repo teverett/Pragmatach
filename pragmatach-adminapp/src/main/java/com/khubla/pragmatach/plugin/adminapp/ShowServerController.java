@@ -48,8 +48,32 @@ public class ShowServerController extends AbstractAdminController {
     * process id
     */
    private String processId;
+   /**
+    * ips of this host
+    */
    private List<String> ips;
+   /**
+    * java properties
+    */
    private Hashtable<String, String> javaProperties;
+   /**
+    * application version from maven pom
+    */
+   private String applicationVersion;
+
+   private String findApplicationVersion() throws PragmatachException {
+      try {
+         final InputStream is = ShowServerController.class.getResourceAsStream("/version.properties");
+         if (null != is) {
+            final Properties properties = new Properties();
+            properties.load(is);
+            return properties.getProperty("maven.version");
+         }
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findApplicationVersion", e);
+      }
+   }
 
    private List<String> findIPs() throws PragmatachException {
       try {
@@ -87,6 +111,10 @@ public class ShowServerController extends AbstractAdminController {
       }
    }
 
+   public String getApplicationVersion() {
+      return applicationVersion;
+   }
+
    public String getHostname() {
       return hostname;
    }
@@ -113,13 +141,17 @@ public class ShowServerController extends AbstractAdminController {
       processId = findProcessId();
       ips = findIPs();
       javaProperties = findJavaProperties();
-      this.applicationVersion = findApplicationVersion();
+      applicationVersion = findApplicationVersion();
       try {
          hostname = java.net.InetAddress.getLocalHost().getHostName();
       } catch (final Exception e) {
          hostname = "";
       }
       return super.render();
+   }
+
+   public void setApplicationVersion(String applicationVersion) {
+      this.applicationVersion = applicationVersion;
    }
 
    public void setHostname(String hostname) {
@@ -140,29 +172,5 @@ public class ShowServerController extends AbstractAdminController {
 
    public void setServerinfo(String serverinfo) {
       this.serverinfo = serverinfo;
-   }
-
-   private String applicationVersion;
-
-   public String getApplicationVersion() {
-      return applicationVersion;
-   }
-
-   public void setApplicationVersion(String applicationVersion) {
-      this.applicationVersion = applicationVersion;
-   }
-
-   private String findApplicationVersion() throws PragmatachException {
-      try {
-         InputStream is = ShowServerController.class.getResourceAsStream("/version.properties");
-         if (null != is) {
-            Properties properties = new Properties();
-            properties.load(is);
-            return properties.getProperty("maven.version");
-         }
-         return null;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in findApplicationVersion", e);
-      }
    }
 }
