@@ -16,6 +16,7 @@
 		<module>pragmatach-archetype</module>
 		<module>pragmatach-framework</module>
 		<module>pragmatach-freemarker</module>
+		<module>pragmatach-thymeleaf</module>
 		<module>pragmatach-jasper</module>
 		<module>pragmatach-velocity</module>
 		<module>pragmatach-jcr</module>
