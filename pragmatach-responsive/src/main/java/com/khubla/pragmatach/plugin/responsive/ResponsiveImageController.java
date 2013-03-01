@@ -35,7 +35,7 @@ public class ResponsiveImageController extends AbstractTemplateEngineController 
    /**
     * render
     */
-   @Route(uri = "/pragmatach/plugin/getproportionallysizedimage/@img/@width/@height")
+   @Route(uri = "/pragmatach/plugin/getsizedimage/@img/@width/@height")
    public Response render(@RouteParameter(name = "img") String imageResource, @RouteParameter(name = "width") int width, @RouteParameter(name = "height") int height) throws PragmatachException {
       try {
          final ResourceLoader resourceLoader = new ResourceLoader(getRequest().getServletContext());
