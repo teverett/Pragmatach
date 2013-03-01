@@ -28,6 +28,13 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-responsive</artifactId>
+			<version>1.0.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
 			<version>1.0</version>
