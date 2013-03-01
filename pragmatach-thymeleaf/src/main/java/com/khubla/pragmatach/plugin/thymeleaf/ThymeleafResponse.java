@@ -1,10 +1,10 @@
 package com.khubla.pragmatach.plugin.thymeleaf;
 
+import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ITemplateResolver;
@@ -49,12 +49,12 @@ public class ThymeleafResponse extends AbstractResponse {
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
-         final Writer writer = new PrintWriter(outputStream);
          final TemplateEngine templateEngine = new TemplateEngine();
          templateEngine.setTemplateResolver(templateResolver);
          final Context ctx = new Context();
          ctx.setVariables(context);
-         templateEngine.process(templateName, ctx, writer);
+         String result = templateEngine.process(templateName, ctx);
+         IOUtils.copy(new ByteArrayInputStream(result.getBytes()), outputStream);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
