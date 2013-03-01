@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.framework.configuration;
 
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +52,10 @@ public class PropertiesFileConfigurationImpl implements Configuration {
       try {
          if (null == properties) {
             properties = new Properties();
-            properties.load(PropertiesFileConfigurationImpl.class.getResourceAsStream(CONFIGURATION_FILE));
+            InputStream is = PropertiesFileConfigurationImpl.class.getResourceAsStream(CONFIGURATION_FILE);
+            if (null != is) {
+               properties.load(is);
+            }
          }
       } catch (final Exception e) {
          e.printStackTrace();
