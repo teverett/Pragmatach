@@ -12,16 +12,16 @@ public class TestAES {
    @Test
    public void test1() {
       try {
-         String payload = "We were very tired, we were very merry— We had gone back and forth all night on the ferry.";
-         String key = "This is my key";
+         final String payload = "We were very tired, we were very merry— We had gone back and forth all night on the ferry.";
+         final String key = "This is my key";
          /*
           * encrypt
           */
-         String encryptedPayload = AES.encrypt(payload, key);
+         final String encryptedPayload = AES.encrypt(payload, key);
          /*
           * decrypt
           */
-         String decryptedPayload = AES.decrypt(encryptedPayload, key);
+         final String decryptedPayload = AES.decrypt(encryptedPayload, key);
          /*
           * check
           */

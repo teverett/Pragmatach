@@ -211,7 +211,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
             /*
              * wildcards are more general
              */
-            if (this.isWildcardRoute() && (false == pragmatachRoute.isWildcardRoute())) {
+            if (isWildcardRoute() && (false == pragmatachRoute.isWildcardRoute())) {
                return true;
             }
             /*
