@@ -19,9 +19,9 @@ public abstract class AbstractController implements PragmatachController {
    /**
     * build a path from a wildcard path
     */
-   public static String buildWildcardResourceURI(String[] nodeName) {
+   public static String buildWildcardResourceURI(String[] resource) {
       String ret = "";
-      for (final String s : nodeName) {
+      for (final String s : resource) {
          ret += "/" + s;
       }
       return ret;

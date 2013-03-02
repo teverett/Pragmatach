@@ -31,14 +31,26 @@ public class TestRoutes {
    }
 
    @Test
-   public void testScoping1() {
+   public void testGETScoping() {
       try {
          final PragmatachRoutes routes = PragmatachRoutes.getInstance();
          Assert.assertNotNull(routes);
          reportRoutes(routes.getGETRoutes());
-         reportRoutes(routes.getPOSTRoutes());
-         Assert.assertTrue(routes.getGETRoutes().size() == 3);
+         Assert.assertTrue(routes.getGETRoutes().size() == 4);
          Assert.assertTrue(routes.getGETRoutes().get(2).getRoute().uri().compareTo("/") == 0);
+         Assert.assertTrue(routes.getGETRoutes().get(3).getRoute().uri().compareTo("/*") == 0);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test
+   public void testPOSTScoping() {
+      try {
+         final PragmatachRoutes routes = PragmatachRoutes.getInstance();
+         Assert.assertNotNull(routes);
+         reportRoutes(routes.getPOSTRoutes());
          Assert.assertTrue(routes.getPOSTRoutes().size() == 3);
          Assert.assertTrue(routes.getPOSTRoutes().get(2).getRoute().uri().compareTo("/a") == 0);
       } catch (final Exception e) {

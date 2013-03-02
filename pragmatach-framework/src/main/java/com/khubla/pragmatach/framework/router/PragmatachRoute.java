@@ -200,11 +200,20 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
       if (route.uri().compareTo("/") == 0) {
          return true;
       }
+      /*
+       * compare two routes
+       */
       if (null != pragmatachRoute) {
          /*
           * check that the routes are on the same path
           */
          if (route.uri().startsWith(pragmatachRoute.route.uri())) {
+            /*
+             * wildcards are more general
+             */
+            if (this.isWildcardRoute() && (false == pragmatachRoute.isWildcardRoute())) {
+               return true;
+            }
             /*
              * the parameter count for *this* is less than the parameter count for the passed route
              */
