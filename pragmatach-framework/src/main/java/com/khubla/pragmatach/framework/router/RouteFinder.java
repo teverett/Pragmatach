@@ -107,8 +107,8 @@ public class RouteFinder {
             /*
              * hacky, but it works
              */
-            for (final String k : crackedURI) {
-               ret.put(k, k);
+            for (int i = pragmatachRoute.getSegmentCount() - 1; i < crackedURI.length; i++) {
+               ret.put(crackedURI[i], crackedURI[i]);
             }
          }
          return ret;

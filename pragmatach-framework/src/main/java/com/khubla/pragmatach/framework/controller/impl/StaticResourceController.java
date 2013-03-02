@@ -7,7 +7,6 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
 /**
  * @author tome
@@ -15,22 +14,15 @@ import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 @Controller(name = "pragmatachStaticResourceController")
 public class StaticResourceController extends AbstractController {
    /**
-    * path to static assets
-    */
-   private final String publicContextPath;
-
-   /**
     * ctor
     */
    public StaticResourceController() {
-      publicContextPath = PragmatachServlet.getConfiguration().getPublicResourcePath();
    }
 
    protected InputStream getStaticResourceInputStream(String[] imageResource) throws PragmatachException {
       try {
          final String resourceUri = buildWildcardResourceURI(imageResource);
-         final String actualPath = resourceUri.substring(publicContextPath.length());
-         return getResource(actualPath);
+         return getResource(resourceUri);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getStaticResourceInputStream", e);
       }

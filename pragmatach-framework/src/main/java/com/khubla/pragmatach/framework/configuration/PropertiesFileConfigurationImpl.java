@@ -39,12 +39,6 @@ public class PropertiesFileConfigurationImpl implements Configuration {
       return properties.getProperty(name);
    }
 
-   @Override
-   public String getPublicResourcePath() {
-      readProperties();
-      return properties.getProperty("pragmatach.publicResourcePath");
-   }
-
    /**
     * read properties
     */

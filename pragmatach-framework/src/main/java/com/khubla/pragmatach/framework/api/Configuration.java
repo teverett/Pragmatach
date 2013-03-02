@@ -16,8 +16,4 @@ public interface Configuration {
     */
    String getParameter(String name);
 
-   /**
-    * get the path where public assets are found
-    */
-   String getPublicResourcePath();
 }
