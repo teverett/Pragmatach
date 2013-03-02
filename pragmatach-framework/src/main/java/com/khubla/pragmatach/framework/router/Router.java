@@ -181,7 +181,7 @@ public class Router {
          /*
           * log
           */
-         logger.info("Routing request for: " + request.getURI());
+         logger.debug("Routing request for: " + request.getURI());
          /*
           * try to find a route
           */
@@ -189,7 +189,7 @@ public class Router {
          if (true == routeFinder.match(request)) {
             return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
          } else {
-            logger.info("Routing request for: " + request.getURI() + " could not be routed");
+            logger.info("Request for: " + request.getURI() + " could not be routed");
          }
          /*
           * no match, return 404
