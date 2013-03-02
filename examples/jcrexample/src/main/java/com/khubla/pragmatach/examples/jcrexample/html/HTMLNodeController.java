@@ -39,14 +39,14 @@ public class HTMLNodeController extends FreemarkerController {
    /**
     * current node path
     */
-   private String path = "";
+   private String jcrPath = "";
+
+   public String getJcrPath() {
+      return jcrPath;
+   }
 
    public Node getNode() {
       return node;
-   }
-
-   public String getPath() {
-      return path;
    }
 
    public Set<Node> getSubnodes() {
@@ -82,7 +82,7 @@ public class HTMLNodeController extends FreemarkerController {
          final Session session = jcrSessionFactory.getSession();
          node = session.getRootNode();
          readSubNodes(node);
-         path = "";
+         jcrPath = "";
          return super.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
@@ -93,21 +93,24 @@ public class HTMLNodeController extends FreemarkerController {
    public Response render(String[] nodeName) throws PragmatachException {
       try {
          final Session session = jcrSessionFactory.getSession();
-         node = session.getRootNode().getNode(buildWildcardResourceURI(nodeName));
+         /*
+          * get the node path and remove the leading slashie
+          */
+         jcrPath = (getJcrPath() + buildWildcardResourceURI(nodeName)).substring(1) + "/";
+         node = session.getRootNode().getNode(jcrPath);
          readSubNodes(node);
-         path = nodeName + "/";
          return super.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
    }
 
-   public void setNode(Node node) {
-      this.node = node;
+   public void setJcrPath(String jcrPath) {
+      this.jcrPath = jcrPath;
    }
 
-   public void setPath(String path) {
-      this.path = path;
+   public void setNode(Node node) {
+      this.node = node;
    }
 
    public void setSubnodes(Set<Node> subnodes) {

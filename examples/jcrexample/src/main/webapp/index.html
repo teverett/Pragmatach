@@ -4,10 +4,12 @@
 </head>
 <body>
 	<h1>JCR Example</h1>
-	<!-- the JCR route is "hello/world".  It is passed as URL encoded, but will be decoded by Pragmatach before being passed to the bound route method -->
-	<a href="${session.getServletContext().getContextPath()}/example/json/properties/hello%2Fworld">Properties</a>
-	<a href="${session.getServletContext().getContextPath()}/example/json/children/hello%2Fworld">Children</a>
+	<h2>JSON</h2>
+	<a href="${session.getServletContext().getContextPath()}/example/json/properties/">JSON Properties</a>
+	<a href="${session.getServletContext().getContextPath()}/example/json/children/">JSON Children</a>
+	<h2>HTML Browser</h2>
 	<a href="${session.getServletContext().getContextPath()}/example/html/">Browser</a>
+	<h2>Application Admin</h2>
 	<a href="${session.getServletContext().getContextPath()}/pragmatach/admin">Admin</a>
 </body>
 
