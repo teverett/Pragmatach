@@ -10,10 +10,7 @@ import com.khubla.pragmatach.framework.api.Response;
  * @author tome
  */
 public class JCRJSONController extends JCRController {
-   /**
-    * render children
-    */
-   public Response renderChildren(String nodeName) throws PragmatachException {
+   private Node getNode(String[] nodeName) throws PragmatachException {
       try {
          /*
           * session
@@ -23,19 +20,30 @@ public class JCRJSONController extends JCRController {
           * check
           */
          if (null != session) {
-            /*
-             * get the property
-             */
             final Node root = session.getRootNode();
-            if (null != root) {
-               return new JCRResponse(getCacheHeaders(), PragmatachJCRToJSON.renderSubnodeNames(root));
+            if (null == nodeName) {
+               return root;
+            } else {
+               return root.getNode(buildWildcardResourceURI(nodeName));
             }
-            // final Node node = root.getNode(propertyName);
-            // final String json = renderNodeToJSON(node);
-            // return new JCRResponse(getCacheHeaders(), json);
-            return null;
          } else {
             throw new PragmatachException("Unable to get session");
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getNode", e);
+      }
+   }
+
+   /**
+    * render children
+    */
+   public Response renderChildren(String[] nodeName) throws PragmatachException {
+      try {
+         final Node node = getNode(nodeName);
+         if (null != node) {
+            return new JCRResponse(getCacheHeaders(), PragmatachJCRToJSON.renderSubnodeNames(node));
+         } else {
+            throw new Exception("Unable to get node '" + nodeName + "'");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
@@ -45,29 +53,13 @@ public class JCRJSONController extends JCRController {
    /**
     * render properties
     */
-   public Response renderProperties(String nodeName) throws PragmatachException {
+   public Response renderProperties(String[] nodeName) throws PragmatachException {
       try {
-         /*
-          * session
-          */
-         final Session session = jcrSessionFactory.getSession();
-         /*
-          * check
-          */
-         if (null != session) {
-            /*
-             * get the property
-             */
-            final Node root = session.getRootNode();
-            if (null != root) {
-               return new JCRResponse(getCacheHeaders(), PragmatachJCRToJSON.renderNodeProperties(root));
-            }
-            // final Node node = root.getNode(propertyName);
-            // final String json = renderNodeToJSON(node);
-            // return new JCRResponse(getCacheHeaders(), json);
-            return null;
+         final Node node = getNode(nodeName);
+         if (null != node) {
+            return new JCRResponse(getCacheHeaders(), PragmatachJCRToJSON.renderNodeProperties(node));
          } else {
-            throw new PragmatachException("Unable to get session");
+            throw new Exception("Unable to get node '" + nodeName + "'");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

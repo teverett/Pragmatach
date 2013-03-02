@@ -17,6 +17,17 @@ import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
  */
 public abstract class AbstractController implements PragmatachController {
    /**
+    * build a path from a wildcard path
+    */
+   public static String buildWildcardResourceURI(String[] nodeName) {
+      String ret = "";
+      for (final String s : nodeName) {
+         ret += "/" + s;
+      }
+      return ret;
+   }
+
+   /**
     * request
     */
    private Request request;

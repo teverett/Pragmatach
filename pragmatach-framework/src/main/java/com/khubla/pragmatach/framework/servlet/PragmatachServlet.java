@@ -48,7 +48,7 @@ public class PragmatachServlet extends HttpServlet {
 
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
-         final Router requestRouter = new Router(configuration.getPublicResourcePath());
+         final Router requestRouter = new Router();
          final Response response = requestRouter.route(new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get));
          processResponse(response, httpServletResponse);
       } catch (final Exception e) {

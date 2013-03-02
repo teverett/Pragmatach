@@ -52,7 +52,7 @@ public class PropertiesFileConfigurationImpl implements Configuration {
       try {
          if (null == properties) {
             properties = new Properties();
-            InputStream is = PropertiesFileConfigurationImpl.class.getResourceAsStream(CONFIGURATION_FILE);
+            final InputStream is = PropertiesFileConfigurationImpl.class.getResourceAsStream(CONFIGURATION_FILE);
             if (null != is) {
                properties.load(is);
             }

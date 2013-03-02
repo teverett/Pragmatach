@@ -41,17 +41,6 @@ public class HTMLNodeController extends FreemarkerController {
     */
    private String path = "";
 
-   /**
-    * build the path from the variable argument link
-    */
-   private String buildNodePath(String... nodeName) {
-      String ret = "";
-      for (final String s : nodeName) {
-         ret += "/" + s;
-      }
-      return ret;
-   }
-
    public Node getNode() {
       return node;
    }
@@ -101,10 +90,10 @@ public class HTMLNodeController extends FreemarkerController {
    }
 
    @Route(uri = "example/html/*")
-   public Response render(String... nodeName) throws PragmatachException {
+   public Response render(String[] nodeName) throws PragmatachException {
       try {
          final Session session = jcrSessionFactory.getSession();
-         node = session.getRootNode().getNode(buildNodePath(nodeName));
+         node = session.getRootNode().getNode(buildWildcardResourceURI(nodeName));
          readSubNodes(node);
          path = nodeName + "/";
          return super.render();

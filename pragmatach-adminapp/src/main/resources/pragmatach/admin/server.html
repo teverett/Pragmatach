@@ -27,30 +27,6 @@
 				<td>${controller.processId}</td>
 			</tr>
 		</table>
-		<h2>IPs</h2>
-		<table class="table">
-			<tr>
-				<th>IP</th>
-			</tr>
-			<#list controller.ips as ip>
-			<tr>
-				<td>${ip}</td>
-			</tr>
-			</#list>
-		</table>
-		<h2>Java Properties</h2>
-		<table class="table">
-			<tr>
-				<th>Parameter</th>
-				<th>Value</th>
-			</tr>
-			<#list controller.javaProperties?keys as prop>
-			<tr>
-				<td>${prop}</td>
-				<td>${controller.javaProperties[prop]}</td>
-			</tr>
-			</#list>
-		</table>
 	</div>
 	<!-- /container -->
 	<#include "bootstrapfooter.html">

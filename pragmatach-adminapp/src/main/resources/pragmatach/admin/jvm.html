@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">		
+		<h1>JVM</h1>
+		<table class="table">
+			<tr>
+				<th>Parameter</th>
+				<th>Value</th>
+			</tr>
+			<#list controller.javaProperties?keys as prop>
+			<tr>
+				<td>${prop}</td>
+				<td>${controller.javaProperties[prop]}</td>
+			</tr>
+			</#list>
+		</table>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>

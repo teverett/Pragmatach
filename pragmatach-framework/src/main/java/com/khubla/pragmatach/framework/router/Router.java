@@ -1,7 +1,7 @@
 package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -17,29 +17,15 @@ import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
 import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
-import com.khubla.pragmatach.framework.controller.impl.StaticResourceController;
 
 /**
  * @author tome
  */
 public class Router {
    /**
-    * static asset path
-    */
-   private final String publicContextPath;
-
-   /**
     * ctor
     */
    public Router() {
-      publicContextPath = null;
-   }
-
-   /**
-    * ctor
-    */
-   public Router(String publicContextPath) {
-      this.publicContextPath = publicContextPath;
    }
 
    /**
@@ -77,7 +63,7 @@ public class Router {
    /**
     * invoke a request on a route
     */
-   private Response invoke(PragmatachRoute pragmatachRoute, Request request, Hashtable<String, String> parameterMap) throws PragmatachException {
+   private Response invoke(PragmatachRoute pragmatachRoute, Request request, LinkedHashMap<String, String> parameterMap) throws PragmatachException {
       try {
          /*
           * get the controller
@@ -94,40 +80,60 @@ public class Router {
             processFormData(pragmatachController);
          }
          /*
-          * call the method
+          * method and types
           */
          final Method method = pragmatachRoute.getMethod();
          final Class<?>[] methodParameterTypes = pragmatachRoute.getMethod().getParameterTypes();
-         if ((null == methodParameterTypes) || (methodParameterTypes.length == 0)) {
-            /*
-             * method takes no parameters
-             */
-            return (Response) method.invoke(pragmatachController);
+         /*
+          * wildcard?
+          */
+         if (false == pragmatachRoute.isWildcardRoute()) {
+            if ((null == methodParameterTypes) || (methodParameterTypes.length == 0)) {
+               /*
+                * method takes no parameters
+                */
+               return (Response) method.invoke(pragmatachController);
+            } else {
+               /*
+                * parameters to pass
+                */
+               final Object[] params = new Object[methodParameterTypes.length];
+               /*
+                * walk the annotations
+                */
+               int i = 0;
+               for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
+                  /*
+                   * get the name to bind
+                   */
+                  final String boundName = routeParameter.name();
+                  /*
+                   * that name is there?
+                   */
+                  if (parameterMap.containsKey(boundName)) {
+                     /*
+                      * set the value in the array
+                      */
+                     params[i] = ConvertUtils.convert(parameterMap.get(boundName), methodParameterTypes[i]);
+                  }
+                  i++;
+               }
+               /*
+                * invoke the method
+                */
+               return (Response) method.invoke(pragmatachController, params);
+            }
          } else {
             /*
              * parameters to pass
              */
-            final Object[] params = new Object[methodParameterTypes.length];
-            /*
-             * walk the annotations
-             */
+            final Object[] params = new Object[1];
+            final String[] lst = new String[parameterMap.size()];
             int i = 0;
-            for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
-               /*
-                * get the name to bind
-                */
-               final String boundName = routeParameter.name();
-               /*
-                * that name is there?
-                */
-               if (parameterMap.containsKey(boundName)) {
-                  /*
-                   * set the value in the array
-                   */
-                  params[i] = ConvertUtils.convert(parameterMap.get(boundName), methodParameterTypes[i]);
-               }
-               i++;
+            for (final String p : parameterMap.keySet()) {
+               lst[i++] = p;
             }
+            params[0] = lst;
             /*
              * invoke the method
              */
@@ -136,13 +142,6 @@ public class Router {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in invoke", e);
       }
-   }
-
-   /**
-    * check if request is on the static asset path
-    */
-   private boolean isRequestOnStaticAssetPath(String uri) {
-      return (true == uri.startsWith(publicContextPath));
    }
 
    /**
@@ -173,20 +172,6 @@ public class Router {
     */
    public Response route(Request request) throws PragmatachException {
       try {
-         /*
-          * get the uri
-          */
-         final String uri = request.getResourcePath();
-         /*
-          * check if it's a static asset
-          */
-         if (null != publicContextPath) {
-            if (isRequestOnStaticAssetPath(uri)) {
-               final StaticResourceController staticResourceController = new StaticResourceController(uri, publicContextPath);
-               staticResourceController.setRequest(request);
-               return staticResourceController.render();
-            }
-         }
          /*
           * try to find a route
           */

@@ -12,7 +12,7 @@
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<listener>
-		<listener-class>com.khubla.pragmatach.framework.listener.AnnotationScannerListener</listener-class>
+		<listener-class>com.khubla.pragmatach.framework.listener.StartupListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>com.khubla.pragmatach.framework.listener.SessionListener</listener-class>

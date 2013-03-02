@@ -1,7 +1,7 @@
 package com.khubla.pragmatach.framework.router;
 
 import java.net.URLDecoder;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -16,7 +16,7 @@ import com.khubla.pragmatach.framework.url.URICracker;
  */
 public class RouteFinder {
    /**
-    * check that the static parts of teh route match
+    * check that the static parts of the route match
     */
    private static boolean staticPartsMatch(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
       try {
@@ -40,9 +40,33 @@ public class RouteFinder {
    }
 
    /**
+    * check that the static parts of wildcard route match
+    */
+   private static boolean staticWildcardPartsMatch(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
+      try {
+         /*
+          * check that the static path parts match
+          */
+         final List<RouteSpecificationSegment> routeSpecificationSegments = pragmatachRoute.getRouteSpecification().getSegments();
+         for (int i = 0; i < (routeSpecificationSegments.size() - 1); i++) {
+            final RouteSpecificationSegment routeSpecificationSegment = routeSpecificationSegments.get(i);
+            final String staticPathPart = routeSpecificationSegment.getPath();
+            if (null != staticPathPart) {
+               if (false == (crackedURI[i].compareTo(staticPathPart) == 0)) {
+                  return false;
+               }
+            }
+         }
+         return true;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in staticPartsMatch", e);
+      }
+   }
+
+   /**
     * the method parameters. key is the id specified in the routespecification, value is the value passed in the uri
     */
-   private Hashtable<String, String> parameterMap;
+   private LinkedHashMap<String, String> parameterMap;
    /**
     * the route
     */
@@ -51,26 +75,41 @@ public class RouteFinder {
    /**
     * get the parameter map that the URI actually means
     */
-   private Hashtable<String, String> buildParameterMap(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
+   private LinkedHashMap<String, String> buildParameterMap(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
       try {
-         final Hashtable<String, String> ret = new Hashtable<String, String>();
          /*
-          * walk the route specification
+          * the ret
           */
-         int i = 0;
-         for (final RouteSpecificationSegment routeSpecificationSegment : pragmatachRoute.getRouteSpecification().getSegments()) {
-            final String id = routeSpecificationSegment.getVariableId();
-            if ((null != id) && (id.length() > 0)) {
-               /*
-                * URL decode the parameter
-                */
-               final String decodedParameter = URLDecoder.decode(crackedURI[i], "UTF-8");
-               /*
-                * set the parameter
-                */
-               ret.put(id, decodedParameter);
+         final LinkedHashMap<String, String> ret = new LinkedHashMap<String, String>();
+         /*
+          * check if wildcard
+          */
+         if (false == pragmatachRoute.isWildcardRoute()) {
+            /*
+             * walk the route specification
+             */
+            int i = 0;
+            for (final RouteSpecificationSegment routeSpecificationSegment : pragmatachRoute.getRouteSpecification().getSegments()) {
+               final String id = routeSpecificationSegment.getVariableId();
+               if ((null != id) && (id.length() > 0)) {
+                  /*
+                   * URL decode the parameter
+                   */
+                  final String decodedParameter = URLDecoder.decode(crackedURI[i], "UTF-8");
+                  /*
+                   * set the parameter
+                   */
+                  ret.put(id, decodedParameter);
+               }
+               i++;
             }
-            i++;
+         } else {
+            /*
+             * hacky, but it works
+             */
+            for (final String k : crackedURI) {
+               ret.put(k, k);
+            }
          }
          return ret;
       } catch (final Exception e) {
@@ -89,7 +128,7 @@ public class RouteFinder {
       }
    }
 
-   public Hashtable<String, String> getParameterMap() {
+   public LinkedHashMap<String, String> getParameterMap() {
       return parameterMap;
    }
 
@@ -195,9 +234,25 @@ public class RouteFinder {
                return true;
             } else {
                /*
-                * its not a match
+                * number of segments in route doesn't equal number of URI parameters passed. This is ok, but only if it's a wildcard route
                 */
-               return false;
+               if (pragmatachRoute.isWildcardRoute()) {
+                  /*
+                   * check that the static path parts match
+                   */
+                  if (false == staticWildcardPartsMatch(pragmatachRoute, crackedURI)) {
+                     return false;
+                  }
+                  /*
+                   * matches
+                   */
+                  return true;
+               } else {
+                  /*
+                   * its not a match
+                   */
+                  return false;
+               }
             }
          } else {
             if ((0 == pragmatachRoute.getParameterCount()) && (0 == pragmatachRoute.getSegmentCount())) {

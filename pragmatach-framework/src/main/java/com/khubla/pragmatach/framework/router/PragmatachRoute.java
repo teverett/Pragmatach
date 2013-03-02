@@ -40,7 +40,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
       route = method.getAnnotation(Route.class);
       routeSpecification = new RouteSpecification(route.uri());
       /*
-       * check that the route sp
+       * check the route
        */
       checkRouteSpecificationSanity();
    }
@@ -51,34 +51,49 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    private void checkRouteSpecificationSanity() throws PragmatachException {
       try {
          /*
-          * there are parameters?
+          * wildcards are special
           */
-         if (false == ((method.getParameterTypes().length == 0) && (0 == routeSpecification.getIds().size()))) {
+         if (false == isWildcardRoute()) {
             /*
-             * number of route specification ids must match number of method parameters
+             * there are parameters?
              */
-            if (method.getParameterTypes().length != routeSpecification.getIds().size()) {
-               throw new PragmatachException("Parameter number mismatch");
-            }
-            /*
-             * check that the number of supplied variable bindings annotations matches the number of parameters
-             */
-            if (method.getParameterAnnotations().length != method.getParameterTypes().length) {
-               throw new PragmatachException("Annotation number mismatch");
-            }
-            /*
-             * each bound name in the method must match up with a id in the route specification
-             */
-            final List<RouteParameter> routeParameters = getBoundRouteParameters();
-            if ((null != routeParameters) && (routeParameters.size() > 0)) {
-               for (final RouteParameter routeParameter : routeParameters) {
-                  final String boundName = routeParameter.name();
-                  if (false == routeSpecification.getIds().contains(boundName)) {
-                     throw new PragmatachException("Route specfication does not specify an id for bound variable '" + boundName + "'");
-                  }
+            if (false == ((method.getParameterTypes().length == 0) && (0 == routeSpecification.getIds().size()))) {
+               /*
+                * number of route specification ids must match number of method parameters
+                */
+               if (method.getParameterTypes().length != routeSpecification.getIds().size()) {
+                  throw new PragmatachException("Parameter number mismatch.  Method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "' has '" + method.getParameterTypes().length
+                        + "' parameters, but route has '" + routeSpecification.getIds().size() + "'");
                }
-            } else {
-               throw new PragmatachException("Bound parameter number mismatch. '" + routeSpecification.getIds().size() + "' annotations were expected but none were found");
+               /*
+                * check that the number of supplied variable bindings annotations matches the number of parameters
+                */
+               if (method.getParameterAnnotations().length != method.getParameterTypes().length) {
+                  throw new PragmatachException("Annotation number mismatch.  Method '" + method.getDeclaringClass().getName() + ":" + method.getName() + "' has '"
+                        + method.getParameterAnnotations().length + "' annotated parameters, but method has '" + method.getParameterTypes().length + "' parameters");
+               }
+               /*
+                * each bound name in the method must match up with a id in the route specification
+                */
+               final List<RouteParameter> routeParameters = getBoundRouteParameters();
+               if ((null != routeParameters) && (routeParameters.size() > 0)) {
+                  for (final RouteParameter routeParameter : routeParameters) {
+                     final String boundName = routeParameter.name();
+                     if (false == routeSpecification.getIds().contains(boundName)) {
+                        throw new PragmatachException("Route specfication does not specify an id for bound variable '" + boundName + "'");
+                     }
+                  }
+               } else {
+                  throw new PragmatachException("Bound parameter number mismatch. '" + routeSpecification.getIds().size() + "' annotations were expected but none were found");
+               }
+            }
+         } else {
+            /*
+             * method should have a single parameter
+             */
+            if (1 != method.getParameterTypes().length) {
+               throw new PragmatachException("Parameter number mismatch.  Method '" + method.getDeclaringClass().getName() + ":" + method.getName()
+                     + "' is bound to a wildcard route and must be a a single parameter");
             }
          }
       } catch (final Exception e) {
@@ -168,6 +183,11 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
          return routeSpecification.getSegments().size();
       }
       return 0;
+   }
+
+   public boolean isWildcardRoute() {
+      final String uri = route.uri();
+      return (true == uri.endsWith("*"));
    }
 
    /**
