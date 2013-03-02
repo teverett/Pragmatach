@@ -195,56 +195,42 @@ public class RouteFinder {
     */
    private boolean matchesRouteSpecification(PragmatachRoute pragmatachRoute, String[] crackedURI) throws PragmatachException {
       try {
-         /*
-          * there is a uri?
-          */
-         if (null != crackedURI) {
+         if (false == pragmatachRoute.isWildcardRoute()) {
             /*
-             * # of segments passed matches the route specification number of segments?
+             * there is a uri?
              */
-            if (crackedURI.length == pragmatachRoute.getSegmentCount()) {
+            if (null != crackedURI) {
                /*
-                * walk the route annotations
+                * # of segments passed matches the route specification number of segments?
                 */
-               int i = 0;
-               final List<RouteParameter> routeParameters = pragmatachRoute.getBoundRouteParameters();
-               if ((null != routeParameters) && (routeParameters.size() > 0)) {
-                  for (final RouteParameter routeParameter : routeParameters) {
-                     /*
-                      * check regex
-                      */
-                     final String regex = routeParameter.regex();
-                     if ((null != regex) && (regex.length() > 0)) {
-                        if (false == crackedURI[i].matches(regex)) {
-                           return false;
+               if (crackedURI.length == pragmatachRoute.getSegmentCount()) {
+                  /*
+                   * walk the route annotations
+                   */
+                  int i = 0;
+                  final List<RouteParameter> routeParameters = pragmatachRoute.getBoundRouteParameters();
+                  if ((null != routeParameters) && (routeParameters.size() > 0)) {
+                     for (final RouteParameter routeParameter : routeParameters) {
+                        /*
+                         * check regex
+                         */
+                        final String regex = routeParameter.regex();
+                        if ((null != regex) && (regex.length() > 0)) {
+                           if (false == crackedURI[i].matches(regex)) {
+                              return false;
+                           }
                         }
+                        i++;
                      }
-                     i++;
                   }
-               }
-               /*
-                * check that the static path parts match
-                */
-               if (false == staticPartsMatch(pragmatachRoute, crackedURI)) {
-                  return false;
-               }
-               /*
-                * everything matches
-                */
-               return true;
-            } else {
-               /*
-                * number of segments in route doesn't equal number of URI parameters passed. This is ok, but only if it's a wildcard route
-                */
-               if (pragmatachRoute.isWildcardRoute()) {
                   /*
                    * check that the static path parts match
                    */
-                  if (false == staticWildcardPartsMatch(pragmatachRoute, crackedURI)) {
+                  if (false == staticPartsMatch(pragmatachRoute, crackedURI)) {
                      return false;
                   }
                   /*
-                   * matches
+                   * everything matches
                    */
                   return true;
                } else {
@@ -253,19 +239,30 @@ public class RouteFinder {
                    */
                   return false;
                }
+            } else {
+               if ((0 == pragmatachRoute.getParameterCount()) && (0 == pragmatachRoute.getSegmentCount())) {
+                  /*
+                   * no parameters; its a match if the static parts match
+                   */
+                  return staticPartsMatch(pragmatachRoute, crackedURI);
+               } else {
+                  /*
+                   * the route requires parameters, and none were passed
+                   */
+                  return false;
+               }
             }
          } else {
-            if ((0 == pragmatachRoute.getParameterCount()) && (0 == pragmatachRoute.getSegmentCount())) {
-               /*
-                * no parameters; its a match if the static parts match
-                */
-               return staticPartsMatch(pragmatachRoute, crackedURI);
-            } else {
-               /*
-                * the route requires parameters, and none were passed
-                */
+            /*
+             * check that the static path parts match
+             */
+            if (false == staticWildcardPartsMatch(pragmatachRoute, crackedURI)) {
                return false;
             }
+            /*
+             * matches
+             */
+            return true;
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in matchesRouteSpecification", e);

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -22,6 +23,11 @@ import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
  * @author tome
  */
 public class Router {
+   /**
+    * logger
+    */
+   Logger logger = Logger.getLogger(this.getClass());
+
    /**
     * ctor
     */
@@ -173,11 +179,17 @@ public class Router {
    public Response route(Request request) throws PragmatachException {
       try {
          /*
+          * log
+          */
+         logger.info("Routing request for: " + request.getURI());
+         /*
           * try to find a route
           */
          final RouteFinder routeFinder = new RouteFinder();
          if (true == routeFinder.match(request)) {
             return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
+         } else {
+            logger.info("Routing request for: " + request.getURI() + " could not be routed");
          }
          /*
           * no match, return 404
