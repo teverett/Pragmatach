@@ -57,7 +57,7 @@ public class PragmatachServlet extends HttpServlet {
       /*
        * add the render time
        */
-      final long rendertime = (System.currentTimeMillis() - request.getCreationTime()) / 1000;
+      final long rendertime = System.currentTimeMillis() - request.getCreationTime();
       /*
        * add
        */
