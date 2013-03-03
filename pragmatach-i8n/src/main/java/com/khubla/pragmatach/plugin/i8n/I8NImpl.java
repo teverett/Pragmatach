@@ -81,7 +81,7 @@ public class I8NImpl implements I8NProvider {
    public String getString(String locale, String name) throws PragmatachException {
       final Properties properties = getLocaleData(locale);
       if (null != properties) {
-         return properties.getProperty(locale + ":" + name);
+         return properties.getProperty(name);
       }
       return null;
    }

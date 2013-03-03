@@ -40,7 +40,7 @@ public class I8NResolver {
    /**
     * search for i8N string across providers
     */
-   public String i8n(String locale, String name) throws PragmatachException {
+   public String text(String locale, String name) throws PragmatachException {
       if (null != i8nProviders) {
          for (final I8NProvider iI8NProvider : i8nProviders) {
             final String r = iI8NProvider.getString(locale, name);
