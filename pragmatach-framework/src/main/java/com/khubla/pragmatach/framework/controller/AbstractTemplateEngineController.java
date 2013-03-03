@@ -12,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.i8n.I8NProviders;
+import com.khubla.pragmatach.framework.i8n.I8NResolver;
 
 /**
  * @author tome
@@ -22,6 +24,7 @@ public class AbstractTemplateEngineController extends AbstractController {
     */
    private static final String SESSION = "session";
    private static final String CONTROLLER = "controller";
+   private static final String I8N = "i8n";
 
    /**
     * get the Template
@@ -57,6 +60,10 @@ public class AbstractTemplateEngineController extends AbstractController {
       final Map<String, Object> context = new HashMap<String, Object>();
       context.put(SESSION, getRequest().getSession());
       context.put(CONTROLLER, this);
+      /*
+       * i8n
+       */
+      context.put(I8N, new I8NResolver(I8NProviders.getInstance().providers));
       /*
        * add the current controller by name
        */
