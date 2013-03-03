@@ -24,9 +24,9 @@ public class ResponsiveImageController extends StaticResourceController {
     * render
     */
    @Route(uri = "/pragmatach/plugin/getsizedimage/@img/@width/@height")
-   public Response render(@RouteParameter(name = "img") String[] imageResource, @RouteParameter(name = "width") int width, @RouteParameter(name = "height") int height) throws PragmatachException {
+   public Response render(@RouteParameter(name = "img") String imageResource, @RouteParameter(name = "width") int width, @RouteParameter(name = "height") int height) throws PragmatachException {
       try {
-         final InputStream imageStream = getStaticResourceInputStream(imageResource);
+         final InputStream imageStream = getResource(imageResource);
          return new ResponsiveImageResponse(getCacheHeaders(), imageStream, width, height);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

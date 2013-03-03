@@ -120,7 +120,8 @@ public class Router {
                      /*
                       * set the value in the array
                       */
-                     params[i] = ConvertUtils.convert(parameterMap.get(boundName), methodParameterTypes[i]);
+                     String parameterValue = parameterMap.get(boundName);
+                     params[i] = ConvertUtils.convert(parameterValue, methodParameterTypes[i]);
                   }
                   i++;
                }
