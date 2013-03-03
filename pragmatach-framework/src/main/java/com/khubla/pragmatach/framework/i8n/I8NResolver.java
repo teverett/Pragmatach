@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.framework.i8n;
 
+import java.util.Date;
 import java.util.Set;
 
 import com.khubla.pragmatach.framework.api.I8NProvider;
@@ -21,12 +22,27 @@ public class I8NResolver {
    }
 
    /**
-    * search for i8N string across providers
+    * get localized date
     */
-   public String i8n(String name) {
+   public String date(String locale, Date date) {
       if (null != i8nProviders) {
          for (final I8NProvider iI8NProvider : i8nProviders) {
-            final String r = iI8NProvider.getString(name);
+            final String d = iI8NProvider.getDate(locale, date);
+            if (null != d) {
+               return d;
+            }
+         }
+      }
+      return null;
+   }
+
+   /**
+    * search for i8N string across providers
+    */
+   public String i8n(String locale, String name) {
+      if (null != i8nProviders) {
+         for (final I8NProvider iI8NProvider : i8nProviders) {
+            final String r = iI8NProvider.getString(locale, name);
             if (null != r) {
                return r;
             }
