@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.framework.plugin;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
@@ -8,16 +7,17 @@ import java.net.URLClassLoader;
 import java.util.Properties;
 import java.util.jar.Manifest;
 
+import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
  */
-public class Plugin {
+public class PluginDescriptor {
    /**
     * name
     */
-   public static final String NAME = "name";
+   public static final String ACTIVATOR = "activator";
    /**
     * the jar
     */
@@ -26,11 +26,35 @@ public class Plugin {
     * the properties
     */
    private final Properties properties;
+   /**
+    * plugin
+    */
+   private final Plugin plugin;
 
-   public Plugin(URL url, InputStream inputStream) throws IOException {
-      this.url = url;
-      properties = new Properties();
-      properties.load(inputStream);
+   public PluginDescriptor(URL url, InputStream inputStream) throws PragmatachException {
+      try {
+         this.url = url;
+         properties = new Properties();
+         properties.load(inputStream);
+         plugin = findPlugin();
+      } catch (final Exception e) {
+         throw new PragmatachException(e);
+      }
+   }
+
+   private Plugin findPlugin() throws PragmatachException {
+      try {
+         final String activatorClassName = properties.getProperty(ACTIVATOR);
+         if (null != activatorClassName) {
+            final Class<?> clazz = Class.forName(activatorClassName);
+            if (null != clazz) {
+               return (Plugin) clazz.newInstance();
+            }
+         }
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException(e);
+      }
    }
 
    /**
@@ -49,7 +73,11 @@ public class Plugin {
    }
 
    public String getName() {
-      return properties.getProperty(NAME);
+      return plugin.getName();
+   }
+
+   public Plugin getPlugin() {
+      return plugin;
    }
 
    public Properties getProperties() {

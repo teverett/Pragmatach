@@ -18,17 +18,17 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 /**
  * @author tome
  */
-public class Plugins {
+public class PluginDescriptors {
    /**
     * logger
     */
-   private static Logger logger = Logger.getLogger(Plugins.class);
+   private static Logger logger = Logger.getLogger(PluginDescriptors.class);
    /**
     * plugin jars
     */
-   private static Map<String, Plugin> plugins = new HashMap<String, Plugin>();
+   private static Map<String, PluginDescriptor> plugins = new HashMap<String, PluginDescriptor>();
 
-   public static Map<String, Plugin> getPlugins() {
+   public static Map<String, PluginDescriptor> getPlugins() {
       return plugins;
    }
 
@@ -48,7 +48,7 @@ public class Plugins {
             final StreamIterator streamIterator = IteratorFactory.create(url, pluginFilter);
             InputStream inputStream;
             while (null != (inputStream = streamIterator.next())) {
-               final Plugin plugin = new Plugin(url, inputStream);
+               final PluginDescriptor plugin = new PluginDescriptor(url, inputStream);
                logger.info("Found plugin: " + plugin.getName());
                plugins.put(plugin.getName(), plugin);
                inputStream.close();

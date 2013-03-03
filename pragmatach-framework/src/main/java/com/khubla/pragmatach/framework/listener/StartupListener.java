@@ -6,7 +6,7 @@ import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
-import com.khubla.pragmatach.framework.plugin.Plugins;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 import com.khubla.pragmatach.framework.router.PragmatachRoutes;
 
@@ -34,7 +34,7 @@ public class StartupListener implements ServletContextListener {
          /*
           * scan the plugins
           */
-         Plugins.scan(servletContextEvent.getServletContext());
+         PluginDescriptors.scan(servletContextEvent.getServletContext());
          /*
           * this loads and validates the routes
           */

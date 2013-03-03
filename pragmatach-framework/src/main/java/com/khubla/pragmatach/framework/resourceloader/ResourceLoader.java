@@ -8,8 +8,8 @@ import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.plugin.Plugin;
-import com.khubla.pragmatach.framework.plugin.Plugins;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 
 /**
  * @author tome
@@ -60,9 +60,9 @@ public class ResourceLoader {
                /*
                 * get the plugins
                 */
-               final Map<String, Plugin> plugins = Plugins.getPlugins();
+               final Map<String, PluginDescriptor> plugins = PluginDescriptors.getPlugins();
                if (null != plugins) {
-                  for (final Plugin plugin : plugins.values()) {
+                  for (final PluginDescriptor plugin : plugins.values()) {
                      ret = plugin.getResource(resource);
                      if (null != ret) {
                         /*

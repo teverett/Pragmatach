@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.controller.Controllers;
 import com.khubla.pragmatach.framework.jmx.SystemStatusMXBean;
-import com.khubla.pragmatach.framework.plugin.Plugin;
-import com.khubla.pragmatach.framework.plugin.Plugins;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 import com.khubla.pragmatach.framework.router.PragmatachRoutes;
 import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
@@ -58,7 +58,7 @@ public class SystemStatus implements SystemStatusMXBean {
    public String[] getPlugins() {
       try {
          final List<String> pluginDescriptions = new ArrayList<String>();
-         for (final Plugin plugin : Plugins.getPlugins().values()) {
+         for (final PluginDescriptor plugin : PluginDescriptors.getPlugins().values()) {
             pluginDescriptions.add(plugin.getName());
          }
          final String[] ret = new String[pluginDescriptions.size()];
