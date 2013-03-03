@@ -40,6 +40,7 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 * pragmatach-xtream; XML support via XStream
 * pragmatach-jcr; support for the JCR
 * pragmatach-responsive; support for responsive design
+* pragmatach-i8n; simple file-based i8n provider
 
 Creating a test project
 ------------------------
@@ -152,6 +153,7 @@ The following variables are available in the templating engines (Velocity and Fr
 
 * `session` - The HttpSession.
 * `controller` - The current Controller
+* `i8n` - The i8n resolver
 * The name of the current controller as specified in the @Controller annotation
 * The names of all Session-scoped controllers as specified in their @Controller annotation
 
@@ -421,4 +423,11 @@ An example link to this route is.
 `<a href="${session.getServletContext().getContextPath()}/example/hello%2Fworld">Example Route Binding 1</a>`
 
 This example link is querying the JCR for the properties of the Node "hello/world"
+
+i8n support
+------------------------
+
+I8N support is provided by Pragmatach plugins which expose implementation of `I8NProvider` to Pragmatach.  The variable `i8n` is then available in template engines to use for internationalization.
+
+
 
