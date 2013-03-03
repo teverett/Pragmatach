@@ -383,6 +383,17 @@ public class AcceptPostController extends JSONController {
 
 Will result in the method `setMessage()` being called with the value `"hello world"`.
 
+Cookie Encryption
+------------------------
+
+Pragmatach supports cookie encryption with AES.  Cookie encryption is supported by setting the crypto key as the pragmatach.properties file value `pragmatach.cookie.cryptokey`.
+
+Pragmatach custom HTTP headers
+------------------------
+
+Pragmatach responses return the custom header `X-Pragmatach-RenderTime` containing the request render time, in milliseconds.
+
+
 JMX Bindings
 ------------------------
 
