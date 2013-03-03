@@ -4,7 +4,7 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.7</version>
+	<version>1.0.8</version>
 	<name>khubla.com Pragmatach</name>
 	<properties>
 		<target.jvm>1.6</target.jvm>
