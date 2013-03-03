@@ -53,22 +53,22 @@ public class StartupListener implements ServletContextListener {
          /*
           * get routes
           */
-         PragmatachRoutes pragmatachRoutes = PragmatachRoutes.getInstance();
+         final PragmatachRoutes pragmatachRoutes = PragmatachRoutes.getInstance();
          /*
           * GET routes
           */
          logger.info("Ordered GET routes");
-         for (PragmatachRoute pragmatachRoute : pragmatachRoutes.getGETRoutes()) {
+         for (final PragmatachRoute pragmatachRoute : pragmatachRoutes.getGETRoutes()) {
             logger.info("GET " + pragmatachRoute.getDescription());
          }
          /*
           * POST routes
           */
          logger.info("Ordered POST routes");
-         for (PragmatachRoute pragmatachRoute : pragmatachRoutes.getPOSTRoutes()) {
+         for (final PragmatachRoute pragmatachRoute : pragmatachRoutes.getPOSTRoutes()) {
             logger.info("POST " + pragmatachRoute.getDescription());
          }
-      } catch (Exception e) {
+      } catch (final Exception e) {
          logger.fatal("Exceptioin in reportRoutes", e);
          e.printStackTrace();
       }

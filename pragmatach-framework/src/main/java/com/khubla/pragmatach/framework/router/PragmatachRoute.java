@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -31,6 +33,10 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     * route specification
     */
    private final RouteSpecification routeSpecification;
+   /**
+    * logger
+    */
+   private final Logger logger = Logger.getLogger(this.getClass());
 
    /**
     * ctor
@@ -200,33 +206,48 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
           * the root url is the most general
           */
          if (route.uri().compareTo("/*") == 0) {
-            // System.out.println(this.route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
+            logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
             return true;
          }
          if (isWildcardRoute()) {
-            String nonStarRoute = this.route.uri().substring(0, this.route.uri().length() - 1);
-            if (pragmatachRoute.route.uri().startsWith(nonStarRoute)) {
-               // System.out.println(this.route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
+            if (false == pragmatachRoute.isWildcardRoute()) {
+               /*
+                * wildcard routes always scope non-wildcard routes
+                */
+               logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
                return true;
             } else {
-               return false;
+               final String thisnonStarRoute = route.uri().substring(0, route.uri().length() - 1);
+               final String othernonStarRoute = route.uri().substring(0, route.uri().length() - 1);
+               if (othernonStarRoute.startsWith(thisnonStarRoute)) {
+                  logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
+                  return true;
+               } else {
+                  logger.debug(route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
+                  return false;
+               }
             }
          } else {
-            /*
-             * check that the routes are on the same path
-             */
-            if (pragmatachRoute.route.uri().startsWith(route.uri())) {
+            if (false == pragmatachRoute.isWildcardRoute()) {
                /*
-                * the parameter count for *this* is less than the parameter count for the passed route
+                * check that the routes are on the same path
                 */
-               if (getSegmentCount() < pragmatachRoute.getSegmentCount()) {
-                  // System.out.println(this.route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
-                  return true;
+               if (pragmatachRoute.route.uri().startsWith(route.uri())) {
+                  /*
+                   * the parameter count for *this* is less than the parameter count for the passed route
+                   */
+                  if (getSegmentCount() < pragmatachRoute.getSegmentCount()) {
+                     logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
+                     return true;
+                  }
                }
+            } else {
+               logger.debug(route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
+               return false;
             }
          }
       }
-      // System.out.println(this.route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
+      logger.debug(route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
       return false;
    }
 }

@@ -37,7 +37,7 @@ public class TestRoutes {
          Assert.assertNotNull(routes);
          reportRoutes(routes.getGETRoutes());
          Assert.assertTrue(routes.getGETRoutes().size() == 4);
-         Assert.assertTrue(routes.getGETRoutes().get(1).getRoute().uri().compareTo("/") == 0);
+         Assert.assertTrue(routes.getGETRoutes().get(0).getRoute().uri().compareTo("/") == 0);
          Assert.assertTrue(routes.getGETRoutes().get(3).getRoute().uri().compareTo("/*") == 0);
       } catch (final Exception e) {
          e.printStackTrace();

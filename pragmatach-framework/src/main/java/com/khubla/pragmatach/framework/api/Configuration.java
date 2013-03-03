@@ -15,5 +15,4 @@ public interface Configuration {
     * get a parameter by name
     */
    String getParameter(String name);
-
 }
