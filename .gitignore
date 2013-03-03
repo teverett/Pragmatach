@@ -309,3 +309,5 @@ thymeleafexample.log
 /plugins/pragmatach-adminapp/target/classes/com/
 /plugins/pragmatach-adminapp/src/main/resources/pragmatach/.DS_Store
 /plugins/pragmatach-adminapp/src/main/resources/.DS_Store
+/plugins/.settings/
+/plugins/.project
