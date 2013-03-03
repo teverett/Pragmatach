@@ -194,34 +194,39 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     * returns true this route is more general than the passed route, false otherwise
     */
    public boolean scopes(PragmatachRoute pragmatachRoute) {
-      /*
-       * the root url is the most general
-       */
-      if (route.uri().compareTo("/") == 0) {
-         return true;
-      }
-      /*
-       * compare two routes
-       */
+      // System.out.print("Comparing: " + this.route.uri() + " to " + pragmatachRoute.getRoute().uri() + "   ");
       if (null != pragmatachRoute) {
          /*
-          * check that the routes are on the same path
+          * the root url is the most general
           */
-         if (route.uri().startsWith(pragmatachRoute.route.uri())) {
-            /*
-             * wildcards are more general
-             */
-            if (isWildcardRoute() && (false == pragmatachRoute.isWildcardRoute())) {
+         if (route.uri().compareTo("/*") == 0) {
+            // System.out.println(this.route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
+            return true;
+         }
+         if (isWildcardRoute()) {
+            String nonStarRoute = this.route.uri().substring(0, this.route.uri().length() - 1);
+            if (pragmatachRoute.route.uri().startsWith(nonStarRoute)) {
+               // System.out.println(this.route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
                return true;
+            } else {
+               return false;
             }
+         } else {
             /*
-             * the parameter count for *this* is less than the parameter count for the passed route
+             * check that the routes are on the same path
              */
-            if (getSegmentCount() < pragmatachRoute.getSegmentCount()) {
-               return true;
+            if (pragmatachRoute.route.uri().startsWith(route.uri())) {
+               /*
+                * the parameter count for *this* is less than the parameter count for the passed route
+                */
+               if (getSegmentCount() < pragmatachRoute.getSegmentCount()) {
+                  // System.out.println(this.route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
+                  return true;
+               }
             }
          }
       }
+      // System.out.println(this.route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
       return false;
    }
 }

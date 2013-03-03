@@ -30,14 +30,14 @@ public class TestRoutes {
       }
    }
 
-   @Test
+   @Test(enabled = true)
    public void testGETScoping() {
       try {
          final PragmatachRoutes routes = PragmatachRoutes.getInstance();
          Assert.assertNotNull(routes);
          reportRoutes(routes.getGETRoutes());
          Assert.assertTrue(routes.getGETRoutes().size() == 4);
-         Assert.assertTrue(routes.getGETRoutes().get(2).getRoute().uri().compareTo("/") == 0);
+         Assert.assertTrue(routes.getGETRoutes().get(1).getRoute().uri().compareTo("/") == 0);
          Assert.assertTrue(routes.getGETRoutes().get(3).getRoute().uri().compareTo("/*") == 0);
       } catch (final Exception e) {
          e.printStackTrace();
@@ -45,7 +45,7 @@ public class TestRoutes {
       }
    }
 
-   @Test
+   @Test(enabled = true)
    public void testPOSTScoping() {
       try {
          final PragmatachRoutes routes = PragmatachRoutes.getInstance();
