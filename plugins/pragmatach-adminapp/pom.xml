@@ -2,20 +2,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach-adminapp</artifactId>
-	<version>1.0.9</version>
+	<version>1.1.0</version>
 	<packaging>jar</packaging>
 	<name>Khubla.com Pragmatach Admin plugin</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
-		<artifactId>pragmatach</artifactId>
-		<version>1.0.9</version>
+		<artifactId>plugins</artifactId>
+		<version>1.1.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-freemarker</artifactId>
-			<version>1.0.9</version>
+			<version>1.1.0</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
