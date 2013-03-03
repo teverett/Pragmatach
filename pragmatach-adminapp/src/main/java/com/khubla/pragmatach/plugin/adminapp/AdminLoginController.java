@@ -6,14 +6,13 @@ import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
  */
 @Controller(name = "pragmatachAdminLoginController")
 @View(view = "pragmatach/admin/login.html")
-public class AdminLoginController extends FreemarkerController {
+public class AdminLoginController extends BaseAdminController {
    /**
     * username
     */
@@ -40,8 +39,8 @@ public class AdminLoginController extends FreemarkerController {
             /*
              * set cookie
              */
-            getRequest().getCookies().setEncryptedCookie(AbstractAdminController.USERID, username);
-            getRequest().getCookies().setEncryptedCookie(AbstractAdminController.PASSWORD, password);
+            getRequest().getCookies().setEncryptedCookie(BaseAdminController.USERID, username);
+            getRequest().getCookies().setEncryptedCookie(BaseAdminController.PASSWORD, password);
             /*
              * go to main page
              */

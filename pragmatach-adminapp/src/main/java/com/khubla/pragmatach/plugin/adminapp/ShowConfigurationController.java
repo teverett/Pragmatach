@@ -14,7 +14,7 @@ import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
  */
 @Controller(name = "pragmatachShowRoutesController")
 @View(view = "pragmatach/admin/configuration.html")
-public class ShowConfigurationController extends AbstractAdminController {
+public class ShowConfigurationController extends SecuredAdminController {
    private Map<String, String> configuration;
 
    public Map<String, String> getConfiguration() {

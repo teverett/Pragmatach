@@ -13,7 +13,7 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 @Controller(name = "pragmatachEnvironmentController")
 @View(view = "pragmatach/admin/environment.html")
-public class ShowEnvironmentController extends AbstractAdminController {
+public class ShowEnvironmentController extends SecuredAdminController {
    /**
     * env
     */

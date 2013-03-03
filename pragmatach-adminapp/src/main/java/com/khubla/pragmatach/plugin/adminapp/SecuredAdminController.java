@@ -2,35 +2,11 @@ package com.khubla.pragmatach.plugin.adminapp;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
  */
-public class AbstractAdminController extends FreemarkerController {
-   /**
-    * the cookie names
-    */
-   public static final String USERID = "adminUserId";
-   public static final String PASSWORD = "adminPassword";
-
-   /**
-    * check if user is logged in
-    */
-   public boolean isLoggedIn() {
-      /*
-       * get the user controller
-       */
-      final AdminUserController adminUserController = this.getSessionScopedController(AdminUserController.class);
-      /*
-       * check
-       */
-      if (null != adminUserController.getUsername()) {
-         return false;
-      }
-      return false;
-   }
-
+public class SecuredAdminController extends BaseAdminController {
    /**
     * check security
     */

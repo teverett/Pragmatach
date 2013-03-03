@@ -15,7 +15,7 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 @Controller(name = "pragmatachShowJVMController")
 @View(view = "pragmatach/admin/jvm.html")
-public class ShowJVMController extends AbstractAdminController {
+public class ShowJVMController extends SecuredAdminController {
    /**
     * java properties
     */

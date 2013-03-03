@@ -14,7 +14,7 @@ import com.khubla.pragmatach.framework.controller.Controllers;
  */
 @Controller(name = "pragmatachShowControllersController")
 @View(view = "pragmatach/admin/controllers.html")
-public class ShowControllersController extends AbstractAdminController {
+public class ShowControllersController extends SecuredAdminController {
    private Set<Class<?>> controllers;
 
    public Controller getControllerAnnotation(Class<?> clazz) {

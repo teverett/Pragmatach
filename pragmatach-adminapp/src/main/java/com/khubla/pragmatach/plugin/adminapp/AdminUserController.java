@@ -6,7 +6,7 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
 /**
  * @author tome
  */
-@Controller(name = "pragmatachShowControllersController", scope = Controller.Scope.session)
+@Controller(name = "pragmatachAdminUserController", scope = Controller.Scope.session)
 public class AdminUserController extends AbstractController {
    /**
     * the logged in user

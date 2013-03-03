@@ -13,7 +13,7 @@ import com.khubla.pragmatach.framework.router.Router;
  */
 @Controller(name = "pragmatachShowRouteCacheController")
 @View(view = "pragmatach/admin/routecache.html")
-public class ShowRouteCacheController extends AbstractAdminController {
+public class ShowRouteCacheController extends SecuredAdminController {
    private long size;
    private long totalHits;
    private long totalRequests;

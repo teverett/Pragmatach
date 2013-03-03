@@ -15,7 +15,7 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 @Controller(name = "pragmatachShowServerController")
 @View(view = "pragmatach/admin/server.html")
-public class ShowServerController extends AbstractAdminController {
+public class ShowServerController extends SecuredAdminController {
    private static String findProcessId() throws PragmatachException {
       try {
          final String jvmName = ManagementFactory.getRuntimeMXBean().getName();

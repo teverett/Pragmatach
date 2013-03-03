@@ -15,7 +15,7 @@ import com.khubla.pragmatach.framework.plugin.Plugins;
  */
 @Controller(name = "pragmatachShowPluginsController")
 @View(view = "pragmatach/admin/plugins.html")
-public class ShowPluginsController extends AbstractAdminController {
+public class ShowPluginsController extends SecuredAdminController {
    /**
     * plugins
     */

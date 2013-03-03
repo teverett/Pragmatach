@@ -11,7 +11,7 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 @Controller(name = "pragmatachAdminController")
 @View(view = "pragmatach/admin/admin.html")
-public class AdminController extends AbstractAdminController {
+public class AdminController extends SecuredAdminController {
    /**
     * ctor
     */

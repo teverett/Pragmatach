@@ -15,7 +15,7 @@ import com.khubla.pragmatach.framework.router.PragmatachRoutes;
  */
 @Controller(name = "pragmatachShowRoutesController")
 @View(view = "pragmatach/admin/routes.html")
-public class ShowRoutesController extends AbstractAdminController {
+public class ShowRoutesController extends SecuredAdminController {
    /*
     * the POST routes
     */

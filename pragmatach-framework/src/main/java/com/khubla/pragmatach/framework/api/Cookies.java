@@ -41,7 +41,7 @@ public class Cookies {
    /**
     * clear all cookies
     */
-   public void clearAll() {
+   public void clearAll() throws PragmatachException {
       final Cookie[] cookies = httpServletRequest.getCookies();
       if ((null != cookies) && (cookies.length > 0)) {
          for (final Cookie cookie : cookies) {
@@ -137,10 +137,18 @@ public class Cookies {
    /**
     * remove a cookie
     */
-   public void removeCookie(String name) {
-      final Cookie cookie = new Cookie(name, null);
-      cookie.setMaxAge(0);
-      httpServletResponse.addCookie(cookie);
+   public void removeCookie(String name) throws PragmatachException {
+      final Cookie[] cookies = httpServletRequest.getCookies();
+      if ((null != cookies) && (cookies.length > 0)) {
+         for (final Cookie cookie : cookies) {
+            if (cookie.getName().compareTo(name) == 0) {
+               cookie.setMaxAge(0);
+               cookie.setPath("/");
+               httpServletResponse.addCookie(cookie);
+               break;
+            }
+         }
+      }
    }
 
    /**

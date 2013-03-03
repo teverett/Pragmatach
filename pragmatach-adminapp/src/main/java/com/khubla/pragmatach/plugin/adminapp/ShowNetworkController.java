@@ -17,7 +17,7 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 @Controller(name = "pragmatachShowNetworkController")
 @View(view = "pragmatach/admin/network.html")
-public class ShowNetworkController extends AbstractAdminController {
+public class ShowNetworkController extends SecuredAdminController {
    /**
     * ips of this host
     */

@@ -14,7 +14,7 @@ import com.khubla.pragmatach.framework.api.Response;
  */
 @Controller(name = "pragmatachShowCookiesController")
 @View(view = "pragmatach/admin/cookies.html")
-public class ShowCookiesController extends AbstractAdminController {
+public class ShowCookiesController extends SecuredAdminController {
    /**
     * cookies
     */
