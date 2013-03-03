@@ -9,9 +9,10 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
  */
 public class AbstractAdminController extends FreemarkerController {
    /**
-    * the cookie name
+    * the cookie names
     */
    public static final String USERID = "adminUserId";
+   public static final String PASSWORD = "adminPassword";
 
    /**
     * check if user is logged in
@@ -50,16 +51,27 @@ public class AbstractAdminController extends FreemarkerController {
          /*
           * check for the cookie
           */
-         final String userId = getRequest().getCookies().getCookie(USERID);
-         if (null != userId) {
+         final String userId = getRequest().getCookies().getEncryptedCookie(USERID);
+         final String password = getRequest().getCookies().getEncryptedCookie(PASSWORD);
+         if ((null != userId) && (null != password)) {
             /*
-             * set the session state from the cookie
+             * check
              */
-            adminUserController.setUsername(userId);
-            /*
-             * redirect back and try again
-             */
-            return super.render();
+            if ((userId.compareTo(getConfigurationParameter("pragmatach.adminapp.username")) == 0) && (password.compareTo(getConfigurationParameter("pragmatach.adminapp.password")) == 0)) {
+               /*
+                * set the session state from the cookie
+                */
+               adminUserController.setUsername(userId);
+               /*
+                * redirect back and try again
+                */
+               return super.render();
+            } else {
+               /*
+                * log in
+                */
+               return super.forward("/pragmatach/admin/login");
+            }
          } else {
             /*
              * log in

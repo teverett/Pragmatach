@@ -40,7 +40,8 @@ public class AdminLoginController extends FreemarkerController {
             /*
              * set cookie
              */
-            getRequest().getCookies().setCookie(AbstractAdminController.USERID, username);
+            getRequest().getCookies().setEncryptedCookie(AbstractAdminController.USERID, username);
+            getRequest().getCookies().setEncryptedCookie(AbstractAdminController.PASSWORD, password);
             /*
              * go to main page
              */

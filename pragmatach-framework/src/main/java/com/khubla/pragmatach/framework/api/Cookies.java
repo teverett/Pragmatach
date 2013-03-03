@@ -6,6 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khubla.pragmatach.framework.crypto.AES;
+import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
+
 /**
  * @author tome
  */
@@ -22,6 +25,10 @@ public class Cookies {
     * HttpServletResponse
     */
    private final HttpServletResponse httpServletResponse;
+   /**
+    * config key
+    */
+   private final String COOKIE_CONFIG_KEY = "pragmatach.cookie.cryptokey";
 
    /**
     * ctor
@@ -44,31 +51,87 @@ public class Cookies {
    }
 
    /**
+    * decrypt cookie
+    */
+   private String decryptCookie(String cookie) throws Exception {
+      final String key = getCryptoKey();
+      if (null != key) {
+         return AES.decrypt(cookie, key);
+      } else {
+         return cookie;
+      }
+   }
+
+   /**
+    * encrypt cookie
+    */
+   private String encryptCookie(String cookie) throws Exception {
+      final String key = getCryptoKey();
+      if (null != key) {
+         return AES.encrypt(cookie, key);
+      } else {
+         return cookie;
+      }
+   }
+
+   /**
     * get a cookie by name
     */
-   public String getCookie(String name) {
-      if ((null != name) && (name.length() > 0)) {
-         final Hashtable<String, String> cookies = getCookies();
-         if (null != cookies) {
-            return cookies.get(name);
+   public String getCookie(String name) throws PragmatachException {
+      try {
+         if ((null != name) && (name.length() > 0)) {
+            final Hashtable<String, String> cookies = getCookies();
+            if (null != cookies) {
+               return cookies.get(name);
+            }
          }
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getCookie", e);
       }
-      return null;
    }
 
    /**
     * get all the cookies
     */
-   public Hashtable<String, String> getCookies() {
-      final Cookie[] cookies = httpServletRequest.getCookies();
-      if ((null != cookies) && (cookies.length > 0)) {
-         final Hashtable<String, String> ret = new Hashtable<String, String>();
-         for (final Cookie cookie : cookies) {
-            ret.put(cookie.getName(), cookie.getValue());
+   public Hashtable<String, String> getCookies() throws PragmatachException {
+      try {
+         final Cookie[] cookies = httpServletRequest.getCookies();
+         if ((null != cookies) && (cookies.length > 0)) {
+            final Hashtable<String, String> ret = new Hashtable<String, String>();
+            for (final Cookie cookie : cookies) {
+               ret.put(cookie.getName(), cookie.getValue());
+            }
+            return ret;
          }
-         return ret;
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getCookies", e);
       }
-      return null;
+   }
+
+   private String getCryptoKey() {
+      return PragmatachServlet.getConfiguration().getParameter(COOKIE_CONFIG_KEY);
+   }
+
+   /**
+    * get a encrypter cookie by name
+    */
+   public String getEncryptedCookie(String name) throws PragmatachException {
+      try {
+         if ((null != name) && (name.length() > 0)) {
+            final Hashtable<String, String> cookies = getCookies();
+            if (null != cookies) {
+               final String k = cookies.get(name);
+               if (null != k) {
+                  return decryptCookie(k);
+               }
+            }
+         }
+         return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getCookie", e);
+      }
    }
 
    /**
@@ -83,10 +146,28 @@ public class Cookies {
    /**
     * set a cookie
     */
-   public void setCookie(String name, String value) {
-      final Cookie cookie = new Cookie(name, value);
-      cookie.setMaxAge(SECONDS_PER_YEAR);
-      cookie.setPath("/");
-      httpServletResponse.addCookie(cookie);
+   public void setCookie(String name, String value) throws PragmatachException {
+      try {
+         final Cookie cookie = new Cookie(name, value);
+         cookie.setMaxAge(SECONDS_PER_YEAR);
+         cookie.setPath("/");
+         httpServletResponse.addCookie(cookie);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in setCookie", e);
+      }
+   }
+
+   /**
+    * set a cookie
+    */
+   public void setEncryptedCookie(String name, String value) throws PragmatachException {
+      try {
+         final Cookie cookie = new Cookie(name, encryptCookie(value));
+         cookie.setMaxAge(SECONDS_PER_YEAR);
+         cookie.setPath("/");
+         httpServletResponse.addCookie(cookie);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in setCookie", e);
+      }
    }
 }
