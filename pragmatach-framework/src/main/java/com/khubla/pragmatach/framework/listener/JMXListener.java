@@ -10,7 +10,9 @@ import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.jmx.PerformanceStatisticsMXBean;
+import com.khubla.pragmatach.framework.jmx.RouteCacheStatusMXBean;
 import com.khubla.pragmatach.framework.jmx.SystemStatusMXBean;
+import com.khubla.pragmatach.framework.jmx.impl.RouteCacheStatus;
 import com.khubla.pragmatach.framework.jmx.impl.SystemStatus;
 import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
@@ -25,7 +27,6 @@ public class JMXListener implements ServletContextListener {
 
    @Override
    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-      // TODO Auto-generated method stub
    }
 
    @Override
@@ -44,6 +45,12 @@ public class JMXListener implements ServletContextListener {
          final ObjectName performanceStatisticsBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=PerformanceStatistics");
          final PerformanceStatisticsMXBean performanceStatisticsMXBean = PragmatachServlet.getPerformancestatistics();
          mBeanServer.registerMBean(performanceStatisticsMXBean, performanceStatisticsBeanName);
+         /*
+          * route cache
+          */
+         final ObjectName routeCacheStatusBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=RouteCacheStatus");
+         final RouteCacheStatusMXBean routeCacheStatusMXBean = new RouteCacheStatus();
+         mBeanServer.registerMBean(routeCacheStatusMXBean, routeCacheStatusBeanName);
       } catch (final Exception e) {
          logger.fatal("Exception in contextInitialized", e);
       }

@@ -14,6 +14,7 @@ import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.cache.LRUCache;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
@@ -27,11 +28,47 @@ public class Router {
     * logger
     */
    Logger logger = Logger.getLogger(this.getClass());
+   /**
+    * route cache. caches the top 100 routes.
+    */
+   private static final LRUCache<String, RouteFinder> routeCache = new LRUCache<String, RouteFinder>(100);
+
+   public static LRUCache<String, RouteFinder> getRoutecache() {
+      return routeCache;
+   }
 
    /**
     * ctor
     */
    public Router() {
+   }
+
+   /**
+    * find a route, either by matching, or by the cache
+    */
+   private RouteFinder findRoute(Request request) throws PragmatachException {
+      try {
+         /*
+          * route is cached?
+          */
+         RouteFinder routeFinder = routeCache.get(request.getURI());
+         if (null != routeFinder) {
+            return routeFinder;
+         } else {
+            /*
+             * try to find a route
+             */
+            routeFinder = new RouteFinder();
+            if (true == routeFinder.match(request)) {
+               routeCache.put(request.getURI(), routeFinder);
+               return routeFinder;
+            } else {
+               return null;
+            }
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findRoute", e);
+      }
    }
 
    /**
@@ -180,21 +217,24 @@ public class Router {
    public Response route(Request request) throws PragmatachException {
       try {
          /*
-          * try to find a route
+          * get route
           */
-         final RouteFinder routeFinder = new RouteFinder();
-         if (true == routeFinder.match(request)) {
+         final RouteFinder routeFinder = findRoute(request);
+         if (null != routeFinder) {
             logger.info("Request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
             return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
          } else {
+            /*
+             * log a message
+             */
             logger.info("Request for: " + request.getURI() + " could not be routed");
+            /*
+             * no match, return 404
+             */
+            final NotFoundController notFoundController = new NotFoundController();
+            notFoundController.setRequest(request);
+            return notFoundController.render();
          }
-         /*
-          * no match, return 404
-          */
-         final NotFoundController notFoundController = new NotFoundController();
-         notFoundController.setRequest(request);
-         return notFoundController.render();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getRoute", e);
       }
