@@ -2,13 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach-framework</artifactId>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<packaging>jar</packaging>
 	<name>Khubla.com Pragmatach Web Framework</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
-		<version>1.0.8</version>
+		<version>1.0.9</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
