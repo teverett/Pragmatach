@@ -32,12 +32,14 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 
 * pragmatach-framework; this is the core Pragmatach code
 * pragmatach-freemarker; support for the Freemarker template engine
+* pragmatach-thymeleaf; support for the Thymeleaf template engine
 * pragmatach-velocity; support for the Velocity template engine
 * pragmatach-adminapp; the Pragmatach admin console
 * pragmatach-gson; support for Google Gson
 * pragmatach-json; support for JSON, including posting JSON to controllers
 * pragmatach-xtream; XML support via XStream
 * pragmatach-jcr; support for the JCR
+* pragmatach-responsive; support for responsive design
 
 Creating a test project
 ------------------------
@@ -127,6 +129,13 @@ Regular Expressions can be specified for any parameter using @RouteParameter, fo
 <pre><code>
 @Route(uri = "/user/@id")
 public Response render(@RouteParameter(name="id", regex="\b\d+\b") int userId) throws PragmatachException
+</code></pre>
+
+Wildcard routes
+
+<pre><code>
+@Route(uri = "/user/*")
+public Response render(String[] parameters) throws PragmatachException
 </code></pre>
 
 Controller Scope
