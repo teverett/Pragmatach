@@ -219,3 +219,5 @@ thymeleafexample.log
 /pragmatach-responsive/.project
 /pragmatach-responsive/.classpath
 /pragmatach-thymeleaf/target/
+/target/
+/examples/target/

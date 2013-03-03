@@ -5,4 +5,10 @@
 	<version>1.0.8</version>
 	<packaging>jar</packaging>
 	<name>Khubla.com Pragmatach Maven Archetype</name>
+	<parent>
+		<groupId>com.khubla.pragmatach</groupId>
+		<artifactId>pragmatach</artifactId>
+		<version>1.0.8</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 </project>
