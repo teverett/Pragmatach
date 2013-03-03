@@ -69,8 +69,8 @@ public class PragmatachServlet extends HttpServlet {
          final Router requestRouter = new Router();
          final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get);
          final Response response = requestRouter.route(request);
-         processResponse(response, httpServletResponse);
          addCustomResponseHeaders(request, httpServletResponse);
+         processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
@@ -81,8 +81,8 @@ public class PragmatachServlet extends HttpServlet {
          final Router requestRouter = new Router();
          final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post);
          final Response response = requestRouter.route(request);
-         processResponse(response, httpServletResponse);
          addCustomResponseHeaders(request, httpServletResponse);
+         processResponse(response, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
