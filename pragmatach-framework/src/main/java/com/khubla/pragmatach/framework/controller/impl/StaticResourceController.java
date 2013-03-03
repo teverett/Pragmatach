@@ -28,9 +28,6 @@ public class StaticResourceController extends AbstractController {
       }
    }
 
-   /**
-    * the default route for public resources is /public however this is changed at load time from the configuration
-    */
    @Route(uri = "/public/*")
    public Response render(String[] imageResource) throws PragmatachException {
       try {
