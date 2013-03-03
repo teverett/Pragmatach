@@ -9,8 +9,10 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 
+import com.khubla.pragmatach.framework.jmx.PerformanceStatisticsMXBean;
 import com.khubla.pragmatach.framework.jmx.SystemStatusMXBean;
 import com.khubla.pragmatach.framework.jmx.impl.SystemStatus;
+import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
 /**
  * @author tome
@@ -30,12 +32,18 @@ public class JMXListener implements ServletContextListener {
    public void contextInitialized(ServletContextEvent servletContextEvent) {
       try {
          final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-         /**
+         /*
           * system status bean
           */
-         final ObjectName name = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=SystemStatus");
+         final ObjectName systemStatusBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=SystemStatus");
          final SystemStatusMXBean systemStatusMBean = new SystemStatus();
-         mBeanServer.registerMBean(systemStatusMBean, name);
+         mBeanServer.registerMBean(systemStatusMBean, systemStatusBeanName);
+         /*
+          * performance statistics
+          */
+         final ObjectName performanceStatisticsBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=PerformanceStatistics");
+         final PerformanceStatisticsMXBean performanceStatisticsMXBean = PragmatachServlet.getPerformancestatistics();
+         mBeanServer.registerMBean(performanceStatisticsMXBean, performanceStatisticsBeanName);
       } catch (final Exception e) {
          logger.fatal("Exception in contextInitialized", e);
       }

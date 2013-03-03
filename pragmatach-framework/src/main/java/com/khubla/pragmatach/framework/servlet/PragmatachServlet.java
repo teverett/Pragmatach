@@ -15,6 +15,7 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.Configuration;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.jmx.impl.PerformanceStatistics;
 import com.khubla.pragmatach.framework.router.Router;
 
 /**
@@ -25,6 +26,15 @@ public class PragmatachServlet extends HttpServlet {
     * 
     */
    private static final long serialVersionUID = 1L;
+
+   public static Configuration getConfiguration() {
+      return configuration;
+   }
+
+   public static void setConfiguration(Configuration configuration) {
+      PragmatachServlet.configuration = configuration;
+   }
+
    /**
     * logger
     */
@@ -41,13 +51,13 @@ public class PragmatachServlet extends HttpServlet {
     * render time header
     */
    private static final String RENDERTIME_HEADER = "X-Pragmatach-RenderTime";
+   /**
+    * performance stats.
+    */
+   private static final PerformanceStatistics performanceStatistics = new PerformanceStatistics();
 
-   public static Configuration getConfiguration() {
-      return configuration;
-   }
-
-   public static void setConfiguration(Configuration configuration) {
-      PragmatachServlet.configuration = configuration;
+   public synchronized static PerformanceStatistics getPerformancestatistics() {
+      return performanceStatistics;
    }
 
    /**
@@ -62,6 +72,14 @@ public class PragmatachServlet extends HttpServlet {
        * add
        */
       httpServletResponse.addHeader(RENDERTIME_HEADER, Long.toString(rendertime));
+      /*
+       * record it too
+       */
+      getPerformancestatistics().setLastRenderTime(rendertime);
+      /*
+       * record a request
+       */
+      getPerformancestatistics().incrementTotalRequests();
    }
 
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
