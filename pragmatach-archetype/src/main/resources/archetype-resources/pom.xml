@@ -29,7 +29,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
-			<artifactId>pragmatach-websocket</artifactId>
+			<artifactId>pragmatach-i8n</artifactId>
 			<version>1.0.8</version>
 			<type>jar</type>
 			<scope>compile</scope>

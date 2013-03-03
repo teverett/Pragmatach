@@ -221,3 +221,7 @@ thymeleafexample.log
 /pragmatach-thymeleaf/target/
 /target/
 /examples/target/
+/pragmatach-i8n/target/
+/pragmatach-i8n/.settings/
+/pragmatach-i8n/.project
+/pragmatach-i8n/.classpath

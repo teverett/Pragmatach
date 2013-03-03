@@ -22,6 +22,7 @@
 		<module>pragmatach-velocity</module>
 		<module>pragmatach-jcr</module>
 		<module>pragmatach-json</module>
+		<module>pragmatach-i8n</module>
 		<module>pragmatach-gson</module>
 		<module>pragmatach-xstream</module>
 		<module>pragmatach-adminapp</module>
