@@ -17,6 +17,7 @@ Features in Pragmatach include:
 * Grails-like routing via annotations
 * FreeMarker and Velocity as the templating langauges, rather than GSP, JSP or Scala pages
 * Pluggable template processors; Freemarker and Velocity currently, JSP later
+* Built-in support for i8n via plugins
 
 Pragmatach does not include ORM support.  Hibernate, iBatis or Ebean can be used if required.
 
@@ -427,7 +428,7 @@ This example link is querying the JCR for the properties of the Node "hello/worl
 i8n support
 ------------------------
 
-I8N support is provided by Pragmatach plugins which expose implementation of `I8NProvider` to Pragmatach.  The variable `i8n` is then available in template engines to use for internationalization.
+I8N support is provided by Pragmatach plugins which expose implementation of `I8NProvider` to Pragmatach.  The variable `i8n` is then available in template engines to use for internationalization.  The plugin `pragmatach-i8n` provides simple internationalization of strings and dates.
 
 
 
