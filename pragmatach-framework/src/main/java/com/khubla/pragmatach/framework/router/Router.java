@@ -179,14 +179,11 @@ public class Router {
    public Response route(Request request) throws PragmatachException {
       try {
          /*
-          * log
-          */
-         logger.debug("Routing request for: " + request.getURI());
-         /*
           * try to find a route
           */
          final RouteFinder routeFinder = new RouteFinder();
          if (true == routeFinder.match(request)) {
+            logger.info("Request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
             return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
          } else {
             logger.info("Request for: " + request.getURI() + " could not be routed");
