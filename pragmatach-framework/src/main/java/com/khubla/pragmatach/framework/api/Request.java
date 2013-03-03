@@ -32,6 +32,10 @@ public class Request {
     * cookies
     */
    private final Cookies cookies;
+   /**
+    * creation time
+    */
+   private final long creationTime = System.currentTimeMillis();
 
    /**
     * ctor
@@ -45,6 +49,10 @@ public class Request {
 
    public Cookies getCookies() {
       return cookies;
+   }
+
+   public long getCreationTime() {
+      return creationTime;
    }
 
    public Headers getHeaders() {

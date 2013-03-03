@@ -37,6 +37,10 @@ public class PragmatachServlet extends HttpServlet {
     * configuration
     */
    private static final String CONFIGURATION = "configuration";
+   /**
+    * render time header
+    */
+   private static final String RENDERTIME_HEADER = "X-Pragmatach-RenderTime";
 
    public static Configuration getConfiguration() {
       return configuration;
@@ -46,11 +50,27 @@ public class PragmatachServlet extends HttpServlet {
       PragmatachServlet.configuration = configuration;
    }
 
+   /**
+    * add custom response headers
+    */
+   private void addCustomResponseHeaders(Request request, HttpServletResponse httpServletResponse) {
+      /*
+       * add the render time
+       */
+      final long rendertime = (System.currentTimeMillis() - request.getCreationTime()) / 1000;
+      /*
+       * add
+       */
+      httpServletResponse.addHeader(RENDERTIME_HEADER, Long.toString(rendertime));
+   }
+
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Response response = requestRouter.route(new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get));
+         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get);
+         final Response response = requestRouter.route(request);
          processResponse(response, httpServletResponse);
+         addCustomResponseHeaders(request, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
@@ -59,8 +79,10 @@ public class PragmatachServlet extends HttpServlet {
    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Response response = requestRouter.route(new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post));
+         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post);
+         final Response response = requestRouter.route(request);
          processResponse(response, httpServletResponse);
+         addCustomResponseHeaders(request, httpServletResponse);
       } catch (final Exception e) {
          throw new ServletException("Exception in doGet", e);
       }
@@ -94,6 +116,9 @@ public class PragmatachServlet extends HttpServlet {
       }
    }
 
+   /**
+    * process the response
+    */
    private void processResponse(Response response, HttpServletResponse httpServletResponse) throws ServletException {
       try {
          if (null != response) {
