@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import com.khubla.pragmatach.framework.api.I8NProvider;
+import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
@@ -24,7 +25,7 @@ public class I8NResolver {
    /**
     * get localized date
     */
-   public String date(String locale, Date date) {
+   public String date(String locale, Date date) throws PragmatachException {
       if (null != i8nProviders) {
          for (final I8NProvider iI8NProvider : i8nProviders) {
             final String d = iI8NProvider.getDate(locale, date);
@@ -39,7 +40,7 @@ public class I8NResolver {
    /**
     * search for i8N string across providers
     */
-   public String i8n(String locale, String name) {
+   public String i8n(String locale, String name) throws PragmatachException {
       if (null != i8nProviders) {
          for (final I8NProvider iI8NProvider : i8nProviders) {
             final String r = iI8NProvider.getString(locale, name);

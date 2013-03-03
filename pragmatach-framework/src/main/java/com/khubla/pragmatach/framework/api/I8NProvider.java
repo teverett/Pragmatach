@@ -9,7 +9,7 @@ public interface I8NProvider {
    /**
     * get localized date
     */
-   String getDate(String locale, Date date);
+   String getDate(String locale, Date date) throws PragmatachException;
 
    /**
     * provider name
@@ -19,5 +19,5 @@ public interface I8NProvider {
    /**
     * get localized string.
     */
-   String getString(String locale, String name);
+   String getString(String locale, String name) throws PragmatachException;
 }
