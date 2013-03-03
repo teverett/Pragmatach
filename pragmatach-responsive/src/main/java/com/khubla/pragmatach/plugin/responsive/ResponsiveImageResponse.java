@@ -20,15 +20,34 @@ public class ResponsiveImageResponse extends AbstractResponse {
     */
    private final int width;
    /**
+    * xscale
+    */
+   private final double xscale;
+   /**
+    * yscale
+    */
+   private final double yscale;
+   /**
     * height
     */
    private final int height;
+
+   public ResponsiveImageResponse(Map<String, String> cacheHeaders, InputStream imageResource, double xscale, double yscale) {
+      super(cacheHeaders);
+      this.imageResource = imageResource;
+      width = 0;
+      height = 0;
+      this.xscale = xscale;
+      this.yscale = yscale;
+   }
 
    public ResponsiveImageResponse(Map<String, String> cacheHeaders, InputStream imageResource, int width, int height) {
       super(cacheHeaders);
       this.imageResource = imageResource;
       this.width = width;
       this.height = height;
+      xscale = 0;
+      yscale = 0;
    }
 
    @Override
@@ -44,7 +63,11 @@ public class ResponsiveImageResponse extends AbstractResponse {
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
-         ImageResizer.resize(imageResource, outputStream, width, height);
+         if (0 != width) {
+            ImageResizer.resize(imageResource, outputStream, width, height);
+         } else {
+            ImageResizer.resize(imageResource, outputStream, xscale, yscale);
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
