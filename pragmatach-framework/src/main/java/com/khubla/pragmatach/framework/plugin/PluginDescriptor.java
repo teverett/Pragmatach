@@ -7,8 +7,11 @@ import java.net.URLClassLoader;
 import java.util.Properties;
 import java.util.jar.Manifest;
 
+import javax.servlet.ServletContext;
+
 import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 
 /**
  * @author tome
@@ -31,24 +34,26 @@ public class PluginDescriptor {
     */
    private final Plugin plugin;
 
-   public PluginDescriptor(URL url, InputStream inputStream) throws PragmatachException {
+   public PluginDescriptor(URL url, InputStream inputStream, ServletContext servletContext) throws PragmatachException {
       try {
          this.url = url;
          properties = new Properties();
          properties.load(inputStream);
-         plugin = findPlugin();
+         plugin = findPlugin(servletContext);
       } catch (final Exception e) {
          throw new PragmatachException(e);
       }
    }
 
-   private Plugin findPlugin() throws PragmatachException {
+   private Plugin findPlugin(ServletContext servletContext) throws PragmatachException {
       try {
          final String activatorClassName = properties.getProperty(ACTIVATOR);
          if (null != activatorClassName) {
             final Class<?> clazz = Class.forName(activatorClassName);
             if (null != clazz) {
-               return (Plugin) clazz.newInstance();
+               final Plugin ret = (Plugin) clazz.newInstance();
+               ret.setPluginContext(new PluginContextImpl(new ResourceLoader(servletContext)));
+               return ret;
             }
          }
          return null;

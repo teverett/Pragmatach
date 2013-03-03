@@ -5,10 +5,9 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 import com.khubla.pragmatach.framework.api.I8NProvider;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.plugin.i8n.plugin.PluginImpl;
 
 /**
  * @author tome
@@ -23,14 +22,15 @@ public class I8NImpl implements I8NProvider {
     */
    private final Hashtable<String, Properties> localeData = new Hashtable<String, Properties>();
    /**
-    * logger
+    * the owning plugin
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final PluginImpl plugin;
 
    /**
     * ctor
     */
-   public I8NImpl() {
+   public I8NImpl(PluginImpl plugin) {
+      this.plugin = plugin;
    }
 
    @Override
@@ -53,7 +53,7 @@ public class I8NImpl implements I8NProvider {
             /*
              * get resource
              */
-            final InputStream inputStream = I8NImpl.class.getResourceAsStream(I8N_FILE);
+            final InputStream inputStream = plugin.getPluginContext().getResourceLoader().getResource(getLocalfileResourceName(locale));
             if (null != inputStream) {
                properties = new Properties();
                properties.load(inputStream);
@@ -66,6 +66,10 @@ public class I8NImpl implements I8NProvider {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getLocaleData", e);
       }
+   }
+
+   private String getLocalfileResourceName(String locale) {
+      return I8N_FILE + locale;
    }
 
    @Override

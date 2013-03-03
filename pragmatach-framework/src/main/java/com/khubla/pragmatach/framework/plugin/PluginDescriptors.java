@@ -36,19 +36,19 @@ public class PluginDescriptors {
     * do the scan
     */
    public static void scan(ServletContext servletContext) throws PragmatachException {
-      scanURLs(ClasspathUrlFinder.findClassPaths());
-      scanURLs(WarUrlFinder.findWebInfLibClasspaths(servletContext));
-      scanURLs(new URL[] { WarUrlFinder.findWebInfClassesPath(servletContext) });
+      scanURLs(ClasspathUrlFinder.findClassPaths(), servletContext);
+      scanURLs(WarUrlFinder.findWebInfLibClasspaths(servletContext), servletContext);
+      scanURLs(new URL[] { WarUrlFinder.findWebInfClassesPath(servletContext) }, servletContext);
    }
 
-   private static void scanURLs(URL[] urls) throws PragmatachException {
+   private static void scanURLs(URL[] urls, ServletContext servletContext) throws PragmatachException {
       try {
          final PluginFilter pluginFilter = new PluginFilter();
          for (final URL url : urls) {
             final StreamIterator streamIterator = IteratorFactory.create(url, pluginFilter);
             InputStream inputStream;
             while (null != (inputStream = streamIterator.next())) {
-               final PluginDescriptor plugin = new PluginDescriptor(url, inputStream);
+               final PluginDescriptor plugin = new PluginDescriptor(url, inputStream, servletContext);
                logger.info("Found plugin: " + plugin.getName());
                plugins.put(plugin.getName(), plugin);
                inputStream.close();
