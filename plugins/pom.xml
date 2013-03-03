@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.khubla.pragmatach</groupId>
+	<artifactId>plugins</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.9</version>
+	<name>khubla.com Pragmatach</name>
+		<parent>
+		<groupId>com.khubla.pragmatach</groupId>
+		<artifactId>pragmatach</artifactId>
+		<version>1.0.9</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<modules>	
+		<module>pragmatach-freemarker</module>
+		<module>pragmatach-thymeleaf</module>
+		<module>pragmatach-responsive</module>
+		<module>pragmatach-jasper</module>
+		<module>pragmatach-velocity</module>
+		<module>pragmatach-jcr</module>
+		<module>pragmatach-json</module>
+		<module>pragmatach-i8n</module>
+		<module>pragmatach-gson</module>
+		<module>pragmatach-xstream</module>
+		<module>pragmatach-adminapp</module>
+		<module>pragmatach-websocket</module>
+	</modules>
+</project>

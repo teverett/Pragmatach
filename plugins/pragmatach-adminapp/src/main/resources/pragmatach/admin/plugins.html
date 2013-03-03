@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Plugins</h1>
+		<table class="table">
+			<tr>
+				<th>Name</th>
+				<th>URL</th>
+			</tr>
+			<#list controller.plugins?keys as prop>
+			<tr>
+				<td>${prop}</td>
+				<td>${controller.plugins[prop].getUrl().toString()}</td>
+			</tr>
+			</#list>
+		</table>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Controllers</h1>
+		<table class="table">
+			<tr>
+				<th>name</th>
+				<th>scope</th>
+				<th>class</th>
+			</tr>
+			<#list controller.controllers as controllerClazz>
+			<tr>
+				<td>${controller.getControllerAnnotation(controllerClazz).name()}</td>
+				<td>${controller.getControllerAnnotation(controllerClazz).scope()}</td>
+				<td>${controllerClazz.getName()}</td>
+			</tr>
+			</#list>
+		</table>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Server Information</h1>
+		<table class="table">
+			<tr>
+				<th>Parameter</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Application Version</td>
+				<td>${controller.applicationVersion}</td>
+			</tr>
+			<tr>
+				<td>J2EE Container</td>
+				<td>${controller.serverinfo}</td>
+			</tr>
+			<tr>
+				<td>Hostname</td>
+				<td>${controller.hostname}</td>
+			</tr>
+			<tr>
+				<td>Process ID</td>
+				<td>${controller.processId}</td>
+			</tr>
+		</table>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Configuration</h1>
+		<table class="table">
+			<tr>
+				<th>Parameter</th>
+				<th>Value</th>
+			</tr>
+			<#list controller.configuration?keys as prop>
+			<tr>
+				<td>${prop}</td>
+				<td>${controller.configuration[prop]}</td>
+			</tr>
+			</#list>
+		</table>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>
+
+
+
+
+
+
+

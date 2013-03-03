@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Route Cache</h1>
+		<h2>Cache Status</h2>
+		<table class="table">
+			<tr>
+				<th>Parameter</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Size</td>
+				<td>${controller.size}</td>
+			</tr>
+			<tr>
+				<td>Total Requests</td>
+				<td>${controller.totalRequests}</td>
+			</tr>
+			<tr>
+				<td>Total Hits</td>
+				<td>${controller.totalHits} (${controller.hitRatio}%)</td>
+			</tr>
+		</table>
+		<h2>Clear Cache</h2>
+		<form action="${session.getServletContext().getContextPath()}/pragmatach/admin/routecache/clear" method="post" enctype="multipart/form-data">
+			<button type="submit" class="btn">Clear</button>
+		</form>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>
+
+
+
+
+
+
+
