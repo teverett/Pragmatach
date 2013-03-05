@@ -13,6 +13,9 @@
 			<p class="view">
 				<a href="https://github.com/khubla/Pragmatach">View the Source on GitHub</a>
 			</p>
+			<p class="view">
+				<a href="https://github.com/khubla/Pragmatach/tree/master/examples">Examples on GitHub</a>
+			</p>
 			<ul>
 				<li><a href="https://github.com/khubla/Pragmatach/zipball/master">Download <strong>ZIP File</strong></a></li>
 				<li><a href="https://github.com/khubla/Pragmatach/tarball/master">Download <strong>TAR Ball</strong></a></li>
