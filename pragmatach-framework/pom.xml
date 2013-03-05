@@ -2,13 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach-framework</artifactId>
-	<version>1.1.0</version>
+	<version>1.11</version>
 	<packaging>jar</packaging>
 	<name>Khubla.com Pragmatach Web Framework</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
-		<version>1.1.0</version>
+		<version>1.11</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
@@ -84,7 +84,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<grammars>jvmBasic.g</grammars>
+					<grammars>RouteSpecification.g</grammars>
 					<outputDirectory>src/main/java</outputDirectory>
 				</configuration>
 			</plugin>
