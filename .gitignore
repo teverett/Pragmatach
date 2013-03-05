@@ -335,3 +335,7 @@ thymeleafexample.log
 /plugins/pragmatach-gson/target/pragmatach-gson-1.11.jar
 /plugins/pragmatach-freemarker/target/pragmatach-freemarker-1.11.jar
 /plugins/pragmatach-adminapp/target/pragmatach-adminapp-1.11.jar
+/site/target/
+/site/.project
+/site/.classpath
+/site/.settings/

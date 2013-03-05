@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+#include( "src/main/site/head.tpl" )
+<body>
+	<div class="wrapper">
+		#include( "src/main/site/header.tpl" )
+		<section>
+			<h3>Pragmatach Quickstart</h3>
+			<p>Firstly, clone the Pragmatach git repo, and build it.  This will build and install all libraries.</p>
+			<pre>
+			<code>
+mvn clean package install
+			</code>
+			</pre> 
+			<p>To create the skeleton of a test project use the pragmatach maven archetype
+			<p>
+			<pre>
+<code>
+mvn archetype:generate                           \
+  -DarchetypeGroupId=com.khubla.pragmatach       \
+  -DarchetypeArtifactId=pragmatach-archetype     \
+  -DarchetypeVersion=1.0-SNAPSHOT                \
+  -DgroupId=com.khubla.exampleproject            \
+  -DartifactId=myexampleproject
+</code>
+</pre>
+
+<p>Alternatively, just run the supplied shell script:</p>
+<pre>
+sh create-example-project.sh
+</pre>
+
+			<p>This will generate:</p>
+
+			<ul>
+				<li>A maven pom.xml which includes the Pragmatach framework and some plugins</li>
+				<li>A simple controller and freemarker template for an index page</li>
+				<li>All other necessary resources to crete a simple Pragmatach project</li>
+			</ul>
+
+			<p>To run the generated project, type:</p>
+			<pre>
+<code>
+cd myexampleproject
+mvn clean package jetty:run
+</code>
+</pre>
+
+			<p>Then browse to:</p>
+
+			<pre>
+http://localhost:8080
+</pre>
+
+
+		</section>
+		#include( "src/main/site/footer.tpl" )
+	</div>
+	<script src="javascripts/scale.fix.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+#include( "src/main/site/head.tpl" )
+<body>
+	<div class="wrapper">
+		#include( "src/main/site/header.tpl" )
+		<section>
+			<h3>About Pragmatach</h3>
+
+			<p>Pragmatach is a simple web framework aimed at providing rapid development of web applications using technologies which are familiar to developers developing real-world sites. Pragmatach was developed to enable rapid development of sites by Javascript and CSS3 developers who need a supporting MVC framework, but don't wish to have to learn a new programming language such as Groovy or Scala, and who wish to have powerful features such built-in JSON support, Cache Control, and annotation
+				driven request routing.</p>
+
+			<p>Features in Pragmatach include:</p>
+			<ul>
+				<li>Minimum client-side requirements; browser programmers should be free of restrictions</li>
+				<li>Modular design allowing features such as i8n, Freemarker, JCR support, Websockets, Velocity, XStream and Gson to be configured via maven dependencies</li>
+				<li>Automatic JSON generation via Gson</li>
+				<li>Cache control headers specified via Annotations and generated automatically</li>
+				<li>Automatic population of controller fields from Form, JSON or XML POST</li>
+				<li>Support for Session and Request scoped controllers, via Annotations</li>
+				<li>Automatic generation of project skeletons</li>
+				<li>Projects built via maven, with Jetty and Tomcat6 and Tomcat7 profiles included</li>
+				<li>Java as the core programming languge, rather than Groovy or Scala</li>
+				<li>Grails-like routing via annotations</li>
+				<li>FreeMarker and Velocity as the templating langauges, rather than GSP, JSP or Scala pages</li>
+				<li>Pluggable template processors; Freemarker and Velocity currently, JSP later</li>
+				<li>Built-in support for i8n via plugins</li>
+			</ul>
+
+			<p>Pragmatach does not include ORM support. Hibernate, iBatis or Ebean can be used if required.</p>
+
+			<h3>License</h3>
+
+			<p>Pragmatach is licensed under the GPL.</p>
+
+			<h3>Getting Started</h3>
+
+			<p>
+				Quickstart is <a href="quickstart.html">here</a>
+			</p>
+			<p>
+				Documentation is <a href="docs.html">here</a>
+			</p>
+
+		</section>
+		#include( "src/main/site/footer.tpl" )
+	</div>
+	<script src="javascripts/scale.fix.js"></script>
+
+</body>
+</html>

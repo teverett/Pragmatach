@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.khubla.pragmatach</groupId>
+	<artifactId>pragmatach-site</artifactId>
+	<version>1.11</version>
+	<packaging>pom</packaging>
+	<name>Khubla.com Pragmatach Site</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.googlecode.velocity-maven-plugin</groupId>
+				<artifactId>velocity-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>velocity</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<templateFiles>
+						<directory>src/main/site</directory>
+						<includes>
+							<include>**/*.html</include>
+							<include>**/*.css</include>
+							<include>**/*.js</include>
+						</includes>
+					</templateFiles>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
