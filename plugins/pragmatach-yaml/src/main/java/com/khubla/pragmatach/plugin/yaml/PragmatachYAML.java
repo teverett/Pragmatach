@@ -67,7 +67,7 @@ public class PragmatachYAML {
    @SuppressWarnings("unchecked")
    public static Map<String, String> parseYAML(String YAML) throws PragmatachException {
       try {
-         Yaml yaml = new Yaml();
+         final Yaml yaml = new Yaml();
          return (Map<String, String>) yaml.load(YAML);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in parseYAML", e);
@@ -79,11 +79,11 @@ public class PragmatachYAML {
     */
    public static String toYAML(Object object) throws PragmatachException {
       try {
-         Map<String, String> map = new HashMap<String, String>();
+         final Map<String, String> map = new HashMap<String, String>();
          for (final Field field : object.getClass().getDeclaredFields()) {
             map.put(field.getName(), BeanUtils.getSimpleProperty(object, field.getName()));
          }
-         Yaml yaml = new Yaml();
+         final Yaml yaml = new Yaml();
          return yaml.dump(map);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in toYAML", e);

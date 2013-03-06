@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.examples.jsonexample;
+package com.khubla.pragmatach.examples.yamlexample;
 
 import java.util.Date;
 

@@ -7,16 +7,13 @@
 		</layout>
 	</appender>
 	<appender name="FILE" class="org.apache.log4j.FileAppender">
-		<param name="file" value="jsonexample.log" />
+		<param name="file" value="yamlexample.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%p - %C{1}.%M(%L) | %m%n" />
 		</layout>
 	</appender>
 	<logger name="com.khubla.pragmatach.framework">
 		<level value="INFO" />
-	</logger>
-	<logger name="freemarker">
-		<level value="FATAL" />
 	</logger>
 	<logger name="org.apache.commons">
 		<level value="FATAL" />
