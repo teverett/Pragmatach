@@ -14,18 +14,6 @@ mvn clean package install
 			</pre> 
 			<p>To create the skeleton of a test project use the pragmatach maven archetype
 			<p>
-			<pre>
-<code>
-mvn archetype:generate                           \
-  -DarchetypeGroupId=com.khubla.pragmatach       \
-  -DarchetypeArtifactId=pragmatach-archetype     \
-  -DarchetypeVersion=1.0-SNAPSHOT                \
-  -DgroupId=com.khubla.exampleproject            \
-  -DartifactId=myexampleproject
-</code>
-</pre>
-
-<p>Alternatively, just run the supplied shell script:</p>
 <pre>
 sh create-example-project.sh
 </pre>
@@ -50,6 +38,10 @@ mvn clean package jetty:run
 
 			<pre>
 http://localhost:8080
+</pre>
+<p>You can view the admin console (admin/admin to log in) at:</p>
+			<pre>
+http://localhost:8080/pragmatach/admin
 </pre>
 
 
