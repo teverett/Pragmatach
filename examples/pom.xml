@@ -22,5 +22,6 @@
 		<module>sessionscopeexample</module>
 		<module>jcrexample</module>
 		<module>routesexample</module>
+		<module>yamlexample</module>
 	</modules>
 </project>	
