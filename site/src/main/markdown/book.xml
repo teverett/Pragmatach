@@ -1,0 +1,15 @@
+<book xmlns="http://maven.apache.org/BOOK/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/BOOK/1.0.0 http://maven.apache.org/xsd/book-1.0.0.xsd">
+	<id>pragmatach-documentation</id>
+	<title>Pragmatach Documentation</title>
+	<chapters>
+		<chapter>
+			<id>plugins</id>
+			<title>Plugins</title>
+			<sections>
+				<section>
+					<id>plugins</id>
+				</section>
+			</sections>
+		</chapter>
+	</chapters>
+</book>

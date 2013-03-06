@@ -339,3 +339,8 @@ thymeleafexample.log
 /site/.project
 /site/.classpath
 /site/.settings/
+/site/.DS_Store
+/plugins/pragmatach-yaml/target/
+/plugins/pragmatach-yaml/.settings/
+/plugins/pragmatach-yaml/.project
+/plugins/pragmatach-yaml/.classpath
