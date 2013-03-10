@@ -11,6 +11,8 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 import com.khubla.pragmatach.plugin.cluster.annotation.Clustered;
 
 /**
+ * A collection of the clustered controller instances
+ * 
  * @author tome
  */
 public class ClusteredControllers {

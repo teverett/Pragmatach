@@ -353,3 +353,11 @@ thymeleafexample.log
 /plugins/pragmatach-cluster/.project
 /plugins/pragmatach-cluster/.classpath
 /plugins/pragmatach-cluster/.settings/
+/plugins/pragmatach-facebook/target/
+/plugins/pragmatach-facebook/.project
+/plugins/pragmatach-facebook/.classpath
+/plugins/pragmatach-facebook/.settings/
+/examples/facebookexample/target/
+/examples/facebookexample/.project
+/examples/facebookexample/.classpath
+/examples/facebookexample/.settings/

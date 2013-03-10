@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+<title>facebookexample</title>
+</head>
+<body>
+	<h1>Facebook Login</h1>
+	<form action="${controller.getFacebookUrlAuth()}" method="post" enctype="multipart/form-data">
+		<button type="submit" class="btn">Login</button>
+	</form>
+
+	<a href="${session.getServletContext().getContextPath()}/pragmatach/admin">Admin</a>
+</body>
+
+
+

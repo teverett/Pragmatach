@@ -23,5 +23,6 @@
 		<module>jcrexample</module>
 		<module>routesexample</module>
 		<module>yamlexample</module>
+		<module>facebookexample</module>
 	</modules>
 </project>	

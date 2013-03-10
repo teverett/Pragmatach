@@ -5,6 +5,8 @@ import org.jgroups.JChannel;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
+ * The broadcast sender and reciever
+ * 
  * @author tome
  */
 public class ControllerCluster {

@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.khubla.pragmatach</groupId>
+	<artifactId>pragmatach-facebook</artifactId>
+	<version>1.12</version>
+	<packaging>jar</packaging>
+	<name>Khubla.com Pragmatach Facebook plugin</name>
+	<parent>
+		<groupId>com.khubla.pragmatach</groupId>
+		<artifactId>plugins</artifactId>
+		<version>1.12</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-framework</artifactId>
+			<version>1.12</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-freemarker</artifactId>
+			<version>1.12</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<type>jar</type>
+			<classifier>jdk15</classifier>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.3</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

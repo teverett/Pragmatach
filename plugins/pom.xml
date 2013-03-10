@@ -27,5 +27,6 @@
 		<module>pragmatach-websocket</module>
 		<module>pragmatach-yaml</module>
 		<module>pragmatach-cluster</module>
+		<module>pragmatach-facebook</module>
 	</modules>
 </project>
