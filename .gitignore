@@ -362,3 +362,7 @@ thymeleafexample.log
 /examples/facebookexample/.classpath
 /examples/facebookexample/.settings/
 facebookexample.log
+/plugins/pragmatach-oauth/target/
+/plugins/pragmatach-oauth/.project
+/plugins/pragmatach-oauth/.classpath
+/plugins/pragmatach-oauth/.settings/

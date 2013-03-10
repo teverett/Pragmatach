@@ -163,6 +163,10 @@ public class FacebookLoginController extends FreemarkerController {
       return email;
    }
 
+   public Response render() throws PragmatachException {
+      return super.render();
+   }
+
    public void setCode(String code) {
       this.code = code;
    }
@@ -185,9 +189,5 @@ public class FacebookLoginController extends FreemarkerController {
 
    public void setState(String state) {
       this.state = state;
-   }
-
-   public Response render() throws PragmatachException {
-      return super.render();
    }
 }
