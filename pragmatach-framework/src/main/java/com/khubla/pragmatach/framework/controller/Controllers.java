@@ -2,7 +2,6 @@ package com.khubla.pragmatach.framework.controller;
 
 import java.util.Set;
 
-import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
@@ -41,7 +40,7 @@ public class Controllers {
     * ctor
     */
    private Controllers() {
-      controllers = AnnotationsScanner.getControllers();
+      controllers = ControllerClasses.getControllers();
    }
 
    public Set<Class<?>> getControllers() {

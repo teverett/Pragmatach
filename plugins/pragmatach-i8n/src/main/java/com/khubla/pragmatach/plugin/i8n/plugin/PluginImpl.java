@@ -1,8 +1,11 @@
 package com.khubla.pragmatach.plugin.i8n.plugin;
 
+import java.util.Map;
+
 import com.khubla.pragmatach.framework.api.I8NProvider;
 import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.api.PluginContext;
+import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.plugin.i8n.I8NImpl;
 
 /**
@@ -28,5 +31,14 @@ public class PluginImpl implements Plugin {
    @Override
    public void setPluginContext(PluginContext pluginContext) {
       this.pluginContext = pluginContext;
+   }
+
+   @Override
+   public void startup() throws PragmatachException {
+   }
+
+   @Override
+   public Map<String, Object> getTemplateVariables() {
+      return null;
    }
 }

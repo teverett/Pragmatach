@@ -5,11 +5,13 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 
-import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
+import com.khubla.pragmatach.framework.controller.ControllerClasses;
 import com.khubla.pragmatach.framework.i8n.I8NProviders;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 import com.khubla.pragmatach.framework.router.PragmatachRoutes;
+import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
@@ -29,13 +31,23 @@ public class StartupListener implements ServletContextListener {
    public void contextInitialized(ServletContextEvent servletContextEvent) {
       try {
          /*
-          * scan the annotations (@Route and @Controller)
+          * scan the annotations (@Route and @Controller, and everything else)
           */
-         AnnotationsScanner.scan(servletContextEvent.getServletContext());
+         AnnotationScanner.scan(servletContextEvent.getServletContext());
+         /*
+          * find the controllers and routes
+          */
+         ControllerClasses.buildDB();
          /*
           * scan the plugins
           */
          PluginDescriptors.scan(servletContextEvent.getServletContext());
+         /*
+          * start all the plugins
+          */
+         for (final PluginDescriptor pluginDescriptor : PluginDescriptors.getPlugins().values()) {
+            pluginDescriptor.getPlugin().startup();
+         }
          /*
           * this loads and validates the routes
           */

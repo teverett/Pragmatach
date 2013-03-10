@@ -6,9 +6,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
+import com.khubla.pragmatach.framework.controller.ControllerClasses;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 import com.khubla.pragmatach.framework.router.PragmatachRoutes;
+import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
@@ -23,7 +24,8 @@ public class TestRoutes {
    @BeforeTest
    public void setup() {
       try {
-         AnnotationsScanner.scan(null);
+         AnnotationScanner.scan(null);
+         ControllerClasses.buildDB();
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();

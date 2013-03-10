@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.khubla.pragmatach.framework.annotation.AnnotationsScanner;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.controller.ControllerClasses;
 
 /**
  * all routes, both GET and POST, sorted.
@@ -67,7 +67,7 @@ public class PragmatachRoutes {
          /*
           * get the routes
           */
-         final Set<Method> routerMethods = AnnotationsScanner.getRouterMethods();
+         final Set<Method> routerMethods = ControllerClasses.getRouterMethods();
          if (null != routerMethods) {
             for (final Method method : routerMethods) {
                final Route route = method.getAnnotation(Route.class);

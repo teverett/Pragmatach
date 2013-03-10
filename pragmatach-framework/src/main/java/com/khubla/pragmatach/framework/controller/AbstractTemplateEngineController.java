@@ -14,6 +14,8 @@ import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.i8n.I8NProviders;
 import com.khubla.pragmatach.framework.i8n.I8NResolver;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
+import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 
 /**
  * @author tome
@@ -80,6 +82,18 @@ public class AbstractTemplateEngineController extends AbstractController {
             if (controller.scope() == Controller.Scope.session) {
                final PragmatachController pragmatachController = sessionControllerInstances.get(key);
                context.put(controller.name(), pragmatachController);
+            }
+         }
+      }
+      /*
+       * add all template variables contributed by plugins
+       */
+      final Map<String, PluginDescriptor> plugins = PluginDescriptors.getPlugins();
+      if (null != plugins) {
+         for (final PluginDescriptor pluginDescriptor : plugins.values()) {
+            final Map<String, Object> vars = pluginDescriptor.getPlugin().getTemplateVariables();
+            if (null != vars) {
+               context.putAll(vars);
             }
          }
       }

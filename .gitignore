@@ -349,3 +349,7 @@ thymeleafexample.log
 /examples/yamlexample/.project
 /examples/yamlexample/.classpath
 /examples/yamlexample/.settings/
+/plugins/pragmatach-cluster/target/
+/plugins/pragmatach-cluster/.project
+/plugins/pragmatach-cluster/.classpath
+/plugins/pragmatach-cluster/.settings/

@@ -26,5 +26,6 @@
 		<module>pragmatach-adminapp</module>
 		<module>pragmatach-websocket</module>
 		<module>pragmatach-yaml</module>
+		<module>pragmatach-cluster</module>
 	</modules>
 </project>
