@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.khubla.pragmatach.framework.annotation.CacheControl;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
@@ -42,6 +44,14 @@ public abstract class AbstractController implements PragmatachController {
    public Response forward(String uri) throws PragmatachException {
       final String forwardURI = request.getHttpServletRequest().getContextPath() + uri;
       return new RedirectController(forwardURI).render();
+   }
+
+   /**
+    * get the base URI of this application
+    */
+   public String getApplicationURL() {
+      final HttpServletRequest httpServletRequest = getRequest().getHttpServletRequest();
+      return httpServletRequest.getScheme() + "://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort() + httpServletRequest.getContextPath();
    }
 
    /**

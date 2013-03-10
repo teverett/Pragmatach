@@ -72,7 +72,7 @@ public class FacebookLoginController extends FreemarkerController {
       if (sessionID != getRequest().getSession().getId()) {
          throw new PragmatachException("CSRF Exception");
       }
-      return render();
+      return super.render();
    }
 
    public String getApplicationid() {
@@ -90,7 +90,7 @@ public class FacebookLoginController extends FreemarkerController {
    private String getFacebookAccessToken(String faceCode) throws PragmatachException {
       String token = null;
       if ((faceCode != null) && !"".equals(faceCode)) {
-         final String redirectUrl = getRequest().getResourcePath() + "/plugins/facebook/dologin";
+         final String redirectUrl = getApplicationURL() + "/plugins/facebook/dologin";
          final String newUrl = "https://graph.facebook.com/oauth/access_token?client_id=" + applicationid + "&redirect_uri=" + redirectUrl + "&client_secret=" + facebooksecret + "&code=" + faceCode;
          final HttpClient httpclient = new DefaultHttpClient();
          try {
@@ -119,7 +119,7 @@ public class FacebookLoginController extends FreemarkerController {
 
    public String getFacebookUrlAuth() {
       final String sessionId = getRequest().getSession().getId();
-      final String redirectUrl = "http://localhost:8080/plugins/facebook/dologin";
+      final String redirectUrl = getApplicationURL() + "/plugins/facebook/dologin";
       final String returnValue = "https://www.facebook.com/dialog/oauth?client_id=" + applicationid + "&redirect_uri=" + redirectUrl + "&scope=email,user_birthday&state=" + sessionId;
       return returnValue;
    }
@@ -185,5 +185,9 @@ public class FacebookLoginController extends FreemarkerController {
 
    public void setState(String state) {
       this.state = state;
+   }
+
+   public Response render() throws PragmatachException {
+      return super.render();
    }
 }
