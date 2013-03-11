@@ -3,8 +3,7 @@ package com.khubla.pragmatach.plugin.cluster;
 import org.apache.log4j.Logger;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
-
-import com.khubla.pragmatach.framework.annotation.View;
+import org.jgroups.View;
 
 /**
  * This class receives broadcasts from other Pragmatach instances
@@ -31,7 +30,7 @@ public class ControllerClusterReceiver extends ReceiverAdapter {
    /**
     * accepted
     */
-   public void viewAccepted(View new_view) {
-      System.out.println("** view: " + new_view);
+   public void viewAccepted(View view) {
+      logger.info(view.printDetails());
    }
 }
