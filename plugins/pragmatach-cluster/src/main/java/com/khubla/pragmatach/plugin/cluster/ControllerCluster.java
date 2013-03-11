@@ -1,6 +1,7 @@
 package com.khubla.pragmatach.plugin.cluster;
 
 import org.jgroups.JChannel;
+import org.jgroups.Message;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -22,12 +23,21 @@ public class ControllerCluster {
     * cluster name
     */
    private final static String CLUSTER_NAME = "PragmatachSesion";
-   /**
-    * config file
-    */
-   private static final String PROPERTIES_FILE = "controllerCluster.xml";
 
    public ControllerCluster() {
+   }
+
+   /**
+    * send message
+    */
+   public void send(String message) throws PragmatachException {
+      try {
+         final Message msg = new Message();
+         msg.setBuffer(message.getBytes());
+         jChannel.send(msg);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in send", e);
+      }
    }
 
    public void shutdown() {
@@ -42,7 +52,7 @@ public class ControllerCluster {
          /*
           * the channel
           */
-         jChannel = new JChannel(PROPERTIES_FILE);
+         jChannel = new JChannel();
          jChannel.setReceiver(controllerClusterReceiver);
          jChannel.connect(CLUSTER_NAME);
       } catch (final Exception e) {
