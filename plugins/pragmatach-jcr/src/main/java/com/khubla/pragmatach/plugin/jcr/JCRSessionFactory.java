@@ -8,7 +8,7 @@ import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
+import com.khubla.pragmatach.framework.application.Application;
 
 /**
  * @author tome
@@ -24,7 +24,7 @@ public class JCRSessionFactory {
     */
    private char[] getPassword() throws PragmatachException {
       try {
-         final String pwd = PragmatachServlet.getConfiguration().getParameter("jcr.password");
+         final String pwd = Application.getConfiguration().getParameter("jcr.password");
          if (null != pwd) {
             return pwd.toCharArray();
          }
@@ -80,7 +80,7 @@ public class JCRSessionFactory {
     */
    private String getURL() throws PragmatachException {
       try {
-         return PragmatachServlet.getConfiguration().getParameter("jcr.url");
+         return Application.getConfiguration().getParameter("jcr.url");
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getUsername", e);
       }
@@ -91,7 +91,7 @@ public class JCRSessionFactory {
     */
    private String getUsername() throws PragmatachException {
       try {
-         return PragmatachServlet.getConfiguration().getParameter("jcr.username");
+         return Application.getConfiguration().getParameter("jcr.username");
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getUsername", e);
       }
@@ -102,7 +102,7 @@ public class JCRSessionFactory {
     */
    private String getWorkspace() throws PragmatachException {
       try {
-         return PragmatachServlet.getConfiguration().getParameter("jcr.workspace");
+         return Application.getConfiguration().getParameter("jcr.workspace");
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getUsername", e);
       }

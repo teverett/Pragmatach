@@ -11,7 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
@@ -60,8 +60,8 @@ public class FacebookLoginController extends FreemarkerController {
     */
    public FacebookLoginController(String redirectURL) {
       this.redirectURL = redirectURL;
-      applicationid = PragmatachServlet.getConfiguration().getParameter("facebook.applicationid");
-      facebooksecret = PragmatachServlet.getConfiguration().getParameter("facebook.facebooksecret");
+      applicationid = Application.getConfiguration().getParameter("facebook.applicationid");
+      facebooksecret = Application.getConfiguration().getParameter("facebook.facebooksecret");
    }
 
    public String getRedirectURL() {

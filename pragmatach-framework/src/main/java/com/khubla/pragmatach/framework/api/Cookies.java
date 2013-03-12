@@ -6,8 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.crypto.AES;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
 /**
  * @author tome
@@ -111,7 +111,7 @@ public class Cookies {
    }
 
    private String getCryptoKey() {
-      return PragmatachServlet.getConfiguration().getParameter(COOKIE_CONFIG_KEY);
+      return Application.getConfiguration().getParameter(COOKIE_CONFIG_KEY);
    }
 
    /**

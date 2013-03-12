@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.controller.Controllers;
 import com.khubla.pragmatach.framework.jmx.SystemStatusMXBean;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 import com.khubla.pragmatach.framework.router.PragmatachRoutes;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
 /**
  * @author tome
@@ -26,8 +26,8 @@ public class SystemStatus implements SystemStatusMXBean {
    public String[] getConfiguration() {
       try {
          final List<String> configurations = new ArrayList<String>();
-         for (final String key : PragmatachServlet.getConfiguration().getAll().keySet()) {
-            configurations.add(key + ":" + PragmatachServlet.getConfiguration().getAll().get(key));
+         for (final String key : Application.getConfiguration().getAll().keySet()) {
+            configurations.add(key + ":" + Application.getConfiguration().getAll().get(key));
          }
          final String[] ret = new String[configurations.size()];
          configurations.toArray(ret);

@@ -15,6 +15,7 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.api.Configuration;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.jmx.impl.PerformanceStatistics;
 import com.khubla.pragmatach.framework.router.Router;
 
@@ -26,23 +27,10 @@ public class PragmatachServlet extends HttpServlet {
     * 
     */
    private static final long serialVersionUID = 1L;
-
-   public static Configuration getConfiguration() {
-      return configuration;
-   }
-
-   public static void setConfiguration(Configuration configuration) {
-      PragmatachServlet.configuration = configuration;
-   }
-
    /**
     * logger
     */
    private final Logger logger = Logger.getLogger(this.getClass());
-   /**
-    * configuration
-    */
-   private static Configuration configuration;
    /**
     * configuration
     */
@@ -125,7 +113,7 @@ public class PragmatachServlet extends HttpServlet {
             /*
              * get the configuration
              */
-            configuration = (Configuration) configurationClazz.newInstance();
+            Application.setConfiguration((Configuration) configurationClazz.newInstance());
          } else {
             throw new ServletException("Configuration parameter '" + CONFIGURATION + "' not found");
          }

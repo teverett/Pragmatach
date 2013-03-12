@@ -11,9 +11,9 @@ import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.controller.impl.RedirectController;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
 
 /**
  * @author tome
@@ -106,7 +106,7 @@ public abstract class AbstractController implements PragmatachController {
     * get a configuration parameter from the pragmatatch configuration
     */
    public String getConfigurationParameter(String name) {
-      return PragmatachServlet.getConfiguration().getParameter(name);
+      return Application.getConfiguration().getParameter(name);
    }
 
    /**
