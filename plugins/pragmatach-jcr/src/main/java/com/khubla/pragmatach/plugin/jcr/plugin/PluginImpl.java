@@ -28,16 +28,16 @@ public class PluginImpl implements Plugin {
    }
 
    @Override
+   public Map<String, Object> getTemplateVariables() {
+      return null;
+   }
+
+   @Override
    public void setPluginContext(PluginContext pluginContext) {
       this.pluginContext = pluginContext;
    }
 
    @Override
    public void startup() throws PragmatachException {
-   }
-
-   @Override
-   public Map<String, Object> getTemplateVariables() {
-      return null;
    }
 }

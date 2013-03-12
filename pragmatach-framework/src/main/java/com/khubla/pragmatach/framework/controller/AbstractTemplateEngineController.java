@@ -108,7 +108,7 @@ public class AbstractTemplateEngineController extends AbstractController {
     * get the name of the template from the annotation
     */
    protected String getTemplateName() {
-      Class<?> clazz = this.getClass();
+      final Class<?> clazz = this.getClass();
       final View view = clazz.getAnnotation(View.class);
       if (null != view) {
          final String template = view.view();
