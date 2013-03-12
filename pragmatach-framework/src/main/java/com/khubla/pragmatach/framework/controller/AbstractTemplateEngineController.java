@@ -34,11 +34,15 @@ public class AbstractTemplateEngineController extends AbstractController {
    protected String getTemplate() throws PragmatachException {
       try {
          final String templateName = getTemplateName();
-         final InputStream templateInputStream = getResource(templateName);
-         if (null != templateInputStream) {
-            return getTemplateAsString(templateInputStream);
+         if ((null != templateName) && (templateName.length() > 0)) {
+            final InputStream templateInputStream = getResource(templateName);
+            if (null != templateInputStream) {
+               return getTemplateAsString(templateInputStream);
+            } else {
+               throw new Exception("Unable to load template '" + templateName + "' for controller '" + getControllerName() + "'");
+            }
          } else {
-            throw new Exception("Unable to load template '" + templateName + "'");
+            throw new PragmatachException("Unable to get template name for controller '" + getControllerName() + "'. Does it have an @View annotation?");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);
@@ -104,7 +108,8 @@ public class AbstractTemplateEngineController extends AbstractController {
     * get the name of the template from the annotation
     */
    protected String getTemplateName() {
-      final View view = this.getClass().getAnnotation(View.class);
+      Class<?> clazz = this.getClass();
+      final View view = clazz.getAnnotation(View.class);
       if (null != view) {
          final String template = view.view();
          if ((null != template) && (template.length() > 0)) {

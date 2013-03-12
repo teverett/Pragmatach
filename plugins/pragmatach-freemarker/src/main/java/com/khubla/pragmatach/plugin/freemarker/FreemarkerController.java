@@ -35,11 +35,15 @@ public class FreemarkerController extends AbstractTemplateEngineController imple
          final PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(getRequest().getServletContext());
          configuration.setTemplateLoader(pragmatachTemplateLoader);
          final String templateName = getTemplateName();
-         final InputStream templateInputStream = getResource(templateName);
-         if (null != templateInputStream) {
-            return new Template(templateName, new InputStreamReader(templateInputStream), configuration);
+         if (null != templateName) {
+            final InputStream templateInputStream = getResource(templateName);
+            if (null != templateInputStream) {
+               return new Template(templateName, new InputStreamReader(templateInputStream), configuration);
+            } else {
+               throw new Exception("Unable to load template '" + templateName + "'");
+            }
          } else {
-            throw new Exception("Unable to load template '" + templateName + "'");
+            throw new PragmatachException("Unable to get template name for controller '" + getControllerName() + "'. Does it have an @View annotation?");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);

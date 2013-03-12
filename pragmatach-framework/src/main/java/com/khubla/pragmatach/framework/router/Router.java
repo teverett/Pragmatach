@@ -117,6 +117,10 @@ public class Router {
           */
          pragmatachController.setRequest(request);
          /*
+          * set fields based on URL parameters
+          */
+         processParameterData(request, pragmatachController);
+         /*
           * process form data?
           */
          if (request.getMethod() == Route.HttpMethod.post) {
@@ -212,6 +216,26 @@ public class Router {
    }
 
    /**
+    * set the controller fields based on the URL parameters
+    */
+   private void processParameterData(Request request, PragmatachController pragmatachController) throws PragmatachException {
+      try {
+         /*
+          * walk the fields
+          */
+         final Map<String, String[]> parameterValues = request.getParameters();
+         for (final String parameterName : parameterValues.keySet()) {
+            /*
+             * set the fields
+             */
+            BeanUtils.setProperty(pragmatachController, parameterName, parameterValues.get(parameterName));
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in processFormData", e);
+      }
+   }
+
+   /**
     * route request
     */
    public Response route(Request request) throws PragmatachException {
@@ -221,13 +245,13 @@ public class Router {
           */
          final RouteFinder routeFinder = findRoute(request);
          if (null != routeFinder) {
-            logger.info("Request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
+            logger.info(request.getMethod() + " request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
             return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
          } else {
             /*
              * log a message
              */
-            logger.info("Request for: " + request.getURI() + " could not be routed");
+            logger.info(request.getMethod() + " request for: " + request.getURI() + " could not be routed");
             /*
              * no match, return 404
              */

@@ -200,7 +200,6 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     * returns true this route is more general than the passed route, false otherwise
     */
    public boolean scopes(PragmatachRoute pragmatachRoute) {
-      // System.out.print("Comparing: " + this.route.uri() + " to " + pragmatachRoute.getRoute().uri() + "   ");
       if (null != pragmatachRoute) {
          /*
           * the root url is the most general

@@ -1,19 +1,14 @@
 package com.khubla.pragmatach.plugin.facebook;
 
-import java.io.IOException;
-
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.khubla.pragmatach.framework.annotation.Route;
-import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
@@ -34,11 +29,11 @@ public class FacebookLoginController extends FreemarkerController {
    /**
     * facebook application ID
     */
-   private final String applicationid;
+   private String applicationid;
    /**
     * facebook application secret
     */
-   private final String facebooksecret;
+   private String facebooksecret;
    /**
     * user's facebook id
     */
@@ -55,23 +50,31 @@ public class FacebookLoginController extends FreemarkerController {
     * users email
     */
    private String email;
+   /**
+    * redirect URL
+    */
+   private final String redirectURL;
 
    /**
     * ctor
     */
-   public FacebookLoginController() {
+   public FacebookLoginController(String redirectURL) {
+      this.redirectURL = redirectURL;
       applicationid = PragmatachServlet.getConfiguration().getParameter("facebook.applicationid");
       facebooksecret = PragmatachServlet.getConfiguration().getParameter("facebook.facebooksecret");
    }
 
-   @Route(uri = "/plugins/facebook/dologin", method = HttpMethod.post)
+   public String getRedirectURL() {
+      return redirectURL;
+   }
+
    public Response doLogin() throws PragmatachException {
-      final String accessToken = getFacebookAccessToken(code);
-      getUserDetails(accessToken);
       final String sessionID = getRequest().getSession().getId();
       if (sessionID != getRequest().getSession().getId()) {
          throw new PragmatachException("CSRF Exception");
       }
+      final String accessToken = getFacebookAccessToken(code);
+      getUserDetails(accessToken);
       return super.render();
    }
 
@@ -98,10 +101,8 @@ public class FacebookLoginController extends FreemarkerController {
             final BasicResponseHandler responseHandler = new BasicResponseHandler();
             final String responseBody = httpclient.execute(httpget, responseHandler);
             token = StringUtils.removeEnd(StringUtils.removeStart(responseBody, "access_token="), "&expires=5180795");
-         } catch (final ClientProtocolException e) {
-            e.printStackTrace();
-         } catch (final IOException e) {
-            e.printStackTrace();
+         } catch (final Exception e) {
+            throw new PragmatachException("Exception in getFacebookAccessToken", e);
          } finally {
             httpclient.getConnectionManager().shutdown();
          }
@@ -120,7 +121,7 @@ public class FacebookLoginController extends FreemarkerController {
    public String getFacebookUrlAuth() {
       final String sessionId = getRequest().getSession().getId();
       final String redirectUrl = getApplicationURL() + "/plugins/facebook/dologin";
-      final String returnValue = "https://www.facebook.com/dialog/oauth?client_id=" + applicationid + "&redirect_uri=" + redirectUrl + "&scope=email,user_birthday&state=" + sessionId;
+      final String returnValue = "https://www.facebook.com/dialog/oauth?client_id=" + applicationid + "&redirect_uri=" + redirectUrl + "&state=" + sessionId;
       return returnValue;
    }
 
@@ -136,35 +137,29 @@ public class FacebookLoginController extends FreemarkerController {
       return state;
    }
 
-   private String getUserDetails(String accessToken) {
+   private String getUserDetails(String accessToken) throws PragmatachException {
       HttpClient httpclient = new DefaultHttpClient();
       try {
-         if ((accessToken != null) && !"".equals(accessToken)) {
-            final String newUrl = "https://graph.facebook.com/me?access_token=" + accessToken;
-            httpclient = new DefaultHttpClient();
-            final HttpGet httpget = new HttpGet(newUrl);
-            final BasicResponseHandler responseHandler = new BasicResponseHandler();
-            final String responseBody = httpclient.execute(httpget, responseHandler);
-            final JSONObject json = (JSONObject) JSONSerializer.toJSON(responseBody);
-            facebookId = json.getString("id");
-            firstName = json.getString("first_name");
-            lastName = json.getString("last_name");
-            email = json.getString("email");
-         } else {
-            System.err.println("Token for facebook is null");
-         }
-      } catch (final ClientProtocolException e) {
-         e.printStackTrace();
-      } catch (final IOException e) {
-         e.printStackTrace();
+         final String newUrl = "https://graph.facebook.com/me?access_token=" + accessToken;
+         httpclient = new DefaultHttpClient();
+         final HttpGet httpget = new HttpGet(newUrl);
+         final BasicResponseHandler responseHandler = new BasicResponseHandler();
+         final String responseBody = httpclient.execute(httpget, responseHandler);
+         final JSONObject json = (JSONObject) JSONSerializer.toJSON(responseBody);
+         facebookId = json.getString("id");
+         firstName = json.getString("first_name");
+         lastName = json.getString("last_name");
+         email = json.getString("email");
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getUserDetails", e);
       } finally {
          httpclient.getConnectionManager().shutdown();
       }
       return email;
    }
 
-   public Response render() throws PragmatachException {
-      return super.render();
+   public void setApplicationid(String applicationid) {
+      this.applicationid = applicationid;
    }
 
    public void setCode(String code) {
@@ -177,6 +172,10 @@ public class FacebookLoginController extends FreemarkerController {
 
    public void setFacebookId(String facebookId) {
       this.facebookId = facebookId;
+   }
+
+   public void setFacebooksecret(String facebooksecret) {
+      this.facebooksecret = facebooksecret;
    }
 
    public void setFirstName(String firstName) {

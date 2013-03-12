@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.khubla.pragmatach.framework.annotation.CacheControl;
+import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
@@ -106,6 +107,17 @@ public abstract class AbstractController implements PragmatachController {
     */
    public String getConfigurationParameter(String name) {
       return PragmatachServlet.getConfiguration().getParameter(name);
+   }
+
+   /**
+    * get the name of the controller from the annotation
+    */
+   protected String getControllerName() {
+      final Controller controller = this.getClass().getAnnotation(Controller.class);
+      if (null != controller) {
+         return controller.name();
+      }
+      return null;
    }
 
    /**

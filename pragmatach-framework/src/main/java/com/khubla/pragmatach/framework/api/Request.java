@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.api;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -73,6 +74,13 @@ public class Request {
 
    public Route.HttpMethod getMethod() {
       return method;
+   }
+
+   /**
+    * parameters
+    */
+   public Map<String, String[]> getParameters() {
+      return httpServletRequest.getParameterMap();
    }
 
    /**
