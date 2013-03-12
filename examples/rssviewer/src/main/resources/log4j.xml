@@ -21,6 +21,9 @@
 	<logger name="org.apache.commons">
 		<level value="FATAL" />
 	</logger>
+	<logger name="org.jgroups">
+		<level value="FATAL" />
+	</logger>
 	<root>
 		<level value="ALL" />
 		<appender-ref ref="CONSOLE" />
