@@ -19,18 +19,18 @@ public class IndexController extends GoogleLoginController {
    }
 
    /**
+    * the FB callback
+    */
+   @Route(uri = "plugins/google/dologin/", method = HttpMethod.get)
+   public Response doLogin() throws PragmatachException {
+      return super.doLogin();
+   }
+
+   /**
     * the main view
     */
    @Route(uri = "/")
    public Response render() throws PragmatachException {
       return super.render();
-   }
-
-   /**
-    * the FB callback
-    */
-   @Route(uri = "plugins/facebook/dologin/", method = HttpMethod.get)
-   public Response doLogin() throws PragmatachException {
-      return super.doLogin();
    }
 }

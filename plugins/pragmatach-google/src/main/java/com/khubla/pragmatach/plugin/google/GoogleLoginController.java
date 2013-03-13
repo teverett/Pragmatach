@@ -1,10 +1,23 @@
 package com.khubla.pragmatach.plugin.google;
 
-import org.apache.commons.lang.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -13,6 +26,9 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 /**
  * @author tome
+ *         <p>
+ *         https://developers.google.com/accounts/docs/OAuth2WebServer
+ *         </p>
  */
 public class GoogleLoginController extends FreemarkerController {
    /**
@@ -24,45 +40,53 @@ public class GoogleLoginController extends FreemarkerController {
     */
    private String state;
    /**
-    * facebook application ID
+    * google client ID
     */
-   private String applicationid;
+   private String clientid;
    /**
-    * facebook application secret
+    * google client secret
     */
-   private String facebooksecret;
-   /**
-    * user's facebook id
-    */
-   private String facebookId;
-   /**
-    * user's firstname
-    */
-   private String firstName;
-   /**
-    * user's lastname
-    */
-   private String lastName;
-   /**
-    * users email
-    */
-   private String email;
+   private String clientsecret;
    /**
     * redirect URL
     */
    private final String redirectURL;
+   /**
+    * access token
+    */
+   private String accessToken;
+   /**
+    * scopes to ask for
+    */
+   private static final String[] SCOPES = { "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email" };
+   /**
+    * Google user id
+    */
+   private String id;
+   /**
+    * Google user name
+    */
+   private String name;
+   /**
+    * Google user given name
+    */
+   private String given_name;
+   /**
+    * Google user family name
+    */
+   private String family_name;
+   /**
+    * Google email
+    */
+   private String email;
 
    /**
     * ctor
     */
    public GoogleLoginController(String redirectURL) {
       this.redirectURL = redirectURL;
-      applicationid = Application.getConfiguration().getParameter("facebook.applicationid");
-      facebooksecret = Application.getConfiguration().getParameter("facebook.facebooksecret");
-   }
-
-   public String getRedirectURL() {
-      return redirectURL;
+      clientid = Application.getConfiguration().getParameter("google.clientid");
+      clientsecret = Application.getConfiguration().getParameter("google.clientsecret");
    }
 
    public Response doLogin() throws PragmatachException {
@@ -70,13 +94,21 @@ public class GoogleLoginController extends FreemarkerController {
       if (sessionID != getRequest().getSession().getId()) {
          throw new PragmatachException("CSRF Exception");
       }
-      final String accessToken = getFacebookAccessToken(code);
-      getUserDetails(accessToken);
+      accessToken = getGoogleAccessToken(code);
+      getUserInfo(accessToken);
       return super.render();
    }
 
-   public String getApplicationid() {
-      return applicationid;
+   public String getAccessToken() {
+      return accessToken;
+   }
+
+   public String getClientid() {
+      return clientid;
+   }
+
+   public String getClientsecret() {
+      return clientsecret;
    }
 
    public String getCode() {
@@ -87,19 +119,46 @@ public class GoogleLoginController extends FreemarkerController {
       return email;
    }
 
-   private String getFacebookAccessToken(String faceCode) throws PragmatachException {
-      String token = null;
-      if ((faceCode != null) && !"".equals(faceCode)) {
-         final String redirectUrl = getApplicationURL() + "/plugins/facebook/dologin";
-         final String newUrl = "https://graph.facebook.com/oauth/access_token?client_id=" + applicationid + "&redirect_uri=" + redirectUrl + "&client_secret=" + facebooksecret + "&code=" + faceCode;
+   public String getFamily_name() {
+      return family_name;
+   }
+
+   public String getGiven_name() {
+      return given_name;
+   }
+
+   /**
+    * request a token from the Google code
+    */
+   private String getGoogleAccessToken(String googleCode) throws PragmatachException {
+      final String token = null;
+      if ((googleCode != null) && !"".equals(googleCode)) {
+         final String redirectUrl = getApplicationURL() + "/plugins/google/dologin";
+         final String newUrl = "https://accounts.google.com/o/oauth2/token?client_id=" + clientid + "&redirect_uri=" + redirectUrl + "&client_secret=" + clientsecret + "&code=" + googleCode;
          final HttpClient httpclient = new DefaultHttpClient();
          try {
-            final HttpGet httpget = new HttpGet(newUrl);
-            final BasicResponseHandler responseHandler = new BasicResponseHandler();
-            final String responseBody = httpclient.execute(httpget, responseHandler);
-            token = StringUtils.removeEnd(StringUtils.removeStart(responseBody, "access_token="), "&expires=5180795");
+            final HttpPost httppost = new HttpPost(newUrl);
+            final List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+            nvps.add(new BasicNameValuePair("code", code));
+            nvps.add(new BasicNameValuePair("client_id", clientid));
+            nvps.add(new BasicNameValuePair("client_secret", clientsecret));
+            nvps.add(new BasicNameValuePair("redirect_uri", redirectUrl));
+            nvps.add(new BasicNameValuePair("grant_type", "authorization_code"));
+            httppost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+            final HttpResponse httpResponse = httpclient.execute(httppost);
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+               final HttpEntity httpEntity = httpResponse.getEntity();
+               final String jsonBody = EntityUtils.toString(httpEntity);
+               final JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(jsonBody);
+               final String access_token = jsonObject.getString("access_token");
+               jsonObject.getString("expires_in");
+               jsonObject.getString("token_type");
+               return access_token;
+            } else {
+               System.out.println(httpResponse.getStatusLine().getReasonPhrase());
+            }
          } catch (final Exception e) {
-            throw new PragmatachException("Exception in getFacebookAccessToken", e);
+            throw new PragmatachException("Exception in getGoogleAccessToken", e);
          } finally {
             httpclient.getConnectionManager().shutdown();
          }
@@ -107,56 +166,75 @@ public class GoogleLoginController extends FreemarkerController {
       return token;
    }
 
-   public String getFacebookId() {
-      return facebookId;
-   }
-
-   public String getFacebooksecret() {
-      return facebooksecret;
-   }
-
-   public String getFacebookUrlAuth() {
+   /**
+    * get the auth URL to POST to
+    */
+   public String getGoogleAuthURL() {
       final String sessionId = getRequest().getSession().getId();
-      final String redirectUrl = getApplicationURL() + "/plugins/facebook/dologin";
-      final String returnValue = "https://www.facebook.com/dialog/oauth?client_id=" + applicationid + "&redirect_uri=" + redirectUrl + "&state=" + sessionId;
+      final String redirectUrl = getApplicationURL() + "/plugins/google/dologin";
+      final String returnValue = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=" + clientid + "&redirect_uri=" + redirectUrl + "&state=" + sessionId + "&scope="
+            + getScopes();
       return returnValue;
    }
 
-   public String getFirstName() {
-      return firstName;
+   public String getId() {
+      return id;
    }
 
-   public String getLastName() {
-      return lastName;
+   public String getName() {
+      return name;
+   }
+
+   public String getRedirectURL() {
+      return redirectURL;
+   }
+
+   private String getScopes() {
+      String ret = "";
+      for (final String s : SCOPES) {
+         ret += s + " ";
+      }
+      return ret;
    }
 
    public String getState() {
       return state;
    }
 
-   private String getUserDetails(String accessToken) throws PragmatachException {
+   /**
+    * get the user info
+    */
+   private void getUserInfo(String accessToken) throws PragmatachException {
       HttpClient httpclient = new DefaultHttpClient();
       try {
-         final String newUrl = "https://graph.facebook.com/me?access_token=" + accessToken;
+         final String newUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + accessToken;
          httpclient = new DefaultHttpClient();
          final HttpGet httpget = new HttpGet(newUrl);
          final BasicResponseHandler responseHandler = new BasicResponseHandler();
          final String responseBody = httpclient.execute(httpget, responseHandler);
          final JSONObject json = (JSONObject) JSONSerializer.toJSON(responseBody);
-         facebookId = json.getString("id");
-         firstName = json.getString("first_name");
-         lastName = json.getString("last_name");
+         id = json.getString("id");
+         name = json.getString("name");
+         given_name = json.getString("given_name");
+         family_name = json.getString("family_name");
          email = json.getString("email");
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in getUserDetails", e);
+         throw new PragmatachException("Exception in getUserInfo", e);
       } finally {
          httpclient.getConnectionManager().shutdown();
       }
-      return email;
    }
 
-   public void setApplicationid(String applicationid) {
-      this.applicationid = applicationid;
+   public void setAccessToken(String accessToken) {
+      this.accessToken = accessToken;
+   }
+
+   public void setClientid(String clientid) {
+      this.clientid = clientid;
+   }
+
+   public void setClientsecret(String clientsecret) {
+      this.clientsecret = clientsecret;
    }
 
    public void setCode(String code) {
@@ -167,20 +245,20 @@ public class GoogleLoginController extends FreemarkerController {
       this.email = email;
    }
 
-   public void setFacebookId(String facebookId) {
-      this.facebookId = facebookId;
+   public void setFamily_name(String family_name) {
+      this.family_name = family_name;
    }
 
-   public void setFacebooksecret(String facebooksecret) {
-      this.facebooksecret = facebooksecret;
+   public void setGiven_name(String given_name) {
+      this.given_name = given_name;
    }
 
-   public void setFirstName(String firstName) {
-      this.firstName = firstName;
+   public void setId(String id) {
+      this.id = id;
    }
 
-   public void setLastName(String lastName) {
-      this.lastName = lastName;
+   public void setName(String name) {
+      this.name = name;
    }
 
    public void setState(String state) {
