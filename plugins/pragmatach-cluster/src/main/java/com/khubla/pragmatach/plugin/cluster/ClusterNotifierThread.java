@@ -1,10 +1,12 @@
 package com.khubla.pragmatach.plugin.cluster;
 
+import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.plugin.cluster.serialization.ControllerSerializer;
 import com.khubla.pragmatach.plugin.cluster.thread.PeriodicThread;
@@ -21,6 +23,10 @@ public class ClusterNotifierThread extends PeriodicThread {
     * cluster object
     */
    private final ControllerCluster controllerCluster;
+   /**
+    * checksums
+    */
+   private Hashtable<String, String> hashes = new Hashtable<String, String>();
 
    /**
     * ctor
@@ -67,13 +73,27 @@ public class ClusterNotifierThread extends PeriodicThread {
    private void sync(PragmatachController pragmatachController) throws PragmatachException {
       try {
          /*
-          * serialize the controller
+          * name
           */
-         final String controllerString = ControllerSerializer.serialize(pragmatachController);
-         /*
-          * send
-          */
-         controllerCluster.send(controllerString);
+         String controllerName = AbstractController.getControllerName(pragmatachController);
+         if (null != controllerName) {
+            /*
+             * serialize the controller
+             */
+            final String controllerString = ControllerSerializer.serialize(pragmatachController);
+            /*
+             * check hash
+             */
+            if (hashes.containsKey(controllerName)) {
+            } else {
+            }
+            /*
+             * send
+             */
+            controllerCluster.send(controllerString);
+         } else {
+            throw new PragmatachException("Could not get Controller name for '" + pragmatachController.getClass().getName() + "'");
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in exec", e);
       }

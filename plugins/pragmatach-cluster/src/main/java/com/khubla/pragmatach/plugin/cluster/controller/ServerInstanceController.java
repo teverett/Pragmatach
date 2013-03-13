@@ -10,4 +10,13 @@ import com.khubla.pragmatach.plugin.cluster.annotation.Clustered;
 @Clustered
 @Controller(name = "serverInstance")
 public class ServerInstanceController extends AbstractController {
+   private String exampleString;
+
+   public String getExampleString() {
+      return exampleString;
+   }
+
+   public void setExampleString(String exampleString) {
+      this.exampleString = exampleString;
+   }
 }

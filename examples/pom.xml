@@ -24,5 +24,6 @@
 		<module>routesexample</module>
 		<module>yamlexample</module>
 		<module>facebookexample</module>
+		<module>googleexample</module>
 	</modules>
 </project>	

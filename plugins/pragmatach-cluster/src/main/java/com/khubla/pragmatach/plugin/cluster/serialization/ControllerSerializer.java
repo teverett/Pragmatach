@@ -1,9 +1,12 @@
 package com.khubla.pragmatach.plugin.cluster.serialization;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.lang.reflect.Field;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.json.JSONObject;
+
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Request;
+import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 
 /**
@@ -13,16 +16,30 @@ import com.khubla.pragmatach.framework.controller.PragmatachController;
  */
 public class ControllerSerializer {
    /**
-    * gson
+    * crack json to a string
     */
-   private static final Gson gson = new GsonBuilder().setExclusionStrategies(new PragmatachExclusionStrategy(Request.class)).create();
+   public static JSONObject crackJSONString(String json) throws PragmatachException {
+      try {
+         return new JSONObject(json);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in crackJSONString", e);
+      }
+   }
 
    /**
-    * deserialize controller from JSON
+    * deserialize
     */
-   public static PragmatachController deserialize(String json) throws PragmatachException {
+   public static void deserialize(PragmatachController pragmatachController, JSONObject jsonObject) throws PragmatachException {
       try {
-         return gson.fromJson(json, PragmatachController.class);
+         final Field[] fields = pragmatachController.getClass().getDeclaredFields();
+         for (final Field field : fields) {
+            final String value = jsonObject.getString(field.getName());
+            if (value != JSONObject.NULL) {
+               BeanUtils.setProperty(pragmatachController, field.getName(), value);
+            } else {
+               BeanUtils.setProperty(pragmatachController, field.getName(), null);
+            }
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
       }
@@ -33,7 +50,27 @@ public class ControllerSerializer {
     */
    public static String serialize(PragmatachController pragmatachController) throws PragmatachException {
       try {
-         return gson.toJson(pragmatachController);
+         /*
+          * controller name
+          */
+         final JSONObject jsonObject = new JSONObject();
+         jsonObject.put("pragmatach.controller.name", AbstractController.getControllerName(pragmatachController));
+         /*
+          * values
+          */
+         final Field[] fields = pragmatachController.getClass().getDeclaredFields();
+         for (final Field field : fields) {
+            String value = BeanUtils.getProperty(pragmatachController, field.getName());
+            if (null != value) {
+               jsonObject.put(field.getName(), value);
+            } else {
+               jsonObject.put(field.getName(), JSONObject.NULL);
+            }
+         }
+         /*
+          * done
+          */
+         return jsonObject.toString();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serialize", e);
       }

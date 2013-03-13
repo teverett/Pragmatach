@@ -112,8 +112,8 @@ public abstract class AbstractController implements PragmatachController {
    /**
     * get the name of the controller from the annotation
     */
-   protected String getControllerName() {
-      final Controller controller = this.getClass().getAnnotation(Controller.class);
+   public static String getControllerName(PragmatachController pragmatachController) {
+      final Controller controller = pragmatachController.getClass().getAnnotation(Controller.class);
       if (null != controller) {
          return controller.name();
       }

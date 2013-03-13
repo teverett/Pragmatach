@@ -366,3 +366,11 @@ facebookexample.log
 /plugins/pragmatach-oauth/.project
 /plugins/pragmatach-oauth/.classpath
 /plugins/pragmatach-oauth/.settings/
+/plugins/pragmatach-google/target/
+/plugins/pragmatach-google/.project
+/plugins/pragmatach-google/.classpath
+/plugins/pragmatach-google/.settings/
+/examples/googleexample/target/
+/examples/googleexample/.project
+/examples/googleexample/.classpath
+/examples/googleexample/.settings/
