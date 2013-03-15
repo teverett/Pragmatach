@@ -1,7 +1,10 @@
-package com.khubla.pragmatach.plugin.cluster;
+package com.khubla.pragmatach.plugin.cluster.multicast;
 
+import org.apache.log4j.Logger;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
+import org.jgroups.ReceiverAdapter;
+import org.jgroups.View;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -10,11 +13,11 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * 
  * @author tome
  */
-public class ControllerCluster {
+public class JGroupsSenderReceiver extends ReceiverAdapter {
    /**
-    * the receiver
+    * logger
     */
-   private final ControllerClusterReceiver controllerClusterReceiver = new ControllerClusterReceiver();
+   private final Logger logger = Logger.getLogger(this.getClass());
    /**
     * the channel
     */
@@ -24,16 +27,16 @@ public class ControllerCluster {
     */
    private final static String CLUSTER_NAME = "PragmatachSesion";
 
-   public ControllerCluster() {
+   public JGroupsSenderReceiver() {
    }
 
    /**
     * send message
     */
-   public void send(String message) throws PragmatachException {
+   public void send(MulticastMessage multicastMessage) throws PragmatachException {
       try {
          final Message msg = new Message();
-         msg.setBuffer(message.getBytes());
+         msg.setBuffer(MulticastMessage.serialize(multicastMessage));
          jChannel.send(msg);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in send", e);
@@ -53,10 +56,30 @@ public class ControllerCluster {
           * the channel
           */
          jChannel = new JChannel();
-         jChannel.setReceiver(controllerClusterReceiver);
+         jChannel.setReceiver(this);
          jChannel.connect(CLUSTER_NAME);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in startup", e);
       }
+   }
+
+   /**
+    * message
+    */
+   public void receive(Message message) {
+      try {
+         /*
+          * get the message
+          */
+         MulticastMessage multicastMessage = MulticastMessage.deserialize(message.getBuffer());
+      } catch (final Exception e) {
+         logger.error("Exception in receive", e);
+      }
+   }
+
+   /**
+    * accepted
+    */
+   public void viewAccepted(View view) {
    }
 }

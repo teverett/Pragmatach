@@ -8,7 +8,8 @@ import org.apache.log4j.Logger;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
-import com.khubla.pragmatach.plugin.cluster.serialization.ControllerSerializer;
+import com.khubla.pragmatach.plugin.cluster.multicast.JGroupsSenderReceiver;
+import com.khubla.pragmatach.plugin.cluster.serialization.GenericJSONSerializer;
 import com.khubla.pragmatach.plugin.cluster.thread.PeriodicThread;
 
 /**
@@ -22,7 +23,7 @@ public class ClusterNotifierThread extends PeriodicThread {
    /**
     * cluster object
     */
-   private final ControllerCluster controllerCluster;
+   private final JGroupsSenderReceiver jGroupsSenderReceiver;
    /**
     * checksums
     */
@@ -36,9 +37,9 @@ public class ClusterNotifierThread extends PeriodicThread {
       /*
        * create the controllerCluster
        */
-      controllerCluster = new ControllerCluster();
+      jGroupsSenderReceiver = new JGroupsSenderReceiver();
       try {
-         controllerCluster.startup();
+         jGroupsSenderReceiver.startup();
       } catch (final Exception e) {
          logger.error("Exception starting ControllerCluster", e);
       }
@@ -80,7 +81,7 @@ public class ClusterNotifierThread extends PeriodicThread {
             /*
              * serialize the controller
              */
-            final String controllerString = ControllerSerializer.serialize(pragmatachController);
+            final String controllerString = new GenericJSONSerializer<PragmatachController>().serialize(pragmatachController);
             /*
              * check hash
              */
@@ -90,7 +91,7 @@ public class ClusterNotifierThread extends PeriodicThread {
             /*
              * send
              */
-            controllerCluster.send(controllerString);
+            // jGroupsSenderReceiver.send(controllerString);
          } else {
             throw new PragmatachException("Could not get Controller name for '" + pragmatachController.getClass().getName() + "'");
          }
