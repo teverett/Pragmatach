@@ -31,6 +31,17 @@ public class JGroupsSenderReceiver extends ReceiverAdapter {
    }
 
    /**
+    * message
+    */
+   public void receive(Message message) {
+      try {
+         MulticastMessage.deserialize(message.getBuffer());
+      } catch (final Exception e) {
+         logger.error("Exception in receive", e);
+      }
+   }
+
+   /**
     * send message
     */
    public void send(MulticastMessage multicastMessage) throws PragmatachException {
@@ -60,20 +71,6 @@ public class JGroupsSenderReceiver extends ReceiverAdapter {
          jChannel.connect(CLUSTER_NAME);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in startup", e);
-      }
-   }
-
-   /**
-    * message
-    */
-   public void receive(Message message) {
-      try {
-         /*
-          * get the message
-          */
-         MulticastMessage multicastMessage = MulticastMessage.deserialize(message.getBuffer());
-      } catch (final Exception e) {
-         logger.error("Exception in receive", e);
       }
    }
 

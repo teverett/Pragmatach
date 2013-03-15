@@ -4,11 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
+
+import org.apache.log4j.Logger;
+
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 import com.khubla.pragmatach.plugin.cluster.annotation.Clustered;
+import com.khubla.pragmatach.plugin.cluster.multicast.JGroupsSenderReceiver;
 
 /**
  * A collection of the clustered controller instances
@@ -16,6 +22,10 @@ import com.khubla.pragmatach.plugin.cluster.annotation.Clustered;
  * @author tome
  */
 public class ClusteredControllers {
+   /**
+    * logger
+    */
+   private final Logger logger = Logger.getLogger(this.getClass());
    /**
     * instance
     */
@@ -32,6 +42,10 @@ public class ClusteredControllers {
    }
 
    /**
+    * cluster object
+    */
+   private final JGroupsSenderReceiver jGroupsSenderReceiver;
+   /**
     * controllers
     */
    private final Map<String, PragmatachController> controllerInstances = new HashMap<String, PragmatachController>();
@@ -44,6 +58,15 @@ public class ClusteredControllers {
     * ctor
     */
    private ClusteredControllers() throws PragmatachException {
+      /*
+       * create the controllerCluster
+       */
+      jGroupsSenderReceiver = new JGroupsSenderReceiver();
+      try {
+         jGroupsSenderReceiver.startup();
+      } catch (final Exception e) {
+         logger.error("Exception starting ClusteredControllers", e);
+      }
       clusteredControllerClasses = findClusteredControllerClasses();
       instantiateControllers();
    }
@@ -81,12 +104,16 @@ public class ClusteredControllers {
    }
 
    /**
-    * create the instances
+    * create the instances and return proxies to them
     */
    private void instantiateControllers() throws PragmatachException {
       try {
          for (final Class<?> controllerClazz : clusteredControllerClasses) {
-            final PragmatachController pragmatachController = (PragmatachController) controllerClazz.newInstance();
+            final ProxyFactory proxyFactory = new ProxyFactory();
+            proxyFactory.setSuperclass(controllerClazz);
+            final Class<?> c = proxyFactory.createClass();
+            final PragmatachController pragmatachController = (PragmatachController) c.newInstance();
+            ((ProxyObject) pragmatachController).setHandler(new ControllerMethodHandler());
             final String name = getClusteredControllerName(controllerClazz);
             controllerInstances.put(name, pragmatachController);
          }

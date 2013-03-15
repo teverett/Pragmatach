@@ -15,16 +15,19 @@ public class MulticastMessage {
    public final static int MESSAGETYPE_SOLICITUPDATE = 3;
    public final static int MESSAGETYPE_UPDATE = 4;
 
-   public int getMessageType() {
-      return messageType;
+   /**
+    * from string
+    */
+   public static MulticastMessage deserialize(byte[] messageBody) throws PragmatachException {
+      final MulticastMessage multicastMessage = new MulticastMessage();
+      return new GenericJSONSerializer<MulticastMessage>().deserialize(multicastMessage, new String(messageBody));
    }
 
-   public void setMessageType(int messageType) {
-      this.messageType = messageType;
-   }
-
-   public void setMessageContent(String messageContent) {
-      this.messageContent = messageContent;
+   /**
+    * to String
+    */
+   public static byte[] serialize(MulticastMessage multicastMessage) throws PragmatachException {
+      return new GenericJSONSerializer<MulticastMessage>().serialize(multicastMessage).getBytes();
    }
 
    /**
@@ -39,33 +42,30 @@ public class MulticastMessage {
    /**
     * ctor
     */
-   public MulticastMessage(int messageType, String messageContent) {
-      this.messageContent = messageContent;
-      this.messageType = messageType;
+   public MulticastMessage() {
    }
 
    /**
     * ctor
     */
-   public MulticastMessage() {
+   public MulticastMessage(int messageType, String messageContent) {
+      this.messageContent = messageContent;
+      this.messageType = messageType;
    }
 
    public String getMessageContent() {
       return messageContent;
    }
 
-   /**
-    * to String
-    */
-   public static byte[] serialize(MulticastMessage multicastMessage) throws PragmatachException {
-      return new GenericJSONSerializer<MulticastMessage>().serialize(multicastMessage).getBytes();
+   public int getMessageType() {
+      return messageType;
    }
 
-   /**
-    * from string
-    */
-   public static MulticastMessage deserialize(byte[] messageBody) throws PragmatachException {
-      MulticastMessage multicastMessage = new MulticastMessage();
-      return new GenericJSONSerializer<MulticastMessage>().deserialize(multicastMessage, new String(messageBody));
+   public void setMessageContent(String messageContent) {
+      this.messageContent = messageContent;
+   }
+
+   public void setMessageType(int messageType) {
+      this.messageType = messageType;
    }
 }

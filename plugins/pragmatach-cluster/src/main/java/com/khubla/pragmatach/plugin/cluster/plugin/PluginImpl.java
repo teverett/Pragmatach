@@ -8,7 +8,6 @@ import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.api.PluginContext;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
-import com.khubla.pragmatach.plugin.cluster.ClusterNotifierThread;
 import com.khubla.pragmatach.plugin.cluster.ClusteredControllers;
 
 /**
@@ -19,10 +18,6 @@ public class PluginImpl implements Plugin {
     * the plugin context
     */
    private PluginContext pluginContext;
-   /**
-    * the notifier thread
-    */
-   private ClusterNotifierThread clusterNotifierThread;
 
    @Override
    public I8NProvider getI8NProvider() {
@@ -76,11 +71,6 @@ public class PluginImpl implements Plugin {
           * this will instantiate all the controllers
           */
          ClusteredControllers.getInstance();
-         /*
-          * start the sync thread
-          */
-         clusterNotifierThread = new ClusterNotifierThread(10000);
-         clusterNotifierThread.start();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in startup", e);
       }
