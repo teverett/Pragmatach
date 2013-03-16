@@ -25,5 +25,6 @@
 		<module>yamlexample</module>
 		<module>facebookexample</module>
 		<module>googleexample</module>
+		<module>clusterexample</module>
 	</modules>
 </project>	

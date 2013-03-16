@@ -376,3 +376,8 @@ facebookexample.log
 /examples/googleexample/.settings/
 /examples/googleexample/googleexample.log
 /plugins/pragmatach-cluster/test-output/
+/examples/clusterexample/yamlexample.log
+/examples/clusterexample/target/
+/examples/clusterexample/.settings/
+/examples/clusterexample/.project
+/examples/clusterexample/.classpath
