@@ -3,11 +3,182 @@
 	<title>Pragmatach Documentation</title>
 	<chapters>
 		<chapter>
+			<id>introductions</id>
+			<title>Introductions</title>
+			<sections>
+				<section>
+					<id>introductions</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>quickstart</id>
+			<title>Quickstart</title>
+			<sections>
+				<section>
+					<id>quickstart</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>adminconsole</id>
+			<title>Admin Console</title>
+			<sections>
+				<section>
+					<id>adminconsole</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>staticresources</id>
+			<title>Static Resources</title>
+			<sections>
+				<section>
+					<id>staticresources</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>controllers</id>
+			<title>Controllers</title>
+			<sections>
+				<section>
+					<id>controllers</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>templates</id>
+			<title>Templates</title>
+			<sections>
+				<section>
+					<id>templates</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>routing</id>
+			<title>Routing</title>
+			<sections>
+				<section>
+					<id>routing</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>cachecontrol</id>
+			<title>Cache Control</title>
+			<sections>
+				<section>
+					<id>cachecontrol</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>cookies</id>
+			<title>Cookies</title>
+			<sections>
+				<section>
+					<id>cookies</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>customheaders</id>
+			<title>Custom Headers</title>
+			<sections>
+				<section>
+					<id>customheaders</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>configuration</id>
+			<title>Configuration</title>
+			<sections>
+				<section>
+					<id>configuration</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
 			<id>plugins</id>
 			<title>Plugins</title>
 			<sections>
 				<section>
 					<id>plugins</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>i8n</id>
+			<title>i8n</title>
+			<sections>
+				<section>
+					<id>i8n</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>jcr</id>
+			<title>JCR</title>
+			<sections>
+				<section>
+					<id>jcr</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>jmx</id>
+			<title>JMX</title>
+			<sections>
+				<section>
+					<id>jmx</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>velocityexample</id>
+			<title>VelocityExample</title>
+			<sections>
+				<section>
+					<id>velocityexample</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>gsonexample</id>
+			<title>GSONExample</title>
+			<sections>
+				<section>
+					<id>gsonexample</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>freemarkerexample</id>
+			<title>Freemarker Example</title>
+			<sections>
+				<section>
+					<id>freemarkerexample</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>htmlpostexample</id>
+			<title>HTML POST Example</title>
+			<sections>
+				<section>
+					<id>htmlpostexample</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>jsonpostexample</id>
+			<title>JSON POST Example</title>
+			<sections>
+				<section>
+					<id>jsonpostexample</id>
 				</section>
 			</sections>
 		</chapter>

@@ -84,7 +84,6 @@
 								<resource>
 									<directory>target/velocity</directory>
 									<filtering>true</filtering>
-									
 								</resource>
 								<resource>
 									<directory>target/doxia/xhtml</directory>

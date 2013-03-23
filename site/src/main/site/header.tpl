@@ -8,7 +8,7 @@
 				<a href="slideshow/index.html">Introductory Presentation</a>
 			</p>
 			<p class="view">
-				<a href="docs.html">Documentation</a>
+				<a href="pragmatach-documentation/pragmatach-documentation.xhtml">Documentation</a>
 			</p>
 			<p class="view">
 				<a href="quickstart.html">Quickstart</a>
