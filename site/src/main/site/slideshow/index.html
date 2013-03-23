@@ -53,24 +53,24 @@
 				<section>
 					<h1>The Need</h1>
 					<p>
-						Pragmatach was written to address real-world needs that are important to web developers
+						Pragmatach was written to address real-world needs that are important to B2C site developers
 					</p>
 				</section>
 				<section>
 					<h1>Simple</h1>
 					<ul>
-						<li>Pragmatach is based on the MVC paradigm</li>
+						<li>Pragmatach is based on the <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> paradigm</li>
 						<li>Applications consist of simple annotated controller classes</li>
 					</ul>
 				</section>
 				<section>
 					<h1>Auto generated</h1>
 					<h3>10 minutes or less to get a skeleton project started</h3>
-					<p>Pragmatach provides a maven archetype which generates a fully functional skeleton</p>
+					<p>Pragmatach provides a <a href="http://maven.apache.org/">maven</a> <a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html">archetype</a> which generates a fully functional skeleton</p>
 				</section>
 				<section>
 					<h1>Maintainable</h1>
-					<h3>Once the apps are written, they need to be maintained</h3>
+					<h3>Applications need to be maintained</h3>
 					<ul>
 						<li>Maintainable with commodity developer skills</li>
 						<li>Server-side code is Java</li>
@@ -96,6 +96,7 @@
 					<h1>Real world - friendly</h1>
 					<h3>Running applications need to be operated and debugged at runtime</h3>
 					<p>Pragamatach provides a secure, web-based console to allow runtime operation and debugging of applications</p>
+					<p>Built-in manageability via <a href="http://en.wikipedia.org/wiki/Java_Management_Extensions">JMX</a></p>
 				</section>
 				<section>
 					<h1>Extensible</h1>
@@ -106,7 +107,7 @@
 					<h1>Server-only</h1>
 					<h3>Pragmatach imposes no client-side restrictions</h3>
 					<ul>
-						<li>Use the JS & CSS you want to</li>
+						<li>Use the JS & CSS frameworks you need</li>
 						<li>Multiple server-side templating languages supported</li>
 					</ul>
 				</section>
@@ -157,7 +158,7 @@ public class AcceptPostController extends JSONController {
 				</code></pre>
 				</section>				
 				<section>
-					<h1>Try it out</h1>
+					<h1>Trying it: step 1</h1>
 					<p>Get the code</p>
 					<p>
 						<a href="https://github.com/teverett/Pragmatach">https://github.com/teverett/Pragmatach</a>
@@ -165,7 +166,7 @@ public class AcceptPostController extends JSONController {
 				</section>
 
 				<section>
-					<h1>Try it out</h1>
+					<h1>Trying it: step 2</h1>
 					<p>Build a skeleton</p>
 					<pre><code contenteditable>
 mkdir myproject
@@ -174,7 +175,7 @@ sh ../pragmatach/generate-example-project.sh
 				</section>
 
 				<section>
-					<h1>Try it out</h1>
+					<h1>Trying it: step 3</h1>
 					<p>run it</p>
 					<pre><code>
 mvn clean package jetty:run

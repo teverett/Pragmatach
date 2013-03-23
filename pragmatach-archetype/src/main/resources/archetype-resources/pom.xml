@@ -36,56 +36,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.8.v20121106</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webAppConfig>
-						<contextPath>/</contextPath>
-						<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
-					</webAppConfig>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-project-info-reports-plugin</artifactId>
-							<version>2.6</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>cobertura-maven-plugin</artifactId>
-							<version>2.5.2</version>
-							<configuration>
-								<formats>
-									<format>html</format>
-								</formats>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>2.9</version>
-							<reportSets>
-								<reportSet>
-									<reports>
-										<report>javadoc</report>
-									</reports>
-								</reportSet>
-							</reportSets>
-						</plugin>
-					</reportPlugins>
-				</configuration>
-			</plugin>
-		</plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources/</directory>
@@ -98,6 +48,47 @@
 		</resources>
 	</build>
 	<profiles>
+		<profile>
+			<id>jetty8</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>8.1.10.v20130312</version>
+						<configuration>
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<webAppConfig>
+								<contextPath>/</contextPath>
+								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
+							</webAppConfig>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jetty7</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>7.6.10.v20130312</version>
+						<configuration>
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<webAppConfig>
+								<contextPath>/</contextPath>
+								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
+							</webAppConfig>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>tomcat7</id>
 			<build>
@@ -124,6 +115,34 @@
 						<configuration>
 							<path>/</path>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>tomee</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.openejb.maven</groupId>
+						<artifactId>tomee-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<configuration>
+							<tomeeVersion>1.5.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jboss7</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>7.4.Final</version>
 					</plugin>
 				</plugins>
 			</build>

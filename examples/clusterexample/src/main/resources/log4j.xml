@@ -7,7 +7,7 @@
 		</layout>
 	</appender>
 	<appender name="FILE" class="org.apache.log4j.FileAppender">
-		<param name="file" value="yamlexample.log" />
+		<param name="file" value="clusterexample.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%p - %C{1}.%M(%L) | %m%n" />
 		</layout>

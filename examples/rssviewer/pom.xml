@@ -42,13 +42,6 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.khubla.pragmatach</groupId>
-			<artifactId>pragmatach-cluster</artifactId>
-			<version>1.12</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
 			<version>1.0</version>
@@ -57,20 +50,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.8.v20121106</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webAppConfig>
-						<contextPath>/</contextPath>
-						<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
-					</webAppConfig>
-				</configuration>
-			</plugin>
-		</plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources/</directory>
@@ -83,6 +62,47 @@
 		</resources>
 	</build>
 	<profiles>
+		<profile>
+			<id>jetty8</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>8.1.10.v20130312</version>
+						<configuration>
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<webAppConfig>
+								<contextPath>/</contextPath>
+								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
+							</webAppConfig>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jetty7</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>7.6.10.v20130312</version>
+						<configuration>
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<webAppConfig>
+								<contextPath>/</contextPath>
+								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
+							</webAppConfig>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>tomcat7</id>
 			<build>
@@ -109,6 +129,34 @@
 						<configuration>
 							<path>/</path>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>tomee</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.openejb.maven</groupId>
+						<artifactId>tomee-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<configuration>
+							<tomeeVersion>1.5.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jboss7</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>7.4.Final</version>
 					</plugin>
 				</plugins>
 			</build>
