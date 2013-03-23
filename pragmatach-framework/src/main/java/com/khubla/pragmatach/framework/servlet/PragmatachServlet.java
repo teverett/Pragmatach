@@ -9,13 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import com.khubla.pragmatach.framework.annotation.Route;
-import com.khubla.pragmatach.framework.api.Configuration;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.jmx.impl.PerformanceStatistics;
 import com.khubla.pragmatach.framework.router.Router;
 
@@ -27,14 +23,6 @@ public class PragmatachServlet extends HttpServlet {
     * 
     */
    private static final long serialVersionUID = 1L;
-   /**
-    * logger
-    */
-   private final Logger logger = Logger.getLogger(this.getClass());
-   /**
-    * configuration
-    */
-   private static final String CONFIGURATION = "configuration";
    /**
     * render time header
     */
@@ -100,23 +88,6 @@ public class PragmatachServlet extends HttpServlet {
    public void init(ServletConfig servletConfig) throws ServletException {
       try {
          super.init(servletConfig);
-         /*
-          * get the name
-          */
-         final String configurationClassName = servletConfig.getInitParameter(CONFIGURATION);
-         if (null != configurationClassName) {
-            /*
-             * get the class
-             */
-            logger.info("Pragmatach configuration loaded from class '" + configurationClassName + "'");
-            final Class<?> configurationClazz = Class.forName(configurationClassName);
-            /*
-             * get the configuration
-             */
-            Application.setConfiguration((Configuration) configurationClazz.newInstance());
-         } else {
-            throw new ServletException("Configuration parameter '" + CONFIGURATION + "' not found");
-         }
       } catch (final Exception e) {
          throw new ServletException("Exception in init", e);
       }

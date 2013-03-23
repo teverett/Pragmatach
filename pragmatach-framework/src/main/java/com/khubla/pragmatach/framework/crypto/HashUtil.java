@@ -11,17 +11,17 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 public class HashUtil {
    public static String MD5(String str) throws PragmatachException {
       try {
-         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+         final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
          messageDigest.reset();
          messageDigest.update(str.getBytes());
-         byte[] digest = messageDigest.digest();
-         BigInteger bigInt = new BigInteger(1, digest);
+         final byte[] digest = messageDigest.digest();
+         final BigInteger bigInt = new BigInteger(1, digest);
          String hashtext = bigInt.toString(16);
          while (hashtext.length() < 32) {
             hashtext = "0" + hashtext;
          }
          return hashtext;
-      } catch (Exception e) {
+      } catch (final Exception e) {
          throw new PragmatachException("Exception in MD5", e);
       }
    }

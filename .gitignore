@@ -381,3 +381,6 @@ facebookexample.log
 /examples/clusterexample/.settings/
 /examples/clusterexample/.project
 /examples/clusterexample/.classpath
+/site/src/main/site/.DS_Store
+/site/src/main/.DS_Store
+/site/src/.DS_Store

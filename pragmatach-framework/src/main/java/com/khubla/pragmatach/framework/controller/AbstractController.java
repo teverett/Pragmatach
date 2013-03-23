@@ -31,6 +31,17 @@ public abstract class AbstractController implements PragmatachController {
    }
 
    /**
+    * get the name of the controller from the annotation
+    */
+   public static String getControllerName(PragmatachController pragmatachController) {
+      final Controller controller = pragmatachController.getClass().getAnnotation(Controller.class);
+      if (null != controller) {
+         return controller.name();
+      }
+      return null;
+   }
+
+   /**
     * request
     */
    private Request request;
@@ -107,17 +118,6 @@ public abstract class AbstractController implements PragmatachController {
     */
    public String getConfigurationParameter(String name) {
       return Application.getConfiguration().getParameter(name);
-   }
-
-   /**
-    * get the name of the controller from the annotation
-    */
-   public static String getControllerName(PragmatachController pragmatachController) {
-      final Controller controller = pragmatachController.getClass().getAnnotation(Controller.class);
-      if (null != controller) {
-         return controller.name();
-      }
-      return null;
    }
 
    /**

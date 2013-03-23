@@ -1,10 +1,14 @@
 package com.khubla.pragmatach.framework.listener;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
+import com.khubla.pragmatach.framework.api.Configuration;
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.controller.ControllerClasses;
 import com.khubla.pragmatach.framework.i8n.I8NProviders;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
@@ -21,6 +25,10 @@ public class StartupListener implements ServletContextListener {
     * logger
     */
    private final Logger logger = Logger.getLogger(this.getClass());
+   /**
+    * configuration
+    */
+   private static final String CONFIGURATION = "configuration";
 
    @Override
    public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -30,6 +38,10 @@ public class StartupListener implements ServletContextListener {
    @Override
    public void contextInitialized(ServletContextEvent servletContextEvent) {
       try {
+         /*
+          * get the configuration
+          */
+         loadConfiguration(servletContextEvent.getServletContext());
          /*
           * scan the annotations (@Route and @Controller, and everything else)
           */
@@ -62,6 +74,33 @@ public class StartupListener implements ServletContextListener {
          I8NProviders.getInstance();
       } catch (final Exception e) {
          logger.fatal("Exception in contextInitialized", e);
+      }
+   }
+
+   /**
+    * load the application configuration
+    */
+   private void loadConfiguration(ServletContext servletContext) throws Exception {
+      try {
+         /*
+          * get the name
+          */
+         final String configurationClassName = servletContext.getInitParameter(CONFIGURATION);
+         if (null != configurationClassName) {
+            /*
+             * get the class
+             */
+            logger.info("Pragmatach configuration loaded from class '" + configurationClassName + "'");
+            final Class<?> configurationClazz = Class.forName(configurationClassName);
+            /*
+             * get the configuration
+             */
+            Application.setConfiguration((Configuration) configurationClazz.newInstance());
+         } else {
+            throw new ServletException("Configuration parameter '" + CONFIGURATION + "' not found");
+         }
+      } catch (final Exception e) {
+         throw new Exception("Exception in loadConfiguration", e);
       }
    }
 

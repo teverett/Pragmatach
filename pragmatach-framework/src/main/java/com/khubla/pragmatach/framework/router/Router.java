@@ -72,7 +72,7 @@ public class Router {
    }
 
    /**
-    * get instance of pragmatatch controller. Either a new request controller or an existing session controller
+    * get instance of Pragmatatch controller. Either a new request controller or an existing session controller
     */
    private PragmatachController getPragmatachControllerInstance(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
       try {

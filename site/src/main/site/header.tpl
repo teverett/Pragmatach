@@ -5,6 +5,9 @@
 				<a href="index.html">Home</a>
 			</p>
 			<p class="view">
+				<a href="slideshow/index.html">Introductory Presentation</a>
+			</p>
+			<p class="view">
 				<a href="docs.html">Documentation</a>
 			</p>
 			<p class="view">
