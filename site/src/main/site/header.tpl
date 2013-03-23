@@ -11,9 +11,6 @@
 				<a href="pragmatach-documentation/pragmatach-documentation.xhtml">Documentation</a>
 			</p>
 			<p class="view">
-				<a href="quickstart.html">Quickstart</a>
-			</p>
-			<p class="view">
 				<a href="https://groups.google.com/forum/?fromgroups#!forum/pragmatach-framework">Google Groups</a>
 			</p>
 			<p class="view">
