@@ -28,6 +28,7 @@
 							<include>**/*.html</include>
 							<include>**/*.css</include>
 							<include>**/*.js</include>
+							<include>**/CNAME</include>
 						</includes>
 					</templateFiles>
 				</configuration>
@@ -62,6 +63,9 @@
 							<formats>
 								<format>
 									<id>xhtml</id>
+								</format>
+								<format>
+									<id>pdf</id>
 								</format>
 							</formats>
 						</book>
