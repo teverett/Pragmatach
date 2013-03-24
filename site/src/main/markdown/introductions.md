@@ -13,12 +13,11 @@ Features in Pragmatach include:
 * Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
 * Automatic JSON generation via Gson
 * Cache control headers specified via Annotations and generated automatically
-* Automatic population of controller fields from Form, JSON or XML POST
+* Automatic population of controller fields from Form, JSON, XML or YAML POST
 * Support for Session and Request scoped controllers, via Annotations
 * Automatic generation of project skeletons via Maven Archetype
-* Projects built via maven, with Jetty8, Jetty7, JBoss-AS 7, Tomcat6 and Tomcat7 profiles included
+* Projects built via Maven, with Jetty8, Jetty7, JBoss-AS 7, TomEE, Tomcat6 and Tomcat7 profiles included
 * Grails-like routing via annotations
-* FreeMarker and Velocity as the templating langauges, rather than GSP, JSP or Scala pages
 * Pluggable template processors; Freemarker, Tymeleaf and Velocity
 * Built-in support for i8n via plugins
 * Built-in support for monitoring and runtime debugging via JMX
