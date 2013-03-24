@@ -19,10 +19,15 @@ public class StaticResourceController extends AbstractController {
    public StaticResourceController() {
    }
 
+   /**
+    * public resource dir
+    */
+   private static final String PUBLIC_RESOURCE_DIR = "/public";
+
    protected InputStream getStaticResourceInputStream(String[] imageResource) throws PragmatachException {
       try {
          final String resourceUri = buildWildcardResourceURI(imageResource);
-         return getResource(resourceUri);
+         return getResource(PUBLIC_RESOURCE_DIR + resourceUri);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getStaticResourceInputStream", e);
       }

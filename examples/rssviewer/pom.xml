@@ -29,13 +29,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
-			<artifactId>pragmatach-responsive</artifactId>
-			<version>1.13</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-i8n</artifactId>
 			<version>1.13</version>
 			<type>jar</type>
