@@ -10,11 +10,14 @@
 					<id>introductions</id>
 				</section>
 				<section>
+					<id>requirements</id>
+				</section>
+				<section>
 					<id>quickstart</id>
 				</section>
 				<section>
-					<id>requirements</id>
-				</section>
+					<id>profiles</id>
+				</section>				
 			</sections>
 		</chapter>
 		<chapter>
