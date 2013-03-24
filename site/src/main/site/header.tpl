@@ -11,9 +11,6 @@
 				<a href="pragmatach-documentation/pragmatach-documentation.xhtml">Documentation</a>
 			</p>
 			<p class="view">
-				<a href="repo/">Maven Repository</a>
-			</p>
-			<p class="view">
 				<a href="apidocs/index.html">Javadoc</a>
 			</p>
 			<p class="view">
