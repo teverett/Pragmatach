@@ -9,6 +9,6 @@ in your application.
 
 On localhost, the link is:
 
-`http://localhost:8080/pragmatach/admin`
+`http://localhost:8080/<application context>/pragmatach/admin`
 
-In order for your project to use the Admin plugin, it must include the "pragmatach-adminapp" dependency.
+In order for your project to use the Admin plugin, it must include the "pragmatach-adminapp" maven dependency.
