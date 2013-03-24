@@ -9,7 +9,7 @@ ${controller.message}
 <h2>Current Time</h2>
 ${controller.time}
 
-<a href="/pragmatach/admin">Admin</a>
+<a href="${session.getServletContext().getContextPath()}/pragmatach/admin">Admin</a>
 </body>
 
 
