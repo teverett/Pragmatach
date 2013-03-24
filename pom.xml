@@ -11,12 +11,13 @@
 		<testng.version>6.8</testng.version>
 		<servlet.version>3.0.1</servlet.version>
 		<log4j.version>1.2.17</log4j.version>
+		<repo>repo/</repo>
 	</properties>
 	<modules>
 		<module>pragmatach-archetype</module>
 		<module>pragmatach-framework</module>
 		<module>plugins</module>
-		<module>examples</module>
+<!-- 		<module>examples</module> -->
 		<!--<module>site</module> -->
 	</modules>
 	<dependencies>
@@ -106,4 +107,12 @@
 			</roles>
 		</developer>
 	</developers>
+	<distributionManagement>
+		<repository>
+			<id>pragmatach</id>
+			<name>Pragmatach Repository</name>
+			<url>file://repo</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 </project>

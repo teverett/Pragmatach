@@ -7,3 +7,5 @@ cd pragmatach-framework
 mvn javadoc:javadoc
 cp -R target/site/apidocs ../../pragmatach-site/
 cd ..
+mvn clean package deploy
+cp -R repo ../pragmatach-site/

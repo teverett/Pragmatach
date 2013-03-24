@@ -90,12 +90,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>pragmatach</id>
-			<name>Pragmatach Repository</name>
-			<url>file://${basedir}/maven/</url>
-			<layout>default</layout>
-		</repository>
-	</distributionManagement>
 </project>
