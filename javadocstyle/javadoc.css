@@ -1,0 +1,33 @@
+body { background-color: #FFFFFF; color:#777;  font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+h1 { font-size: 145%; color:#222; }
+h2 { font-size: 145%; color:#222; }
+
+a:link{color:#222; text-decoration:none; }
+a:visited {color:#222; text-decoration:none; }
+a:hover {font-weight:bold; color:#222; text-decoration:underline; }
+
+/* HR and table borders*/
+hr{border-style: solid; }
+table{border-style: solid; }
+th{border-style: none; background-color:#444; color: #FFFFFF}
+
+/* Table colors */
+.TableHeadingColor     { color:#222; } 
+.TableSubHeadingColor  { color:#222; } 
+.TableRowColor         { color:#222; } 
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont   { font-size: 100%; color:#444 }
+.FrameHeadingFont { font-size:  90%; color:#444 }
+.FrameItemFont    { font-size:  90%; color:#444 }
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    { background-color:#444; color:#000000} 
+.NavBarCell1Rev { background-color:#444; color:#FFFFFF} 
+.NavBarFont1    { color:#FFFFFF;}
+.NavBarFont1Rev { color:#FFFFFF;}
+
+.NavBarCell2    { background-color:#FFFFFF; color:#000000}
+.NavBarCell3    { background-color:#FFFFFF; color:#000000}
+

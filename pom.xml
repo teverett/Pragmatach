@@ -101,6 +101,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
+					<stylesheetfile>javadocstyle/javadoc.css</stylesheetfile>
 					<aggregate>true</aggregate>
 					<linksource>true</linksource>
 				</configuration>
