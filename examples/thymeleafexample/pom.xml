@@ -140,5 +140,20 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>glassfish</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.glassfish.embedded</groupId>
+						<artifactId>maven-embedded-glassfish-plugin</artifactId>
+						<version>3.1.2.2</version>
+						<configuration>
+							<port>8080</port>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>

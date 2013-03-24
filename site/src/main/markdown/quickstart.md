@@ -37,7 +37,7 @@ Then browse to:
 
 `http://localhost:8080`
 
-If you are using the Tomcat6, Tomcat7, JBoss-AS7 or TomEE maven profiles, your application will be at:
+If you are using the Tomcat6, Tomcat7, GlassFish, JBoss-AS7 or TomEE maven profiles, your application will be at:
 
 `http://localhost:8080/myexampleproject-1.0-SNAPSHOT/`
 

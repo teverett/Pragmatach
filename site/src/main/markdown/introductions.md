@@ -16,7 +16,7 @@ Features in Pragmatach include:
 * Automatic population of controller fields from Form, JSON, XML or YAML POST
 * Support for Session and Request scoped controllers, via Annotations
 * Automatic generation of project skeletons via Maven Archetype
-* Projects built via Maven, with Jetty8, Jetty7, JBoss-AS 7, TomEE, Tomcat6 and Tomcat7 profiles included
+* Projects built via Maven, with Jetty8, Jetty7, JBoss-AS 7, GlassFish, TomEE, Tomcat6 and Tomcat7 profiles included
 * Grails-like routing via annotations
 * Pluggable template processors; Freemarker, Tymeleaf and Velocity
 * Built-in support for i8n via plugins

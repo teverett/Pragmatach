@@ -9,6 +9,7 @@ The pom.xml for Pragmatach applications includes a number of maven profiles for 
 * Tomcat 7
 * JBoss-AS 7
 * TomEE
+* GlassFish
 
 ### Jetty 8
 
@@ -37,3 +38,8 @@ or
 ### TomEE
 
 `mvn -Ptomee clean package tomee:run` and browse to `http://localhost:8080/<application name>`
+
+### GlassFish
+
+`mvn -Pglassfish embedded-glassfish:run` and browse to `http://localhost:8080/<application name>`
+
