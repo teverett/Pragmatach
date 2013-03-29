@@ -28,5 +28,6 @@
 		<module>pragmatach-cluster</module>
 		<module>pragmatach-facebook</module>
 		<module>pragmatach-google</module>
+		<module>pragmatach-ebean</module>
 	</modules>
 </project>

@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.khubla.pragmatach</groupId>
+	<artifactId>pragmatach-ebean</artifactId>
+	<version>1.17-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Khubla.com Pragmatach JSON plugin</name>
+	<parent>
+		<groupId>com.khubla.pragmatach</groupId>
+		<artifactId>plugins</artifactId>
+		<version>1.17-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-framework</artifactId>
+			<version>1.17-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.avaje</groupId>
+			<artifactId>ebean</artifactId>
+			<version>2.8.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

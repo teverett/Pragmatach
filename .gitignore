@@ -385,3 +385,7 @@ facebookexample.log
 /site/src/main/.DS_Store
 /site/src/.DS_Store
 /repo/
+/plugins/pragmatach-ebean/target/
+/plugins/pragmatach-ebean/.project
+/plugins/pragmatach-ebean/.classpath
+/plugins/pragmatach-ebean/.settings/
