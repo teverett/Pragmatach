@@ -2,27 +2,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach-google</artifactId>
-	<version>1.16</version>
+	<version>1.17-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Khubla.com Pragmatach Google plugin</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>plugins</artifactId>
-		<version>1.16</version>
+		<version>1.17-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.16</version>
+			<version>1.17-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-freemarker</artifactId>
-			<version>1.16</version>
+			<version>1.17-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

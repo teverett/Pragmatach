@@ -4,12 +4,12 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>plugins</artifactId>
 	<packaging>pom</packaging>
-	<version>1.16</version>
+	<version>1.17-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
-		<version>1.16</version>
+		<version>1.17-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modules>
