@@ -2,34 +2,34 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.com.pragmatach.examples</groupId>
 	<artifactId>xstreamexample</artifactId>
-	<version>1.14-SNAPSHOT</version>
+	<version>1.14</version>
 	<packaging>war</packaging>
 	<name>Pragmatach XStream Example</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>examples</artifactId>
-		<version>1.14-SNAPSHOT</version>
+		<version>1.14</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.14-SNAPSHOT</version>
+			<version>1.14</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-xstream</artifactId>
-			<version>1.14-SNAPSHOT</version>
+			<version>1.14</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.14-SNAPSHOT</version>
+			<version>1.14</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

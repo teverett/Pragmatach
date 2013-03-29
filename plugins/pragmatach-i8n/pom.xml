@@ -2,20 +2,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach-i8n</artifactId>
-	<version>1.14-SNAPSHOT</version>
+	<version>1.14</version>
 	<packaging>jar</packaging>
 	<name>Khubla.com Pragmatach Simple i8n plugin</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>plugins</artifactId>
-		<version>1.14-SNAPSHOT</version>
+		<version>1.14</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.14-SNAPSHOT</version>
+			<version>1.14</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
