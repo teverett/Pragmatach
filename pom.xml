@@ -17,8 +17,8 @@
 		<module>pragmatach-archetype</module>
 		<module>pragmatach-framework</module>
 		<module>plugins</module>
-		<!-- <module>examples</module> -->
-		<!--<module>site</module> -->
+		<module>examples</module>
+		<!-- <module>site</module> -->
 	</modules>
 	<dependencies>
 		<dependency>
