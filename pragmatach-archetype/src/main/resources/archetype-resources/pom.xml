@@ -5,6 +5,12 @@
 	<version>${version}</version>
 	<packaging>war</packaging>
 	<name>Pragmatach Application</name>
+	<repositories>
+		<repository>
+			<id>pragmatach</id>
+			<url>http://www.pragmatach.com/repo/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
