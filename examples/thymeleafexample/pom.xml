@@ -2,28 +2,28 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.com.pragmatach.examples</groupId>
 	<artifactId>thymeleafexample</artifactId>
-	<version>1.13</version>
+	<version>1.14-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Pragmatach Thymeleaf Example</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.13</version>
+			<version>1.14-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-thymeleaf</artifactId>
-			<version>1.13</version>
+			<version>1.14-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.13</version>
+			<version>1.14-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
