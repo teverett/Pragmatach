@@ -13,6 +13,7 @@ import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.controller.impl.RedirectController;
+import com.khubla.pragmatach.framework.controller.impl.TrivialResponse;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 
 /**
@@ -49,6 +50,13 @@ public abstract class AbstractController implements PragmatachController {
     * cache control
     */
    private static final String CACHECONTROL = "Cache-Control: ";
+
+   /**
+    * bad; HTTP 400
+    */
+   public Response bad() throws PragmatachException {
+      return new TrivialResponse(null, 400);
+   }
 
    /**
     * forward to another controller uri
@@ -145,6 +153,13 @@ public abstract class AbstractController implements PragmatachController {
    @SuppressWarnings("unchecked")
    public <T> T getSessionScopedController(Class<T> clazz) {
       return (T) SessionScopedControllers.getController(request.getSession(), clazz);
+   }
+
+   /**
+    * ok; HTTP 200
+    */
+   public Response ok() throws PragmatachException {
+      return new TrivialResponse(null, 200);
    }
 
    /**

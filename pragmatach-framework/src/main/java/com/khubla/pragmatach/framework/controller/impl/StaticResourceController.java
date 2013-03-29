@@ -14,15 +14,15 @@ import com.khubla.pragmatach.framework.controller.AbstractController;
 @Controller(name = "pragmatachStaticResourceController")
 public class StaticResourceController extends AbstractController {
    /**
+    * public resource dir
+    */
+   private static final String PUBLIC_RESOURCE_DIR = "/public";
+
+   /**
     * ctor
     */
    public StaticResourceController() {
    }
-
-   /**
-    * public resource dir
-    */
-   private static final String PUBLIC_RESOURCE_DIR = "/public";
 
    protected InputStream getStaticResourceInputStream(String[] imageResource) throws PragmatachException {
       try {
