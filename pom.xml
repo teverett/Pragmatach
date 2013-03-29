@@ -4,7 +4,7 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.14-SNAPSHOT</version>
+	<version>1.15-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
 	<properties>
 		<target.jvm>1.6</target.jvm>
@@ -105,6 +105,11 @@
 					<aggregate>true</aggregate>
 					<linksource>true</linksource>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4</version>
 			</plugin>
 		</plugins>
 	</build>
