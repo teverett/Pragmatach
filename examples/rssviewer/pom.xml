@@ -5,6 +5,12 @@
 	<version>1.14-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Pragmatach RSSViewer Example</name>
+	<parent>
+		<groupId>com.khubla.pragmatach</groupId>
+		<artifactId>examples</artifactId>
+		<version>1.14-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>

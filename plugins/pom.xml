@@ -6,13 +6,13 @@
 	<packaging>pom</packaging>
 	<version>1.14-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
-		<parent>
+	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
 		<version>1.14-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<modules>	
+	<modules>
 		<module>pragmatach-freemarker</module>
 		<module>pragmatach-thymeleaf</module>
 		<module>pragmatach-responsive</module>
