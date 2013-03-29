@@ -126,4 +126,9 @@
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
+	<scm>
+		<connection>scm:git:git@github.com:teverett/Pragmatach.git</connection>
+		<developerConnection>scm:git:git@github.com:teverett/Pragmatach.git</developerConnection>
+		<url>https://github.com/teverett/Pragmatach</url>
+	</scm>
 </project>
