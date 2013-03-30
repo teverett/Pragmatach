@@ -1,0 +1,266 @@
+INFO - StartupListener.loadConfiguration(93) | Pragmatach configuration loaded from class 'com.khubla.pragmatach.framework.configuration.PropertiesFileConfigurationImpl'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminUserController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowI8NController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.system.HttpErrorController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowJVMController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.TrivialController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.examples.uploadexample.UploadController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowRoutesController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.NotFoundController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowPluginsController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.StaticResourceController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.examples.uploadexample.IndexController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowServerController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowControllersController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowNetworkController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminController'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render' with route specification '/*'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowI8NController:render' with route specification '/pragmatach/admin/i8n'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:render' with route specification '/pragmatach/admin/cookies'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:clearCookies' with route specification '/pragmatach/admin/cookies/clearCookies'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowJVMController:render' with route specification '/pragmatach/admin/jvm'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController:render' with route specification '/pragmatach/admin/login'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController:doLogin' with route specification '/pragmatach/admin/login/doLogin'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:clearCache' with route specification '/pragmatach/admin/routecache/clear'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:render' with route specification '/pragmatach/admin/routecache'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.examples.uploadexample.UploadController:render' with route specification '/upload'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRoutesController:render' with route specification '/pragmatach/admin/routes'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowPluginsController:render' with route specification '/pragmatach/admin/plugins'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render' with route specification '/public/*'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.examples.uploadexample.IndexController:render' with route specification '/'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowServerController:render' with route specification '/pragmatach/admin/server'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowControllersController:render' with route specification '/pragmatach/admin/controllers'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController:render' with route specification '/pragmatach/admin/environment'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowNetworkController:render' with route specification '/pragmatach/admin/network'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController:render' with route specification '/pragmatach/admin/configuration'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminController:render' with route specification '/pragmatach/admin'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: AdminApp
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: Framework
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: Freemarker
+INFO - StartupListener.reportRoutes(116) | Ordered GET routes
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/configuration com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/jvm com.khubla.pragmatach.plugin.adminapp.ShowJVMController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/i8n com.khubla.pragmatach.plugin.adminapp.ShowI8NController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/login com.khubla.pragmatach.plugin.adminapp.AdminLoginController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/plugins com.khubla.pragmatach.plugin.adminapp.ShowPluginsController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/network com.khubla.pragmatach.plugin.adminapp.ShowNetworkController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/environment com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/controllers com.khubla.pragmatach.plugin.adminapp.ShowControllersController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/server com.khubla.pragmatach.plugin.adminapp.ShowServerController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/routecache com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/cookies com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/routes com.khubla.pragmatach.plugin.adminapp.ShowRoutesController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin com.khubla.pragmatach.plugin.adminapp.AdminController:render
+INFO - StartupListener.reportRoutes(118) | GET /upload com.khubla.pragmatach.examples.uploadexample.UploadController:render
+INFO - StartupListener.reportRoutes(118) | GET / com.khubla.pragmatach.examples.uploadexample.IndexController:render
+INFO - StartupListener.reportRoutes(118) | GET pragmatach/admin/logout com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout
+INFO - StartupListener.reportRoutes(118) | GET /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - StartupListener.reportRoutes(118) | GET /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - StartupListener.reportRoutes(123) | Ordered POST routes
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/cookies/clearCookies com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:clearCookies
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/login/doLogin com.khubla.pragmatach.plugin.adminapp.AdminLoginController:doLogin
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/routecache/clear com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:clearCache
+INFO - Router.route(252) | get request for: / routed to / com.khubla.pragmatach.examples.uploadexample.IndexController:render
+INFO - Router.route(252) | get request for: /favicon.ico routed to /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - Router.route(252) | get request for: /public/favicon.ico routed to /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - ResourceLoader.getResource(80) | Unable to load resource '/public/favicon.ico'
+INFO - Router.route(258) | post request for: /upload could not be routed
+INFO - Router.route(252) | get request for: /favicon.ico routed to /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - Router.route(252) | get request for: /public/favicon.ico routed to /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - ResourceLoader.getResource(80) | Unable to load resource '/public/favicon.ico'
+INFO - Router.route(258) | post request for: /upload could not be routed
+INFO - Router.route(252) | get request for: /favicon.ico routed to /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - Router.route(252) | get request for: /public/favicon.ico routed to /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - ResourceLoader.getResource(80) | Unable to load resource '/public/favicon.ico'
+INFO - StartupListener.loadConfiguration(93) | Pragmatach configuration loaded from class 'com.khubla.pragmatach.framework.configuration.PropertiesFileConfigurationImpl'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowRoutesController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.TrivialController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowPluginsController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.examples.uploadexample.IndexController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.NotFoundController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowServerController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowJVMController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowNetworkController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowI8NController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.examples.uploadexample.UploadController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowControllersController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminUserController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.StaticResourceController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.system.HttpErrorController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:render' with route specification '/pragmatach/admin/cookies'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:clearCookies' with route specification '/pragmatach/admin/cookies/clearCookies'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController:render' with route specification '/pragmatach/admin/login'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController:doLogin' with route specification '/pragmatach/admin/login/doLogin'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRoutesController:render' with route specification '/pragmatach/admin/routes'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:clearCache' with route specification '/pragmatach/admin/routecache/clear'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:render' with route specification '/pragmatach/admin/routecache'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowPluginsController:render' with route specification '/pragmatach/admin/plugins'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.examples.uploadexample.IndexController:render' with route specification '/'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowServerController:render' with route specification '/pragmatach/admin/server'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowJVMController:render' with route specification '/pragmatach/admin/jvm'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render' with route specification '/*'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController:render' with route specification '/pragmatach/admin/configuration'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowNetworkController:render' with route specification '/pragmatach/admin/network'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowI8NController:render' with route specification '/pragmatach/admin/i8n'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController:render' with route specification '/pragmatach/admin/environment'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminController:render' with route specification '/pragmatach/admin'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.examples.uploadexample.UploadController:render' with route specification 'upload/'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowControllersController:render' with route specification '/pragmatach/admin/controllers'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render' with route specification '/public/*'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: AdminApp
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: Framework
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: Freemarker
+INFO - StartupListener.reportRoutes(116) | Ordered GET routes
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/configuration com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/jvm com.khubla.pragmatach.plugin.adminapp.ShowJVMController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/i8n com.khubla.pragmatach.plugin.adminapp.ShowI8NController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/login com.khubla.pragmatach.plugin.adminapp.AdminLoginController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/plugins com.khubla.pragmatach.plugin.adminapp.ShowPluginsController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/network com.khubla.pragmatach.plugin.adminapp.ShowNetworkController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/controllers com.khubla.pragmatach.plugin.adminapp.ShowControllersController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/environment com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/routecache com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/server com.khubla.pragmatach.plugin.adminapp.ShowServerController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/cookies com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/routes com.khubla.pragmatach.plugin.adminapp.ShowRoutesController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin com.khubla.pragmatach.plugin.adminapp.AdminController:render
+INFO - StartupListener.reportRoutes(118) | GET upload/ com.khubla.pragmatach.examples.uploadexample.UploadController:render
+INFO - StartupListener.reportRoutes(118) | GET / com.khubla.pragmatach.examples.uploadexample.IndexController:render
+INFO - StartupListener.reportRoutes(118) | GET pragmatach/admin/logout com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout
+INFO - StartupListener.reportRoutes(118) | GET /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - StartupListener.reportRoutes(118) | GET /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - StartupListener.reportRoutes(123) | Ordered POST routes
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/cookies/clearCookies com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:clearCookies
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/login/doLogin com.khubla.pragmatach.plugin.adminapp.AdminLoginController:doLogin
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/routecache/clear com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:clearCache
+INFO - Router.route(258) | post request for: /upload could not be routed
+INFO - StartupListener.loadConfiguration(93) | Pragmatach configuration loaded from class 'com.khubla.pragmatach.framework.configuration.PropertiesFileConfigurationImpl'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowRoutesController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.TrivialController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.system.HttpErrorController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.examples.uploadexample.UploadController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowControllersController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowPluginsController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.examples.uploadexample.IndexController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowNetworkController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.StaticResourceController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.NotFoundController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminUserController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowServerController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowI8NController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowJVMController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController'
+INFO - ControllerClasses.buildDB(42) | Found controller 'com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRoutesController:render' with route specification '/pragmatach/admin/routes'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.examples.uploadexample.UploadController:render' with route specification '/upload'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowControllersController:render' with route specification '/pragmatach/admin/controllers'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowPluginsController:render' with route specification '/pragmatach/admin/plugins'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.examples.uploadexample.IndexController:render' with route specification '/'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController:render' with route specification '/pragmatach/admin/environment'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowNetworkController:render' with route specification '/pragmatach/admin/network'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render' with route specification '/public/*'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render' with route specification '/*'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminController:render' with route specification '/pragmatach/admin'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:render' with route specification '/pragmatach/admin/cookies'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:clearCookies' with route specification '/pragmatach/admin/cookies/clearCookies'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowServerController:render' with route specification '/pragmatach/admin/server'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowI8NController:render' with route specification '/pragmatach/admin/i8n'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:clearCache' with route specification '/pragmatach/admin/routecache/clear'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:render' with route specification '/pragmatach/admin/routecache'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowJVMController:render' with route specification '/pragmatach/admin/jvm'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController:render' with route specification '/pragmatach/admin/login'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.AdminLoginController:doLogin' with route specification '/pragmatach/admin/login/doLogin'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController:render' with route specification '/pragmatach/admin/configuration'
+INFO - ControllerClasses.buildDB(55) | Found router method 'com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout' with route specification 'pragmatach/admin/logout'
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: AdminApp
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: Framework
+INFO - PluginDescriptors.scanURLs(52) | Found plugin: Freemarker
+INFO - StartupListener.reportRoutes(116) | Ordered GET routes
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/configuration com.khubla.pragmatach.plugin.adminapp.ShowConfigurationController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/jvm com.khubla.pragmatach.plugin.adminapp.ShowJVMController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/i8n com.khubla.pragmatach.plugin.adminapp.ShowI8NController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/login com.khubla.pragmatach.plugin.adminapp.AdminLoginController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/plugins com.khubla.pragmatach.plugin.adminapp.ShowPluginsController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/network com.khubla.pragmatach.plugin.adminapp.ShowNetworkController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/controllers com.khubla.pragmatach.plugin.adminapp.ShowControllersController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/environment com.khubla.pragmatach.plugin.adminapp.ShowEnvironmentController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/routecache com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/server com.khubla.pragmatach.plugin.adminapp.ShowServerController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/cookies com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin/routes com.khubla.pragmatach.plugin.adminapp.ShowRoutesController:render
+INFO - StartupListener.reportRoutes(118) | GET /pragmatach/admin com.khubla.pragmatach.plugin.adminapp.AdminController:render
+INFO - StartupListener.reportRoutes(118) | GET / com.khubla.pragmatach.examples.uploadexample.IndexController:render
+INFO - StartupListener.reportRoutes(118) | GET pragmatach/admin/logout com.khubla.pragmatach.plugin.adminapp.BaseAdminController:logout
+INFO - StartupListener.reportRoutes(118) | GET /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - StartupListener.reportRoutes(118) | GET /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - StartupListener.reportRoutes(123) | Ordered POST routes
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/cookies/clearCookies com.khubla.pragmatach.plugin.adminapp.ShowCookiesController:clearCookies
+INFO - StartupListener.reportRoutes(125) | POST /upload com.khubla.pragmatach.examples.uploadexample.UploadController:render
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/login/doLogin com.khubla.pragmatach.plugin.adminapp.AdminLoginController:doLogin
+INFO - StartupListener.reportRoutes(125) | POST /pragmatach/admin/routecache/clear com.khubla.pragmatach.plugin.adminapp.ShowRouteCacheController:clearCache
+INFO - Router.route(252) | post request for: /upload routed to /upload com.khubla.pragmatach.examples.uploadexample.UploadController:render
+INFO - Router.route(252) | get request for: /favicon.ico routed to /* com.khubla.pragmatach.framework.controller.impl.DefaultContextRootController:render
+INFO - Router.route(252) | get request for: /public/favicon.ico routed to /public/* com.khubla.pragmatach.framework.controller.impl.StaticResourceController:render
+INFO - ResourceLoader.getResource(80) | Unable to load resource '/public/favicon.ico'
