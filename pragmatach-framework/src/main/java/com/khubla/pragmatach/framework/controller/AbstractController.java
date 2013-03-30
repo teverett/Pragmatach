@@ -15,6 +15,7 @@ import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.controller.impl.RedirectController;
 import com.khubla.pragmatach.framework.controller.impl.TrivialResponse;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
+import com.khubla.pragmatach.framework.router.PragmatachRoute;
 
 /**
  * @author tome
@@ -50,6 +51,10 @@ public abstract class AbstractController implements PragmatachController {
     * cache control
     */
    private static final String CACHECONTROL = "Cache-Control: ";
+   /**
+    * route
+    */
+   private PragmatachRoute pragmatachRoute;
 
    /**
     * bad; HTTP 400
@@ -128,6 +133,10 @@ public abstract class AbstractController implements PragmatachController {
       return Application.getConfiguration().getParameter(name);
    }
 
+   public PragmatachRoute getPragmatachRoute() {
+      return pragmatachRoute;
+   }
+
    /**
     * get the request
     */
@@ -167,6 +176,10 @@ public abstract class AbstractController implements PragmatachController {
     */
    public Response redirect(String uri) throws PragmatachException {
       return new RedirectController(uri).render();
+   }
+
+   public void setPragmatachRoute(PragmatachRoute pragmatachRoute) {
+      this.pragmatachRoute = pragmatachRoute;
    }
 
    /**

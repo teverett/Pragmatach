@@ -113,6 +113,10 @@ public class Router {
           */
          final PragmatachController pragmatachController = getPragmatachControllerInstance(pragmatachRoute, request);
          /*
+          * set the route
+          */
+         pragmatachController.setPragmatachRoute(pragmatachRoute);
+         /*
           * set the request
           */
          pragmatachController.setRequest(request);

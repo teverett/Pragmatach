@@ -60,7 +60,7 @@ public class PragmatachRoutes {
    }
 
    /**
-    * read the routes file
+    * read the routes
     */
    private void readRoutes() throws PragmatachException {
       try {

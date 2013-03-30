@@ -5,14 +5,17 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.cglib.proxy.Enhancer;
+
 import org.apache.log4j.Logger;
 
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
+import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
-import com.khubla.pragmatach.framework.controller.Controllers;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.interceptor.ControllerMethodInterceptor;
 import com.khubla.pragmatach.framework.url.RouteSpecification;
 
 /**
@@ -37,12 +40,17 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     * logger
     */
    private final Logger logger = Logger.getLogger(this.getClass());
+   /**
+    * the @view annotation, if it exists
+    */
+   private final View view;
 
    /**
     * ctor
     */
    public PragmatachRoute(Method method) throws PragmatachException {
       this.method = method;
+      view = findView();
       route = method.getAnnotation(Route.class);
       routeSpecification = new RouteSpecification(route.uri());
       /*
@@ -122,6 +130,30 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    }
 
    /**
+    * find the view declaration for the route
+    * <p>
+    * Firstly, look for an annotation on the method, then the class.
+    * </p>
+    */
+   protected View findView() throws PragmatachException {
+      try {
+         /*
+          * first check the method
+          */
+         View ret = method.getAnnotation(View.class);
+         if (null == ret) {
+            /*
+             * check the class
+             */
+            ret = method.getDeclaringClass().getAnnotation(View.class);
+         }
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findView", e);
+      }
+   }
+
+   /**
     * get bound parameters annotations, in order of the parameters in the method
     */
    public List<RouteParameter> getBoundRouteParameters() {
@@ -147,12 +179,21 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    }
 
    /**
-    * get a class instance of the controller
+    * get a class instance of the controller, and return a proxy that allows us to intercept method calls
     */
    public PragmatachController getControllerClazzInstance(Request request) throws PragmatachException {
       try {
-         final Class<?> clazz = method.getDeclaringClass();
-         return Controllers.getInstance(clazz);
+         /*
+          * get the actual class type
+          */
+         final Class<?> controllerClazz = method.getDeclaringClass();
+         /*
+          * enhance it
+          */
+         final Enhancer enhancer = new Enhancer();
+         enhancer.setSuperclass(controllerClazz);
+         enhancer.setCallback(new ControllerMethodInterceptor());
+         return (PragmatachController) enhancer.create();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
       }
@@ -189,6 +230,10 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
          return routeSpecification.getSegments().size();
       }
       return 0;
+   }
+
+   public View getView() {
+      return view;
    }
 
    public boolean isWildcardRoute() {
