@@ -2,41 +2,41 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.com.pragmatach.examples</groupId>
 	<artifactId>clusterexample</artifactId>
-	<version>1.17</version>
+	<version>1.18-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Pragmatach Cluster Example</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>examples</artifactId>
-		<version>1.17</version>
+		<version>1.18-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.17</version>
+			<version>1.18-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-cluster</artifactId>
-			<version>1.17</version>
+			<version>1.18-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-freemarker</artifactId>
-			<version>1.17</version>
+			<version>1.18-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.17</version>
+			<version>1.18-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
