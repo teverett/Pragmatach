@@ -2,7 +2,7 @@ package com.khubla.pragmatach.plugin.velocity;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
 
 /**
  * @author tome

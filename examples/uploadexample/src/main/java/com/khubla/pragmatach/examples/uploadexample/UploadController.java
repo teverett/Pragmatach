@@ -5,7 +5,7 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
 
 /**
  * @author tome

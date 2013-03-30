@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

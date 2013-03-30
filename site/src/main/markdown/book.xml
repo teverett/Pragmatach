@@ -101,5 +101,14 @@
 				</section>
 			</sections>
 		</chapter>
+		<chapter>
+			<id>releasenotes</id>
+			<title>Release Notes</title>
+			<sections>
+				<section>
+					<id>releasenotes</id>
+				</section>
+			</sections>
+		</chapter>
 	</chapters>
 </book>
