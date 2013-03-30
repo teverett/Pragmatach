@@ -389,3 +389,7 @@ facebookexample.log
 /plugins/pragmatach-ebean/.project
 /plugins/pragmatach-ebean/.classpath
 /plugins/pragmatach-ebean/.settings/
+/examples/uploadexample/target/
+/examples/uploadexample/.project
+/examples/uploadexample/.classpath
+/examples/uploadexample/.settings/

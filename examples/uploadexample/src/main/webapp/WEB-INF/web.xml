@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+	<context-param>
+		<param-name>configuration</param-name>
+		<param-value>com.khubla.pragmatach.framework.configuration.PropertiesFileConfigurationImpl</param-value>
+	</context-param>
+	<filter>
+		<filter-name>PragmatachApplicationLoginFilter</filter-name>
+		<filter-class>com.khubla.pragmatach.framework.filter.BasicAuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PragmatachApplicationLoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>PragmatachErrorHandlerFilter</filter-name>
+		<filter-class>com.khubla.pragmatach.framework.filter.ErrorHandlerFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PragmatachErrorHandlerFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<listener>
+		<listener-class>com.khubla.pragmatach.framework.listener.StartupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.khubla.pragmatach.framework.listener.SessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.khubla.pragmatach.framework.listener.JMXListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>PragmatachServlet</servlet-name>
+		<servlet-class>com.khubla.pragmatach.framework.servlet.PragmatachServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PragmatachServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>/</welcome-file>
+	</welcome-file-list>
+</web-app>
+

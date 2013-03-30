@@ -26,5 +26,6 @@
 		<module>facebookexample</module>
 		<module>googleexample</module>
 		<module>clusterexample</module>
+		<module>uploadexample</module>
 	</modules>
 </project>	
