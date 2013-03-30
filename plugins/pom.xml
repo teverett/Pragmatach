@@ -29,5 +29,6 @@
 		<module>pragmatach-facebook</module>
 		<module>pragmatach-google</module>
 		<module>pragmatach-ebean</module>
+		<module>pragmatach-hibernate</module>
 	</modules>
 </project>

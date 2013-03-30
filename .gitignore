@@ -394,3 +394,7 @@ facebookexample.log
 /examples/uploadexample/.classpath
 /examples/uploadexample/.settings/
 /examples/uploadexample/uploadexample.log
+/plugins/pragmatach-hibernate/target/
+/plugins/pragmatach-hibernate/.project
+/plugins/pragmatach-hibernate/.classpath
+/plugins/pragmatach-hibernate/.settings/

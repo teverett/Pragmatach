@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.plugin.ebean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.avaje.ebean.Ebean;
@@ -10,7 +11,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 /**
  * @author tome
  */
-public class EBeanDAO<T, I> {
+public class EBeanDAO<T, I extends Serializable> {
    /**
     * EBean
     */
@@ -54,14 +55,14 @@ public class EBeanDAO<T, I> {
    /**
     * find by fluent query
     */
-   public Query<T> find() {
+   public Query<T> find() throws PragmatachException {
       return ebeanServer.find(this.typeClazz);
    }
 
    /**
     * findall
     */
-   public List<T> findAll() {
+   public List<T> findAll() throws PragmatachException {
       return ebeanServer.find(this.typeClazz).findList();
    }
 
