@@ -8,7 +8,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.json.JSONController;
 
-@Controller(name = "IndexController")
+@Controller()
 public class IndexController extends JSONController {
    /**
     * the message

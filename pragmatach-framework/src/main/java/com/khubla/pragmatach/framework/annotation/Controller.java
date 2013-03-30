@@ -19,7 +19,7 @@ public @interface Controller {
       session, request
    };
 
-   String name();
+   String name() default "";
 
    Scope scope() default Scope.request;
 }

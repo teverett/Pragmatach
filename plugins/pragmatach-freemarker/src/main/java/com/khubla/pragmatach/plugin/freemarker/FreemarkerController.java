@@ -43,7 +43,7 @@ public class FreemarkerController extends AbstractTemplateEngineController imple
                throw new Exception("Unable to load template '" + templateName + "'");
             }
          } else {
-            throw new PragmatachException("Unable to get template name for controller '" + getControllerName(this) + "'. Does it have an @View annotation?");
+            throw new PragmatachException("Unable to get template name for controller '" + getControllerName() + "'. Does it have an @View annotation?");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);
