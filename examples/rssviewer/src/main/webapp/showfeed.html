@@ -20,8 +20,8 @@
 	</div>
 
 	<div class="container">
-		<h1>${ShowFeed.feedURL}</h1>
-		<#list ShowFeed.syndFeed.getEntries() as entry>
+		<h1>${ShowFeedController.feedURL}</h1>
+		<#list ShowFeedController.syndFeed.getEntries() as entry>
 			<p><a href="${entry.link}">${entry.title}</a></p>
 		</#list>
 	</div>

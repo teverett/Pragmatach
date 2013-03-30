@@ -2,15 +2,10 @@ package com.khubla.pragmatach.plugin.freemarker;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractTemplateEngineController;
-import com.khubla.pragmatach.framework.controller.BeanBoundController;
-import com.khubla.pragmatach.framework.form.Form;
-import com.khubla.pragmatach.framework.form.FormItem;
+import com.khubla.pragmatach.framework.controller.BasicBeanBoundController;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -18,7 +13,7 @@ import freemarker.template.Template;
 /**
  * @author tome
  */
-public class FreemarkerController extends AbstractTemplateEngineController implements BeanBoundController {
+public class FreemarkerController extends BasicBeanBoundController {
    /**
     * ctor
     */
@@ -47,24 +42,6 @@ public class FreemarkerController extends AbstractTemplateEngineController imple
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);
-      }
-   }
-
-   @Override
-   public Map<String, String> getPostFieldValues() throws PragmatachException {
-      try {
-         final Form form = Form.parse(getRequest().getHttpServletRequest());
-         if (null != form) {
-            final Map<String, String> ret = new HashMap<String, String>();
-            for (final FormItem formItem : form.getItems().values()) {
-               ret.put(formItem.getName(), formItem.getValue());
-            }
-            return ret;
-         } else {
-            return null;
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getPostFieldValues", e);
       }
    }
 
