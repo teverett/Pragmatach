@@ -399,3 +399,6 @@ facebookexample.log
 /plugins/pragmatach-hibernate/.classpath
 /plugins/pragmatach-hibernate/.settings/
 /plugins/pragmatach-hibernate/test-output/
+/plugins/pragmatach-ebean/test-output/
+/plugins/pragmatach-ebean/pragmatach-drop.sql
+/plugins/pragmatach-ebean/pragmatach-create.sql

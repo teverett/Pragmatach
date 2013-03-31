@@ -40,6 +40,10 @@ public class AnnotationScanner {
       }
    }
 
+   public static AnnotationDB getAnnotationDB() {
+      return annotationDB;
+   }
+
    /**
     * do the scan
     */

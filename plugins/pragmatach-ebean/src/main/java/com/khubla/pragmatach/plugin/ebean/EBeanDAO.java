@@ -2,20 +2,86 @@ package com.khubla.pragmatach.plugin.ebean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
-import com.avaje.ebean.Ebean;
+import javax.persistence.Entity;
+
 import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.Query;
+import com.avaje.ebean.config.DataSourceConfig;
+import com.avaje.ebean.config.ServerConfig;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.application.Application;
+import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
  */
 public class EBeanDAO<T, I extends Serializable> {
    /**
+    * create the EBean server
+    */
+   private static EbeanServer getEBeanServer() {
+      try {
+         /*
+          * make the config
+          */
+         final ServerConfig serverConfig = new ServerConfig();
+         serverConfig.setDefaultServer(true);
+         serverConfig.setName("pragmatach");
+         /*
+          * DDL options
+          */
+         final String autoCreate = Application.getConfiguration().getParameter("ebean.autocreate");
+         if (null != autoCreate) {
+            if (true == Boolean.parseBoolean(autoCreate)) {
+               serverConfig.setDdlGenerate(true);
+               serverConfig.setDdlRun(true);
+            }
+         }
+         /*
+          * datasource
+          */
+         final DataSourceConfig dataSourceConfig = new DataSourceConfig();
+         dataSourceConfig.setDriver(Application.getConfiguration().getParameter("ebean.driver"));
+         dataSourceConfig.setUsername(Application.getConfiguration().getParameter("ebean.username"));
+         dataSourceConfig.setPassword(Application.getConfiguration().getParameter("ebean.password"));
+         dataSourceConfig.setUrl(Application.getConfiguration().getParameter("ebean.url"));
+         serverConfig.setDataSourceConfig(dataSourceConfig);
+         /*
+          * add classes
+          */
+         final Set<Class<?>> entityClasses = getEntityClasses();
+         if (null != entityClasses) {
+            for (final Class<?> clazz : entityClasses) {
+               serverConfig.addClass(clazz);
+            }
+         }
+         /*
+          * the server
+          */
+         return EbeanServerFactory.create(serverConfig);
+      } catch (final Exception e) {
+         throw new ExceptionInInitializerError(e);
+      }
+   }
+
+   /**
+    * the annotation scanner will have run; we can just query for annotated classes
+    */
+   protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
+      try {
+         return AnnotationScanner.getAll(Entity.class);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getAnnotatedClasses", e);
+      }
+   }
+
+   /**
     * EBean
     */
-   private final EbeanServer ebeanServer = Ebean.getServer(null);
+   private final EbeanServer ebeanServer = getEBeanServer();
    /**
     * the type
     */

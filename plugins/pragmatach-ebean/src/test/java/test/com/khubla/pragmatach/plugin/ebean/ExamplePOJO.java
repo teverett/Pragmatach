@@ -1,11 +1,10 @@
-package test.com.khubla.pragmatach.plugin.hibernate;
+package test.com.khubla.pragmatach.plugin.ebean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import com.khubla.pragmatach.plugin.hibernate.HibernateDAO;
-
+import com.khubla.pragmatach.plugin.ebean.EBeanDAO;
 
 /**
  * @author tome
@@ -25,7 +24,7 @@ public class ExamplePOJO {
    /**
     * dao
     */
-   public static HibernateDAO<ExamplePOJO, Long> dao = new HibernateDAO<ExamplePOJO, Long>(ExamplePOJO.class, Long.class);
+   public static EBeanDAO<ExamplePOJO, Long> dao = new EBeanDAO<ExamplePOJO, Long>(ExamplePOJO.class, Long.class);
 
    public Long getId() {
       return id;

@@ -1,4 +1,4 @@
-package test.com.khubla.pragmatach.plugin.hibernate;
+package test.com.khubla.pragmatach.plugin.ebean;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -12,7 +12,7 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
  * @author tome
  */
 @Test
-public class TestHibernatePersistence {
+public class TestEBeanPersistence {
    /**
     * setup
     */
@@ -23,7 +23,7 @@ public class TestHibernatePersistence {
        */
       try {
          AnnotationScanner.scan(null);
-      } catch (Exception e) {
+      } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
       }
@@ -31,11 +31,11 @@ public class TestHibernatePersistence {
        * create a config object
        */
       final HashmapConfigurationImpl configuration = new HashmapConfigurationImpl();
-      configuration.setParameter("hibernate.driver", "org.hsqldb.jdbcDriver");
-      configuration.setParameter("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-      configuration.setParameter("hibernate.connection.url", "jdbc:hsqldb:mem:testdb");
-      configuration.setParameter("hibernate.connection.username", "sa");
-      configuration.setParameter("hibernate.connection.password", "");
+      configuration.setParameter("ebean.driver", "org.hsqldb.jdbcDriver");
+      configuration.setParameter("ebean.url", "jdbc:hsqldb:mem:testdb");
+      configuration.setParameter("ebean.username", "sa");
+      configuration.setParameter("ebean.password", "");
+      configuration.setParameter("ebean.autocreate", "true");
       /*
        * set the application config
        */
