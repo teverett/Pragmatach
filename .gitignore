@@ -407,3 +407,8 @@ facebookexample.log
 /plugins/pragmatach-openjpa/.project
 /plugins/pragmatach-openjpa/.classpath
 /plugins/pragmatach-openjpa/.settings/
+/plugins/pragmatach-statsd/test-output/
+/plugins/pragmatach-statsd/target/
+/plugins/pragmatach-statsd/.project
+/plugins/pragmatach-statsd/.classpath
+/plugins/pragmatach-statsd/.settings/

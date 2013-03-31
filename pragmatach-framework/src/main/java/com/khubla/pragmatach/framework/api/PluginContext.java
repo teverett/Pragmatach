@@ -3,7 +3,7 @@ package com.khubla.pragmatach.framework.api;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 
 /**
- * The plugin context is passed to every plugin. It contains methods which enable the plugin to access framework serivices
+ * The plug-in context is passed to every plug-in. It contains methods which enable the plug-in to access framework services
  * 
  * @author tome
  */

@@ -4,6 +4,8 @@ Release Notes
 ### V19
 
 * Added OpenJPA Support
+* Application build date appears in the console
+* Minor updates to the Archetype
 
 ### V18
 
