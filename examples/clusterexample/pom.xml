@@ -145,7 +145,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>jboss7</id>
+			<id>jbossas7</id>
 			<build>
 				<plugins>
 					<plugin>

@@ -4,6 +4,7 @@ Application Server Support
 The pom.xml for Pragmatach applications includes a number of maven profiles for different application servers.  These include:
 
 * Jetty 8 (the default profile)
+* Jetty 9
 * Jetty 7
 * Tomcat 6
 * Tomcat 7
@@ -19,6 +20,12 @@ or
 
 `mvn -Pjetty8 clean package jetty:run` and browse `to http://localhost:8080`
 
+### Jetty 9
+
+`mvn -Pjetty97clean package jetty:run` and browse to `http://localhost:8080`
+
+Note that Jetty9 requires JDK7
+
 ### Jetty 7
 
 `mvn -Pjetty7 clean package jetty:run` and browse to `http://localhost:8080`
@@ -33,7 +40,7 @@ or
 
 ### JBoss 7
 
-`mvn -Pjboss7 clean package jboss-as:run` and browse to `http://localhost:8080/<application name>`
+`mvn -Pjbossas7 clean package jboss-as:run` and browse to `http://localhost:8080/<application name>`
 
 ### TomEE
 
