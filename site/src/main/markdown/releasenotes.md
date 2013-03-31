@@ -1,6 +1,10 @@
 Release Notes
 ------------------------
 
+### V19
+
+* Added OpenJPA Support
+
 ### V18
 
 * EBean and Hibernate support is complete

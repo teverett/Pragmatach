@@ -9,8 +9,9 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
@@ -101,9 +102,16 @@ public class OpenJPADAO<T, I extends Serializable> {
     * delete
     */
    public void delete(T t) throws PragmatachException {
+      EntityTransaction entityTransaction = null;
       try {
+         entityTransaction = entityManager.getTransaction();
+         entityTransaction.begin();
          entityManager.remove(t);
+         entityTransaction.commit();
       } catch (final Exception e) {
+         if (null != entityTransaction) {
+            entityTransaction.rollback();
+         }
          throw new PragmatachException("Exception in delete", e);
       }
    }
@@ -112,12 +120,19 @@ public class OpenJPADAO<T, I extends Serializable> {
     * delete
     */
    public void deletebyId(I i) throws PragmatachException {
+      EntityTransaction entityTransaction = null;
       try {
+         entityTransaction = entityManager.getTransaction();
+         entityTransaction.begin();
          final T t = entityManager.find(typeClazz, i);
          if (null != t) {
             entityManager.remove(t);
          }
+         entityTransaction.commit();
       } catch (final Exception e) {
+         if (null != entityTransaction) {
+            entityTransaction.rollback();
+         }
          throw new PragmatachException("Exception in deletebyId", e);
       }
    }
@@ -125,15 +140,17 @@ public class OpenJPADAO<T, I extends Serializable> {
    /**
     * get criteria builder
     */
-   public CriteriaBuilder find() throws PragmatachException {
-      return entityManager.getCriteriaBuilder();
+   public CriteriaQuery<T> find() throws PragmatachException {
+      return entityManager.getCriteriaBuilder().createQuery(this.typeClazz);
    }
 
    /**
     * findall
     */
    public List<T> findAll() throws PragmatachException {
-      return null;
+      final CriteriaQuery<T> criteria = entityManager.getCriteriaBuilder().createQuery(typeClazz);
+      criteria.select(criteria.from(typeClazz));
+      return entityManager.createQuery(criteria).getResultList();
    }
 
    /**
@@ -159,9 +176,16 @@ public class OpenJPADAO<T, I extends Serializable> {
     * save object
     */
    public void save(T t) throws PragmatachException {
+      EntityTransaction entityTransaction = null;
       try {
+         entityTransaction = entityManager.getTransaction();
+         entityTransaction.begin();
          entityManager.persist(t);
+         entityTransaction.commit();
       } catch (final Exception e) {
+         if (null != entityTransaction) {
+            entityTransaction.rollback();
+         }
          throw new PragmatachException("Exception in save", e);
       }
    }
@@ -170,10 +194,17 @@ public class OpenJPADAO<T, I extends Serializable> {
     * update object
     */
    public void update(T t) throws PragmatachException {
+      EntityTransaction entityTransaction = null;
       try {
+         entityTransaction = entityManager.getTransaction();
+         entityTransaction.begin();
          entityManager.merge(t);
+         entityTransaction.commit();
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in save", e);
+         if (null != entityTransaction) {
+            entityTransaction.rollback();
+         }
+         throw new PragmatachException("Exception in update", e);
       }
    }
 }

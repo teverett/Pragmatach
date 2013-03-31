@@ -78,6 +78,9 @@
 				<section>
 					<id>hibernate</id>
 				</section>
+				<section>
+					<id>openjpa</id>
+				</section>
 			</sections>
 		</chapter>
 		<chapter>
@@ -122,6 +125,5 @@
 				</section>
 			</sections>
 		</chapter>
-	
 	</chapters>
 </book>
