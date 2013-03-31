@@ -20,7 +20,7 @@ Features in Pragmatach include:
 * Built-in support for i8n
 * Modular design allowing features such as Freemarker, Velocity, XStream and Gson to be configured via maven dependencies
 * Cache control headers specified via Annotations and generated automatically
-* Prototypical suport for JPA 1.0 relational persistence via EBean or Hibernate
+* Prototypical suport for JPA 1.0 relational persistence via EBean, OpenJPA or Hibernate
 
 License
 ------------------------

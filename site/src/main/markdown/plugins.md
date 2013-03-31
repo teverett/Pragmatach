@@ -19,7 +19,7 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 * pragmatach-yaml; a controller which implements YAML GET-POST
 * pragmatach-hibernate; support for JPA 1.0 via Hibernate
 * pragmatach-ebean; support for JPA 1.0 via EBean
-
+* pragmatach-openjpa; support for JPA 1.0 via OpenJPA
 
 To use a plugin in your project, simply include the plugin module in your project as a maven depenendency. For example, to include support for GETing and POSTing JSON:
 
