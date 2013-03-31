@@ -29,6 +29,22 @@ public class OpenJPADAO<T, I extends Serializable> {
    private static EntityManager getEntityManager() {
       try {
          /*
+          * get classes
+          */
+         String classesList = "";
+         final Set<Class<?>> entityClasses = getEntityClasses();
+         if (null != entityClasses) {
+            boolean first = true;
+            for (final Class<?> clazz : entityClasses) {
+               if (first) {
+                  first = false;
+               } else {
+                  classesList += ";";
+               }
+               classesList += clazz.getName();
+            }
+         }
+         /*
           * EntityManagerFactory
           */
          EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Pragmatach", System.getProperties());
@@ -40,15 +56,7 @@ public class OpenJPADAO<T, I extends Serializable> {
          properties.put("openjpa.ConnectionDriverName", Application.getConfiguration().getParameter("openjpa.ConnectionDriverName"));
          properties.put("openjpa.ConnectionUserName", Application.getConfiguration().getParameter("openjpa.ConnectionUserName"));
          properties.put("openjpa.ConnectionPassword", Application.getConfiguration().getParameter("openjpa.ConnectionPassword"));
-         /*
-          * add classes
-          */
-         final Set<Class<?>> entityClasses = getEntityClasses();
-         if (null != entityClasses) {
-            for (final Class<?> clazz : entityClasses) {
-               // serverConfig.addClass(clazz);
-            }
-         }
+         properties.put("openjpa.MetaDataFactory", "jpa(Types=" + classesList + ")");
          /*
           * the EntityManager
           */

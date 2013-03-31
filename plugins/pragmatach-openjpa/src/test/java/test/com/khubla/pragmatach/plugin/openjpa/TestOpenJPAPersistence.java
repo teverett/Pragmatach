@@ -32,11 +32,10 @@ public class TestOpenJPAPersistence {
        * create a config object
        */
       final HashmapConfigurationImpl configuration = new HashmapConfigurationImpl();
-      configuration.setParameter("ebean.driver", "org.hsqldb.jdbcDriver");
-      configuration.setParameter("ebean.url", "jdbc:hsqldb:mem:testdb");
-      configuration.setParameter("ebean.username", "sa");
-      configuration.setParameter("ebean.password", "");
-      configuration.setParameter("ebean.autocreate", "true");
+      configuration.setParameter("openjpa.ConnectionDriverName", "org.hsqldb.jdbcDriver");
+      configuration.setParameter("openjpa.ConnectionURL", "jdbc:hsqldb:mem:testdb");
+      configuration.setParameter("openjpa.ConnectionUserName", "sa");
+      configuration.setParameter("openjpa.ConnectionPassword", "");
       /*
        * set the application config
        */
