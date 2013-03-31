@@ -69,6 +69,18 @@
 			</sections>
 		</chapter>
 		<chapter>
+			<id>persistence</id>
+			<title>Persistence</title>
+			<sections>
+				<section>
+					<id>ebean</id>
+				</section>
+				<section>
+					<id>hibernate</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
 			<id>administration</id>
 			<title>Administration</title>
 			<sections>
@@ -77,6 +89,15 @@
 				</section>
 				<section>
 					<id>jmx</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>releasenotes</id>
+			<title>Release Notes</title>
+			<sections>
+				<section>
+					<id>releasenotes</id>
 				</section>
 			</sections>
 		</chapter>
@@ -101,14 +122,6 @@
 				</section>
 			</sections>
 		</chapter>
-		<chapter>
-			<id>releasenotes</id>
-			<title>Release Notes</title>
-			<sections>
-				<section>
-					<id>releasenotes</id>
-				</section>
-			</sections>
-		</chapter>
+	
 	</chapters>
 </book>

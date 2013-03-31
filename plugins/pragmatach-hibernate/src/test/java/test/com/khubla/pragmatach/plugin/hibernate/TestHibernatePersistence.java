@@ -11,7 +11,6 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 /**
  * @author tome
  */
-@Test
 public class TestHibernatePersistence {
    /**
     * setup
@@ -42,6 +41,7 @@ public class TestHibernatePersistence {
       Application.setConfiguration(configuration);
    }
 
+   @Test(enabled = false)
    public void test1() {
       try {
          /*

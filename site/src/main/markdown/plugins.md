@@ -17,6 +17,9 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 * pragmatach-facebook; a controller which implements Facebook login
 * pragmatach-google; a controller which implements Google login
 * pragmatach-yaml; a controller which implements YAML GET-POST
+* pragmatach-hibernate; support for JPA 1.0 via Hibernate
+* pragmatach-ebean; support for JPA 1.0 via EBean
+
 
 To use a plugin in your project, simply include the plugin module in your project as a maven depenendency. For example, to include support for GETing and POSTing JSON:
 
