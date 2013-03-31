@@ -36,6 +36,7 @@ public class TestOpenJPAPersistence {
       configuration.setParameter("openjpa.ConnectionURL", "jdbc:hsqldb:mem:testdb");
       configuration.setParameter("openjpa.ConnectionUserName", "sa");
       configuration.setParameter("openjpa.ConnectionPassword", "");
+      configuration.setParameter("openjpa.jdbc.SynchronizeMappings", "buildSchema(ForeignKeys=true)");
       /*
        * set the application config
        */

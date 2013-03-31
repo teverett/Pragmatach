@@ -21,6 +21,17 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
  */
 public class OpenJPADAO<T, I extends Serializable> {
    /**
+    * the annotation scanner will have run; we can just query for annotated classes
+    */
+   protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
+      try {
+         return AnnotationScanner.getAll(Entity.class);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getAnnotatedClasses", e);
+      }
+   }
+
+   /**
     * create the EntityManager
     * <p>
     * http://openjpa.apache.org/builds/2.1.1/apache-openjpa/docs/ref_guide_conf.html
@@ -45,35 +56,26 @@ public class OpenJPADAO<T, I extends Serializable> {
             }
          }
          /*
-          * EntityManagerFactory
-          */
-         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Pragmatach", System.getProperties());
-         /*
           * set up the properties
           */
-         Map<String, String> properties = new HashMap<String, String>();
+         final Map<String, String> properties = new HashMap<String, String>();
          properties.put("openjpa.ConnectionURL", Application.getConfiguration().getParameter("openjpa.ConnectionURL"));
          properties.put("openjpa.ConnectionDriverName", Application.getConfiguration().getParameter("openjpa.ConnectionDriverName"));
          properties.put("openjpa.ConnectionUserName", Application.getConfiguration().getParameter("openjpa.ConnectionUserName"));
          properties.put("openjpa.ConnectionPassword", Application.getConfiguration().getParameter("openjpa.ConnectionPassword"));
+         properties.put("openjpa.jdbc.SynchronizeMappings", Application.getConfiguration().getParameter("openjpa.jdbc.SynchronizeMappings"));
          properties.put("openjpa.MetaDataFactory", "jpa(Types=" + classesList + ")");
+         properties.put("openjpa.RuntimeUnenhancedClasses", "supported");
+         /*
+          * EntityManagerFactory
+          */
+         final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Pragmatach", properties);
          /*
           * the EntityManager
           */
-         return entityManagerFactory.createEntityManager(properties);
+         return entityManagerFactory.createEntityManager();
       } catch (final Exception e) {
          throw new ExceptionInInitializerError(e);
-      }
-   }
-
-   /**
-    * the annotation scanner will have run; we can just query for annotated classes
-    */
-   protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
-      try {
-         return AnnotationScanner.getAll(Entity.class);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getAnnotatedClasses", e);
       }
    }
 
@@ -111,7 +113,7 @@ public class OpenJPADAO<T, I extends Serializable> {
     */
    public void deletebyId(I i) throws PragmatachException {
       try {
-         T t = entityManager.find(typeClazz, i);
+         final T t = entityManager.find(typeClazz, i);
          if (null != t) {
             entityManager.remove(t);
          }
