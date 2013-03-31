@@ -11,32 +11,35 @@
 			<url>http://www.pragmatach.com/repo/</url>
 		</repository>
 	</repositories>
+	<properties>
+		<pragmatach.version>1.19-SNAPSHOT</pragmatach.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-freemarker</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-i8n</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
