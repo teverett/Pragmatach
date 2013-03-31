@@ -54,6 +54,23 @@ public class TestEBeanPersistence {
           * check that the id was generated
           */
          Assert.assertNotNull(examplePOJO1.getId());
+         /*
+          * get the created object
+          */
+         ExamplePOJO retrievedPojo = ExamplePOJO.dao.findById(examplePOJO1.getId());
+         Assert.assertNotNull(retrievedPojo);
+         Assert.assertNotNull(retrievedPojo.getId());
+         Assert.assertTrue(retrievedPojo.getId().longValue() == examplePOJO1.getId().longValue());
+         Assert.assertTrue(retrievedPojo.getName().compareTo(examplePOJO1.getName()) == 0);
+         /*
+          * delete it
+          */
+         ExamplePOJO.dao.delete(examplePOJO1);
+         /*
+          * make sure it's gone
+          */
+         retrievedPojo = ExamplePOJO.dao.findById(examplePOJO1.getId());
+         Assert.assertNull(retrievedPojo);
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
