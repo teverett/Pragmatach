@@ -83,7 +83,7 @@ public class GoogleLoginController extends FreemarkerController {
    /**
     * ctor
     */
-   public GoogleLoginController(String redirectURL) {
+   public GoogleLoginController(String redirectURL) throws PragmatachException {
       this.redirectURL = redirectURL;
       clientid = Application.getConfiguration().getParameter("google.clientid");
       clientsecret = Application.getConfiguration().getParameter("google.clientsecret");

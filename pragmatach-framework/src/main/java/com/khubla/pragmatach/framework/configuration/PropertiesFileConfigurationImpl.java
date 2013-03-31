@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.khubla.pragmatach.framework.api.Configuration;
+import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
  */
-public class PropertiesFileConfigurationImpl implements Configuration {
+public class PropertiesFileConfigurationImpl extends BaseConfiguration {
    /**
     * file
     */
@@ -22,7 +22,7 @@ public class PropertiesFileConfigurationImpl implements Configuration {
    private static Properties properties;
 
    @Override
-   public Map<String, String> getAll() {
+   public Map<String, String> getAll() throws PragmatachException {
       readProperties();
       final Map<String, String> ret = new HashMap<String, String>();
       final Enumeration<Object> enumer = properties.keys();
@@ -34,9 +34,14 @@ public class PropertiesFileConfigurationImpl implements Configuration {
    }
 
    @Override
-   public String getParameter(String name) {
+   public Object getObject(String name) throws PragmatachException {
+      return resolveObject(properties.getProperty(name));
+   }
+
+   @Override
+   public String getParameter(String name) throws PragmatachException {
       readProperties();
-      return properties.getProperty(name);
+      return resolveString(properties.getProperty(name));
    }
 
    /**

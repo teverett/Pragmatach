@@ -14,7 +14,7 @@ public class IndexController extends FacebookLoginController {
    /**
     * ctor
     */
-   public IndexController() {
+   public IndexController() throws PragmatachException {
       super("/");
    }
 

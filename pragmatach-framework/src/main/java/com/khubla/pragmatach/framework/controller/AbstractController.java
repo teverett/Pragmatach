@@ -118,7 +118,7 @@ public abstract class AbstractController implements PragmatachController {
    /**
     * get a configuration parameter from the pragmatatch configuration
     */
-   public String getConfigurationParameter(String name) {
+   public String getConfigurationParameter(String name) throws PragmatachException {
       return Application.getConfiguration().getParameter(name);
    }
 
