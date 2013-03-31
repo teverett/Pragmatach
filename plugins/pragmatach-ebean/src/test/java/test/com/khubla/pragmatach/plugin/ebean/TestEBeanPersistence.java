@@ -1,5 +1,7 @@
 package test.com.khubla.pragmatach.plugin.ebean;
 
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -11,7 +13,6 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 /**
  * @author tome
  */
-@Test
 public class TestEBeanPersistence {
    /**
     * setup
@@ -42,7 +43,8 @@ public class TestEBeanPersistence {
       Application.setConfiguration(configuration);
    }
 
-   public void test1() {
+   @Test(enabled = true)
+   public void testBasicFunctionality() {
       try {
          /*
           * create and save an object
@@ -63,6 +65,17 @@ public class TestEBeanPersistence {
          Assert.assertTrue(retrievedPojo.getId().longValue() == examplePOJO1.getId().longValue());
          Assert.assertTrue(retrievedPojo.getName().compareTo(examplePOJO1.getName()) == 0);
          /*
+          * there is 1 object in the DB table
+          */
+         List<ExamplePOJO> allObjects = ExamplePOJO.dao.findAll();
+         Assert.assertNotNull(allObjects);
+         Assert.assertTrue(allObjects.size() == 1);
+         /*
+          * cant fetch object with wrong id
+          */
+         final ExamplePOJO noPojo = ExamplePOJO.dao.findById(new Long(909090));
+         Assert.assertNull(noPojo);
+         /*
           * delete it
           */
          ExamplePOJO.dao.delete(examplePOJO1);
@@ -71,6 +84,12 @@ public class TestEBeanPersistence {
           */
          retrievedPojo = ExamplePOJO.dao.findById(examplePOJO1.getId());
          Assert.assertNull(retrievedPojo);
+         /*
+          * no objects
+          */
+         allObjects = ExamplePOJO.dao.findAll();
+         Assert.assertNotNull(allObjects);
+         Assert.assertTrue(allObjects.size() == 0);
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
