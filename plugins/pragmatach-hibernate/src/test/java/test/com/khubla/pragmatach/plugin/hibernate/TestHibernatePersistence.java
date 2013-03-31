@@ -35,13 +35,14 @@ public class TestHibernatePersistence {
       configuration.setParameter("hibernate.connection.url", "jdbc:hsqldb:mem:testdb");
       configuration.setParameter("hibernate.connection.username", "sa");
       configuration.setParameter("hibernate.connection.password", "");
+      configuration.setParameter("hibernate.hbm2ddl.auto", "create");
       /*
        * set the application config
        */
       Application.setConfiguration(configuration);
    }
 
-   @Test(enabled = false)
+   @Test(enabled = true)
    public void test1() {
       try {
          /*

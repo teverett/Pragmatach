@@ -10,6 +10,7 @@ Configuration for Hibernate is provided by these properties in `pragmatach.prope
 * hibernate.connection.url
 * hibernate.connection.username
 * hibernate.connection.password
+* hibernate.hbm2ddl.auto
 
 An example configuration for Hibernate, in this case using HSQL would look like
 
@@ -20,6 +21,7 @@ hibernate.dialect=org.hibernate.dialect.HSQLDialect
 hibernate.connection.url=jdbc:hsqldb:mem:testdb
 hibernate.connection.username=sa
 hibernate.connection.password=
+hibernate.hbm2ddl.auto=create
 </code>
 </pre>
 
