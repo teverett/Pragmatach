@@ -402,3 +402,8 @@ facebookexample.log
 /plugins/pragmatach-ebean/test-output/
 /plugins/pragmatach-ebean/pragmatach-drop.sql
 /plugins/pragmatach-ebean/pragmatach-create.sql
+/plugins/pragmatach-openjpa/target/
+/plugins/pragmatach-openjpa/test-output/
+/plugins/pragmatach-openjpa/.project
+/plugins/pragmatach-openjpa/.classpath
+/plugins/pragmatach-openjpa/.settings/
