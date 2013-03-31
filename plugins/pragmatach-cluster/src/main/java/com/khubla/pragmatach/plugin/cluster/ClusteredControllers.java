@@ -7,7 +7,8 @@ import java.util.Set;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -25,7 +26,7 @@ public class ClusteredControllers {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * instance
     */

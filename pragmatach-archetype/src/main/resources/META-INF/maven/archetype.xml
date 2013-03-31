@@ -8,7 +8,7 @@
 		<resource>src/main/resources/pragmatach.properties</resource>
 		<resource>src/main/webapp/index.ftl</resource>
 		<resource>src/main/webapp/WEB-INF/web.xml</resource>
-		<resource>src/main/resources/log4j.xml</resource>
+		<resource>src/main/resources/logback.xml</resource>
 		<resource>src/main/resources/version/version.properties</resource>
 	</resources>
 </archetype>

@@ -1,10 +1,11 @@
 package com.khubla.pragmatach.plugin.cluster.multicast;
 
-import org.apache.log4j.Logger;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -17,7 +18,7 @@ public class JGroupsSenderReceiver extends ReceiverAdapter {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * the channel
     */

@@ -7,6 +7,7 @@ Release Notes
 * Application build date appears in the console
 * Minor updates to the Archetype
 * Route cache size can be configured via `pragmatach.routecache.size`
+* Switched from log4j to LogBack for logging
 
 ### V18
 

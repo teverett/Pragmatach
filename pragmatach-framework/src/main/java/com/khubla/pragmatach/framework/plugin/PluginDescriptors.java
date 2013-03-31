@@ -7,11 +7,12 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.apache.log4j.Logger;
 import org.scannotation.ClasspathUrlFinder;
 import org.scannotation.WarUrlFinder;
 import org.scannotation.archiveiterator.IteratorFactory;
 import org.scannotation.archiveiterator.StreamIterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -22,7 +23,7 @@ public class PluginDescriptors {
    /**
     * logger
     */
-   private static Logger logger = Logger.getLogger(PluginDescriptors.class);
+   private static final Logger logger = LoggerFactory.getLogger(PluginDescriptors.class);
    /**
     * plugin jars
     */

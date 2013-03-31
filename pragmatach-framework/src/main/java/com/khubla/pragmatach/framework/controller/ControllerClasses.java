@@ -4,7 +4,8 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -18,7 +19,7 @@ public class ControllerClasses {
    /**
     * logger
     */
-   private static Logger logger = Logger.getLogger(ControllerClasses.class);
+   private static Logger logger = LoggerFactory.getLogger(ControllerClasses.class);
    /**
     * routes
     */

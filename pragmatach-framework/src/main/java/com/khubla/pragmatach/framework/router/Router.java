@@ -6,7 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -28,7 +29,7 @@ public class Router {
    /**
     * logger
     */
-   Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * route cache. caches the top 100 routes.
     */
@@ -267,7 +268,7 @@ public class Router {
           */
          final RouteFinder routeFinder = findRoute(request);
          if (null != routeFinder) {
-            logger.info(request.getMethod() + " request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
+            logger.debug(request.getMethod() + " request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
             return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
          } else {
             /*

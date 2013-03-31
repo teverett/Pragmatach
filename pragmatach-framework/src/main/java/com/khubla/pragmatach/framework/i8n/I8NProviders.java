@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.I8NProvider;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
@@ -32,7 +33,7 @@ public class I8NProviders {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * providers
     */

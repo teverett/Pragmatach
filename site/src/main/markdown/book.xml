@@ -49,6 +49,9 @@
 					<id>cachecontrol</id>
 				</section>
 				<section>
+					<id>logging</id>
+				</section>
+				<section>
 					<id>cookies</id>
 				</section>
 				<section>
@@ -95,6 +98,15 @@
 				</section>
 				<section>
 					<id>jmx</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>faq</id>
+			<title>FAQ</title>
+			<sections>
+				<section>
+					<id>faq</id>
 				</section>
 			</sections>
 		</chapter>

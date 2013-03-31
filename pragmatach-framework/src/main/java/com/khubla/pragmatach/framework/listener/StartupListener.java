@@ -5,7 +5,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.Configuration;
 import com.khubla.pragmatach.framework.application.Application;
@@ -24,7 +25,7 @@ public class StartupListener implements ServletContextListener {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * configuration
     */
@@ -73,7 +74,7 @@ public class StartupListener implements ServletContextListener {
           */
          I8NProviders.getInstance();
       } catch (final Exception e) {
-         logger.fatal("Exception in contextInitialized", e);
+         logger.error("Exception in contextInitialized", e);
       }
    }
 
@@ -125,7 +126,7 @@ public class StartupListener implements ServletContextListener {
             logger.info("POST " + pragmatachRoute.getDescription());
          }
       } catch (final Exception e) {
-         logger.fatal("Exceptioin in reportRoutes", e);
+         logger.error("Exceptioin in reportRoutes", e);
          e.printStackTrace();
       }
    }

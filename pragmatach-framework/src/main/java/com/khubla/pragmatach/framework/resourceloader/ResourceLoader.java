@@ -5,7 +5,8 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
@@ -18,7 +19,7 @@ public class ResourceLoader {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * servlet context
     */

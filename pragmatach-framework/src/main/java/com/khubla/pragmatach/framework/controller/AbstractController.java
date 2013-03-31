@@ -133,7 +133,8 @@ public abstract class AbstractController implements PragmatachController {
             /*
              * *this* is a proxy, so we need the superclass name
              */
-            name = this.getClass().getSuperclass().getSimpleName();
+            // name = this.getClass().getSuperclass().getSimpleName();
+            name = this.getClass().getSimpleName();
          }
          return name;
       }
