@@ -6,7 +6,6 @@ import javax.persistence.Id;
 
 import com.khubla.pragmatach.plugin.hibernate.HibernateDAO;
 
-
 /**
  * @author tome
  */

@@ -40,9 +40,9 @@ public class HibernateSessionUtil {
          /*
           * add classes
           */
-         Set<Class<?>> entityClasses = getEntityClasses();
+         final Set<Class<?>> entityClasses = getEntityClasses();
          if (null != entityClasses) {
-            for (Class<?> clazz : entityClasses) {
+            for (final Class<?> clazz : entityClasses) {
                configuration.addClass(clazz);
             }
          }
@@ -53,6 +53,17 @@ public class HibernateSessionUtil {
          return configuration.buildSessionFactory(serviceRegistry);
       } catch (final Exception e) {
          throw new ExceptionInInitializerError(e);
+      }
+   }
+
+   /**
+    * the annotation scanner will have run; we can just query for annotated classes
+    */
+   protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
+      try {
+         return AnnotationScanner.getAll(Entity.class);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getAnnotatedClasses", e);
       }
    }
 
@@ -73,16 +84,5 @@ public class HibernateSessionUtil {
 
    public static void shutdown() {
       getSessionFactory().close();
-   }
-
-   /**
-    * the annotation scanner will have run; we can just query for annotated classes
-    */
-   protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
-      try {
-         return AnnotationScanner.getAll(Entity.class);
-      } catch (Exception e) {
-         throw new PragmatachException("Exception in getAnnotatedClasses", e);
-      }
    }
 }
