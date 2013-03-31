@@ -14,6 +14,7 @@ import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.cache.LRUCache;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
@@ -31,10 +32,27 @@ public class Router {
    /**
     * route cache. caches the top 100 routes.
     */
-   private static final LRUCache<String, RouteFinder> routeCache = new LRUCache<String, RouteFinder>(100);
+   private static final LRUCache<String, RouteFinder> routeCache = new LRUCache<String, RouteFinder>(getRouteCacheSize());
+   /**
+    * default size of the route cache
+    */
+   private static final int DEFAULT_ROUTE_CACHE_SIZE = 100;
 
    public static LRUCache<String, RouteFinder> getRoutecache() {
       return routeCache;
+   }
+
+   private static int getRouteCacheSize() {
+      try {
+         int ret = DEFAULT_ROUTE_CACHE_SIZE;
+         final String configuredSize = Application.getConfiguration().getParameter("pragmatach.routecache.size");
+         if (null != configuredSize) {
+            ret = Integer.parseInt(configuredSize);
+         }
+         return ret;
+      } catch (final Exception e) {
+         return DEFAULT_ROUTE_CACHE_SIZE;
+      }
    }
 
    /**

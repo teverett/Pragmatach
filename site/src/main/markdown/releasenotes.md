@@ -6,6 +6,7 @@ Release Notes
 * Added OpenJPA Support
 * Application build date appears in the console
 * Minor updates to the Archetype
+* Route cache size can be configured via `pragmatach.routecache.size`
 
 ### V18
 
