@@ -171,5 +171,50 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>geronimo3</id>
+			<properties>
+				<geronimoVersion>3.0.1-SNAPSHOT</geronimoVersion>
+				<jetty>jetty8</jetty>
+			</properties>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>apache.snapshots</id>
+					<name>Apache Snapshots Repository</name>
+					<url>http://repository.apache.org/snapshots</url>
+					<layout>default</layout>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>daily</updatePolicy>
+						<checksumPolicy>ignore</checksumPolicy>
+					</snapshots>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+				</pluginRepository>
+			</pluginRepositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.geronimo.buildsupport</groupId>
+						<artifactId>geronimo-maven-plugin</artifactId>
+						<version>${geronimoVersion}</version>
+						<configuration>
+							<assemblies>
+								<assembly>
+									<id>framework</id>
+									<groupId>org.apache.geronimo.assemblies</groupId>
+									<artifactId>geronimo-framework</artifactId>
+									<version>${geronimoVersion}</version>
+									<classifier>bin</classifier>
+									<type>zip</type>
+								</assembly>
+							</assemblies>
+							<defaultAssemblyId>framework</defaultAssemblyId>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
