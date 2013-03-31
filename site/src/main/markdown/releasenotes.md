@@ -1,6 +1,10 @@
 Release Notes
 ------------------------
 
+### V18
+
+* EBean and Hibernate support is complete
+
 ### V17
 
 * @View is a valid property on both methods and classes; controllers can therefore now bind multiple views
