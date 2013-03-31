@@ -1,8 +1,6 @@
 package com.khubla.pragmatach.plugin.adminapp;
 
-import java.io.InputStream;
 import java.lang.management.ManagementFactory;
-import java.util.Properties;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
@@ -16,6 +14,9 @@ import com.khubla.pragmatach.framework.api.Response;
 @Controller(name = "pragmatachShowServerController")
 @View(view = "pragmatach/admin/server.html")
 public class ShowServerController extends SecuredAdminController {
+   /**
+    * find the current process id
+    */
    private static String findProcessId() throws PragmatachException {
       try {
          final String jvmName = ManagementFactory.getRuntimeMXBean().getName();
@@ -42,28 +43,6 @@ public class ShowServerController extends SecuredAdminController {
     * process id
     */
    private String processId;
-   /**
-    * application version from maven pom
-    */
-   private String applicationVersion;
-
-   private String findApplicationVersion() throws PragmatachException {
-      try {
-         final InputStream is = ShowServerController.class.getResourceAsStream("/version.properties");
-         if (null != is) {
-            final Properties properties = new Properties();
-            properties.load(is);
-            return properties.getProperty("maven.version");
-         }
-         return null;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in findApplicationVersion", e);
-      }
-   }
-
-   public String getApplicationVersion() {
-      return applicationVersion;
-   }
 
    public String getHostname() {
       return hostname;
@@ -81,17 +60,12 @@ public class ShowServerController extends SecuredAdminController {
    public Response render() throws PragmatachException {
       serverinfo = getRequest().getHttpServletRequest().getSession().getServletContext().getServerInfo();
       processId = findProcessId();
-      applicationVersion = findApplicationVersion();
       try {
          hostname = java.net.InetAddress.getLocalHost().getHostName();
       } catch (final Exception e) {
          hostname = "";
       }
       return super.render();
-   }
-
-   public void setApplicationVersion(String applicationVersion) {
-      this.applicationVersion = applicationVersion;
    }
 
    public void setHostname(String hostname) {

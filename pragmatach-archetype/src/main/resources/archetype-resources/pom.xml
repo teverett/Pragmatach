@@ -13,6 +13,7 @@
 	</repositories>
 	<properties>
 		<pragmatach.version>1.19-SNAPSHOT</pragmatach.version>
+		<timestamp>${maven.build.timestamp}</timestamp>		
 	</properties>
 	<dependencies>
 		<dependency>

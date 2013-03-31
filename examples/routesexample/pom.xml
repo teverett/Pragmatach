@@ -11,6 +11,9 @@
 		<version>1.19-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<properties>
+		<timestamp>${maven.build.timestamp}</timestamp>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
