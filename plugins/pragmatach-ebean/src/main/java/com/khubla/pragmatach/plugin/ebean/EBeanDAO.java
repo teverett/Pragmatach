@@ -11,6 +11,7 @@ import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.config.DataSourceConfig;
 import com.avaje.ebean.config.ServerConfig;
+import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
@@ -18,7 +19,7 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 /**
  * @author tome
  */
-public class EBeanDAO<T, I extends Serializable> {
+public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
    /**
     * create the EBean server
     */
@@ -40,15 +41,20 @@ public class EBeanDAO<T, I extends Serializable> {
                serverConfig.setDdlRun(true);
             }
          }
-         /*
-          * datasource
-          */
-         final DataSourceConfig dataSourceConfig = new DataSourceConfig();
-         dataSourceConfig.setDriver(Application.getConfiguration().getParameter("ebean.driver"));
-         dataSourceConfig.setUsername(Application.getConfiguration().getParameter("ebean.username"));
-         dataSourceConfig.setPassword(Application.getConfiguration().getParameter("ebean.password"));
-         dataSourceConfig.setUrl(Application.getConfiguration().getParameter("ebean.url"));
-         serverConfig.setDataSourceConfig(dataSourceConfig);
+         String dataSource = Application.getConfiguration().getParameter("ebean.datasource");
+         if ((null != dataSource) && (dataSource.length() > 0)) {
+            serverConfig.setDataSourceJndiName(dataSource);
+         } else {
+            /*
+             * ebean datasource
+             */
+            final DataSourceConfig dataSourceConfig = new DataSourceConfig();
+            dataSourceConfig.setDriver(Application.getConfiguration().getParameter("ebean.driver"));
+            dataSourceConfig.setUsername(Application.getConfiguration().getParameter("ebean.username"));
+            dataSourceConfig.setPassword(Application.getConfiguration().getParameter("ebean.password"));
+            dataSourceConfig.setUrl(Application.getConfiguration().getParameter("ebean.url"));
+            serverConfig.setDataSourceConfig(dataSourceConfig);
+         }
          /*
           * add classes
           */
@@ -81,7 +87,7 @@ public class EBeanDAO<T, I extends Serializable> {
    /**
     * EBean
     */
-   private final EbeanServer ebeanServer = getEBeanServer();
+   private EbeanServer ebeanServer = getEBeanServer();
    /**
     * the type
     */
@@ -171,5 +177,9 @@ public class EBeanDAO<T, I extends Serializable> {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in save", e);
       }
+   }
+
+   public void reloadConfig() {
+      this.ebeanServer = getEBeanServer();
    }
 }

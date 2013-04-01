@@ -413,3 +413,10 @@ facebookexample.log
 /plugins/pragmatach-statsd/.classpath
 /plugins/pragmatach-statsd/.settings/
 /pragmatach-framework/repo/
+/plugins/dbtestsuite/target/
+/plugins/dbtestsuite/.project
+/plugins/dbtestsuite/.classpath
+/plugins/dbtestsuite/.settings/
+/plugins/pragmatach-hibernate/repo/
+/plugins/pragmatach-openjpa/derby.log
+/plugins/pragmatach-hibernate/derby.log

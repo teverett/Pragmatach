@@ -1,10 +1,8 @@
-package test.com.khubla.pragmatach.plugin.ebean;
+package com.khubla.pragmatach.dbtestsuite.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import com.khubla.pragmatach.plugin.ebean.EBeanDAO;
 
 /**
  * @author tome
@@ -22,9 +20,30 @@ public class ExamplePOJO {
     */
    private String name;
    /**
-    * dao
+    * int
     */
-   public static EBeanDAO<ExamplePOJO, Long> dao = new EBeanDAO<ExamplePOJO, Long>(ExamplePOJO.class, Long.class);
+   private int intNumber;
+
+   public int getIntNumber() {
+      return intNumber;
+   }
+
+   public void setIntNumber(int intNumber) {
+      this.intNumber = intNumber;
+   }
+
+   public double getDoubleNumber() {
+      return doubleNumber;
+   }
+
+   public void setDoubleNumber(double doubleNumber) {
+      this.doubleNumber = doubleNumber;
+   }
+
+   /**
+    * double
+    */
+   private double doubleNumber;
 
    public Long getId() {
       return id;

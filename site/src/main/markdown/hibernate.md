@@ -11,8 +11,9 @@ Configuration for Hibernate is provided by these properties in `pragmatach.prope
 * hibernate.connection.username
 * hibernate.connection.password
 * hibernate.hbm2ddl.auto
+* hibernate.connection.datasource
 
-An example configuration for Hibernate, in this case using HSQL would look like
+An example configuration for Hibernate, in this case using HSQL and manual data source config would look like
 
 <pre>
 <code>
@@ -21,6 +22,16 @@ hibernate.dialect=org.hibernate.dialect.HSQLDialect
 hibernate.connection.url=jdbc:hsqldb:mem:testdb
 hibernate.connection.username=sa
 hibernate.connection.password=
+hibernate.hbm2ddl.auto=create
+</code>
+</pre>
+
+An example which uses a JNDI data source would look like:
+
+<pre>
+<code>
+hibernate.connection.datasource=java:/comp/env/jdbc/MyDB
+hibernate.dialect=org.hibernate.dialect.HSQLDialect
 hibernate.hbm2ddl.auto=create
 </code>
 </pre>

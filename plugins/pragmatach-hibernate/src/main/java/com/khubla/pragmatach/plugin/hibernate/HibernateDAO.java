@@ -14,6 +14,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
@@ -21,7 +22,7 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 /**
  * @author tome
  */
-public class HibernateDAO<T, I extends Serializable> {
+public class HibernateDAO<T, I extends Serializable> implements DAO<T, I> {
    public static SessionFactory getSessionFactory() {
       return sessionFactory;
    }
@@ -37,7 +38,7 @@ public class HibernateDAO<T, I extends Serializable> {
    /**
     * the hibernate session factory
     */
-   private static final SessionFactory sessionFactory = buildSessionFactory();
+   private static SessionFactory sessionFactory = buildSessionFactory();
    /**
     * the hibernate service registry
     */
@@ -49,12 +50,35 @@ public class HibernateDAO<T, I extends Serializable> {
           * make config
           */
          final Configuration configuration = new Configuration();
-         configuration.setProperty("hibernate.driver", Application.getConfiguration().getParameter("hibernate.driver"));
+         String dataSource = Application.getConfiguration().getParameter("hibernate.connection.datasource");
+         if ((null != dataSource) && (dataSource.length() > 0)) {
+            configuration.setProperty("connection.datasource", dataSource);
+         } else {
+            /*
+             * configure via driver
+             */
+            configuration.setProperty("hibernate.driver", Application.getConfiguration().getParameter("hibernate.driver"));
+            configuration.setProperty("hibernate.connection.url", Application.getConfiguration().getParameter("hibernate.connection.url"));
+            final String username = Application.getConfiguration().getParameter("hibernate.connection.username");
+            if (username != null) {
+               configuration.setProperty("hibernate.connection.username", username);
+            }
+            final String password = Application.getConfiguration().getParameter("hibernate.connection.password");
+            if (password != null) {
+               configuration.setProperty("hibernate.connection.password", password);
+            }
+         }
+         /*
+          * dialect
+          */
          configuration.setProperty("hibernate.dialect", Application.getConfiguration().getParameter("hibernate.dialect"));
-         configuration.setProperty("hibernate.connection.url", Application.getConfiguration().getParameter("hibernate.connection.url"));
-         configuration.setProperty("hibernate.connection.username", Application.getConfiguration().getParameter("hibernate.connection.username"));
-         configuration.setProperty("hibernate.connection.password", Application.getConfiguration().getParameter("hibernate.connection.password"));
-         configuration.setProperty("hibernate.hbm2ddl.auto", Application.getConfiguration().getParameter("hibernate.hbm2ddl.auto"));
+         /*
+          * generate DDL?
+          */
+         final String autoFlag = Application.getConfiguration().getParameter("hibernate.hbm2ddl.auto");
+         if (null != autoFlag) {
+            configuration.setProperty("hibernate.hbm2ddl.auto", autoFlag);
+         }
          /*
           * add classes
           */
@@ -196,6 +220,10 @@ public class HibernateDAO<T, I extends Serializable> {
 
    public Class<T> getTypeClazz() {
       return typeClazz;
+   }
+
+   public void reloadConfig() {
+      sessionFactory = buildSessionFactory();
    }
 
    /**

@@ -10,8 +10,9 @@ Configuration for OpenJPA is provided by these properties in `pragmatach.propert
 * openjpa.ConnectionUserName
 * openjpa.ConnectionPassword
 * openjpa.jdbc.SynchronizeMapping
+* openjpa.ConnectionFactoryName
 
-An example configuration for OpenJPA, in this case using HSQL would look like
+An example manual configuration for OpenJPA, in this case using HSQL would look like
 
 <pre>
 <code>
@@ -22,6 +23,16 @@ openjpa.ConnectionPassword=""
 openjpa.jdbc.SynchronizeMapping=buildSchema(ForeignKeys=true)
 </code>
 </pre>
+
+An example of configuring a DB connection via JNDI is:
+
+<pre>
+<code>
+openjpa.ConnectionFactoryName=java:comp/env/jdbc/myDB
+openjpa.jdbc.SynchronizeMapping=buildSchema(ForeignKeys=true)
+</code>
+</pre>
+
 
 To create a DAO for an object which has been annotated with JPA 1.0 Annotations, simply declare an OpenJPA DAO.  For example:
 

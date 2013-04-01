@@ -13,6 +13,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 
+import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
@@ -20,7 +21,7 @@ import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 /**
  * @author tome
  */
-public class OpenJPADAO<T, I extends Serializable> {
+public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
    /**
     * the annotation scanner will have run; we can just query for annotated classes
     */
@@ -60,10 +61,18 @@ public class OpenJPADAO<T, I extends Serializable> {
           * set up the properties
           */
          final Map<String, String> properties = new HashMap<String, String>();
-         properties.put("openjpa.ConnectionURL", Application.getConfiguration().getParameter("openjpa.ConnectionURL"));
-         properties.put("openjpa.ConnectionDriverName", Application.getConfiguration().getParameter("openjpa.ConnectionDriverName"));
-         properties.put("openjpa.ConnectionUserName", Application.getConfiguration().getParameter("openjpa.ConnectionUserName"));
-         properties.put("openjpa.ConnectionPassword", Application.getConfiguration().getParameter("openjpa.ConnectionPassword"));
+         String dataSource = Application.getConfiguration().getParameter("openjpa.ConnectionFactoryName");
+         if ((null != dataSource) && (dataSource.length() > 0)) {
+            properties.put("openjpa.ConnectionFactoryName", dataSource);
+         } else {
+            properties.put("openjpa.ConnectionURL", Application.getConfiguration().getParameter("openjpa.ConnectionURL"));
+            properties.put("openjpa.ConnectionDriverName", Application.getConfiguration().getParameter("openjpa.ConnectionDriverName"));
+            properties.put("openjpa.ConnectionUserName", Application.getConfiguration().getParameter("openjpa.ConnectionUserName"));
+            properties.put("openjpa.ConnectionPassword", Application.getConfiguration().getParameter("openjpa.ConnectionPassword"));
+         }
+         /*
+          * more properties
+          */
          properties.put("openjpa.jdbc.SynchronizeMappings", Application.getConfiguration().getParameter("openjpa.jdbc.SynchronizeMappings"));
          properties.put("openjpa.MetaDataFactory", "jpa(Types=" + classesList + ")");
          properties.put("openjpa.RuntimeUnenhancedClasses", "supported");
@@ -83,7 +92,7 @@ public class OpenJPADAO<T, I extends Serializable> {
    /**
     * EntityManager
     */
-   private final EntityManager entityManager = getEntityManager();
+   private EntityManager entityManager = getEntityManager();
    /**
     * the type
     */
@@ -206,5 +215,10 @@ public class OpenJPADAO<T, I extends Serializable> {
          }
          throw new PragmatachException("Exception in update", e);
       }
+   }
+
+   @Override
+   public void reloadConfig() {
+      entityManager = getEntityManager();
    }
 }

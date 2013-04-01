@@ -12,9 +12,21 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  */
 public class HashmapConfigurationImpl extends BaseConfiguration {
    /**
-    * 
+    * the parameters
     */
    private final Map<String, String> map = new HashMap<String, String>();
+
+   /**
+    * ctor
+    */
+   public HashmapConfigurationImpl() {
+   }
+
+   public HashmapConfigurationImpl(String[][] parameters) {
+      for (final String[] set : parameters) {
+         map.put(set[0], set[1]);
+      }
+   }
 
    @Override
    public Map<String, String> getAll() throws PragmatachException {

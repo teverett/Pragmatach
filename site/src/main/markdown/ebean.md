@@ -10,8 +10,9 @@ Configuration for EBean is provided by these properties in `pragmatach.propertie
 * ebean.password
 * ebean.url
 * ebean.autocreate
+* ebean.datasource
 
-An example configuration for EBean, in this case using HSQL would look like
+An example configuration for EBean using manual configuration, in this case using HSQL would look like
 
 <pre>
 <code>
@@ -19,6 +20,15 @@ ebean.driver=org.hsqldb.jdbcDriver
 ebean.username=sa
 ebean.password=
 ebean.url=jdbc:hsqldb:mem:testdb
+ebean.autocreate=true
+</code>
+</pre>
+
+A similar configuration, this time using JNDI could be
+
+<pre>
+<code>
+ebean.datasource=java:/comp/env/jdbc/MyDB
 ebean.autocreate=true
 </code>
 </pre>

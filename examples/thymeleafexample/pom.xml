@@ -2,7 +2,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.com.pragmatach.examples</groupId>
 	<artifactId>thymeleafexample</artifactId>
-	<version>1.19-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Pragmatach Thymeleaf Example</name>
 	<parent>

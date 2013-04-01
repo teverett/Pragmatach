@@ -130,6 +130,7 @@ public class GoogleLoginController extends FreemarkerController {
    /**
     * request a token from the Google code
     */
+   @SuppressWarnings("deprecation")
    private String getGoogleAccessToken(String googleCode) throws PragmatachException {
       final String token = null;
       if ((googleCode != null) && !"".equals(googleCode)) {
