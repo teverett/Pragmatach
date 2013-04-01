@@ -55,7 +55,7 @@ public class TestEBeanPersistence extends AbstractPersistenceTest {
       File databaseDir = new File(ourAppDir, "test-mxj");
       final HashmapConfigurationImpl mysqlConfiguration = new HashmapConfigurationImpl();
       mysqlConfiguration.setParameter("ebean.driver", "com.mysql.jdbc.Driver");
-      mysqlConfiguration.setParameter("oebean.url", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
+      mysqlConfiguration.setParameter("ebean.url", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
       mysqlConfiguration.setParameter("ebean.username", "");
       mysqlConfiguration.setParameter("ebean.password", "");
       mysqlConfiguration.setParameter("ebean.autocreate", "true");

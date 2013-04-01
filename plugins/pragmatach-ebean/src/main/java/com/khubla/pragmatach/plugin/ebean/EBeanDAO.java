@@ -52,7 +52,12 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
             dataSourceConfig.setDriver(Application.getConfiguration().getParameter("ebean.driver"));
             dataSourceConfig.setUsername(Application.getConfiguration().getParameter("ebean.username"));
             dataSourceConfig.setPassword(Application.getConfiguration().getParameter("ebean.password"));
-            dataSourceConfig.setUrl(Application.getConfiguration().getParameter("ebean.url"));
+            String url = Application.getConfiguration().getParameter("ebean.url");
+            if (null != url) {
+               dataSourceConfig.setUrl(url);
+            } else {
+               throw new Exception("ebean.url must be specified");
+            }
             serverConfig.setDataSourceConfig(dataSourceConfig);
          }
          /*
