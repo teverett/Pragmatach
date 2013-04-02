@@ -11,18 +11,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
+import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
  */
-public class HibernateDAO<T, I extends Serializable> implements DAO<T, I> {
+public class HibernateDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    public static SessionFactory getSessionFactory() {
       return sessionFactory;
    }
@@ -50,7 +51,7 @@ public class HibernateDAO<T, I extends Serializable> implements DAO<T, I> {
           * make config
           */
          final Configuration configuration = new Configuration();
-         String dataSource = Application.getConfiguration().getParameter("hibernate.connection.datasource");
+         final String dataSource = Application.getConfiguration().getParameter("hibernate.connection.datasource");
          if ((null != dataSource) && (dataSource.length() > 0)) {
             configuration.setProperty("connection.datasource", dataSource);
          } else {
@@ -112,6 +113,11 @@ public class HibernateDAO<T, I extends Serializable> implements DAO<T, I> {
    public HibernateDAO(Class<T> typeClazz, Class<I> identifierClazz) {
       this.typeClazz = typeClazz;
       this.identifierClazz = identifierClazz;
+   }
+
+   @Override
+   public long count() throws PragmatachException {
+      return (Long) this.find().setProjection(Projections.rowCount()).uniqueResult();
    }
 
    /**
@@ -178,10 +184,28 @@ public class HibernateDAO<T, I extends Serializable> implements DAO<T, I> {
    }
 
    /**
+    * find by id
+    */
+   @SuppressWarnings("unchecked")
+   public T findById(I i) throws PragmatachException {
+      Session session = null;
+      try {
+         session = getSessionFactory().openSession();
+         return (T) session.get(typeClazz, i);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findById", e);
+      } finally {
+         if (null != session) {
+            session.close();
+         }
+      }
+   }
+
+   /**
     * findall
     */
    @SuppressWarnings("unchecked")
-   public List<T> findAll() throws PragmatachException {
+   public List<T> getAll() throws PragmatachException {
       Session session = null;
       try {
          session = getSessionFactory().openSession();
@@ -196,17 +220,18 @@ public class HibernateDAO<T, I extends Serializable> implements DAO<T, I> {
       }
    }
 
-   /**
-    * find by id
-    */
    @SuppressWarnings("unchecked")
-   public T findById(I i) throws PragmatachException {
+   @Override
+   public List<T> getAll(int start, int count) throws PragmatachException {
       Session session = null;
       try {
          session = getSessionFactory().openSession();
-         return (T) session.get(typeClazz, i);
+         final Criteria criteria = session.createCriteria(this.typeClazz);
+         criteria.setFirstResult(start);
+         criteria.setMaxResults(count);
+         return criteria.list();
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in findById", e);
+         throw new PragmatachException("Exception in findAll", e);
       } finally {
          if (null != session) {
             session.close();

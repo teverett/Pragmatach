@@ -5,7 +5,7 @@ import java.util.List;
 import org.testng.Assert;
 
 import com.khubla.pragmatach.dbtestsuite.pojo.ExamplePOJO;
-import com.khubla.pragmatach.framework.api.DAO;
+import com.khubla.pragmatach.framework.dao.DAO;
 
 /**
  * @author tome
@@ -14,6 +14,10 @@ public class BasicTests {
    public static void testBasicFunctionality(DAO<ExamplePOJO, Long> dao) {
       try {
          /*
+          * empty table
+          */
+         Assert.assertTrue(dao.count() == 0);
+         /*
           * create and save an object
           */
          final ExamplePOJO examplePOJO1 = new ExamplePOJO();
@@ -21,6 +25,10 @@ public class BasicTests {
          examplePOJO1.setDoubleNumber(12.2);
          examplePOJO1.setIntNumber(34);
          dao.save(examplePOJO1);
+         /*
+          * 1 row
+          */
+         Assert.assertTrue(dao.count() == 1);
          /*
           * check that the id was generated
           */
@@ -38,7 +46,7 @@ public class BasicTests {
          /*
           * there is 1 object in the DB table
           */
-         List<ExamplePOJO> allObjects = dao.findAll();
+         List<ExamplePOJO> allObjects = dao.getAll();
          Assert.assertNotNull(allObjects);
          Assert.assertTrue(allObjects.size() == 1, "found '" + allObjects.size() + "' objects.");
          /*
@@ -56,9 +64,13 @@ public class BasicTests {
          retrievedPojo = dao.findById(examplePOJO1.getId());
          Assert.assertNull(retrievedPojo);
          /*
+          * count is zero
+          */
+         Assert.assertTrue(dao.count() == 0);
+         /*
           * no objects
           */
-         allObjects = dao.findAll();
+         allObjects = dao.getAll();
          Assert.assertNotNull(allObjects);
          Assert.assertTrue(allObjects.size() == 0);
       } catch (final Exception e) {

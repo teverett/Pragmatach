@@ -1,12 +1,19 @@
-package com.khubla.pragmatach.framework.api;
+package com.khubla.pragmatach.framework.dao;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
  */
 public interface DAO<T, I extends Serializable> {
+   /**
+    * get the count of rows in table
+    */
+   long count() throws PragmatachException;
+
    /**
     * delete
     */
@@ -18,16 +25,26 @@ public interface DAO<T, I extends Serializable> {
    void deletebyId(I i) throws PragmatachException;
 
    /**
-    * find all
-    */
-   List<T> findAll() throws PragmatachException;
-
-   /**
     * find by id
     */
    T findById(I i) throws PragmatachException;
 
+   /**
+    * get all
+    */
+   List<T> getAll() throws PragmatachException;
+
+   /**
+    * get all
+    */
+   List<T> getAll(int start, int count) throws PragmatachException;
+
    Class<I> getIdentifierClazz();
+
+   /**
+    * get pager
+    */
+   Pager<T> getPager(int batchsize) throws PragmatachException;
 
    Class<T> getTypeClazz();
 

@@ -9,6 +9,7 @@ Release Notes
 * Route cache size can be configured via `pragmatach.routecache.size`
 * Switched from log4j to LogBack for logging
 * Expanded testing for OpenJPA, Hibernate and EBean to include embedded MySQL, H2, HSQL, and Derby
+* Added JNDI data source support to OpenJPA, EBean and Hibernate
 
 ### V18
 

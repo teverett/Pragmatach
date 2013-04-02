@@ -11,15 +11,15 @@ import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.config.DataSourceConfig;
 import com.avaje.ebean.config.ServerConfig;
-import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
+import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
  */
-public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
+public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * create the EBean server
     */
@@ -41,7 +41,7 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
                serverConfig.setDdlRun(true);
             }
          }
-         String dataSource = Application.getConfiguration().getParameter("ebean.datasource");
+         final String dataSource = Application.getConfiguration().getParameter("ebean.datasource");
          if ((null != dataSource) && (dataSource.length() > 0)) {
             serverConfig.setDataSourceJndiName(dataSource);
          } else {
@@ -52,7 +52,7 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
             dataSourceConfig.setDriver(Application.getConfiguration().getParameter("ebean.driver"));
             dataSourceConfig.setUsername(Application.getConfiguration().getParameter("ebean.username"));
             dataSourceConfig.setPassword(Application.getConfiguration().getParameter("ebean.password"));
-            String url = Application.getConfiguration().getParameter("ebean.url");
+            final String url = Application.getConfiguration().getParameter("ebean.url");
             if (null != url) {
                dataSourceConfig.setUrl(url);
             } else {
@@ -107,6 +107,11 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
       this.identifierClazz = identifierClazz;
    }
 
+   @Override
+   public long count() throws PragmatachException {
+      return this.find().findRowCount();
+   }
+
    /**
     * delete
     */
@@ -137,13 +142,6 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
    }
 
    /**
-    * findall
-    */
-   public List<T> findAll() throws PragmatachException {
-      return ebeanServer.find(this.typeClazz).findList();
-   }
-
-   /**
     * find by id
     */
    public T findById(I i) throws PragmatachException {
@@ -154,12 +152,28 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
       }
    }
 
+   /**
+    * findall
+    */
+   public List<T> getAll() throws PragmatachException {
+      return ebeanServer.find(this.typeClazz).findList();
+   }
+
+   @Override
+   public List<T> getAll(int start, int count) throws PragmatachException {
+      return this.find().setFirstRow(start).setMaxRows(count).findList();
+   }
+
    public Class<I> getIdentifierClazz() {
       return identifierClazz;
    }
 
    public Class<T> getTypeClazz() {
       return typeClazz;
+   }
+
+   public void reloadConfig() {
+      this.ebeanServer = getEBeanServer();
    }
 
    /**
@@ -182,9 +196,5 @@ public class EBeanDAO<T, I extends Serializable> implements DAO<T, I> {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in save", e);
       }
-   }
-
-   public void reloadConfig() {
-      this.ebeanServer = getEBeanServer();
    }
 }

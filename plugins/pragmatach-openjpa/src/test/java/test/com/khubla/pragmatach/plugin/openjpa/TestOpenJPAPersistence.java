@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 import com.khubla.pragmatach.dbtestsuite.AbstractPersistenceTest;
 import com.khubla.pragmatach.dbtestsuite.pojo.ExamplePOJO;
 import com.khubla.pragmatach.framework.api.Configuration;
-import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.configuration.HashmapConfigurationImpl;
+import com.khubla.pragmatach.framework.dao.DAO;
 import com.khubla.pragmatach.plugin.openjpa.OpenJPADAO;
 
 /**

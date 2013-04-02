@@ -11,17 +11,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import com.khubla.pragmatach.framework.api.DAO;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
+import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
  */
-public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
+public class OpenJPADAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * the annotation scanner will have run; we can just query for annotated classes
     */
@@ -61,7 +62,7 @@ public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
           * set up the properties
           */
          final Map<String, String> properties = new HashMap<String, String>();
-         String dataSource = Application.getConfiguration().getParameter("openjpa.ConnectionFactoryName");
+         final String dataSource = Application.getConfiguration().getParameter("openjpa.ConnectionFactoryName");
          if ((null != dataSource) && (dataSource.length() > 0)) {
             properties.put("openjpa.ConnectionFactoryName", dataSource);
          } else {
@@ -105,6 +106,14 @@ public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
    public OpenJPADAO(Class<T> typeClazz, Class<I> identifierClazz) {
       this.typeClazz = typeClazz;
       this.identifierClazz = identifierClazz;
+   }
+
+   @Override
+   public long count() throws PragmatachException {
+      final CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+      final CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+      cq.select(qb.count(cq.from(this.typeClazz)));
+      return entityManager.createQuery(cq).getSingleResult();
    }
 
    /**
@@ -154,15 +163,6 @@ public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
    }
 
    /**
-    * findall
-    */
-   public List<T> findAll() throws PragmatachException {
-      final CriteriaQuery<T> criteria = entityManager.getCriteriaBuilder().createQuery(typeClazz);
-      criteria.select(criteria.from(typeClazz));
-      return entityManager.createQuery(criteria).getResultList();
-   }
-
-   /**
     * find by id
     */
    public T findById(I i) throws PragmatachException {
@@ -173,12 +173,31 @@ public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
       }
    }
 
+   /**
+    * findall
+    */
+   public List<T> getAll() throws PragmatachException {
+      final CriteriaQuery<T> criteria = entityManager.getCriteriaBuilder().createQuery(typeClazz);
+      criteria.select(criteria.from(typeClazz));
+      return entityManager.createQuery(criteria).getResultList();
+   }
+
+   @Override
+   public List<T> getAll(int start, int count) throws PragmatachException {
+      return this.entityManager.createQuery(this.find()).setFirstResult(start).setMaxResults(count).getResultList();
+   }
+
    public Class<I> getIdentifierClazz() {
       return identifierClazz;
    }
 
    public Class<T> getTypeClazz() {
       return typeClazz;
+   }
+
+   @Override
+   public void reloadConfig() {
+      entityManager = getEntityManager();
    }
 
    /**
@@ -215,10 +234,5 @@ public class OpenJPADAO<T, I extends Serializable> implements DAO<T, I> {
          }
          throw new PragmatachException("Exception in update", e);
       }
-   }
-
-   @Override
-   public void reloadConfig() {
-      entityManager = getEntityManager();
    }
 }
