@@ -7,6 +7,7 @@ import java.io.Reader;
 
 import javax.servlet.ServletContext;
 
+import com.khubla.pragmatach.framework.resourceloader.DefaultResourceLoaderImpl;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 
 import freemarker.cache.TemplateLoader;
@@ -33,7 +34,7 @@ public class PragmatachTemplateLoader implements TemplateLoader {
    @Override
    public Object findTemplateSource(String template) throws IOException {
       try {
-         final ResourceLoader resourceLoader = new ResourceLoader(servletContext);
+         final ResourceLoader resourceLoader = new DefaultResourceLoaderImpl(servletContext);
          final InputStream is = resourceLoader.getResource(template);
          return is;
       } catch (final Exception e) {

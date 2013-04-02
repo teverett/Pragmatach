@@ -102,6 +102,9 @@
 				<section>
 					<id>jmx</id>
 				</section>
+				<section>
+					<id>statsd</id>
+				</section>
 			</sections>
 		</chapter>
 		<chapter>

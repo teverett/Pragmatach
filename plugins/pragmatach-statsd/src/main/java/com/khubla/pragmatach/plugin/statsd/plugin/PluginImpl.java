@@ -6,6 +6,7 @@ import com.khubla.pragmatach.framework.api.I8NProvider;
 import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.api.PluginContext;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.plugin.statsd.StatsDClientImplementation;
 
 /**
@@ -47,5 +48,6 @@ public class PluginImpl implements Plugin {
 
    @Override
    public void startup() throws PragmatachException {
+      Application.getLifecyclelisteners().add(statsDClientImplementation);
    }
 }

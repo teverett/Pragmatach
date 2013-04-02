@@ -14,6 +14,7 @@ import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.controller.impl.RedirectController;
 import com.khubla.pragmatach.framework.controller.impl.TrivialResponse;
+import com.khubla.pragmatach.framework.resourceloader.DefaultResourceLoaderImpl;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;
 
@@ -157,7 +158,7 @@ public abstract class AbstractController implements PragmatachController {
     */
    protected InputStream getResource(String resource) throws PragmatachException {
       try {
-         final ResourceLoader resourceLoader = new ResourceLoader(request.getServletContext());
+         final ResourceLoader resourceLoader = new DefaultResourceLoaderImpl(request.getServletContext());
          return resourceLoader.getResource(resource);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getResource", e);

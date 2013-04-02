@@ -11,6 +11,7 @@ Release Notes
 * Expanded testing for OpenJPA, Hibernate and EBean to include embedded MySQL, H2, HSQL, and Derby
 * Added JNDI data source support to OpenJPA, EBean and Hibernate
 * Added Paging to the DAO's
+* Added support for [statsd](https://github.com/etsy/statsd/)
 
 ### V18
 

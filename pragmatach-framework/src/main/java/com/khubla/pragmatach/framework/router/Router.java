@@ -21,6 +21,7 @@ import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
 import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
 import com.khubla.pragmatach.framework.controller.impl.NotFoundController;
+import com.khubla.pragmatach.framework.lifecycle.LifecycleListener;
 
 /**
  * @author tome
@@ -119,6 +120,24 @@ public class Router {
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getPragmatachControllerInstance", e);
+      }
+   }
+
+   /**
+    * let any lifecycle listeners know we started a request
+    */
+   private void informLifecycleListenersOfBeginRequest(PragmatachRoute pragmatachRoute, Request request) {
+      for (final LifecycleListener lifecycleListener : Application.getLifecyclelisteners().getLifecycleListeners()) {
+         lifecycleListener.beginRequest(pragmatachRoute, request);
+      }
+   }
+
+   /**
+    * let any lifecycle listeners know we ended a request
+    */
+   private void informLifecycleListenersOfEndRequest(PragmatachRoute pragmatachRoute, Request request) {
+      for (final LifecycleListener lifecycleListener : Application.getLifecyclelisteners().getLifecycleListeners()) {
+         lifecycleListener.endRequest(pragmatachRoute, request);
       }
    }
 
@@ -268,8 +287,27 @@ public class Router {
           */
          final RouteFinder routeFinder = findRoute(request);
          if (null != routeFinder) {
+            /*
+             * note a message
+             */
             logger.debug(request.getMethod() + " request for: " + request.getURI() + " routed to " + routeFinder.getPragmatachRoute().getDescription());
-            return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
+            /*
+             * inform lifecycle listeners of start of request
+             */
+            informLifecycleListenersOfBeginRequest(routeFinder.getPragmatachRoute(), request);
+            /*
+             * invoke
+             */
+            try {
+               return invoke(routeFinder.getPragmatachRoute(), request, routeFinder.getParameterMap());
+            } catch (final Exception e) {
+               throw e;
+            } finally {
+               /*
+                * inform lifecycle listeners of end of request
+                */
+               informLifecycleListenersOfEndRequest(routeFinder.getPragmatachRoute(), request);
+            }
          } else {
             /*
              * log a message

@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import org.thymeleaf.TemplateProcessingParameters;
 import org.thymeleaf.resourceresolver.IResourceResolver;
 
+import com.khubla.pragmatach.framework.resourceloader.DefaultResourceLoaderImpl;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 
 /**
@@ -30,7 +31,7 @@ public class PragmatachResourceResolver implements IResourceResolver {
    @Override
    public InputStream getResourceAsStream(TemplateProcessingParameters templateProcessingParameters, String resourceName) {
       try {
-         final ResourceLoader resourceLoader = new ResourceLoader(servletContext);
+         final ResourceLoader resourceLoader = new DefaultResourceLoaderImpl(servletContext);
          final InputStream is = resourceLoader.getResource(resourceName);
          return is;
       } catch (final Exception e) {
