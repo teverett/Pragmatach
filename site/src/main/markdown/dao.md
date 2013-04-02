@@ -15,10 +15,7 @@ The full interface is:
 
 <pre>
 <code>
-/**
- * @author tome
- */
-public interface DAO<T, I extends Serializable> {
+public interface DAO&lt;T, I extends Serializable&gt; {
    long count() throws PragmatachException;
 
    void delete(T t) throws PragmatachException;
@@ -27,15 +24,15 @@ public interface DAO<T, I extends Serializable> {
 
    T findById(I i) throws PragmatachException;
 
-   List<T> getAll() throws PragmatachException;
+   List&lt;T&gt; getAll() throws PragmatachException;
 
-   List<T> getAll(int start, int count) throws PragmatachException;
+   List&lt;T&gt; getAll(int start, int count) throws PragmatachException;
 
-   Class<I> getIdentifierClazz();
+   Class&lt;I&gt; getIdentifierClazz();
 
-   Pager<T> getPager(int batchsize) throws PragmatachException;
+   Pager&lt;T&gt; getPager(int batchsize) throws PragmatachException;
 
-   Class<T> getTypeClazz();
+   Class&lt;T&gt; getTypeClazz();
 
    void reloadConfig();
 
@@ -43,14 +40,13 @@ public interface DAO<T, I extends Serializable> {
 
    void update(T t) throws PragmatachException;
 }
-</pre>
 </code>
+</pre>
 
 JPA annotations are used to build [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping) mappings.  For example:
 
-<code>
 <pre>
-
+<code>
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -79,19 +75,16 @@ public class ExamplePOJO {
       this.name = name;
    }
 }
-
-</pre>
 </code>
+</pre>
 
 A typical example of persisting a class using a Pragmatach DAO, in this case with Hibernate is:
 
-<code>
 <pre>
-
+<code>
 DAO&lt;ExamplePOJO, Long&gt; dao = new HibernateDAO&lt;ExamplePOJO, Long&gt;(ExamplePOJO.class, Long.class);
 final ExamplePOJO examplePOJO1 = new ExamplePOJO();
 examplePOJO1.setName("abc123");r(34);
 dao.save(examplePOJO1);
-     
+</code>    
 </pre>
-</code>
