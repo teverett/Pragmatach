@@ -79,6 +79,9 @@
 			<title>Persistence</title>
 			<sections>
 				<section>
+					<id>dao</id>
+				</section>
+				<section>
 					<id>ebean</id>
 				</section>
 				<section>
