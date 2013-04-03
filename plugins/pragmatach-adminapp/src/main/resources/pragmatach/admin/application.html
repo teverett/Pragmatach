@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "bootstrapheader.html">
+<body>
+	<#include "adminheader.html">
+	<div class="container">
+		<h1>Server Information</h1>
+		<table class="table">
+			<tr>
+				<th>Parameter</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Application Version</td>
+				<td>${controller.applicationVersion}</td>
+			</tr>
+			<tr>
+				<td>Application Build Date</td>
+				<td>${controller.buildDate}</td>
+			</tr>
+		</table>
+	</div>
+	<!-- /container -->
+	<#include "bootstrapfooter.html">
+</body>
+</html>

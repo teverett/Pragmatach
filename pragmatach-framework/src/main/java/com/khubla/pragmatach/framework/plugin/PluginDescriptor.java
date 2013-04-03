@@ -11,7 +11,7 @@ import javax.servlet.ServletContext;
 
 import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
+import com.khubla.pragmatach.framework.resourceloader.DefaultResourceLoaderImpl;
 
 /**
  * @author tome
@@ -52,7 +52,7 @@ public class PluginDescriptor {
             final Class<?> clazz = Class.forName(activatorClassName);
             if (null != clazz) {
                final Plugin ret = (Plugin) clazz.newInstance();
-               ret.setPluginContext(new PluginContextImpl(new ResourceLoader(servletContext)));
+               ret.setPluginContext(new PluginContextImpl(new DefaultResourceLoaderImpl(servletContext)));
                return ret;
             }
          }

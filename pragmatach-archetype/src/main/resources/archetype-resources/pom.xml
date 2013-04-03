@@ -11,32 +11,36 @@
 			<url>http://www.pragmatach.com/repo/</url>
 		</repository>
 	</repositories>
+	<properties>
+		<pragmatach.version>1.19-SNAPSHOT</pragmatach.version>
+		<timestamp>${maven.build.timestamp}</timestamp>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-freemarker</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-i8n</artifactId>
-			<version>1.16-SNAPSHOT</version>
+			<version>${pragmatach.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -142,7 +146,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>jboss7</id>
+			<id>jbossas7</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -163,6 +167,79 @@
 						<version>3.1.2.2</version>
 						<configuration>
 							<port>8080</port>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>geronimo3</id>
+			<properties>
+				<geronimoVersion>3.0.1-SNAPSHOT</geronimoVersion>
+				<jetty>jetty8</jetty>
+			</properties>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>apache.snapshots</id>
+					<name>Apache Snapshots Repository</name>
+					<url>http://repository.apache.org/snapshots</url>
+					<layout>default</layout>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>daily</updatePolicy>
+						<checksumPolicy>ignore</checksumPolicy>
+					</snapshots>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+				</pluginRepository>
+			</pluginRepositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.geronimo.buildsupport</groupId>
+						<artifactId>geronimo-maven-plugin</artifactId>
+						<version>${geronimoVersion}</version>
+						<configuration>
+							<assemblies>
+								<assembly>
+									<id>framework</id>
+									<groupId>org.apache.geronimo.assemblies</groupId>
+									<artifactId>geronimo-framework</artifactId>
+									<version>${geronimoVersion}</version>
+									<classifier>bin</classifier>
+									<type>zip</type>
+								</assembly>
+							</assemblies>
+							<defaultAssemblyId>framework</defaultAssemblyId>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jetty9</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.0</version>
+						<configuration>
+							<source>${target.jvm}</source>
+							<target>1.7</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>9.0.0.v20130308</version>
+						<configuration>
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<webAppConfig>
+								<contextPath>/</contextPath>
+								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
+							</webAppConfig>
 						</configuration>
 					</plugin>
 				</plugins>

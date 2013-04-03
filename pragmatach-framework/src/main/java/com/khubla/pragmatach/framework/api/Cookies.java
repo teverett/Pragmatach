@@ -110,7 +110,7 @@ public class Cookies {
       }
    }
 
-   private String getCryptoKey() {
+   private String getCryptoKey() throws PragmatachException {
       return Application.getConfiguration().getParameter(COOKIE_CONFIG_KEY);
    }
 

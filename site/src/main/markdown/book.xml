@@ -17,7 +17,10 @@
 				</section>
 				<section>
 					<id>profiles</id>
-				</section>				
+				</section>
+				<section>
+					<id>design</id>
+				</section>								
 			</sections>
 		</chapter>
 		<chapter>
@@ -44,6 +47,9 @@
 				</section>
 				<section>
 					<id>cachecontrol</id>
+				</section>
+				<section>
+					<id>logging</id>
 				</section>
 				<section>
 					<id>cookies</id>
@@ -73,10 +79,16 @@
 			<title>Persistence</title>
 			<sections>
 				<section>
+					<id>dao</id>
+				</section>
+				<section>
 					<id>ebean</id>
 				</section>
 				<section>
 					<id>hibernate</id>
+				</section>
+				<section>
+					<id>openjpa</id>
 				</section>
 			</sections>
 		</chapter>
@@ -89,6 +101,18 @@
 				</section>
 				<section>
 					<id>jmx</id>
+				</section>
+				<section>
+					<id>statsd</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
+			<id>faq</id>
+			<title>FAQ</title>
+			<sections>
+				<section>
+					<id>faq</id>
 				</section>
 			</sections>
 		</chapter>
@@ -122,6 +146,5 @@
 				</section>
 			</sections>
 		</chapter>
-	
 	</chapters>
 </book>

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>plugins</artifactId>
 	<packaging>pom</packaging>
-	<version>1.19-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
-		<version>1.19-SNAPSHOT</version>
+		<version>1.19</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modules>
+		<module>dbtestsuite</module>
 		<module>pragmatach-freemarker</module>
 		<module>pragmatach-thymeleaf</module>
 		<module>pragmatach-responsive</module>
@@ -30,5 +29,7 @@
 		<module>pragmatach-google</module>
 		<module>pragmatach-ebean</module>
 		<module>pragmatach-hibernate</module>
+		<module>pragmatach-openjpa</module>
+		<module>pragmatach-statsd</module>
 	</modules>
 </project>

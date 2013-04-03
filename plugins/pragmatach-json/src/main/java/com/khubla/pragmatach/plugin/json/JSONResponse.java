@@ -37,7 +37,7 @@ public class JSONResponse extends AbstractResponse {
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
-         PragmatachJSON.toJSON(pragmatachController, outputStream);
+         PragmatachJSON.toJSON((PragmatachController) pragmatachController, outputStream);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

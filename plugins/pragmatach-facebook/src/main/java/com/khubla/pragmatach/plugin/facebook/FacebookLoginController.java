@@ -58,7 +58,7 @@ public class FacebookLoginController extends FreemarkerController {
    /**
     * ctor
     */
-   public FacebookLoginController(String redirectURL) {
+   public FacebookLoginController(String redirectURL) throws PragmatachException {
       this.redirectURL = redirectURL;
       applicationid = Application.getConfiguration().getParameter("facebook.applicationid");
       facebooksecret = Application.getConfiguration().getParameter("facebook.facebooksecret");

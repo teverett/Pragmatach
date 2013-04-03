@@ -11,17 +11,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
+import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 
 /**
  * @author tome
  */
-public class HibernateDAO<T, I extends Serializable> {
+public class HibernateDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    public static SessionFactory getSessionFactory() {
       return sessionFactory;
    }
@@ -37,7 +39,7 @@ public class HibernateDAO<T, I extends Serializable> {
    /**
     * the hibernate session factory
     */
-   private static final SessionFactory sessionFactory = buildSessionFactory();
+   private static SessionFactory sessionFactory = buildSessionFactory();
    /**
     * the hibernate service registry
     */
@@ -49,12 +51,35 @@ public class HibernateDAO<T, I extends Serializable> {
           * make config
           */
          final Configuration configuration = new Configuration();
-         configuration.setProperty("hibernate.driver", Application.getConfiguration().getParameter("hibernate.driver"));
+         final String dataSource = Application.getConfiguration().getParameter("hibernate.connection.datasource");
+         if ((null != dataSource) && (dataSource.length() > 0)) {
+            configuration.setProperty("connection.datasource", dataSource);
+         } else {
+            /*
+             * configure via driver
+             */
+            configuration.setProperty("hibernate.driver", Application.getConfiguration().getParameter("hibernate.driver"));
+            configuration.setProperty("hibernate.connection.url", Application.getConfiguration().getParameter("hibernate.connection.url"));
+            final String username = Application.getConfiguration().getParameter("hibernate.connection.username");
+            if (username != null) {
+               configuration.setProperty("hibernate.connection.username", username);
+            }
+            final String password = Application.getConfiguration().getParameter("hibernate.connection.password");
+            if (password != null) {
+               configuration.setProperty("hibernate.connection.password", password);
+            }
+         }
+         /*
+          * dialect
+          */
          configuration.setProperty("hibernate.dialect", Application.getConfiguration().getParameter("hibernate.dialect"));
-         configuration.setProperty("hibernate.connection.url", Application.getConfiguration().getParameter("hibernate.connection.url"));
-         configuration.setProperty("hibernate.connection.username", Application.getConfiguration().getParameter("hibernate.connection.username"));
-         configuration.setProperty("hibernate.connection.password", Application.getConfiguration().getParameter("hibernate.connection.password"));
-         configuration.setProperty("hibernate.hbm2ddl.auto", Application.getConfiguration().getParameter("hibernate.hbm2ddl.auto"));
+         /*
+          * generate DDL?
+          */
+         final String autoFlag = Application.getConfiguration().getParameter("hibernate.hbm2ddl.auto");
+         if (null != autoFlag) {
+            configuration.setProperty("hibernate.hbm2ddl.auto", autoFlag);
+         }
          /*
           * add classes
           */
@@ -88,6 +113,11 @@ public class HibernateDAO<T, I extends Serializable> {
    public HibernateDAO(Class<T> typeClazz, Class<I> identifierClazz) {
       this.typeClazz = typeClazz;
       this.identifierClazz = identifierClazz;
+   }
+
+   @Override
+   public long count() throws PragmatachException {
+      return (Long) this.find().setProjection(Projections.rowCount()).uniqueResult();
    }
 
    /**
@@ -154,25 +184,6 @@ public class HibernateDAO<T, I extends Serializable> {
    }
 
    /**
-    * findall
-    */
-   @SuppressWarnings("unchecked")
-   public List<T> findAll() throws PragmatachException {
-      Session session = null;
-      try {
-         session = getSessionFactory().openSession();
-         final Criteria criteria = session.createCriteria(this.typeClazz);
-         return criteria.list();
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in findAll", e);
-      } finally {
-         if (null != session) {
-            session.close();
-         }
-      }
-   }
-
-   /**
     * find by id
     */
    @SuppressWarnings("unchecked")
@@ -190,12 +201,54 @@ public class HibernateDAO<T, I extends Serializable> {
       }
    }
 
+   /**
+    * findall
+    */
+   @SuppressWarnings("unchecked")
+   public List<T> getAll() throws PragmatachException {
+      Session session = null;
+      try {
+         session = getSessionFactory().openSession();
+         final Criteria criteria = session.createCriteria(this.typeClazz);
+         return criteria.list();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findAll", e);
+      } finally {
+         if (null != session) {
+            session.close();
+         }
+      }
+   }
+
+   @SuppressWarnings("unchecked")
+   @Override
+   public List<T> getAll(int start, int count) throws PragmatachException {
+      Session session = null;
+      try {
+         session = getSessionFactory().openSession();
+         final Criteria criteria = session.createCriteria(this.typeClazz);
+         criteria.setFirstResult(start);
+         criteria.setMaxResults(count);
+         return criteria.list();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findAll", e);
+      } finally {
+         if (null != session) {
+            session.close();
+         }
+      }
+   }
+
    public Class<I> getIdentifierClazz() {
       return identifierClazz;
    }
 
    public Class<T> getTypeClazz() {
       return typeClazz;
+   }
+
+   public void reloadConfig() {
+      sessionFactory = buildSessionFactory();
    }
 
    /**

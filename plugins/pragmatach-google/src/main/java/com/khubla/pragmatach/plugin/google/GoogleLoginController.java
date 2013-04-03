@@ -83,7 +83,7 @@ public class GoogleLoginController extends FreemarkerController {
    /**
     * ctor
     */
-   public GoogleLoginController(String redirectURL) {
+   public GoogleLoginController(String redirectURL) throws PragmatachException {
       this.redirectURL = redirectURL;
       clientid = Application.getConfiguration().getParameter("google.clientid");
       clientsecret = Application.getConfiguration().getParameter("google.clientsecret");
@@ -130,6 +130,7 @@ public class GoogleLoginController extends FreemarkerController {
    /**
     * request a token from the Google code
     */
+   @SuppressWarnings("deprecation")
    private String getGoogleAccessToken(String googleCode) throws PragmatachException {
       final String token = null;
       if ((googleCode != null) && !"".equals(googleCode)) {

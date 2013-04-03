@@ -14,7 +14,7 @@ public class IndexController extends GoogleLoginController {
    /**
     * ctor
     */
-   public IndexController() {
+   public IndexController() throws PragmatachException {
       super("/");
    }
 

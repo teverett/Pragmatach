@@ -5,9 +5,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.cglib.proxy.Enhancer;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
@@ -15,7 +14,6 @@ import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
-import com.khubla.pragmatach.framework.controller.interceptor.ControllerMethodInterceptor;
 import com.khubla.pragmatach.framework.url.RouteSpecification;
 
 /**
@@ -39,7 +37,7 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
     * the @view annotation, if it exists
     */
@@ -190,10 +188,11 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
          /*
           * enhance it
           */
-         final Enhancer enhancer = new Enhancer();
-         enhancer.setSuperclass(controllerClazz);
-         enhancer.setCallback(new ControllerMethodInterceptor());
-         return (PragmatachController) enhancer.create();
+         // final Enhancer enhancer = new Enhancer();
+         // enhancer.setSuperclass(controllerClazz);
+         // enhancer.setCallback(new ControllerMethodInterceptor());
+         // return (PragmatachController) enhancer.create();
+         return (PragmatachController) controllerClazz.newInstance();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getControllerClazzInstance", e);
       }

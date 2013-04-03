@@ -7,7 +7,8 @@ import javax.management.ObjectName;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.jmx.PerformanceStatisticsMXBean;
 import com.khubla.pragmatach.framework.jmx.RouteCacheStatusMXBean;
@@ -23,7 +24,7 @@ public class JMXListener implements ServletContextListener {
    /**
     * logger
     */
-   private final Logger logger = Logger.getLogger(this.getClass());
+   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
    @Override
    public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -52,7 +53,7 @@ public class JMXListener implements ServletContextListener {
          final RouteCacheStatusMXBean routeCacheStatusMXBean = new RouteCacheStatus();
          mBeanServer.registerMBean(routeCacheStatusMXBean, routeCacheStatusBeanName);
       } catch (final Exception e) {
-         logger.fatal("Exception in contextInitialized", e);
+         logger.error("Exception in contextInitialized", e);
       }
    }
 }

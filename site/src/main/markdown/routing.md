@@ -3,6 +3,8 @@ Request Routing
 
 Pragmatch uses REST-like route mapping. Request routes are declared via the @Route annotation, in conjunction with the signature of the annotated method
 
+###Examples
+
 In this example, the method "render()" will be called for the context path "/".
 
 <pre><code>
@@ -37,3 +39,11 @@ Wildcard routes
 @Route(uri = "/user/*")
 public Response render(String[] parameters) throws PragmatachException
 </code></pre>
+
+### Route Cache
+
+The process of mapping arbitrary incoming request URLs to routes is computationally expensive.  Therefore, Pragmatach maintains an internal LRU cache of route mapping results.  The route cache statics are in the Admin Console and additionally the route cache can be cleared via the Admin Console.  The default maximum size of the cache is 100 routes, however that maximum can be specified in the pragmatach configuration using this flag
+
+`pragmatach.routecache.size`
+
+
