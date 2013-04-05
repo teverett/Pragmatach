@@ -7,6 +7,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractTemplateEngineController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
+import com.khubla.pragmatach.framework.controller.ControllerBeanUtil;
 import com.khubla.pragmatach.framework.form.Form;
 import com.khubla.pragmatach.framework.form.FormItem;
 
@@ -20,8 +21,7 @@ public class JasperController extends AbstractTemplateEngineController implement
    public JasperController() {
    }
 
-   @Override
-   public Map<String, String> getPostFieldValues() throws PragmatachException {
+   private Map<String, String> getPostFieldValues() throws PragmatachException {
       try {
          final Form form = Form.parse(getRequest().getHttpServletRequest());
          if (null != form) {
@@ -48,5 +48,10 @@ public class JasperController extends AbstractTemplateEngineController implement
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
+   }
+
+   @Override
+   public void populateController() throws PragmatachException {
+      ControllerBeanUtil.populateController(this, this.getPostFieldValues());
    }
 }

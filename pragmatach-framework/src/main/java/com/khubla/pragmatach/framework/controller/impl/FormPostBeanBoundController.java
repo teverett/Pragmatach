@@ -6,15 +6,15 @@ import java.util.Map;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.AbstractTemplateEngineController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
+import com.khubla.pragmatach.framework.controller.ControllerBeanUtil;
 import com.khubla.pragmatach.framework.form.Form;
 import com.khubla.pragmatach.framework.form.FormItem;
 
 /**
  * @author tome
  */
-public class BasicBeanBoundController extends AbstractTemplateEngineController implements BeanBoundController {
-   @Override
-   public Map<String, String> getPostFieldValues() throws PragmatachException {
+public class FormPostBeanBoundController extends AbstractTemplateEngineController implements BeanBoundController {
+   protected Map<String, String> getPostFieldValues() throws PragmatachException {
       try {
          final Form form = Form.parse(getRequest().getHttpServletRequest());
          if (null != form) {
@@ -28,6 +28,15 @@ public class BasicBeanBoundController extends AbstractTemplateEngineController i
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getPostFieldValues", e);
+      }
+   }
+
+   @Override
+   public void populateController() throws PragmatachException {
+      try {
+         ControllerBeanUtil.populateController(this, getPostFieldValues());
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in populateController", e);
       }
    }
 }

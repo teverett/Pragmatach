@@ -420,3 +420,4 @@ facebookexample.log
 /plugins/pragmatach-hibernate/repo/
 /plugins/pragmatach-openjpa/derby.log
 /plugins/pragmatach-hibernate/derby.log
+/plugins/pragmatach-json/test-output/

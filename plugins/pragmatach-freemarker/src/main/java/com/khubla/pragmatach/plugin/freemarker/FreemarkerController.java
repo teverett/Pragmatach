@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -13,7 +13,7 @@ import freemarker.template.Template;
 /**
  * @author tome
  */
-public class FreemarkerController extends BasicBeanBoundController {
+public class FreemarkerController extends FormPostBeanBoundController {
    /**
     * ctor
     */

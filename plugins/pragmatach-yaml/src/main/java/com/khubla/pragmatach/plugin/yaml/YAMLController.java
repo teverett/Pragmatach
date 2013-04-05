@@ -6,6 +6,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
+import com.khubla.pragmatach.framework.controller.ControllerBeanUtil;
 
 /**
  * @author tome
@@ -17,8 +18,7 @@ public class YAMLController extends AbstractController implements BeanBoundContr
    public YAMLController() {
    }
 
-   @Override
-   public Map<String, String> getPostFieldValues() throws PragmatachException {
+   private Map<String, String> getPostFieldValues() throws PragmatachException {
       try {
          return PragmatachYAML.parseYAML(getRequest().getInputStream());
       } catch (final Exception e) {
@@ -35,5 +35,10 @@ public class YAMLController extends AbstractController implements BeanBoundContr
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
+   }
+
+   @Override
+   public void populateController() throws PragmatachException {
+      ControllerBeanUtil.populateController(this, this.getPostFieldValues());
    }
 }
