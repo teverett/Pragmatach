@@ -22,14 +22,14 @@ public class ExportRoutesController extends SecuredAdminController {
       return clazz.getAnnotation(Controller.class);
    }
 
+   public List<PragmatachRoute> getRoutes() {
+      return routes;
+   }
+
    @Route(uri = "/pragmatach/admin/exportroutes")
    public Response render() throws PragmatachException {
       routes = Application.getRoutes().getAllRoutes();
       return super.render();
-   }
-
-   public List<PragmatachRoute> getRoutes() {
-      return routes;
    }
 
    public void setRoutes(List<PragmatachRoute> routes) {
