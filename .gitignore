@@ -420,3 +420,10 @@ facebookexample.log
 /plugins/pragmatach-hibernate/repo/
 /plugins/pragmatach-openjpa/derby.log
 /plugins/pragmatach-hibernate/derby.log
+/plugins/pragmatach-json/test-output/
+/contrib/controllertester/.project
+/contrib/controllertester/.classpath
+/contrib/.settings/
+/contrib/controllertester/target/
+/contrib/controllertester/.settings/
+/contrib/.project

@@ -1,6 +1,11 @@
 Release Notes
 ------------------------
 
+### V20
+
+* Combined pragmatach-json and pragmatach-gson into a single plugin; pragmatach-json
+* Added support for collections to pragmatach-gson
+
 ### V19
 
 * Added OpenJPA Support

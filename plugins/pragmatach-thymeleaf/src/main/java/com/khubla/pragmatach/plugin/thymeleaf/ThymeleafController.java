@@ -4,12 +4,12 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
 
 /**
  * @author tome
  */
-public class ThymeleafController extends BasicBeanBoundController {
+public class ThymeleafController extends FormPostBeanBoundController {
    /**
     * ctor
     */

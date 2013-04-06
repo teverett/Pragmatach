@@ -5,13 +5,13 @@ import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.Route.HttpMethod;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
 
 /**
  * @author tome
  */
 @Controller()
-public class UploadController extends BasicBeanBoundController {
+public class UploadController extends FormPostBeanBoundController {
    /**
     * filedata. This is the name of the input element in the HTML
     */

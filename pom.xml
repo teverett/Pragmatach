@@ -4,7 +4,7 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.19</version>
+	<version>1.20</version>
 	<name>khubla.com Pragmatach</name>
 	<properties>
 		<target.jvm>1.6</target.jvm>
@@ -17,6 +17,7 @@
 		<module>pragmatach-framework</module>
 		<module>plugins</module>
 		<module>examples</module>
+		<module>contrib</module>
 		<!-- <module>site</module> -->
 	</modules>
 	<dependencies>
@@ -134,6 +135,6 @@
 		<connection>scm:git:git@github.com:teverett/Pragmatach.git</connection>
 		<developerConnection>scm:git:git@github.com:teverett/Pragmatach.git</developerConnection>
 		<url>https://github.com/teverett/Pragmatach</url>
-	  <tag>pragmatach-1.19</tag>
+	  <tag>pragmatach-1.20</tag>
   </scm>
 </project>

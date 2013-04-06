@@ -8,7 +8,6 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 * pragmatach-thymeleaf; support for the [Thymeleaf](http://www.thymeleaf.org/) template engine
 * pragmatach-velocity; support for the [Velocity](http://velocity.apache.org/) template engine
 * pragmatach-adminapp; the Pragmatach admin console
-* pragmatach-gson; support for Google [Gson](https://code.google.com/p/google-gson/)
 * pragmatach-json; support for [JSON](http://en.wikipedia.org/wiki/JSON), including GET-POST to controllers
 * pragmatach-xtream; XML support for GET-POST via [XStream](http://xstream.codehaus.org/)
 * pragmatach-jcr; support for the [JCR](http://en.wikipedia.org/wiki/Content_repository_API_for_Java)
@@ -20,7 +19,7 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 * pragmatach-hibernate; support for JPA 1.0 via Hibernate
 * pragmatach-ebean; support for JPA 1.0 via [EBean](http://www.avaje.org/)
 * pragmatach-openjpa; support for JPA 1.0 via [OpenJPA](http://openjpa.apache.org/)
-* pragmatach-stats; support for [statsd](https://github.com/etsy/statsd/)
+* pragmatach-statsd; support for [statsd](https://github.com/etsy/statsd/)
 
 To use a plugin in your project, simply include the plugin module in your project as a maven depenendency. For example, to include support for GETing and POSTing JSON:
 
@@ -29,7 +28,7 @@ To use a plugin in your project, simply include the plugin module in your projec
 &lt;dependency&gt;
 	&lt;groupId&gt;com.khubla.pragmatach&lt;/groupId&gt;
 	&lt;artifactId&gt;pragmatach-json&lt;/artifactId&gt;
-	&lt;version&gt;1.19-SNAPSHOT&lt;/version&gt;
+	&lt;version&gt;1.20-RELEASE&lt;/version&gt;
 	&lt;type&gt;jar&lt;/type&gt;
 	&lt;scope&gt;compile&lt;/scope&gt;
 &lt;/dependency&gt;

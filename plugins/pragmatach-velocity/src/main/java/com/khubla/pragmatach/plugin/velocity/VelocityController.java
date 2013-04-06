@@ -2,12 +2,12 @@ package com.khubla.pragmatach.plugin.velocity;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.impl.BasicBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
 
 /**
  * @author tome
  */
-public class VelocityController extends BasicBeanBoundController {
+public class VelocityController extends FormPostBeanBoundController {
    /**
     * ctor
     */

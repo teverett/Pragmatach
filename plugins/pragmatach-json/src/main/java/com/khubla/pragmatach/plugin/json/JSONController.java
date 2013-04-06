@@ -1,6 +1,6 @@
 package com.khubla.pragmatach.plugin.json;
 
-import java.util.Map;
+import java.io.ByteArrayInputStream;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -18,12 +18,15 @@ public class JSONController extends AbstractController implements BeanBoundContr
    }
 
    @Override
-   public Map<String, String> getPostFieldValues() throws PragmatachException {
-      try {
-         return PragmatachJSON.parseJSON(getRequest().getInputStream());
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getPostFieldValues", e);
-      }
+   public void populateController() throws PragmatachException {
+      PragmaticControllerSerializer.deserialize(this, new ByteArrayInputStream(getRequest().getPostBody().getBytes()));
+   }
+
+   /**
+    * for testing purposes
+    */
+   public void populateController(String JSON) throws PragmatachException {
+      PragmaticControllerSerializer.deserialize(this, new ByteArrayInputStream(JSON.getBytes()));
    }
 
    /**

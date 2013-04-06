@@ -244,13 +244,7 @@ public class Router {
           */
          if (pragmatachController instanceof BeanBoundController) {
             final BeanBoundController beanBoundController = (BeanBoundController) pragmatachController;
-            final Map<String, String> fieldValues = beanBoundController.getPostFieldValues();
-            for (final String fieldName : fieldValues.keySet()) {
-               /*
-                * set the fields
-                */
-               BeanUtils.setProperty(pragmatachController, fieldName, fieldValues.get(fieldName));
-            }
+            beanBoundController.populateController();
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in processFormData", e);
