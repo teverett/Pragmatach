@@ -1,0 +1,4 @@
+<#list controller.routes as route>
+${route.getRoute().method()},${route.getRoute().uri()}
+</#list>
+

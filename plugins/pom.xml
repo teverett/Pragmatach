@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>plugins</artifactId>
 	<packaging>pom</packaging>
-	<name>khubla.com Pragmatach</name>
+	<name>khubla.com Pragmatach Plugins</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>

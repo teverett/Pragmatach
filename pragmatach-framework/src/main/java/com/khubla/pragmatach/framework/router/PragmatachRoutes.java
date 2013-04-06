@@ -51,12 +51,28 @@ public class PragmatachRoutes {
       readRoutes();
    }
 
+   /**
+    * get all GET routes
+    */
    public List<PragmatachRoute> getGETRoutes() {
       return GETRoutes;
    }
 
+   /**
+    * get all POST routes
+    */
    public List<PragmatachRoute> getPOSTRoutes() {
       return POSTRoutes;
+   }
+
+   /**
+    * get all known routes for all HTTP methods
+    */
+   public List<PragmatachRoute> getAllRoutes() {
+      List<PragmatachRoute> ret = new ArrayList<PragmatachRoute>();
+      ret.addAll(GETRoutes);
+      ret.addAll(POSTRoutes);
+      return ret;
    }
 
    /**
