@@ -5,7 +5,7 @@
 	<name>Khubla.com Pragmatach Controller Tester</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
-		<artifactId>plugins</artifactId>
+		<artifactId>contrib</artifactId>
 		<version>1.20-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
