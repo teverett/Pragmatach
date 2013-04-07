@@ -1,6 +1,10 @@
 Release Notes
 ------------------------
 
+### V21
+
+* Added streaming controller to support building controllers from simple streams
+
 ### V20
 
 * Combined pragmatach-json and pragmatach-gson into a single plugin; pragmatach-json
