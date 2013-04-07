@@ -1,11 +1,11 @@
-package com.khubla.pragmatach.framework.controller.impl;
+package com.khubla.pragmatach.framework.controller.impl.trivial;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.controller.AbstractResponse;
+import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 
 /**
  * @author tome

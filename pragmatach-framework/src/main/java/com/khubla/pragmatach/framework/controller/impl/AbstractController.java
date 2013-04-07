@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.controller;
+package com.khubla.pragmatach.framework.controller.impl;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -12,8 +12,10 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.application.Application;
-import com.khubla.pragmatach.framework.controller.impl.RedirectController;
-import com.khubla.pragmatach.framework.controller.impl.TrivialResponse;
+import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
+import com.khubla.pragmatach.framework.controller.impl.redirect.RedirectController;
+import com.khubla.pragmatach.framework.controller.impl.trivial.TrivialResponse;
 import com.khubla.pragmatach.framework.resourceloader.DefaultResourceLoaderImpl;
 import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 import com.khubla.pragmatach.framework.router.PragmatachRoute;

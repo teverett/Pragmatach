@@ -1,7 +1,7 @@
 package test.com.khubla.pragmatach.plugin.cluster.serialization;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
-import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 import com.khubla.pragmatach.plugin.cluster.annotation.Clustered;
 
 /**

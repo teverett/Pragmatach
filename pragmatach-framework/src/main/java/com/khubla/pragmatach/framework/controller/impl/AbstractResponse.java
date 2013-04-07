@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.controller;
+package com.khubla.pragmatach.framework.controller.impl;
 
 import java.util.Map;
 

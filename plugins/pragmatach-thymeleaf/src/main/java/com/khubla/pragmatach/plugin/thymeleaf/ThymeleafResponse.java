@@ -10,7 +10,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.controller.AbstractResponse;
+import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 
 /**
  * @author tome

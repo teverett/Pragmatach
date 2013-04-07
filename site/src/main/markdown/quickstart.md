@@ -2,14 +2,14 @@
 Quickstart
 ------------------------
 
-To create the skeleton of a test project use the pragmatach maven archetype
+To create the skeleton of a test project use the pragmatach maven archetype.
 
 <pre>
 <code>
 mvn archetype:generate                                  \
   -DarchetypeGroupId=com.khubla.pragmatach       				\
   -DarchetypeArtifactId=pragmatach-archetype     				\
-  -DarchetypeVersion=1.15                        				\
+  -DarchetypeVersion=1.20                        				\
   -DgroupId=com.khubla.exampleproject            				\
   -DartifactId=myexampleproject				  				 				\
   -DinteractiveMode=false                        				\

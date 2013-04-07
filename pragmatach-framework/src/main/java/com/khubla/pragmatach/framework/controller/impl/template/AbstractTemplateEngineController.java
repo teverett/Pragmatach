@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.controller;
+package com.khubla.pragmatach.framework.controller.impl.template;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -12,6 +12,9 @@ import org.apache.commons.io.IOUtils;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.View;
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.SessionScopedControllers;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 import com.khubla.pragmatach.framework.i8n.I8NProviders;
 import com.khubla.pragmatach.framework.i8n.I8NResolver;
 import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
