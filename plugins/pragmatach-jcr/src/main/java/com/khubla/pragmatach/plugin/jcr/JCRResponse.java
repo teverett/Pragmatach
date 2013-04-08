@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.controller.AbstractResponse;
+import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 
 /**
  * @author tome

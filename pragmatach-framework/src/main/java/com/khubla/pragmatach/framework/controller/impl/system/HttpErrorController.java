@@ -6,7 +6,7 @@ import java.util.Map;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.impl.SimpleTemplateController;
+import com.khubla.pragmatach.framework.controller.impl.template.SimpleTemplateController;
 
 /**
  * @author tome

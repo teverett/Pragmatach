@@ -1,9 +1,9 @@
-package com.khubla.pragmatach.framework.controller.impl;
+package com.khubla.pragmatach.framework.controller.impl.trivial;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 
 /**
  * @author tome

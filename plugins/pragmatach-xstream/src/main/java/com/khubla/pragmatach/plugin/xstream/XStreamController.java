@@ -4,9 +4,9 @@ import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.AbstractController;
 import com.khubla.pragmatach.framework.controller.BeanBoundController;
 import com.khubla.pragmatach.framework.controller.ControllerBeanUtil;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 
 /**
  * @author tome

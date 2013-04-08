@@ -1,7 +1,7 @@
 package com.khubla.pragmatach.plugin.adminapp;
 
 import com.khubla.pragmatach.framework.annotation.Controller;
-import com.khubla.pragmatach.framework.controller.AbstractController;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 
 /**
  * @author tome

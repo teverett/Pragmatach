@@ -6,7 +6,7 @@ import java.io.Writer;
 import java.util.Map;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.controller.AbstractResponse;
+import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 
 import freemarker.template.Template;
 

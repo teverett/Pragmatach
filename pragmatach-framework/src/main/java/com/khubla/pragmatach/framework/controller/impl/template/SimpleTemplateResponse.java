@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.controller.impl;
+package com.khubla.pragmatach.framework.controller.impl.template;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,7 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.controller.AbstractResponse;
+import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 
 /**
  * @author tome

@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.controller.AbstractController;
-import com.khubla.pragmatach.framework.controller.AbstractResponse;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
+import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 import com.thoughtworks.xstream.XStream;
 
 /**

@@ -1,6 +1,6 @@
 package com.khubla.pragmatach.plugin.jcr;
 
-import com.khubla.pragmatach.framework.controller.AbstractTemplateEngineController;
+import com.khubla.pragmatach.framework.controller.impl.template.AbstractTemplateEngineController;
 
 /**
  * @author tome
