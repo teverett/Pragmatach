@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>examples</artifactId>
-		<version>1.22</version>
+		<version>1.23</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
@@ -17,21 +17,21 @@
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.22</version>
+			<version>1.23</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-velocity</artifactId>
-			<version>1.22</version>
+			<version>1.23</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-adminapp</artifactId>
-			<version>1.22</version>
+			<version>1.23</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

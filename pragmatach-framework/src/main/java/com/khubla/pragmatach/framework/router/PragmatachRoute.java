@@ -22,6 +22,76 @@ import com.khubla.pragmatach.framework.url.RouteSpecification;
  * @author tome
  */
 public class PragmatachRoute implements Comparable<PragmatachRoute> {
+   private static boolean isWildcardURI(String uri) {
+      return (uri.trim().endsWith("*"));
+   }
+
+   /**
+    * check if uri1 scopes uri2. That is, uri1 is more general than uri2.
+    */
+   public static boolean scopes(String uri1, String uri2) {
+      /*
+       * the root url is the most general
+       */
+      if (uri1.compareTo("/*") == 0) {
+         return true;
+      } else {
+         if (isWildcardURI(uri1) && (false == isWildcardURI(uri2))) {
+            /*
+             * uri1 is a wildcard and uri2 is specific.
+             */
+            return true;
+         } else if (isWildcardURI(uri2) && (false == isWildcardURI(uri1))) {
+            /*
+             * uri1 is specific and uri2 is a wildcard route
+             */
+            return false;
+         } else if ((false == isWildcardURI(uri2)) && (false == isWildcardURI(uri1))) {
+            /*
+             * both routes are specific
+             */
+            if (uri1.startsWith(uri2)) {
+               /*
+                * uri1 is a subroute of uri2
+                */
+               return false;
+            } else if (uri2.startsWith(uri1)) {
+               /*
+                * uri2 is a subroute of uri1
+                */
+               return true;
+            } else {
+               /*
+                * routes are not related or are equal
+                */
+               return false;
+            }
+         } else {
+            /*
+             * both routes are wildcard
+             */
+            final String trimmeduri1 = uri1.substring(0, uri1.length() - 1);
+            final String trimmeduri2 = uri2.substring(0, uri2.length() - 1);
+            if (trimmeduri1.startsWith(trimmeduri2)) {
+               /*
+                * uri1 is a subroute of uri2
+                */
+               return false;
+            } else if (trimmeduri2.startsWith(trimmeduri1)) {
+               /*
+                * uri2 is a subroute of uri1
+                */
+               return true;
+            } else {
+               /*
+                * routes are not related or are equal
+                */
+               return false;
+            }
+         }
+      }
+   }
+
    /**
     * route annotation
     */
@@ -245,52 +315,15 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     */
    public boolean scopes(PragmatachRoute pragmatachRoute) {
       if (null != pragmatachRoute) {
-         /*
-          * the root url is the most general
-          */
-         if (route.uri().compareTo("/*") == 0) {
-            logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
-            return true;
-         }
-         if (isWildcardRoute()) {
-            if (false == pragmatachRoute.isWildcardRoute()) {
-               /*
-                * wildcard routes always scope non-wildcard routes
-                */
-               logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
-               return true;
-            } else {
-               final String thisnonStarRoute = route.uri().substring(0, route.uri().length() - 1);
-               final String othernonStarRoute = route.uri().substring(0, route.uri().length() - 1);
-               if (othernonStarRoute.startsWith(thisnonStarRoute)) {
-                  logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
-                  return true;
-               } else {
-                  logger.debug(route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
-                  return false;
-               }
-            }
+         final boolean ret = scopes(route.uri(), pragmatachRoute.route.uri());
+         if (ret) {
+            logger.debug(route.uri() + " scopes " + pragmatachRoute.route.uri());
          } else {
-            if (false == pragmatachRoute.isWildcardRoute()) {
-               /*
-                * check that the routes are on the same path
-                */
-               if (pragmatachRoute.route.uri().startsWith(route.uri())) {
-                  /*
-                   * the parameter count for *this* is less than the parameter count for the passed route
-                   */
-                  if (getSegmentCount() < pragmatachRoute.getSegmentCount()) {
-                     logger.debug(route.uri() + " scopes " + pragmatachRoute.getRoute().uri());
-                     return true;
-                  }
-               }
-            } else {
-               logger.debug(route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
-               return false;
-            }
+            logger.debug(route.uri() + " doesn't scope " + pragmatachRoute.route.uri());
          }
+         return ret;
+      } else {
+         return false;
       }
-      logger.debug(route.uri() + " DOESN'T scope " + pragmatachRoute.getRoute().uri());
-      return false;
    }
 }

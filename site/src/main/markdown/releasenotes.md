@@ -1,6 +1,10 @@
 Release Notes
 ------------------------
 
+### V23
+
+* Fixed route sorting bug
+
 ### V21
 
 * Added streaming controller to support building controllers from simple streams
