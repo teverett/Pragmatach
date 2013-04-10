@@ -93,7 +93,7 @@ public class OpenJPADAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * EntityManager
     */
-   private EntityManager entityManager = getEntityManager();
+   private static EntityManager entityManager = getEntityManager();
    /**
     * the type
     */
@@ -184,7 +184,7 @@ public class OpenJPADAO<T, I extends Serializable> extends AbstractDAO<T, I> {
 
    @Override
    public List<T> getAll(int start, int count) throws PragmatachException {
-      return this.entityManager.createQuery(this.find()).setFirstResult(start).setMaxResults(count).getResultList();
+      return entityManager.createQuery(this.find()).setFirstResult(start).setMaxResults(count).getResultList();
    }
 
    public Class<I> getIdentifierClazz() {

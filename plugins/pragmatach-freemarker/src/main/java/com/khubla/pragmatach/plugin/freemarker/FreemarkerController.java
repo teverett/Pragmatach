@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
+import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
 
 import freemarker.template.Configuration;
@@ -38,7 +39,7 @@ public class FreemarkerController extends FormPostBeanBoundController {
                throw new Exception("Unable to load template '" + templateName + "'");
             }
          } else {
-            throw new PragmatachException("Unable to get template name for controller '" + getControllerName() + "'. Does it have an @View annotation?");
+            throw new PragmatachException("Unable to get template name for controller '" + AbstractController.getControllerName(this) + "'. Does it have an @View annotation?");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);
