@@ -36,6 +36,44 @@ public abstract class AbstractController implements PragmatachController {
    }
 
    /**
+    * get the name of the controller from the annotation
+    */
+   public static String getControllerName(Class<?> clazz) {
+      final Controller controller = clazz.getAnnotation(Controller.class);
+      if (null != controller) {
+         String name = controller.name();
+         if (name.length() == 0) {
+            /*
+             * *this* is a proxy, so we need the superclass name
+             */
+            // name = this.getClass().getSuperclass().getSimpleName();
+            name = clazz.getSimpleName();
+         }
+         return name;
+      }
+      return null;
+   }
+
+   /**
+    * get the name of the controller from the annotation
+    */
+   public static String getControllerName(PragmatachController pragmatachController) {
+      final Controller controller = pragmatachController.getClass().getAnnotation(Controller.class);
+      if (null != controller) {
+         String name = controller.name();
+         if (name.length() == 0) {
+            /*
+             * *this* is a proxy, so we need the superclass name
+             */
+            // name = this.getClass().getSuperclass().getSimpleName();
+            name = pragmatachController.getClass().getSimpleName();
+         }
+         return name;
+      }
+      return null;
+   }
+
+   /**
     * request
     */
    private Request request;
@@ -123,25 +161,6 @@ public abstract class AbstractController implements PragmatachController {
     */
    public String getConfigurationParameter(String name) throws PragmatachException {
       return Application.getConfiguration().getParameter(name);
-   }
-
-   /**
-    * get the name of the controller from the annotation
-    */
-   public String getControllerName() {
-      final Controller controller = this.getClass().getAnnotation(Controller.class);
-      if (null != controller) {
-         String name = controller.name();
-         if (name.length() == 0) {
-            /*
-             * *this* is a proxy, so we need the superclass name
-             */
-            // name = this.getClass().getSuperclass().getSimpleName();
-            name = this.getClass().getSimpleName();
-         }
-         return name;
-      }
-      return null;
    }
 
    public PragmatachRoute getPragmatachRoute() {

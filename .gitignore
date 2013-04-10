@@ -427,3 +427,13 @@ facebookexample.log
 /contrib/controllertester/target/
 /contrib/controllertester/.settings/
 /contrib/.project
+/plugins/.DS_Store
+/plugins/pragmatach-adminapp/src/main/resources/public/pragmatach/.DS_Store
+/plugins/pragmatach-adminapp/src/main/resources/public/.DS_Store
+/examples/ebeanexample/test-output/
+/examples/ebeanexample/target/
+/examples/ebeanexample/.project
+/examples/ebeanexample/.classpath
+/examples/ebeanexample/pragmatach-drop.sql
+/examples/ebeanexample/pragmatach-create.sql
+/examples/ebeanexample/.settings/

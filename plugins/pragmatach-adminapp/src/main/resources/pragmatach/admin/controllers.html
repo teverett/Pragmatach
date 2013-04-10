@@ -13,7 +13,7 @@
 			</tr>
 			<#list controller.controllers as controllerClazz>
 			<tr>
-				<td>${controller.getControllerAnnotation(controllerClazz).name()}</td>
+				<td>${controller.getControllerName(controllerClazz)}</td>
 				<td>${controller.getControllerAnnotation(controllerClazz).scope()}</td>
 				<td>${controllerClazz.getName()}</td>
 			</tr>

@@ -92,7 +92,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * EBean
     */
-   private EbeanServer ebeanServer = getEBeanServer();
+   private static EbeanServer ebeanServer = getEBeanServer();
    /**
     * the type
     */
@@ -173,7 +173,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    }
 
    public void reloadConfig() {
-      this.ebeanServer = getEBeanServer();
+      ebeanServer = getEBeanServer();
    }
 
    /**

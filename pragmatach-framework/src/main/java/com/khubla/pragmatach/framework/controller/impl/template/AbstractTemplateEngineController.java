@@ -42,10 +42,10 @@ public class AbstractTemplateEngineController extends AbstractController {
             if (null != templateInputStream) {
                return getTemplateAsString(templateInputStream);
             } else {
-               throw new Exception("Unable to load template '" + templateName + "' for controller '" + getControllerName() + "'");
+               throw new Exception("Unable to load template '" + templateName + "' for controller '" + AbstractController.getControllerName(this) + "'");
             }
          } else {
-            throw new PragmatachException("Unable to get template name for controller '" + getControllerName() + "'. Does it have an @View annotation?");
+            throw new PragmatachException("Unable to get template name for controller '" + AbstractController.getControllerName(this) + "'. Does it have an @View annotation?");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplate", e);
@@ -76,7 +76,7 @@ public class AbstractTemplateEngineController extends AbstractController {
       /*
        * add the current controller by name
        */
-      context.put(getControllerName(), this);
+      context.put(AbstractController.getControllerName(this), this);
       /*
        * add all session scoped controllers
        */

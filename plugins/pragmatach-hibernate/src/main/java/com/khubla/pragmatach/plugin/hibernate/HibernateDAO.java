@@ -37,11 +37,11 @@ public class HibernateDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
     */
    private final Class<I> identifierClazz;
    /**
-    * the hibernate session factory
+    * the Hibernate session factory
     */
    private static SessionFactory sessionFactory = buildSessionFactory();
    /**
-    * the hibernate service registry
+    * the Hibernate service registry
     */
    private static ServiceRegistry serviceRegistry;
 

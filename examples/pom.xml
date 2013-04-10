@@ -24,5 +24,6 @@
 		<module>googleexample</module>
 		<module>clusterexample</module>
 		<module>uploadexample</module>
+		<module>ebeanexample</module>
 	</modules>
 </project>	
