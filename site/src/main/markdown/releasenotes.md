@@ -1,6 +1,12 @@
 Release Notes
 ------------------------
 
+### V24
+
+* Fixed a fairly serious bug in pragmatach-openjpa and pragmatach-ebean which was causing the DAO's to reload the configuration over and over
+* Fixed the admin app to always show controller names
+* Added the namespace com.khubla.pragmatach.framework.test with the class AbstractDAOTest to support simple CRUD testing of DAOs.
+
 ### V23
 
 * Fixed route sorting bug
@@ -12,7 +18,7 @@ Release Notes
 ### V20
 
 * Combined pragmatach-json and pragmatach-gson into a single plugin; pragmatach-json
-* Added support for collections to pragmatach-gson
+* Added support for collections to pragmatach-json
 
 ### V19
 

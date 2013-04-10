@@ -88,3 +88,31 @@ examplePOJO1.setName("abc123");r(34);
 dao.save(examplePOJO1);
 </code>    
 </pre>
+
+Simple CRUD testing of DAOs is supported by the class AbstractDAOTest.  An example of using this class is given  below:
+
+<pre>
+<code>
+@Test(enabled = true)
+public class TestMyExamplePOJO extends AbstractDAOTest&lt;MyExamplePOJO, Long&gt; {
+   @Override
+   public DAO<MyExamplePOJO, Long> getDAO() {
+      return MyExamplePOJO.dao;
+   }
+ 
+   @Override
+   public Long getId(MyExamplePOJO myExamplePOJO) {
+      return myExamplePOJO.getId();
+   }
+ 
+   @Override
+   public MyExamplePOJO getInstance() {
+      return new MyExamplePOJO();
+   }
+}
+</code>    
+</pre>
+
+This code will create an instance, save it, retrieve it and perform a number of other simple DAO operations to verify that simple CRUD operations on the DAO work properly.
+
+
