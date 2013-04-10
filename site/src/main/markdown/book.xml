@@ -3,6 +3,15 @@
 	<title>Pragmatach Documentation</title>
 	<chapters>
 		<chapter>
+			<id>contents</id>
+			<title>Contents</title>
+			<sections>
+				<section>
+					<id>contents</id>
+				</section>
+			</sections>
+		</chapter>
+		<chapter>
 			<id>introductions</id>
 			<title>Introductions</title>
 			<sections>

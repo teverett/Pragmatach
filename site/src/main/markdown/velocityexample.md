@@ -1,3 +1,4 @@
+<a id="examples"></a>
 An example Velocity Controller
 ------------------------
 
