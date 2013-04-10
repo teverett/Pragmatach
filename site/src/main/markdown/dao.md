@@ -96,7 +96,7 @@ Simple CRUD testing of DAOs is supported by the class AbstractDAOTest.  An examp
 @Test(enabled = true)
 public class TestMyExamplePOJO extends AbstractDAOTest&lt;MyExamplePOJO, Long&gt; {
    @Override
-   public DAO<MyExamplePOJO, Long> getDAO() {
+   public DAO&lt;MyExamplePOJO, Long&gt; getDAO() {
       return MyExamplePOJO.dao;
    }
  
