@@ -1,6 +1,9 @@
 <a id="releasenotes"></a>
 Release Notes
 ------------------------
+### V25
+
+* Updated documentation
 
 ### V24
 
