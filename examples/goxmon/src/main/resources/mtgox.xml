@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="location" value="file:mtgox.properties"/>
+        <property name="ignoreUnresolvablePlaceholders" value="false"/>
+    </bean>
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="queueCapacity" value="25" />
+    </bean>
+
+    <bean id="logger" class="java.util.logging.Logger"
+          scope="prototype" factory-method="getGlobal" >
+        <property name="level">
+            <util:constant static-field="java.util.logging.Level.ALL"/>
+        </property>
+    </bean>
+
+    <bean id="usdCurrency" class="java.util.Currency"
+          scope="prototype" factory-method="getInstance" >
+        <constructor-arg index="0" value="USD" />
+    </bean>
+
+    <!--
+        Your API key and secret must be passed using a properties file called
+        mtgox.properties that contains the following items...
+            # MtGox API key
+            apikey=PUT_YOUR_API_KEY_HERE
+            # MtGox API secret
+            apisecret=PUT_YOUR_API_SECRET_HERE
+    -->
+    <bean id="httpApiV0" class="to.sparks.mtgox.service.HTTPClientV0Service" >
+        <constructor-arg index="0">
+            <ref bean="logger"/>
+        </constructor-arg>
+        <constructor-arg index="1" value="${apikey}" />
+        <constructor-arg index="2" value="${apisecret}" />
+    </bean>
+    <bean id="httpApiV1" class="to.sparks.mtgox.service.HTTPClientV1Service" >
+        <constructor-arg index="0">
+            <ref bean="logger"/>
+        </constructor-arg>
+        <constructor-arg index="1" value="${apikey}" />
+        <constructor-arg index="2" value="${apisecret}" />
+    </bean>
+
+    <bean id="mtgoxUSD" class="to.sparks.mtgox.service.APIService">
+        <constructor-arg index="0">
+            <ref bean="logger"/>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <ref bean="httpApiV0"/>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <ref bean="httpApiV1"/>
+        </constructor-arg>
+        <constructor-arg index="3">
+            <ref bean="usdCurrency"/>
+        </constructor-arg>
+    </bean>
+
+</beans>

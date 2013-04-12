@@ -25,5 +25,6 @@
 		<module>clusterexample</module>
 		<module>uploadexample</module>
 		<module>ebeanexample</module>
+		<module>goxmon</module>
 	</modules>
 </project>	

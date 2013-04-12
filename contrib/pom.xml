@@ -12,5 +12,6 @@
 	</parent>
 	<modules>
 		<module>controllertester</module>
+		<module>clientproxygenerator</module>
 	</modules>
 </project>

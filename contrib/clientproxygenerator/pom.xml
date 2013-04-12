@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>controllertester</artifactId>
+	<artifactId>clientproxygenerator</artifactId>
 	<packaging>jar</packaging>
-	<name>Khubla.com Pragmatach Controller Tester</name>
+	<name>Khubla.com Pragmatach Client Proxy Generator</name>
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>contrib</artifactId>
@@ -20,20 +20,6 @@
 			<artifactId>opencsv</artifactId>
 			<version>2.3</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.3</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.2.3</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -44,7 +30,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>com.khubla.pragmatach.contrib.controllertester.ControllerTester</mainClass>
+							<mainClass>com.khubla.pragmatach.contrib.clientproxygenerator.ClientProxyGenerator</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -66,7 +52,7 @@
 							</descriptorRefs>
 							<archive>
 								<manifest>
-									<mainClass>com.khubla.pragmatach.contrib.controllertester.ControllerTester</mainClass>
+									<mainClass>com.khubla.pragmatach.contrib.clientproxygenerator.ClientProxyGenerator</mainClass>
 								</manifest>
 							</archive>
 						</configuration>

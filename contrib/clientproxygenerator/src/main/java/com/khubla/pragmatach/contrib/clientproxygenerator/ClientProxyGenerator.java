@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.contrib.controllertester;
+package com.khubla.pragmatach.contrib.clientproxygenerator;
 
 import java.io.FileInputStream;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.apache.commons.cli.PosixParser;
 /**
  * @author tome
  */
-public class ControllerTester {
+public class ClientProxyGenerator {
    /**
     * controllers file option
     */
@@ -22,7 +22,21 @@ public class ControllerTester {
    /**
     * target option
     */
-   private static final String URL_OPTION = "url";
+   private static final String NAMESPACE_OPTION = "namespace";
+
+   /**
+    * test the routes
+    */
+   private static void generateProxies(List<RouteUrl> controllerUrls, String namespace) throws Exception {
+      try {
+         final ClientGenerator clientGenerator = new ClientGenerator("target/pragmatach/");
+         for (final RouteUrl routeUrl : controllerUrls) {
+            clientGenerator.generate(routeUrl, namespace);
+         }
+      } catch (final Exception e) {
+         throw new Exception("Exception in testUrls", e);
+      }
+   }
 
    /**
     * the usual
@@ -36,7 +50,7 @@ public class ControllerTester {
          final Options options = new Options();
          final Option fo = OptionBuilder.withArgName(FILE_OPTION).isRequired(true).withType(String.class).hasArg().withDescription("controllers file").create(FILE_OPTION);
          options.addOption(fo);
-         final Option uo = OptionBuilder.withArgName(URL_OPTION).isRequired(true).withType(String.class).hasArg().withDescription("application url").create(URL_OPTION);
+         final Option uo = OptionBuilder.withArgName(NAMESPACE_OPTION).isRequired(true).withType(String.class).hasArg().withDescription("namespace").create(NAMESPACE_OPTION);
          options.addOption(uo);
          /*
           * parse
@@ -54,7 +68,7 @@ public class ControllerTester {
          /*
           * vars
           */
-         final String url = cmd.getOptionValue(URL_OPTION);
+         final String namespace = cmd.getOptionValue(NAMESPACE_OPTION);
          final String file = cmd.getOptionValue(FILE_OPTION);
          /*
           * read
@@ -63,22 +77,9 @@ public class ControllerTester {
          /*
           * test
           */
-         testUrls(controllerUrls, url);
+         generateProxies(controllerUrls, namespace);
       } catch (final Exception e) {
          e.printStackTrace();
-      }
-   }
-
-   /**
-    * test the routes
-    */
-   private static void testUrls(List<RouteUrl> controllerUrls, String url) throws Exception {
-      try {
-         for (final RouteUrl routeUrl : controllerUrls) {
-            RouteTester.testRoute(url, routeUrl, 1);
-         }
-      } catch (final Exception e) {
-         throw new Exception("Exception in testUrls", e);
       }
    }
 }
