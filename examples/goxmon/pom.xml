@@ -23,7 +23,7 @@
 		</repository>
 	</repositories>
 	<properties>
-		<pragmatach.version>1.24</pragmatach.version>
+		<pragmatach.version>1.25</pragmatach.version>
 		<timestamp>${maven.build.timestamp}</timestamp>
 	</properties>
 	<dependencies>
