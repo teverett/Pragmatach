@@ -1,5 +1,6 @@
 package com.khubla.pragmatach.contrib.controllertester;
 
+import java.io.FileInputStream;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -53,26 +54,30 @@ public class ControllerTester {
          /*
           * vars
           */
-         String url = cmd.getOptionValue(cmd.getOptionValue(FILE_OPTION));
-         String file = cmd.getOptionValue(FILE_OPTION);
+         final String url = cmd.getOptionValue(URL_OPTION);
+         final String file = cmd.getOptionValue(FILE_OPTION);
          /*
           * read
           */
-         List<ControllerUrl> controllerUrls = ControllerUrl.readUrls(file);
+         final List<RouteUrl> controllerUrls = RouteUrl.readRoutes(new FileInputStream(file));
          /*
           * test
           */
          testUrls(controllerUrls, url);
-      } catch (Exception e) {
+      } catch (final Exception e) {
          e.printStackTrace();
       }
    }
 
-   private static void testUrls(List<ControllerUrl> controllerUrls, String url) throws Exception {
+   /**
+    * test the routes
+    */
+   private static void testUrls(List<RouteUrl> controllerUrls, String url) throws Exception {
       try {
-         for (ControllerUrl controllerUrl : controllerUrls) {
+         for (final RouteUrl routeUrl : controllerUrls) {
+            RouteTester.testRoute(url, routeUrl, 1);
          }
-      } catch (Exception e) {
+      } catch (final Exception e) {
          throw new Exception("Exception in testUrls", e);
       }
    }

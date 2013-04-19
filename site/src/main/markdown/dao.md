@@ -1,3 +1,4 @@
+<a id="persistence"></a>
 DAOs
 ------------------------
 
@@ -96,7 +97,7 @@ Simple CRUD testing of DAOs is supported by the class AbstractDAOTest.  An examp
 @Test(enabled = true)
 public class TestMyExamplePOJO extends AbstractDAOTest&lt;MyExamplePOJO, Long&gt; {
    @Override
-   public DAO&gt;MyExamplePOJO, Long&lt; getDAO() {
+   public DAO&lt;MyExamplePOJO, Long&gt; getDAO() {
       return MyExamplePOJO.dao;
    }
  

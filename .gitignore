@@ -437,3 +437,15 @@ facebookexample.log
 /examples/ebeanexample/pragmatach-drop.sql
 /examples/ebeanexample/pragmatach-create.sql
 /examples/ebeanexample/.settings/
+/examples/goxmon/target/
+/examples/goxmon/.project
+/examples/goxmon/.classpath
+/examples/goxmon/.settings/
+/contrib/controllertester/test-output/
+/contrib/clientproxygenerator/test-output/
+/contrib/clientproxygenerator/target/
+/contrib/clientproxygenerator/.project
+/contrib/clientproxygenerator/.classpath
+/contrib/clientproxygenerator/.settings/
+/examples/goxmon/goxmon.log
+/.metadata/

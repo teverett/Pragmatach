@@ -1,3 +1,4 @@
+<a id="administration"></a>
 Administration Console
 ------------------------
 

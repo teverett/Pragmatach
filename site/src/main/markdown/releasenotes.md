@@ -1,5 +1,10 @@
+<a id="releasenotes"></a>
 Release Notes
 ------------------------
+### V25
+
+* Updated documentation
+* Fixed problem in rendering runtime exceptions
 
 ### V24
 

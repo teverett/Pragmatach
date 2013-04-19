@@ -28,6 +28,7 @@ public class FreemarkerController extends FormPostBeanBoundController {
       try {
          final Configuration configuration = new Configuration();
          configuration.setLocalizedLookup(false);
+         configuration.setTemplateExceptionHandler(new TemplateExceptionHandlerImpl());
          final PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(getRequest().getServletContext());
          configuration.setTemplateLoader(pragmatachTemplateLoader);
          final String templateName = getTemplateName();
