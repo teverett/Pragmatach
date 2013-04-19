@@ -1,7 +1,7 @@
 mvn archetype:generate                           					\
   -DarchetypeGroupId=com.khubla.pragmatach       					\
   -DarchetypeArtifactId=pragmatach-archetype     					\
-  -DarchetypeVersion=1.25	                           			\
+  -DarchetypeVersion=1.26	                           			\
   -DgroupId=com.khubla.exampleproject            					\
   -DartifactId=myexampleproject                  					\
   -DinteractiveMode=false												 					\
