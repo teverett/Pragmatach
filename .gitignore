@@ -448,3 +448,4 @@ facebookexample.log
 /contrib/clientproxygenerator/.classpath
 /contrib/clientproxygenerator/.settings/
 /examples/goxmon/goxmon.log
+/.metadata/

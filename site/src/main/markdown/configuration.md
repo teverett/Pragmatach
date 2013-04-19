@@ -4,7 +4,7 @@ Configuration
 
 Configuration for the Pragmatach framework is contained in the file
 
-`src\main\resources\pragmatach.configuration`
+`src\main\resources\pragmatach.properties`
 
 Basic configuration values include:
 
