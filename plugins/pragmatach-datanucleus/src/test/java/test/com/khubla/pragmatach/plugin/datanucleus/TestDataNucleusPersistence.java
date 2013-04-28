@@ -25,33 +25,43 @@ public class TestDataNucleusPersistence extends AbstractPersistenceTest {
        * h2
        */
       final HashmapConfigurationImpl h2Configuration = new HashmapConfigurationImpl();
-      h2Configuration.setParameter("datanucleus.driver", "org.h2.Driver");
-      h2Configuration.setParameter("datanucleus.url", "jdbc:h2:mem:h2testdb");
-      h2Configuration.setParameter("datanucleus.username", "sa");
-      h2Configuration.setParameter("datanucleus.password", "");
-      h2Configuration.setParameter("datanucleus.autocreate", "true");
-      ret.add(h2Configuration);
+      h2Configuration.setParameter("datanucleus.ConnectionDriverName", "org.h2.Driver");
+      h2Configuration.setParameter("datanucleus.ConnectionURL", "jdbc:h2:mem:h2testdb");
+      h2Configuration.setParameter("datanucleus.ConnectionUserName", "sa");
+      h2Configuration.setParameter("datanucleus.ConnectionPassword", "");
+      h2Configuration.setParameter("datanucleus.autoCreateSchema", "true");
+      // ret.add(h2Configuration);
       /*
        * hsql
        */
       final HashmapConfigurationImpl hsqlConfiguration = new HashmapConfigurationImpl();
-      hsqlConfiguration.setParameter("datanucleus.driver", "org.hsqldb.jdbcDriver");
-      hsqlConfiguration.setParameter("datanucleus.url", "jdbc:hsqldb:mem:testdb");
-      hsqlConfiguration.setParameter("datanucleus.username", "sa");
-      hsqlConfiguration.setParameter("datanucleus.password", "");
-      hsqlConfiguration.setParameter("datanucleus.autocreate", "true");
+      hsqlConfiguration.setParameter("datanucleus.ConnectionDriverName", "org.hsqldb.jdbcDriver");
+      hsqlConfiguration.setParameter("datanucleus.ConnectionURL", "jdbc:hsqldb:mem:testdb");
+      hsqlConfiguration.setParameter("datanucleus.ConnectionUserName", "sa");
+      hsqlConfiguration.setParameter("datanucleus.ConnectionPassword", "");
+      hsqlConfiguration.setParameter("datanucleus.autoCreateSchema", "true");
       ret.add(hsqlConfiguration);
+      /*
+       * derby
+       */
+      final HashmapConfigurationImpl derbyConfiguration = new HashmapConfigurationImpl();
+      derbyConfiguration.setParameter("datanucleus.ConnectionDriverName", "org.apache.derby.jdbc.EmbeddedDriver");
+      derbyConfiguration.setParameter("datanucleus.ConnectionURL", "jdbc:derby:memory:derbytestDB;create=true");
+      derbyConfiguration.setParameter("datanucleus.ConnectionUserName", "");
+      derbyConfiguration.setParameter("datanucleus.ConnectionPassword", "");
+      derbyConfiguration.setParameter("datanucleus.autoCreateSchema", "true");
+      ret.add(derbyConfiguration);
       /*
        * mysql (embedded)
        */
       final File ourAppDir = new File(System.getProperty("java.io.tmpdir"));
       final File databaseDir = new File(ourAppDir, "test-mxj");
       final HashmapConfigurationImpl mysqlConfiguration = new HashmapConfigurationImpl();
-      mysqlConfiguration.setParameter("datanucleus.driver", "com.mysql.jdbc.Driver");
-      mysqlConfiguration.setParameter("datanucleus.url", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
-      mysqlConfiguration.setParameter("datanucleus.username", "");
-      mysqlConfiguration.setParameter("datanucleus.password", "");
-      mysqlConfiguration.setParameter("datanucleus.autocreate", "true");
+      mysqlConfiguration.setParameter("datanucleus.ConnectionDriverName", "com.mysql.jdbc.Driver");
+      mysqlConfiguration.setParameter("datanucleus.ConnectionURL", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
+      mysqlConfiguration.setParameter("datanucleus.ConnectionUserName", "");
+      mysqlConfiguration.setParameter("datanucleus.ConnectionPassword", "");
+      mysqlConfiguration.setParameter("datanucleus.jautoCreateSchema", "true");
       ret.add(mysqlConfiguration);
       /*
        * done

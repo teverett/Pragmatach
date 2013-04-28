@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.jdo.JDOEnhancer;
+import javax.jdo.JDOHelper;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+
+import org.datanucleus.api.jpa.JPAEntityManagerFactory;
+import org.datanucleus.metadata.PersistenceUnitMetaData;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
@@ -44,21 +48,8 @@ public class DataNucleusDAO<T, I extends Serializable> extends AbstractDAO<T, I>
     */
    private static EntityManager getEntityManager() {
       try {
-         /*
-          * get classes
-          */
-         String classesList = "";
          final Set<Class<?>> entityClasses = getEntityClasses();
          if (null != entityClasses) {
-            boolean first = true;
-            for (final Class<?> clazz : entityClasses) {
-               if (first) {
-                  first = false;
-               } else {
-                  classesList += ";";
-               }
-               classesList += clazz.getName();
-            }
          }
          /*
           * set up the properties
@@ -76,13 +67,27 @@ public class DataNucleusDAO<T, I extends Serializable> extends AbstractDAO<T, I>
          /*
           * more properties
           */
-         properties.put("datanucleus.jdbc.SynchronizeMappings", Application.getConfiguration().getParameter("datanucleus.jdbc.SynchronizeMappings"));
-         properties.put("datanucleus.MetaDataFactory", "jpa(Types=" + classesList + ")");
-         properties.put("datanucleus.RuntimeUnenhancedClasses", "supported");
+         properties.put("datanucleus.autoCreateSchema", Application.getConfiguration().getParameter("datanucleus.autoCreateSchema"));
+         /*
+          * add classes at runtime
+          */
+         JDOEnhancer enhancer = JDOHelper.getEnhancer();
+         PersistenceUnitMetaData persistenceUnitMetaData = new PersistenceUnitMetaData("dynamic-unit", "RESOURCE_LOCAL", null);
+         if (null != entityClasses) {
+            for (final Class<?> clazz : entityClasses) {
+               persistenceUnitMetaData.addClassName(clazz.getCanonicalName());
+               enhancer.addClasses(clazz.getCanonicalName());
+            }
+         }
+         /*
+          * enhance
+          */
+         enhancer.setVerbose(true);
+         enhancer.enhance();
          /*
           * EntityManagerFactory
           */
-         final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Pragmatach", properties);
+         final EntityManagerFactory entityManagerFactory = new JPAEntityManagerFactory(persistenceUnitMetaData, properties);
          /*
           * the EntityManager
           */

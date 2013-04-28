@@ -453,3 +453,5 @@ facebookexample.log
 /plugins/pragmatach-datanucleus/.classpath
 /plugins/pragmatach-datanucleus/.settings/
 /plugins/pragmatach-datanucleus/target/
+/plugins/pragmatach-datanucleus/test-output/
+/plugins/pragmatach-datanucleus/derby.log
