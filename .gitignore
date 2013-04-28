@@ -449,3 +449,7 @@ facebookexample.log
 /contrib/clientproxygenerator/.settings/
 /examples/goxmon/goxmon.log
 /.metadata/
+/plugins/pragmatach-datanucleus/.project
+/plugins/pragmatach-datanucleus/.classpath
+/plugins/pragmatach-datanucleus/.settings/
+/plugins/pragmatach-datanucleus/target/
