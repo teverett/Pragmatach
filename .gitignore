@@ -455,3 +455,7 @@ facebookexample.log
 /plugins/pragmatach-datanucleus/target/
 /plugins/pragmatach-datanucleus/test-output/
 /plugins/pragmatach-datanucleus/derby.log
+/examples/cloudsqlexample/target/
+/examples/cloudsqlexample/.project
+/examples/cloudsqlexample/.classpath
+/examples/cloudsqlexample/.settings/

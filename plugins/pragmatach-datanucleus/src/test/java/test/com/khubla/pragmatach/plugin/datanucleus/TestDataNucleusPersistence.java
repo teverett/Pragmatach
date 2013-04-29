@@ -61,7 +61,7 @@ public class TestDataNucleusPersistence extends AbstractPersistenceTest {
       mysqlConfiguration.setParameter("datanucleus.ConnectionURL", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
       mysqlConfiguration.setParameter("datanucleus.ConnectionUserName", "");
       mysqlConfiguration.setParameter("datanucleus.ConnectionPassword", "");
-      mysqlConfiguration.setParameter("datanucleus.jautoCreateSchema", "true");
+      mysqlConfiguration.setParameter("datanucleus.autoCreateSchema", "true");
       ret.add(mysqlConfiguration);
       /*
        * done

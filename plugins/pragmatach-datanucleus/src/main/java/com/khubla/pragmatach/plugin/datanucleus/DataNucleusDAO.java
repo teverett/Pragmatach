@@ -48,9 +48,10 @@ public class DataNucleusDAO<T, I extends Serializable> extends AbstractDAO<T, I>
     */
    private static EntityManager getEntityManager() {
       try {
+         /*
+          * get the entity classes
+          */
          final Set<Class<?>> entityClasses = getEntityClasses();
-         if (null != entityClasses) {
-         }
          /*
           * set up the properties
           */
@@ -72,18 +73,31 @@ public class DataNucleusDAO<T, I extends Serializable> extends AbstractDAO<T, I>
           * add classes at runtime
           */
          JDOEnhancer enhancer = JDOHelper.getEnhancer();
-         PersistenceUnitMetaData persistenceUnitMetaData = new PersistenceUnitMetaData("dynamic-unit", "RESOURCE_LOCAL", null);
+         enhancer.setVerbose(true);
+         /*
+          * enhance classes
+          */
          if (null != entityClasses) {
             for (final Class<?> clazz : entityClasses) {
-               persistenceUnitMetaData.addClassName(clazz.getCanonicalName());
                enhancer.addClasses(clazz.getCanonicalName());
             }
          }
          /*
           * enhance
           */
-         enhancer.setVerbose(true);
          enhancer.enhance();
+         /*
+          * get the enhanced classes
+          */
+         DataNucleusClassLoader dataNucleusClassLoader = new DataNucleusClassLoader(Thread.currentThread().getContextClassLoader());
+         PersistenceUnitMetaData persistenceUnitMetaData = new PersistenceUnitMetaData("dynamic-unit", "RESOURCE_LOCAL", null);
+         if (null != entityClasses) {
+            for (final Class<?> clazz : entityClasses) {
+               byte[] enhancedBytes = enhancer.getEnhancedBytes(clazz.getCanonicalName());
+               dataNucleusClassLoader.addClass(clazz.getCanonicalName(), enhancedBytes);
+               persistenceUnitMetaData.addClassName(clazz.getCanonicalName());
+            }
+         }
          /*
           * EntityManagerFactory
           */
