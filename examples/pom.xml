@@ -26,6 +26,6 @@
 		<module>uploadexample</module>
 		<module>ebeanexample</module>
 		<module>goxmon</module>
-		<module>cloudsqlexample</module>
+		<module>amazonrdsexample</module>
 	</modules>
 </project>	

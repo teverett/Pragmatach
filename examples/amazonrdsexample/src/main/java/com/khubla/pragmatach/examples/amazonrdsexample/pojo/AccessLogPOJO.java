@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.examples.cloudsqlexample.pojo;
+package com.khubla.pragmatach.examples.amazonrdsexample.pojo;
 
 import java.util.Date;
 
@@ -54,5 +54,13 @@ public class AccessLogPOJO {
 
    public void setId(Long id) {
       this.id = id;
+   }
+
+   public AccessLogPOJO() {
+   }
+
+   public AccessLogPOJO(String ip) {
+      this.ip = ip;
+      this.date = new Date();
    }
 }

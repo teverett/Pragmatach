@@ -459,3 +459,8 @@ facebookexample.log
 /examples/cloudsqlexample/.project
 /examples/cloudsqlexample/.classpath
 /examples/cloudsqlexample/.settings/
+/examples/cloudsqlexample/ebeanexample.log
+/examples/amazonrdsexample/target/
+/examples/amazonrdsexample/.project
+/examples/amazonrdsexample/.classpath
+/examples/amazonrdsexample/.settings/

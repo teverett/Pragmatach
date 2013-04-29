@@ -1,8 +1,8 @@
-package test.com.khubla.pragmatach.examples.ebeanexample;
+package test.com.khubla.pragmatach.examples.amazonrdsexample;
 
 import org.testng.annotations.Test;
 
-import com.khubla.pragmatach.examples.cloudsqlexample.pojo.AccessLogPOJO;
+import com.khubla.pragmatach.examples.amazonrdsexample.pojo.AccessLogPOJO;
 import com.khubla.pragmatach.framework.dao.DAO;
 import com.khubla.pragmatach.framework.test.AbstractDAOTest;
 
@@ -10,7 +10,7 @@ import com.khubla.pragmatach.framework.test.AbstractDAOTest;
  * @author tome
  */
 @Test(enabled = true)
-public class TestMyExamplePOJO extends AbstractDAOTest<AccessLogPOJO, Long> {
+public class TestAccessLogPOJO extends AbstractDAOTest<AccessLogPOJO, Long> {
    @Override
    public DAO<AccessLogPOJO, Long> getDAO() {
       return AccessLogPOJO.dao;

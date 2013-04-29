@@ -1,5 +1,6 @@
-package com.khubla.pragmatach.examples.cloudsqlexample;
+package com.khubla.pragmatach.examples.amazonrdsexample;
 
+import com.khubla.pragmatach.examples.amazonrdsexample.pojo.AccessLogPOJO;
 import com.khubla.pragmatach.framework.annotation.Controller;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.View;
@@ -12,6 +13,8 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 public class IndexController extends FreemarkerController {
    @Route(uri = "/")
    public Response render() throws PragmatachException {
+      AccessLogPOJO accessLogPOJO = new AccessLogPOJO(this.getRequest().getHttpServletRequest().getRemoteAddr());
+      AccessLogPOJO.dao.save(accessLogPOJO);
       return super.render();
    }
 }
