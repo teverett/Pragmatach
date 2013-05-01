@@ -30,8 +30,5 @@
 		<module>pragmatach-hibernate</module>
 		<module>pragmatach-openjpa</module>
 		<module>pragmatach-statsd</module>
-	<!--
-		<module>pragmatach-datanucleus</module>
-	-->
-		</modules>
+	</modules>
 </project>
