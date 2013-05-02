@@ -465,3 +465,11 @@ facebookexample.log
 /examples/amazonrdsexample/.classpath
 /examples/amazonrdsexample/.settings/
 /examples/amazonrdsexample/amazonrdsexample.log
+/examples/jspexample/target/
+/examples/jspexample/.project
+/examples/jspexample/.classpath
+/examples/jspexample/.settings/
+/plugins/pragmatach-jsp/target/
+/plugins/pragmatach-jsp/.project
+/plugins/pragmatach-jsp/.classpath
+/plugins/pragmatach-jsp/.settings/

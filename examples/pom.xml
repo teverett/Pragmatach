@@ -26,5 +26,6 @@
 		<module>uploadexample</module>
 		<module>ebeanexample</module>
 		<module>goxmon</module>
+		<module>jspexample</module>
 	</modules>
 </project>	
