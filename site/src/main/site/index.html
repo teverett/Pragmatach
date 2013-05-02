@@ -16,7 +16,7 @@
 mvn archetype:generate                         \
   -DarchetypeGroupId=com.khubla.pragmatach     \
   -DarchetypeArtifactId=pragmatach-archetype   \
-  -DarchetypeVersion=1.26					             \
+  -DarchetypeVersion=1.27					             \
   -DgroupId=com.khubla.exampleproject          \
   -DartifactId=myexampleproject                \
   -DinteractiveMode=false                      \
@@ -36,9 +36,9 @@ mvn archetype:generate                         \
     
     
     </section>
-    #include( "src/main/site/footer.tpl" )
+#include( "src/main/site/footer.tpl" )
   </div>
   <script src="javascripts/scale.fix.js"></script>
-
+#include( "src/main/site/googleanalytics.tpl" )
 </body>
 </html>

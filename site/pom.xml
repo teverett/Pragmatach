@@ -25,6 +25,7 @@
 					<templateFiles>
 						<directory>src/main/site</directory>
 						<includes>
+							<include>**/*.tpl</include>
 							<include>**/*.html</include>
 							<include>**/*.css</include>
 							<include>**/*.js</include>
