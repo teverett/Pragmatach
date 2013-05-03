@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Map;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,15 +38,24 @@ public class Request {
     * creation time
     */
    private final long creationTime = System.currentTimeMillis();
+   /**
+    * servlet config
+    */
+   private final ServletConfig servletConfig;
 
    /**
     * ctor
     */
-   public Request(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Route.HttpMethod method) {
+   public Request(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Route.HttpMethod method, ServletConfig servletConfig) {
       this.httpServletRequest = httpServletRequest;
+      this.servletConfig = servletConfig;
       this.method = method;
       headers = new Headers(httpServletRequest, httpServletResponse);
       cookies = new Cookies(httpServletRequest, httpServletResponse);
+   }
+
+   public ServletConfig getServletConfig() {
+      return servletConfig;
    }
 
    public Cookies getCookies() {

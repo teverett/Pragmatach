@@ -61,7 +61,7 @@ public class PragmatachServlet extends HttpServlet {
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get);
+         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get, this.getServletConfig());
          final Response response = requestRouter.route(request);
          addCustomResponseHeaders(request, httpServletResponse);
          processResponse(response, httpServletResponse);
@@ -73,7 +73,7 @@ public class PragmatachServlet extends HttpServlet {
    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post);
+         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post, this.getServletConfig());
          final Response response = requestRouter.route(request);
          addCustomResponseHeaders(request, httpServletResponse);
          processResponse(response, httpServletResponse);

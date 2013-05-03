@@ -1,30 +1,22 @@
 package com.khubla.pragmatach.plugin.jsp;
 
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Map;
+
+import javax.servlet.Servlet;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
 
 /**
  * @author tome
+ *         <p>
+ *         The idea here is pretty simple. Add the context objects, and redirect.
+ *         </p>
  */
 public class JSPResponse extends AbstractResponse {
-   /**
-    * template
-    */
-   private final String templateName;
-   /**
-    * context
-    */
-   private final Map<String, Object> context;
-
    public JSPResponse(Map<String, String> cacheHeaders, String templateName, Map<String, Object> context) {
       super(cacheHeaders);
-      this.templateName = templateName;
-      this.context = context;
    }
 
    @Override
@@ -40,8 +32,9 @@ public class JSPResponse extends AbstractResponse {
    @Override
    public void render(OutputStream outputStream) throws PragmatachException {
       try {
-         final Writer writer = new OutputStreamWriter(outputStream);
-         writer.flush();
+         JSPCompiler jspCompiler = new JSPCompiler();
+         Servlet servlet = jspCompiler.getServlet("sdsd");
+         // servlet.service(this.g, arg1)
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }
