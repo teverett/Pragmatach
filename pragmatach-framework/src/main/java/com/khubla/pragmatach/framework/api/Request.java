@@ -54,10 +54,6 @@ public class Request {
       cookies = new Cookies(httpServletRequest, httpServletResponse);
    }
 
-   public ServletConfig getServletConfig() {
-      return servletConfig;
-   }
-
    public Cookies getCookies() {
       return cookies;
    }
@@ -123,6 +119,10 @@ public class Request {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in resourcePath", e);
       }
+   }
+
+   public ServletConfig getServletConfig() {
+      return servletConfig;
    }
 
    /**

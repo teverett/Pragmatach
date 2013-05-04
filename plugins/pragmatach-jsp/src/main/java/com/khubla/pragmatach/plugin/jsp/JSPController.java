@@ -1,27 +1,27 @@
 package com.khubla.pragmatach.plugin.jsp;
 
+import javax.servlet.Servlet;
+
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
+import com.khubla.pragmatach.framework.controller.impl.servlet.AbstractServletController;
 
 /**
  * @author tome
  */
-public class JSPController extends FormPostBeanBoundController {
+public class JSPController extends AbstractServletController {
    /**
     * ctor
     */
    public JSPController() {
    }
 
-   /**
-    * render
-    */
-   public Response render() throws PragmatachException {
+   @Override
+   public Servlet getServlet() throws PragmatachException {
       try {
-         return new JSPResponse(getCacheHeaders(), getTemplateName(), getTemplateContext());
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in render", e);
+         JSPCompiler jspCompiler = new JSPCompiler();
+         return jspCompiler.getServlet(this.getTemplate());
+      } catch (Exception e) {
+         throw new PragmatachException("Exception in getServlet", e);
       }
    }
 }

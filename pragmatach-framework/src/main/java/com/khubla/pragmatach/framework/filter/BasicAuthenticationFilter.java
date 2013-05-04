@@ -67,9 +67,11 @@ public class BasicAuthenticationFilter implements Filter {
       }
    }
 
+   @Override
    public void destroy() {
    }
 
+   @Override
    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
       try {
          /*
@@ -109,6 +111,7 @@ public class BasicAuthenticationFilter implements Filter {
       }
    }
 
+   @Override
    public void init(FilterConfig filterConfig) throws ServletException {
       try {
          realm = Application.getConfiguration().getParameter(APPLICATIONREALM);

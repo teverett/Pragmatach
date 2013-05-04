@@ -20,9 +20,11 @@ import com.khubla.pragmatach.framework.controller.impl.system.HttpErrorControlle
  * @author tome
  */
 public class ErrorHandlerFilter implements Filter {
+   @Override
    public void destroy() {
    }
 
+   @Override
    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
       HttpServletResponse response = (HttpServletResponse) servletResponse;
       final HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -41,6 +43,7 @@ public class ErrorHandlerFilter implements Filter {
       }
    }
 
+   @Override
    public void init(FilterConfig filterConfig) throws ServletException {
    }
 }

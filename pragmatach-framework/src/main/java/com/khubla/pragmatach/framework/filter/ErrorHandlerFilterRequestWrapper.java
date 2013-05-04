@@ -13,6 +13,7 @@ public class ErrorHandlerFilterRequestWrapper extends HttpServletResponseWrapper
       super(httpServletResponse);
    }
 
+   @Override
    public void sendError(int errorCode) throws IOException {
       if (errorCode == HttpServletResponse.SC_NOT_FOUND) {
          throw new PageNotFoundException();
@@ -20,6 +21,7 @@ public class ErrorHandlerFilterRequestWrapper extends HttpServletResponseWrapper
       super.sendError(errorCode);
    }
 
+   @Override
    public void setStatus(int sc) {
       super.setStatus(sc);
    }

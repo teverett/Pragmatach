@@ -11,6 +11,7 @@ public abstract class AbstractDAO<T, I extends Serializable> implements DAO<T, I
    /**
     * get a pager
     */
+   @Override
    public Pager<T> getPager(int batchsize) throws PragmatachException {
       return new PagerImpl<T, I>(this, batchsize);
    }

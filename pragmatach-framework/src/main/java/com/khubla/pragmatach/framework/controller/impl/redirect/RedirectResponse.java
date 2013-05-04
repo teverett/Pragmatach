@@ -31,6 +31,7 @@ public class RedirectResponse extends AbstractResponse {
       return null;
    }
 
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       Map<String, String> map = getCacheHeaders();
       if (null == map) {

@@ -25,5 +25,6 @@ public abstract class AbstractStreamingController extends AbstractController imp
    /**
     * the abstract method
     */
+   @Override
    public abstract void render(InputStream httpInputStream, OutputStream httpOutputStream) throws PragmatachException;
 }
