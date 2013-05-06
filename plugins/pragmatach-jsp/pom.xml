@@ -10,6 +10,11 @@
 		<version>1.28-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<properties>
+		<glassfish.javax-impl.version>2.2</glassfish.javax-impl.version>
+		<glassfish.javax.version>2.2.3</glassfish.javax.version>
+		<glassfish.jstl.version>1.2</glassfish.jstl.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
@@ -19,14 +24,40 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>jasper</artifactId>
-			<version>6.0.36</version>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.servlet.jsp</artifactId>
+			<version>${glassfish.javax.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>1.9.0</version>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jsp-impl</artifactId>
+			<version>${glassfish.javax-impl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>${glassfish.javax.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>${glassfish.javax-impl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${glassfish.jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jstl-impl</artifactId>
+			<version>${glassfish.jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

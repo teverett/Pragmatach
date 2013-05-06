@@ -59,8 +59,7 @@ The current status is that Pragmatach is quite new, and has not yet formed a com
 
 ##Known Risks
 
-There is a clear risk that Pragmatach will be unable to build a community. 
-
+There is a clear risk that Pragmatach will be unable to build a community. However, Pragmatach may be able to build a community based on serving a niche need.  There is a clear need for simple, maintainable server-side support for complex client-side site implementations.  While existing frameworks, such as Struts2, can be used to provide that support, Pragmatach provides a simpler, easier to implement solution.  Pragmatach is certainly less capable than broader frameworks, but has the advantage of being simple to set up and capable enough to support its audience.
 
 ##Documentation
 

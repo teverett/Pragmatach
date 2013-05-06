@@ -18,7 +18,7 @@ public class JSPController extends AbstractServletController {
    @Override
    public Servlet getServlet() throws PragmatachException {
       try {
-         JSPCompiler jspCompiler = new JSPCompiler();
+         JSPCompiler jspCompiler = new JSPCompiler(this.getRequest().getServletConfig(), this.getRequest().getServletContext());
          return jspCompiler.getServlet(this.getTemplate());
       } catch (Exception e) {
          throw new PragmatachException("Exception in getServlet", e);

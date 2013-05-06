@@ -6,8 +6,14 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 
-import org.apache.jasper.JspC;
+import org.apache.jasper.EmbeddedServletOptions;
+import org.apache.jasper.JspCompilationContext;
+import org.apache.jasper.Options;
+import org.apache.jasper.compiler.Compiler;
+import org.apache.jasper.compiler.JspRuntimeContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +26,14 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  */
 public class JSPCompiler {
    /**
+    * servlet context
+    */
+   private final ServletContext servletContext;
+   /**
+    * servlet config
+    */
+   private final ServletConfig servletConfig;
+   /**
     * logger
     */
    private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,11 +45,17 @@ public class JSPCompiler {
     * classloader
     */
    private final URLClassLoader urlClassLoader;
+   /**
+    * runtime context
+    */
+   private JspRuntimeContext jspRuntimeContext;
 
    /**
     * ctor
     */
-   public JSPCompiler() throws MalformedURLException {
+   public JSPCompiler(ServletConfig servletConfig, ServletContext servletContext) throws MalformedURLException {
+      this.servletContext = servletContext;
+      this.servletConfig = servletConfig;
       final File f = new File(tempdir);
       f.mkdirs();
       urlClassLoader = new URLClassLoader(new URL[] { new URL("file://" + tempdir) });
@@ -45,21 +65,54 @@ public class JSPCompiler {
     * compile
     */
    private Class<?> compile(String jspFile) throws PragmatachException {
+      ClassLoader originalClassLoader = null;
       try {
+         /*
+          * get description of the class we want to create
+          */
          final String className = makeClassName(jspFile);
+         final String packageName = this.getPackage(jspFile);
          final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
+         /*
+          * log
+          */
          logger.info("Compiling '" + jspFile + "' to '" + fullyQualifiedClassName + "'");
-         final JspC jspc = new JspC();
-         jspc.setCompile(true);
-         jspc.setUriroot(System.getProperty("user.dir"));
-         jspc.setJspFiles(jspFile);
-         jspc.setFailOnError(false);
-         jspc.setOutputDir(tempdir);
-         jspc.setClassName(className);
-         jspc.execute();
+         /*
+          * options
+          */
+         Options options = new EmbeddedServletOptions(this.servletConfig, this.servletContext);
+         /*
+          * set up class compilation context
+          */
+         String jspUri = jspFile.replace('\\', '/');
+         JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, false, options, servletContext, null, jspRuntimeContext);
+         jspCompilationContext.setServletClassName(className);
+         jspCompilationContext.setServletPackageName(packageName);
+         /*
+          * save the class loader and set new class loader
+          */
+         originalClassLoader = Thread.currentThread().getContextClassLoader();
+         Thread.currentThread().setContextClassLoader(urlClassLoader);
+         jspCompilationContext.setClassLoader(urlClassLoader);
+         /*
+          * compile
+          */
+         Compiler compiler = jspCompilationContext.getCompiler();
+         if (null != compiler) {
+            compiler.compile(true);
+         } else {
+            throw new Exception("Unable to get compiler");
+         }
+         /*
+          * done
+          */
          return urlClassLoader.loadClass(fullyQualifiedClassName);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in compile", e);
+      } finally {
+         if (originalClassLoader != null) {
+            Thread.currentThread().setContextClassLoader(originalClassLoader);
+         }
       }
    }
 
@@ -79,8 +132,12 @@ public class JSPCompiler {
    public Servlet getServlet(String jspFile) throws PragmatachException {
       try {
          final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
-         Class<?> clazz = urlClassLoader.loadClass(fullyQualifiedClassName);
-         if (null != clazz) {
+         Class<?> clazz = null;
+         try {
+            clazz = urlClassLoader.loadClass(fullyQualifiedClassName);
+         } catch (ClassNotFoundException ex) {
+         }
+         if (null == clazz) {
             clazz = compile(jspFile);
          }
          return (Servlet) clazz.newInstance();
