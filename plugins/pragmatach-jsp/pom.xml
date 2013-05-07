@@ -10,11 +10,6 @@
 		<version>1.28-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<properties>
-		<glassfish.javax-impl.version>2.2</glassfish.javax-impl.version>
-		<glassfish.javax.version>2.2.3</glassfish.javax.version>
-		<glassfish.jstl.version>1.2</glassfish.jstl.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
@@ -35,8 +30,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
-			<artifactId>jasper</artifactId>
-			<version>6.0.36</version>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>7.0.39</version>
 		</dependency>
 	</dependencies>
 </project>

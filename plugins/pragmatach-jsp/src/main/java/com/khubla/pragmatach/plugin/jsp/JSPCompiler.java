@@ -84,7 +84,7 @@ public class JSPCompiler {
           * set up class compilation context
           */
          String jspUri = jspFile.replace('\\', '/');
-         JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, false, options, servletContext, null, jspRuntimeContext);
+         JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, options, servletContext, null, jspRuntimeContext);
          jspCompilationContext.setServletClassName(className);
          jspCompilationContext.setServletPackageName(packageName);
          /*
