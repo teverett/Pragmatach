@@ -12,7 +12,6 @@ import javax.servlet.ServletContext;
 import org.apache.jasper.EmbeddedServletOptions;
 import org.apache.jasper.JspCompilationContext;
 import org.apache.jasper.Options;
-import org.apache.jasper.compiler.Compiler;
 import org.apache.jasper.compiler.JspRuntimeContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +44,6 @@ public class JSPCompiler {
     * classloader
     */
    private final URLClassLoader urlClassLoader;
-   /**
-    * runtime context
-    */
-   private JspRuntimeContext jspRuntimeContext;
 
    /**
     * ctor
@@ -81,6 +76,10 @@ public class JSPCompiler {
           * options
           */
          Options options = new EmbeddedServletOptions(this.servletConfig, this.servletContext);
+         /**
+          * runtime context
+          */
+         JspRuntimeContext jspRuntimeContext = new JspRuntimeContext(this.servletContext, options);
          /*
           * set up class compilation context
           */
@@ -97,12 +96,7 @@ public class JSPCompiler {
          /*
           * compile
           */
-         Compiler compiler = jspCompilationContext.getCompiler();
-         if (null != compiler) {
-            compiler.compile(true);
-         } else {
-            throw new Exception("Unable to get compiler");
-         }
+         jspCompilationContext.compile();
          /*
           * done
           */

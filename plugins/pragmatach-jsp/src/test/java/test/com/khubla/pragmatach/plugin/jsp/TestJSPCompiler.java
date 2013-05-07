@@ -18,7 +18,7 @@ import com.khubla.pragmatach.plugin.jsp.JSPCompiler;
  * @author tome
  */
 public class TestJSPCompiler {
-   @Test(enabled = false)
+   @Test(enabled = true)
    public void test1() {
       try {
          /*
