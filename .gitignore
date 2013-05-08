@@ -474,3 +474,8 @@ facebookexample.log
 /plugins/pragmatach-jsp/.classpath
 /plugins/pragmatach-jsp/.settings/
 /plugins/pragmatach-jsp/test-output/
+/contrib/testsupport/target/
+/contrib/testsupport/.project
+/contrib/testsupport/.classpath
+/contrib/testsupport/.settings/
+/examples/jspexample/pragmatach.log

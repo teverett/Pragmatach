@@ -13,13 +13,20 @@ import org.apache.jasper.EmbeddedServletOptions;
 import org.apache.jasper.JspCompilationContext;
 import org.apache.jasper.Options;
 import org.apache.jasper.compiler.JspRuntimeContext;
+import org.apache.jasper.servlet.JspServletWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
- * a simple wrapper for JspC
+ * Simple JSP compiler
+ * <p>
+ * http://javasourcecode.org/html/open-source/tomcat/tomcat-7.0.29/org/apache/jasper/JspCompilationContext.java.html
+ * </p>
+ * <p>
+ * http://javasourcecode.org/html/open-source/tomcat/tomcat-7.0.29/org/apache/jasper/JspC.java.html
+ * </p>
  * 
  * @author tome
  */
@@ -44,6 +51,10 @@ public class JSPCompiler {
     * classloader
     */
    private final URLClassLoader urlClassLoader;
+   /**
+    * runtime context
+    */
+   private JspRuntimeContext jspRuntimeContext;
 
    /**
     * ctor
@@ -66,7 +77,7 @@ public class JSPCompiler {
           * get description of the class we want to create
           */
          final String className = makeClassName(jspFile);
-         final String packageName = this.getPackage(jspFile);
+         final String packageName = getPackage(jspFile);
          final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
          /*
           * log
@@ -75,16 +86,16 @@ public class JSPCompiler {
          /*
           * options
           */
-         Options options = new EmbeddedServletOptions(this.servletConfig, this.servletContext);
-         /**
-          * runtime context
+         final Options options = new EmbeddedServletOptions(servletConfig, servletContext);
+         /*
+          * servlet wrapper
           */
-         JspRuntimeContext jspRuntimeContext = new JspRuntimeContext(this.servletContext, options);
+         final JspServletWrapper jspServletWrapper = new JspServletWrapper(servletConfig, options, null, jspRuntimeContext);
          /*
           * set up class compilation context
           */
-         String jspUri = jspFile.replace('\\', '/');
-         JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, options, servletContext, null, jspRuntimeContext);
+         final String jspUri = jspFile.replace('\\', '/');
+         final JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, options, servletContext, jspServletWrapper, jspRuntimeContext);
          jspCompilationContext.setServletClassName(className);
          jspCompilationContext.setServletPackageName(packageName);
          /*
@@ -129,7 +140,7 @@ public class JSPCompiler {
          Class<?> clazz = null;
          try {
             clazz = urlClassLoader.loadClass(fullyQualifiedClassName);
-         } catch (ClassNotFoundException ex) {
+         } catch (final ClassNotFoundException ex) {
          }
          if (null == clazz) {
             clazz = compile(jspFile);

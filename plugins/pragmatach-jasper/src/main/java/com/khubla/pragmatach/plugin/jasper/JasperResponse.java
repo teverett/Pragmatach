@@ -1,7 +1,8 @@
 package com.khubla.pragmatach.plugin.jasper;
 
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
@@ -25,7 +26,7 @@ public class JasperResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

@@ -10,7 +10,7 @@ import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.plugin.jsp.JSPController;
 
 @Controller(name = "IndexController")
-@View(view = "index.html")
+@View(view = "/index.jsp")
 public class IndexController extends JSPController {
    /**
     * the message

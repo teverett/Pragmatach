@@ -1,7 +1,8 @@
 package com.khubla.pragmatach.framework.api;
 
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author tome
@@ -13,5 +14,5 @@ public interface Response {
 
    int getHTTPCode();
 
-   void render(OutputStream outputStream) throws PragmatachException;
+   void render(HttpServletResponse httpServletResponse) throws PragmatachException;
 }

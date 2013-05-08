@@ -1,8 +1,9 @@
 package com.khubla.pragmatach.framework.controller.impl.streaming;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
@@ -41,9 +42,9 @@ public class StreamingResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
-         streamingController.render(inputStream, outputStream);
+         streamingController.render(inputStream, httpServletResponse.getOutputStream());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

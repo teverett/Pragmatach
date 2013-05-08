@@ -1,9 +1,10 @@
 package com.khubla.pragmatach.plugin.thymeleaf;
 
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -47,9 +48,9 @@ public class ThymeleafResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
-         final Writer writer = new OutputStreamWriter(outputStream);
+         final Writer writer = new OutputStreamWriter(httpServletResponse.getOutputStream());
          final TemplateEngine templateEngine = new TemplateEngine();
          templateEngine.setTemplateResolver(templateResolver);
          final Context ctx = new Context();

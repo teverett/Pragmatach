@@ -2,9 +2,9 @@ package test.com.khubla.pragmatach.examples.ebeanexample;
 
 import org.testng.annotations.Test;
 
+import com.khubla.pragmatach.contrib.testsupport.dao.AbstractDAOTest;
 import com.khubla.pragmatach.examples.ebeanexample.pojo.MyExamplePOJO;
 import com.khubla.pragmatach.framework.dao.DAO;
-import com.khubla.pragmatach.framework.test.AbstractDAOTest;
 
 /**
  * @author tome

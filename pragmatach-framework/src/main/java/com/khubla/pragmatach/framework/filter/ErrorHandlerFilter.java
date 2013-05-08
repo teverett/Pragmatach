@@ -36,7 +36,7 @@ public class ErrorHandlerFilter implements Filter {
       } catch (final Exception e) {
          final HttpErrorController httpErrorController = PragmatachControllerFactory.getHttpErrorController(new Request(request, response, Route.HttpMethod.get, null), e);
          try {
-            httpErrorController.render().render(response.getOutputStream());
+            httpErrorController.render().render(response);
          } catch (final Exception e2) {
             throw new ServletException(e2);
          }

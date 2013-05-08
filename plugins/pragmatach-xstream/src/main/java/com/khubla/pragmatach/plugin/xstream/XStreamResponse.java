@@ -1,8 +1,9 @@
 package com.khubla.pragmatach.plugin.xstream;
 
 import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
@@ -40,13 +41,13 @@ public class XStreamResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
          final XStream xstream = new XStream();
          xstream.omitField(AbstractController.class, "request");
          final String XML = xstream.toXML(pragmatachController);
          final ByteArrayInputStream bais = new ByteArrayInputStream(XML.getBytes());
-         IOUtils.copy(bais, outputStream);
+         IOUtils.copy(bais, httpServletResponse.getOutputStream());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

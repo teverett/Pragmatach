@@ -1,8 +1,9 @@
 package com.khubla.pragmatach.framework.controller.impl.trivial;
 
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
@@ -55,12 +56,16 @@ public class TrivialResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
-      if (null != response) {
-         final PrintWriter printWriter = new PrintWriter(outputStream);
-         printWriter.write(response);
-         printWriter.flush();
-         printWriter.close();
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
+      try {
+         if (null != response) {
+            final PrintWriter printWriter = new PrintWriter(httpServletResponse.getOutputStream());
+            printWriter.write(response);
+            printWriter.flush();
+            printWriter.close();
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exceptoin in render", e);
       }
    }
 }

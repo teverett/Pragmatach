@@ -1,8 +1,9 @@
 package com.khubla.pragmatach.plugin.jcr;
 
 import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
@@ -34,10 +35,10 @@ public class JCRResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
          final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(json.getBytes());
-         IOUtils.copy(byteArrayInputStream, outputStream);
+         IOUtils.copy(byteArrayInputStream, httpServletResponse.getOutputStream());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

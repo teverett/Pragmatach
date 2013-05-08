@@ -13,5 +13,6 @@
 	<modules>
 		<module>controllertester</module>
 		<module>clientproxygenerator</module>
+		<module>testsupport</module>
 	</modules>
 </project>

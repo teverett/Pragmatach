@@ -1,7 +1,8 @@
 package com.khubla.pragmatach.plugin.json;
 
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.PragmatachController;
@@ -35,9 +36,9 @@ public class JSONResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
-         PragmaticControllerSerializer.serialize(pragmatachController, outputStream);
+         PragmaticControllerSerializer.serialize(pragmatachController, httpServletResponse.getOutputStream());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

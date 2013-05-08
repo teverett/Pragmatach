@@ -17,6 +17,7 @@ public class ExampleController1 extends TrivialController {
       return super.render();
    }
 
+   @Override
    @Route(uri = "/")
    public Response render() throws PragmatachException {
       return super.render();
