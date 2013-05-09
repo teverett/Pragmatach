@@ -134,7 +134,7 @@ public class JSPCompiler {
          /*
           * the urls
           */
-         List<URL> urls = new ArrayList<URL>();
+         final List<URL> urls = new ArrayList<URL>();
          /*
           * add the temp dir
           */
@@ -142,34 +142,39 @@ public class JSPCompiler {
          /*
           * add the system classpath
           */
-         String systemClasspath = System.getProperty("java.class.path");
-         String[] ss = systemClasspath.split(File.pathSeparator);
-         for (String s : ss) {
+         final String systemClasspath = System.getProperty("java.class.path");
+         final String[] ss = systemClasspath.split(File.pathSeparator);
+         for (final String s : ss) {
             logger.info("Added '" + s + "' to JSP compiler classpath");
             urls.add(new URL("file://" + s));
          }
          /*
           * find the files in /WEB-INF/classes/
           */
-         String rootURI = servletContext.getRealPath(File.separator);
-         File dir = new File(rootURI + "/WEB-INF/classes/");
-         if (dir.exists()) {
-            Collection<File> jars = FileUtils.listFiles(dir, new String[] { "jar" }, true);
-            for (File jar : jars) {
+         final String rootURI = servletContext.getRealPath(File.separator);
+         final File classesDir = new File(rootURI + "/WEB-INF/classes/");
+         if (classesDir.exists()) {
+            final Collection<File> jars = FileUtils.listFiles(classesDir, new String[] { "jar" }, true);
+            for (final File jar : jars) {
                logger.info("Added '" + jar.getAbsolutePath() + "' to JSP compiler classpath");
-               urls.add(new URL(jar.getAbsolutePath()));
+               urls.add(new URL("file://" + jar.getAbsolutePath()));
             }
          }
          /*
-          * add the files from the container
+          * find the files in /WEB-INF/lib/
           */
-         ClassLoader servletClassLoader = this.servletConfig.getServletContext().getClassLoader();
-         if (null != servletClassLoader) {
+         final File libsDir = new File(rootURI + "/WEB-INF/lib/");
+         if (libsDir.exists()) {
+            final Collection<File> jars = FileUtils.listFiles(libsDir, new String[] { "jar" }, true);
+            for (final File jar : jars) {
+               logger.info("Added '" + jar.getAbsolutePath() + "' to JSP compiler classpath");
+               urls.add(new URL("file://" + jar.getAbsolutePath()));
+            }
          }
          /*
           * done
           */
-         URL[] u = new URL[urls.size()];
+         final URL[] u = new URL[urls.size()];
          urls.toArray(u);
          classLoader = new URLClassLoader(u);
       } catch (final Exception e) {
