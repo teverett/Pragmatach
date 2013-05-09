@@ -148,7 +148,6 @@ public class JSPCompiler {
          final String systemClasspath = System.getProperty("java.class.path");
          final String[] ss = systemClasspath.split(File.pathSeparator);
          for (final String s : ss) {
-            logger.info("Added '" + s + "' to JSP compiler classpath");
             urls.add(new URL("file://" + s));
          }
          /*
@@ -159,7 +158,6 @@ public class JSPCompiler {
          if (classesDir.exists()) {
             final Collection<File> jars = FileUtils.listFiles(classesDir, new String[] { "jar" }, true);
             for (final File jar : jars) {
-               logger.info("Added '" + jar.getAbsolutePath() + "' to JSP compiler classpath");
                urls.add(new URL("file://" + jar.getAbsolutePath()));
             }
          }
@@ -170,7 +168,6 @@ public class JSPCompiler {
          if (libsDir.exists()) {
             final Collection<File> jars = FileUtils.listFiles(libsDir, new String[] { "jar" }, true);
             for (final File jar : jars) {
-               logger.info("Added '" + jar.getAbsolutePath() + "' to JSP compiler classpath");
                urls.add(new URL("file://" + jar.getAbsolutePath()));
             }
          }
