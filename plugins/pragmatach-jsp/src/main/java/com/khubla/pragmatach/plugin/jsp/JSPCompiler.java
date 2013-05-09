@@ -140,6 +140,15 @@ public class JSPCompiler {
           */
          urls.add(new URL("file://" + tempdir));
          /*
+          * add the system classpath
+          */
+         String systemClasspath = System.getProperty("java.class.path");
+         String[] ss = systemClasspath.split(File.pathSeparator);
+         for (String s : ss) {
+            logger.info("Added '" + s + "' to JSP compiler classpath");
+            urls.add(new URL("file://" + s));
+         }
+         /*
           * find the files in /WEB-INF/classes/
           */
          String rootURI = servletContext.getRealPath(File.separator);
