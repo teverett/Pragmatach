@@ -3,11 +3,15 @@ package com.khubla.pragmatach.plugin.jsp;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.jasper.EmbeddedServletOptions;
 import org.apache.jasper.JspCompilationContext;
 import org.apache.jasper.Options;
@@ -49,7 +53,7 @@ public class JSPCompiler {
    /**
     * classloader
     */
-   private final ClassLoader classLoader = createClassLoader();
+   private final ClassLoader classLoader;
 
    /**
     * ctor
@@ -59,6 +63,7 @@ public class JSPCompiler {
       this.servletConfig = servletConfig;
       final File f = new File(tempdir);
       f.mkdirs();
+      classLoader = createClassLoader();
    }
 
    /**
@@ -81,10 +86,6 @@ public class JSPCompiler {
           * options
           */
          final Options options = new EmbeddedServletOptions(servletConfig, servletContext);
-         /*
-          * servlet wrapper
-          */
-         // final JspServletWrapper jspServletWrapper = new JspServletWrapper(servletConfig, options, null, jspRuntimeContext);
          /*
           * runtime context
           */
@@ -130,7 +131,38 @@ public class JSPCompiler {
    private ClassLoader createClassLoader() {
       URLClassLoader classLoader = null;
       try {
-         classLoader = new URLClassLoader(new URL[] { new URL("file://" + tempdir) });
+         /*
+          * the urls
+          */
+         List<URL> urls = new ArrayList<URL>();
+         /*
+          * add the temp dir
+          */
+         urls.add(new URL("file://" + tempdir));
+         /*
+          * find the files in /WEB-INF/classes/
+          */
+         String rootURI = servletContext.getRealPath(File.separator);
+         File dir = new File(rootURI + "/WEB-INF/classes/");
+         if (dir.exists()) {
+            Collection<File> jars = FileUtils.listFiles(dir, new String[] { "jar" }, true);
+            for (File jar : jars) {
+               logger.info("Added '" + jar.getAbsolutePath() + "' to JSP compiler classpath");
+               urls.add(new URL(jar.getAbsolutePath()));
+            }
+         }
+         /*
+          * add the files from the container
+          */
+         ClassLoader servletClassLoader = this.servletConfig.getServletContext().getClassLoader();
+         if (null != servletClassLoader) {
+         }
+         /*
+          * done
+          */
+         URL[] u = new URL[urls.size()];
+         urls.toArray(u);
+         classLoader = new URLClassLoader(u);
       } catch (final Exception e) {
          logger.error("Exception in createClassLoader", e);
       }
