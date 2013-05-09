@@ -10,6 +10,9 @@
 		<version>1.28-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<properties>
+		<tomcat.version>6.0.36</tomcat.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
@@ -18,7 +21,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>testsupport</artifactId>
 			<version>1.28-SNAPSHOT</version>
@@ -27,8 +30,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper</artifactId>
-			<version>7.0.39</version>
+			<artifactId>jasper</artifactId>
+			<version>${tomcat.version}</version>
 		</dependency>
 	</dependencies>
 </project>

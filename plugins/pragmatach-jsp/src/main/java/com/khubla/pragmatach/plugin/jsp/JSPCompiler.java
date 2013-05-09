@@ -28,6 +28,9 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * http://javasourcecode.org/html/open-source/tomcat/tomcat-7.0.29/org/apache/jasper/JspCompilationContext.java.html
  * </p>
  * <p>
+ * http://javasourcecode.org/html/open-source/tomcat/tomcat-6.0.32/org/apache/jasper/JspC.java.html
+ * </p>
+ * <p>
  * http://javasourcecode.org/html/open-source/tomcat/tomcat-7.0.29/org/apache/jasper/JspC.java.html
  * </p>
  * 
@@ -53,7 +56,7 @@ public class JSPCompiler {
    /**
     * classloader
     */
-   private final ClassLoader classLoader;
+   private final URLClassLoader classLoader;
 
    /**
     * ctor
@@ -94,7 +97,7 @@ public class JSPCompiler {
           * set up class compilation context
           */
          final String jspUri = jspFile.replace('\\', '/');
-         final JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, options, servletContext, null, jspRuntimeContext);
+         final JspCompilationContext jspCompilationContext = new JspCompilationContext(jspUri, false, options, servletContext, null, jspRuntimeContext);
          jspCompilationContext.setServletClassName(className);
          jspCompilationContext.setServletPackageName(packageName);
          /*
@@ -128,7 +131,7 @@ public class JSPCompiler {
    /**
     * set up the class loader
     */
-   private ClassLoader createClassLoader() {
+   private URLClassLoader createClassLoader() {
       URLClassLoader classLoader = null;
       try {
          /*

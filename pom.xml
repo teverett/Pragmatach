@@ -9,7 +9,7 @@
 	<properties>
 		<target.jvm>1.6</target.jvm>
 		<testng.version>6.8</testng.version>
-		<servlet.version>3.0.1</servlet.version>
+		<servlet.version>2.5</servlet.version>
 		<logback.version>1.0.11</logback.version>
 	</properties>
 	<modules>
@@ -30,7 +30,7 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<artifactId>servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>
