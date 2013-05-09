@@ -29,20 +29,4 @@ public class JSPController extends AbstractTemplateEngineController {
          throw new PragmatachException("Exception in render", e);
       }
    }
-   /**
-    * render
-    */
-   // public Response render() throws PragmatachException {
-   // try {
-   // final String templateName = getTemplateName();
-   // final RequestDispatcher requestDispatcher = getRequest().getServletContext().getRequestDispatcher(templateName);
-   // if (null != requestDispatcher) {
-   // return new JSPResponse(getCacheHeaders(), requestDispatcher, getRequest().getHttpServletRequest(), getTemplateContext());
-   // } else {
-   // throw new Exception("Unable to get RequestDispatcher for '" + templateName + "'");
-   // }
-   // } catch (final Exception e) {
-   // throw new PragmatachException("Exception in render", e);
-   // }
-   // }
 }

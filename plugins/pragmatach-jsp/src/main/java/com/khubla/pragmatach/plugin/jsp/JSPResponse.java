@@ -38,14 +38,6 @@ public class JSPResponse extends AbstractResponse {
       return super.getCacheHeaders();
    }
 
-   // @Override
-   // public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
-   // try {
-   // requestDispatcher.forward(servletRequest, httpServletResponse);
-   // } catch (final Exception e) {
-   // throw new PragmatachException("Exception in render", e);
-   // }
-   // }
    @Override
    public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
