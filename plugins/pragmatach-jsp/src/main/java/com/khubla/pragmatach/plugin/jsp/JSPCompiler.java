@@ -66,6 +66,22 @@ public class JSPCompiler {
     * file
     */
    private final String jspFile;
+   /**
+    * the classname
+    */
+   final String className;
+   /**
+    * the class package
+    */
+   final String packageName;
+   /**
+    * the fully qualified classname
+    */
+   final String fullyQualifiedClassName;
+   /**
+    * the path to the classfile
+    */
+   final String classFilePath;
 
    /**
     * ctor
@@ -76,6 +92,10 @@ public class JSPCompiler {
       options = new EmbeddedServletOptions(servletConfig, servletContext);
       this.jspFile = jspFile;
       compilerClassLoader = createCompilerClassLoader(jspFile);
+      className = makeClassName();
+      packageName = getPackage();
+      fullyQualifiedClassName = getFullyQualifiedClassName();
+      classFilePath = getClassFilePath();
    }
 
    /**
@@ -87,9 +107,9 @@ public class JSPCompiler {
          /*
           * get description of the class we want to create
           */
-         final String className = makeClassName(jspFile);
-         final String packageName = getPackage(jspFile);
-         final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
+         final String className = makeClassName();
+         final String packageName = getPackage();
+         final String fullyQualifiedClassName = getFullyQualifiedClassName();
          /*
           * log
           */
@@ -194,23 +214,35 @@ public class JSPCompiler {
       }
    }
 
+   private final String getClassFilePath() {
+      return getPackageDir(getPackage()) + "/" + makeClassName() + ".class";
+   }
+
    /**
     * get a Class<?> for the jspFile
     */
    private Class<?> getClazz() throws PragmatachException {
       try {
          final URLClassLoader jspClassLoader = createJSPClassLoader();
-         final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
-         Class<?> clazz = null;
-         try {
-            clazz = jspClassLoader.loadClass(fullyQualifiedClassName);
-         } catch (final ClassNotFoundException ex) {
-         }
-         if (null == clazz) {
+         /*
+          * file exists?
+          */
+         final File classFile = new File(classFilePath);
+         if (classFile.exists()) {
+            /*
+             * here we would check file dates. currently we can't, so we'll compile. lame.
+             */
             compile();
-            clazz = jspClassLoader.loadClass(fullyQualifiedClassName);
+         } else {
+            /*
+             * doesn't exist. compile it
+             */
+            compile();
          }
-         return clazz;
+         /*
+          * try to get class
+          */
+         return jspClassLoader.loadClass(fullyQualifiedClassName);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getClazz", e);
       }
@@ -219,14 +251,14 @@ public class JSPCompiler {
    /**
     * get jspFile fully qualified name
     */
-   private String getFullyQualifiedClassName(String jspFile) {
-      return getPackage(jspFile) + "." + makeClassName(jspFile);
+   private String getFullyQualifiedClassName() {
+      return getPackage() + "." + makeClassName();
    }
 
    /**
     * get jspFile package
     */
-   private String getPackage(String jspFile) {
+   private String getPackage() {
       final String classPart = jspFile.replaceAll(File.separator, ".");
       final int i = classPart.lastIndexOf(File.separator);
       if (-1 != i) {
@@ -259,7 +291,7 @@ public class JSPCompiler {
    /**
     * create classname from jspFile
     */
-   private String makeClassName(String jspFile) {
+   private String makeClassName() {
       /*
        * get the part after the last dot
        */
