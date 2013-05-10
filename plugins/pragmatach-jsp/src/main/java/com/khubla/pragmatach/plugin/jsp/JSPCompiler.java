@@ -82,7 +82,7 @@ public class JSPCompiler {
    /**
     * compile a jspFile and return the class type
     */
-   private Class<?> compile() throws PragmatachException {
+   private void compile() throws PragmatachException {
       ClassLoader originalClassLoader = null;
       try {
          /*
@@ -129,10 +129,6 @@ public class JSPCompiler {
           * refresh the classloader
           */
          jspClassLoader = createClassLoader(jspUri);
-         /*
-          * done
-          */
-         return jspClassLoader.loadClass(fullyQualifiedClassName);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in compile", e);
       } finally {
@@ -235,19 +231,32 @@ public class JSPCompiler {
    }
 
    /**
-    * given a JSP file relative path, return a Servlet
+    * get a Class<?> for the jspFile
     */
-   public HttpServlet getServlet() throws PragmatachException {
+   private Class<?> getClazz() throws PragmatachException {
       try {
          final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
          Class<?> clazz = null;
          try {
-            clazz = jspClassLoader.loadClass(fullyQualifiedClassName);
+            clazz = Class.forName(fullyQualifiedClassName, true, jspClassLoader);
          } catch (final ClassNotFoundException ex) {
          }
          if (null == clazz) {
-            clazz = compile();
+            compile();
+            clazz = Class.forName(fullyQualifiedClassName, true, jspClassLoader);
          }
+         return clazz;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getClazz", e);
+      }
+   }
+
+   /**
+    * given a JSP file relative path, return a Servlet
+    */
+   public HttpServlet getServlet() throws PragmatachException {
+      try {
+         Class<?> clazz = this.getClazz();
          final Object o = clazz.newInstance();
          return (HttpJspBase) o;
       } catch (final Exception e) {
