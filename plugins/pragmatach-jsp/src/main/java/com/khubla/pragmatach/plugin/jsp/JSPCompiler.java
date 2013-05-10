@@ -18,6 +18,7 @@ import org.apache.jasper.JspCompilationContext;
 import org.apache.jasper.Options;
 import org.apache.jasper.compiler.Compiler;
 import org.apache.jasper.compiler.JspRuntimeContext;
+import org.apache.jasper.runtime.HttpJspBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +39,10 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class JSPCompiler {
+   /**
+    * namespace
+    */
+   private static final String JSP_NAMESPACE = "com.khubla.pragmatach.jsp";
    /**
     * servlet context
     */
@@ -216,9 +221,9 @@ public class JSPCompiler {
       final String classPart = jspFile.replaceAll(File.separator, ".");
       final int i = classPart.lastIndexOf(File.separator);
       if (-1 != i) {
-         return "org.apache.jsp." + classPart.substring(0, i);
+         return JSP_NAMESPACE + "." + classPart.substring(0, i);
       } else {
-         return "org.apache.jsp";
+         return JSP_NAMESPACE;
       }
    }
 
@@ -244,7 +249,7 @@ public class JSPCompiler {
             clazz = compile();
          }
          final Object o = clazz.newInstance();
-         return (org.apache.jasper.runtime.HttpJspBase) o;
+         return (HttpJspBase) o;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getServlet", e);
       }
