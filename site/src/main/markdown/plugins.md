@@ -8,6 +8,7 @@ The Pragmatch framework does not include useful functionality by itself; all fun
 * pragmatach-freemarker; support for the [Freemarker](http://freemarker.sourceforge.net/) template engine
 * pragmatach-thymeleaf; support for the [Thymeleaf](http://www.thymeleaf.org/) template engine
 * pragmatach-velocity; support for the [Velocity](http://velocity.apache.org/) template engine
+* pragmatach-jsp; support for the [Jasper](http://tomcat.apache.org/tomcat-6.0-doc/jasper-howto.html) template engine
 * pragmatach-adminapp; the Pragmatach admin console
 * pragmatach-json; support for [JSON](http://en.wikipedia.org/wiki/JSON), including GET-POST to controllers
 * pragmatach-xtream; XML support for GET-POST via [XStream](http://xstream.codehaus.org/)
@@ -29,7 +30,7 @@ To use a plugin in your project, simply include the plugin module in your projec
 &lt;dependency&gt;
 	&lt;groupId&gt;com.khubla.pragmatach&lt;/groupId&gt;
 	&lt;artifactId&gt;pragmatach-json&lt;/artifactId&gt;
-	&lt;version&gt;1.20-RELEASE&lt;/version&gt;
+	&lt;version&gt;1.28-RELEASE&lt;/version&gt;
 	&lt;type&gt;jar&lt;/type&gt;
 	&lt;scope&gt;compile&lt;/scope&gt;
 &lt;/dependency&gt;
