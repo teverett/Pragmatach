@@ -2,7 +2,7 @@ package com.khubla.pragmatach.plugin.jsp;
 
 import java.util.Map;
 
-import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,17 +14,17 @@ import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
  */
 public class JSPResponse extends AbstractResponse {
    /**
-    * servlet
+    * httpServlet
     */
-   private final Servlet servlet;
+   private final HttpServlet httpServlet;
    /**
     * request
     */
    private final HttpServletRequest httpServletRequest;
 
-   public JSPResponse(Map<String, String> cacheHeaders, Servlet servlet, HttpServletRequest httpServletRequest, Map<String, Object> context) {
+   public JSPResponse(Map<String, String> cacheHeaders, HttpServlet httpServlet, HttpServletRequest httpServletRequest) {
       super(cacheHeaders);
-      this.servlet = servlet;
+      this.httpServlet = httpServlet;
       this.httpServletRequest = httpServletRequest;
    }
 
@@ -41,7 +41,7 @@ public class JSPResponse extends AbstractResponse {
    @Override
    public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
-         servlet.service(httpServletRequest, httpServletResponse);
+         httpServlet.service(httpServletRequest, httpServletResponse);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

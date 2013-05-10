@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.jasper.EmbeddedServletOptions;
 import org.apache.jasper.JspCompilationContext;
 import org.apache.jasper.Options;
@@ -50,29 +51,33 @@ public class JSPCompiler {
     */
    private final Logger logger = LoggerFactory.getLogger(this.getClass());
    /**
-    * tempdir
-    */
-   private final String tempdir = System.getProperty("java.io.tmpdir") + "pragmatach/";
-   /**
     * classloader
     */
-   private final URLClassLoader classLoader;
+   private URLClassLoader jspClassLoader;
+   /**
+    * options
+    */
+   private final Options options;
+   /**
+    * file
+    */
+   private final String jspFile;
 
    /**
     * ctor
     */
-   public JSPCompiler(ServletConfig servletConfig, ServletContext servletContext) {
+   public JSPCompiler(String jspFile, ServletConfig servletConfig, ServletContext servletContext) {
       this.servletContext = servletContext;
       this.servletConfig = servletConfig;
-      final File f = new File(tempdir);
-      f.mkdirs();
-      classLoader = createClassLoader();
+      options = new EmbeddedServletOptions(servletConfig, servletContext);
+      this.jspFile = jspFile;
+      jspClassLoader = createClassLoader(jspFile);
    }
 
    /**
     * compile a jspFile and return the class type
     */
-   private Class<?> compile(String jspFile) throws PragmatachException {
+   private Class<?> compile() throws PragmatachException {
       ClassLoader originalClassLoader = null;
       try {
          /*
@@ -84,7 +89,7 @@ public class JSPCompiler {
          /*
           * log
           */
-         logger.info("Compiling '" + jspFile + "' to '" + fullyQualifiedClassName + "'");
+         logger.info("Compiling '" + jspFile + "' to '" + fullyQualifiedClassName + "' in directory '" + getPackageDir(packageName) + "'");
          /*
           * options
           */
@@ -104,8 +109,8 @@ public class JSPCompiler {
           * save the class loader and set new class loader
           */
          originalClassLoader = Thread.currentThread().getContextClassLoader();
-         Thread.currentThread().setContextClassLoader(classLoader);
-         jspCompilationContext.setClassLoader(classLoader);
+         Thread.currentThread().setContextClassLoader(jspClassLoader);
+         jspCompilationContext.setClassLoader(jspClassLoader);
          /*
           * compile
           */
@@ -116,9 +121,13 @@ public class JSPCompiler {
             throw new Exception("Unable to create compiler");
          }
          /*
+          * refresh the classloader
+          */
+         jspClassLoader = createClassLoader(jspUri);
+         /*
           * done
           */
-         return classLoader.loadClass(fullyQualifiedClassName);
+         return jspClassLoader.loadClass(fullyQualifiedClassName);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in compile", e);
       } finally {
@@ -131,8 +140,7 @@ public class JSPCompiler {
    /**
     * set up the class loader
     */
-   private URLClassLoader createClassLoader() {
-      URLClassLoader classLoader = null;
+   private URLClassLoader createClassLoader(String jspFile) {
       try {
          /*
           * the urls
@@ -141,7 +149,12 @@ public class JSPCompiler {
          /*
           * add the temp dir
           */
-         urls.add(new URL("file://" + tempdir));
+         urls.add(new URL("file://" + options.getScratchDir().getAbsolutePath() + "/"));
+         /*
+          * make sure the package dir is on the classpath
+          */
+         final String packageDir = getPackageDir(getPackage(jspFile));
+         urls.add(new URL("file://" + packageDir + "/"));
          /*
           * add the system classpath
           */
@@ -172,15 +185,21 @@ public class JSPCompiler {
             }
          }
          /*
+          * show all urls
+          */
+         for (final URL url : urls) {
+            logger.debug(url.getPath());
+         }
+         /*
           * done
           */
          final URL[] u = new URL[urls.size()];
          urls.toArray(u);
-         classLoader = new URLClassLoader(u);
+         return new URLClassLoader(u);
       } catch (final Exception e) {
          logger.error("Exception in createClassLoader", e);
+         return null;
       }
-      return classLoader;
    }
 
    /**
@@ -194,29 +213,38 @@ public class JSPCompiler {
     * get jspFile package
     */
    private String getPackage(String jspFile) {
-      final int i = jspFile.lastIndexOf("/");
+      final String classPart = jspFile.replaceAll(File.separator, ".");
+      final int i = classPart.lastIndexOf(File.separator);
       if (-1 != i) {
-         return "org.apache.jsp." + jspFile.substring(0, i).replaceAll("/", ".");
+         return "org.apache.jsp." + classPart.substring(0, i);
       } else {
          return "org.apache.jsp";
       }
    }
 
    /**
+    * get the absolute dir that files in a specific package will end up in
+    */
+   private String getPackageDir(String packageName) {
+      return options.getScratchDir().getAbsolutePath() + File.separator + StringUtils.replace(packageName, ".", File.separator);
+   }
+
+   /**
     * given a JSP file relative path, return a Servlet
     */
-   public Servlet getServlet(String jspFile) throws PragmatachException {
+   public HttpServlet getServlet() throws PragmatachException {
       try {
          final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
          Class<?> clazz = null;
          try {
-            clazz = classLoader.loadClass(fullyQualifiedClassName);
+            clazz = jspClassLoader.loadClass(fullyQualifiedClassName);
          } catch (final ClassNotFoundException ex) {
          }
          if (null == clazz) {
-            clazz = compile(jspFile);
+            clazz = compile();
          }
-         return (Servlet) clazz.newInstance();
+         final Object o = clazz.newInstance();
+         return (org.apache.jasper.runtime.HttpJspBase) o;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getServlet", e);
       }
@@ -226,11 +254,21 @@ public class JSPCompiler {
     * create classname from jspFile
     */
    private String makeClassName(String jspFile) {
+      /*
+       * get the part after the last dot
+       */
       String ret = jspFile.substring(0, jspFile.indexOf("."));
-      final int i = ret.lastIndexOf("/");
+      final int i = ret.lastIndexOf(File.separator);
       if (-1 != i) {
          ret = ret.substring(i + 1);
       }
+      /*
+       * capitalize first letter
+       */
+      ret = ret.substring(0, 1).toUpperCase() + ret.substring(1);
+      /*
+       * done
+       */
       return ret;
    }
 }

@@ -9,10 +9,8 @@
 	<h1>exampleproject</h1>
 	<img
 		th:src="<%=session.getServletContext().getContextPath() + "/public/logo.png"%>" />
-	<p th:text="<%=controller.message%>" />
 
 	<h2>Current Time</h2>
-	<p th:text="<%=controller.time%>" />
 
 	<a
 		th:href="<%=session.getServletContext().getContextPath() + "/pragmatach/admin"%>">Admin</a>
