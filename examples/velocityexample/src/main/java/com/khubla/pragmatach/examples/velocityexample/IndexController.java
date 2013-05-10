@@ -22,18 +22,19 @@ public class IndexController extends VelocityController {
     */
    private int sum = 0;
 
-   public int getSum() {
-      return sum;
-   }
-
-   public void setSum(int sum) {
-      this.sum = sum;
-   }
-
    public String getMessage() {
       return message;
    }
 
+   public int getSum() {
+      return sum;
+   }
+
+   public String getTime() {
+      return new Date().toString();
+   }
+
+   @Override
    @Route(uri = "/")
    public Response render() throws PragmatachException {
       return super.render();
@@ -45,7 +46,7 @@ public class IndexController extends VelocityController {
       return super.render();
    }
 
-   public String getTime() {
-      return new Date().toString();
+   public void setSum(int sum) {
+      this.sum = sum;
    }
 }
