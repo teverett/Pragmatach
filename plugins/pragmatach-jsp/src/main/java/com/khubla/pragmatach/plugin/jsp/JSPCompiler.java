@@ -39,6 +39,10 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  */
 public class JSPCompiler {
    /**
+    * class cache
+    */
+   private static JSPClassCache jspClassCache = new JSPClassCache();
+   /**
     * namespace
     */
    private static final String JSP_NAMESPACE = "com.khubla.pragmatach.jsp";
@@ -223,26 +227,29 @@ public class JSPCompiler {
     */
    private Class<?> getClazz() throws PragmatachException {
       try {
-         final URLClassLoader jspClassLoader = createJSPClassLoader();
          /*
-          * file exists?
+          * get from cache
           */
-         final File classFile = new File(classFilePath);
-         if (classFile.exists()) {
+         Class<?> ret = jspClassCache.find(fullyQualifiedClassName);
+         if (null == ret) {
             /*
-             * here we would check file dates. currently we can't, so we'll compile. lame.
+             * compile
              */
             compile();
-         } else {
             /*
-             * doesn't exist. compile it
+             * get it
              */
-            compile();
+            final URLClassLoader jspClassLoader = createJSPClassLoader();
+            ret = jspClassLoader.loadClass(fullyQualifiedClassName);
+            /*
+             * cache it
+             */
+            jspClassCache.add(ret, fullyQualifiedClassName);
          }
          /*
-          * try to get class
+          * done
           */
-         return jspClassLoader.loadClass(fullyQualifiedClassName);
+         return ret;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getClazz", e);
       }
