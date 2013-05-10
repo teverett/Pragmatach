@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -58,7 +57,7 @@ public class JSPCompiler {
    /**
     * classloader
     */
-   private URLClassLoader jspClassLoader;
+   private URLClassLoader compilerClassLoader;
    /**
     * options
     */
@@ -76,7 +75,7 @@ public class JSPCompiler {
       this.servletConfig = servletConfig;
       options = new EmbeddedServletOptions(servletConfig, servletContext);
       this.jspFile = jspFile;
-      jspClassLoader = createClassLoader(jspFile);
+      compilerClassLoader = createCompilerClassLoader(jspFile);
    }
 
    /**
@@ -114,8 +113,8 @@ public class JSPCompiler {
           * save the class loader and set new class loader
           */
          originalClassLoader = Thread.currentThread().getContextClassLoader();
-         Thread.currentThread().setContextClassLoader(jspClassLoader);
-         jspCompilationContext.setClassLoader(jspClassLoader);
+         Thread.currentThread().setContextClassLoader(compilerClassLoader);
+         jspCompilationContext.setClassLoader(compilerClassLoader);
          /*
           * compile
           */
@@ -128,7 +127,7 @@ public class JSPCompiler {
          /*
           * refresh the classloader
           */
-         jspClassLoader = createClassLoader(jspUri);
+         compilerClassLoader = createCompilerClassLoader(jspUri);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in compile", e);
       } finally {
@@ -139,31 +138,14 @@ public class JSPCompiler {
    }
 
    /**
-    * set up the class loader
+    * set up the class loader for the JSP compiler
     */
-   private URLClassLoader createClassLoader(String jspFile) {
+   private URLClassLoader createCompilerClassLoader(String jspFile) {
       try {
          /*
           * the urls
           */
          final List<URL> urls = new ArrayList<URL>();
-         /*
-          * add the temp dir
-          */
-         urls.add(new URL("file://" + options.getScratchDir().getAbsolutePath() + "/"));
-         /*
-          * make sure the package dir is on the classpath
-          */
-         final String packageDir = getPackageDir(getPackage(jspFile));
-         urls.add(new URL("file://" + packageDir + "/"));
-         /*
-          * add the system classpath
-          */
-         final String systemClasspath = System.getProperty("java.class.path");
-         final String[] ss = systemClasspath.split(File.pathSeparator);
-         for (final String s : ss) {
-            urls.add(new URL("file://" + s));
-         }
          /*
           * find the files in /WEB-INF/classes/
           */
@@ -198,8 +180,39 @@ public class JSPCompiler {
          urls.toArray(u);
          return new URLClassLoader(u);
       } catch (final Exception e) {
-         logger.error("Exception in createClassLoader", e);
+         logger.error("Exception in createCompilerClassLoader", e);
          return null;
+      }
+   }
+
+   private URLClassLoader createJSPClassLoader() {
+      try {
+         return new URLClassLoader(new URL[] { new URL("file://" + options.getScratchDir().getAbsolutePath() + "/") }, Thread.currentThread().getContextClassLoader());
+      } catch (final Exception e) {
+         logger.error("Exception in createJSPClassLoader", e);
+         return null;
+      }
+   }
+
+   /**
+    * get a Class<?> for the jspFile
+    */
+   private Class<?> getClazz() throws PragmatachException {
+      try {
+         final URLClassLoader jspClassLoader = createJSPClassLoader();
+         final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
+         Class<?> clazz = null;
+         try {
+            clazz = jspClassLoader.loadClass(fullyQualifiedClassName);
+         } catch (final ClassNotFoundException ex) {
+         }
+         if (null == clazz) {
+            compile();
+            clazz = jspClassLoader.loadClass(fullyQualifiedClassName);
+         }
+         return clazz;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getClazz", e);
       }
    }
 
@@ -231,32 +244,11 @@ public class JSPCompiler {
    }
 
    /**
-    * get a Class<?> for the jspFile
-    */
-   private Class<?> getClazz() throws PragmatachException {
-      try {
-         final String fullyQualifiedClassName = getFullyQualifiedClassName(jspFile);
-         Class<?> clazz = null;
-         try {
-            clazz = Class.forName(fullyQualifiedClassName, true, jspClassLoader);
-         } catch (final ClassNotFoundException ex) {
-         }
-         if (null == clazz) {
-            compile();
-            clazz = Class.forName(fullyQualifiedClassName, true, jspClassLoader);
-         }
-         return clazz;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getClazz", e);
-      }
-   }
-
-   /**
     * given a JSP file relative path, return a Servlet
     */
-   public HttpServlet getServlet() throws PragmatachException {
+   public HttpJspBase getServlet() throws PragmatachException {
       try {
-         Class<?> clazz = this.getClazz();
+         final Class<?> clazz = getClazz();
          final Object o = clazz.newInstance();
          return (HttpJspBase) o;
       } catch (final Exception e) {

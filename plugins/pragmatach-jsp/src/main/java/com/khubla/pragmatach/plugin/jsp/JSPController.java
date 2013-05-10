@@ -2,7 +2,7 @@ package com.khubla.pragmatach.plugin.jsp;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
+import org.apache.jasper.runtime.HttpJspBase;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.api.Response;
@@ -31,7 +31,8 @@ public class JSPController extends AbstractTemplateEngineController {
           * get the servlet
           */
          final JSPCompiler jspCompiler = new JSPCompiler(templateName, getRequest().getServletConfig(), getRequest().getServletContext());
-         final HttpServlet httpServlet = jspCompiler.getServlet();
+         final HttpJspBase httpServlet = jspCompiler.getServlet();
+         httpServlet.init(getRequest().getServletConfig());
          /*
           * add the context info into the request
           */
