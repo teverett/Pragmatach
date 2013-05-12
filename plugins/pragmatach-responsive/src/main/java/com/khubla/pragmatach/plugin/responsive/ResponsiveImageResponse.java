@@ -1,8 +1,9 @@
 package com.khubla.pragmatach.plugin.responsive;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
@@ -61,12 +62,12 @@ public class ResponsiveImageResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
          if (0 != width) {
-            ImageResizer.resize(imageResource, outputStream, width, height);
+            ImageResizer.resize(imageResource, httpServletResponse.getOutputStream(), width, height);
          } else {
-            ImageResizer.resize(imageResource, outputStream, xscale, yscale);
+            ImageResizer.resize(imageResource, httpServletResponse.getOutputStream(), xscale, yscale);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

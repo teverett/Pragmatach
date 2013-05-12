@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.framework.controller.impl.redirect;
 
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +30,7 @@ public class RedirectResponse extends AbstractResponse {
       return null;
    }
 
+   @Override
    public Map<String, String> getHeaders() throws PragmatachException {
       Map<String, String> map = getCacheHeaders();
       if (null == map) {
@@ -46,7 +46,7 @@ public class RedirectResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

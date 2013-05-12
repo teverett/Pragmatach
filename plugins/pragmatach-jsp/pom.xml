@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>pragmatach-jsp</artifactId>
+	<packaging>jar</packaging>
+	<name>Khubla.com Pragmatach JSP plugin</name>
+	<parent>
+		<groupId>com.khubla.pragmatach</groupId>
+		<artifactId>plugins</artifactId>
+		<version>1.28</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<properties>
+		<tomcat.version>6.0.36</tomcat.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>pragmatach-framework</artifactId>
+			<version>1.28</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>testsupport</artifactId>
+			<version>1.28</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+	</dependencies>
+</project>

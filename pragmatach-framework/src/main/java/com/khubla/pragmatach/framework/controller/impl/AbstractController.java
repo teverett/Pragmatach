@@ -208,6 +208,7 @@ public abstract class AbstractController implements PragmatachController {
       return new RedirectController(uri).render();
    }
 
+   @Override
    public void setPragmatachRoute(PragmatachRoute pragmatachRoute) {
       this.pragmatachRoute = pragmatachRoute;
    }
@@ -215,6 +216,7 @@ public abstract class AbstractController implements PragmatachController {
    /**
     * set the request
     */
+   @Override
    public void setRequest(Request request) {
       this.request = request;
    }

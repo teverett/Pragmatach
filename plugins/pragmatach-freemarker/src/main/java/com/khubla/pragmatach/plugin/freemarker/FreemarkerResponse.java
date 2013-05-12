@@ -1,9 +1,10 @@
 package com.khubla.pragmatach.plugin.freemarker;
 
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.controller.impl.AbstractResponse;
@@ -40,9 +41,9 @@ public class FreemarkerResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
-         final Writer writer = new PrintWriter(outputStream);
+         final Writer writer = new PrintWriter(httpServletResponse.getOutputStream());
          template.process(context, writer);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

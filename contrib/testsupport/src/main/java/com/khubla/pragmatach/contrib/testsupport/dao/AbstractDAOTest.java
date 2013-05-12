@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.framework.test;
+package com.khubla.pragmatach.contrib.testsupport.dao;
 
 import java.io.Serializable;
 import java.util.List;

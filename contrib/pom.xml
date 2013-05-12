@@ -7,11 +7,12 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>pragmatach</artifactId>
-		<version>1.27</version>
+		<version>1.28</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modules>
 		<module>controllertester</module>
 		<module>clientproxygenerator</module>
+		<module>testsupport</module>
 	</modules>
 </project>

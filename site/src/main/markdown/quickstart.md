@@ -9,7 +9,7 @@ To create the skeleton of a test project use the pragmatach maven archetype.
 mvn archetype:generate                                  \
   -DarchetypeGroupId=com.khubla.pragmatach       				\
   -DarchetypeArtifactId=pragmatach-archetype     				\
-  -DarchetypeVersion=1.23                        				\
+  -DarchetypeVersion=1.28                        				\
   -DgroupId=com.khubla.exampleproject            				\
   -DartifactId=myexampleproject				  				 				\
   -DinteractiveMode=false                        				\

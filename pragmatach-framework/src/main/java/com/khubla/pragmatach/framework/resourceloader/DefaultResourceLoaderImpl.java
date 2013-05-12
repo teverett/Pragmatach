@@ -35,6 +35,7 @@ public class DefaultResourceLoaderImpl implements ResourceLoader {
    /**
     * get a resource using the servlet's class loader
     */
+   @Override
    public InputStream getResource(String resource) throws PragmatachException {
       try {
          if ((resource.contains("WEB-INF")) || (resource.contains("META-INF")) || (resource.startsWith("."))) {

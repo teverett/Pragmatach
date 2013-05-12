@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -80,9 +82,9 @@ public class SimpleTemplateResponse extends AbstractResponse {
    }
 
    @Override
-   public void render(OutputStream outputStream) throws PragmatachException {
+   public void render(HttpServletResponse httpServletResponse) throws PragmatachException {
       try {
-         template(resourceInputStream, outputStream, parameters);
+         template(resourceInputStream, httpServletResponse.getOutputStream(), parameters);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

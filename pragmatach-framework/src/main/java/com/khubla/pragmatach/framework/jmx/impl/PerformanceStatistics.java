@@ -21,14 +21,17 @@ public class PerformanceStatistics implements PerformanceStatisticsMXBean {
     */
    private long totalRequests;
 
+   @Override
    public long getLastRenderTime() {
       return lastRenderTime;
    }
 
+   @Override
    public String getServerStartTime() {
       return serverStartTime;
    }
 
+   @Override
    public long getTotalRequests() {
       return totalRequests;
    }

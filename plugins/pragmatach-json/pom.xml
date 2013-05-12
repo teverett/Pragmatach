@@ -6,17 +6,26 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>plugins</artifactId>
-		<version>1.27</version>
+		<version>1.28</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.27</version>
+			<version>1.28</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>com.khubla.pragmatach</groupId>
+			<artifactId>testsupport</artifactId>
+			<version>1.28-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		 -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>

@@ -4,12 +4,12 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.27</version>
+	<version>1.28</version>
 	<name>khubla.com Pragmatach</name>
 	<properties>
 		<target.jvm>1.6</target.jvm>
 		<testng.version>6.8</testng.version>
-		<servlet.version>3.0.1</servlet.version>
+		<servlet.version>2.5</servlet.version>
 		<logback.version>1.0.11</logback.version>
 	</properties>
 	<modules>
@@ -30,7 +30,7 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<artifactId>servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>
@@ -135,6 +135,17 @@
 		<connection>scm:git:git@github.com:teverett/Pragmatach.git</connection>
 		<developerConnection>scm:git:git@github.com:teverett/Pragmatach.git</developerConnection>
 		<url>https://github.com/teverett/Pragmatach</url>
-	  <tag>pragmatach-1.27</tag>
+	  <tag>pragmatach-1.28</tag>
   </scm>
+  <organization>
+		<name>khubla.com</name>
+		<url>http://www.khubla.com</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 </project>

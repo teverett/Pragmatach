@@ -58,10 +58,11 @@ public class PragmatachServlet extends HttpServlet {
       getPerformancestatistics().incrementTotalRequests();
    }
 
+   @Override
    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get);
+         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.get, getServletConfig());
          final Response response = requestRouter.route(request);
          addCustomResponseHeaders(request, httpServletResponse);
          processResponse(response, httpServletResponse);
@@ -70,10 +71,11 @@ public class PragmatachServlet extends HttpServlet {
       }
    }
 
+   @Override
    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
       try {
          final Router requestRouter = new Router();
-         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post);
+         final Request request = new Request(httpServletRequest, httpServletResponse, Route.HttpMethod.post, getServletConfig());
          final Response response = requestRouter.route(request);
          addCustomResponseHeaders(request, httpServletResponse);
          processResponse(response, httpServletResponse);
@@ -85,6 +87,7 @@ public class PragmatachServlet extends HttpServlet {
    /**
     * init
     */
+   @Override
    public void init(ServletConfig servletConfig) throws ServletException {
       try {
          super.init(servletConfig);
@@ -105,7 +108,7 @@ public class PragmatachServlet extends HttpServlet {
                   httpServletResponse.setHeader(key, headers.get(key));
                }
             }
-            response.render(httpServletResponse.getOutputStream());
+            response.render(httpServletResponse);
             final String contentType = response.getContentType();
             if (null != contentType) {
                httpServletResponse.setContentType(contentType);

@@ -39,6 +39,7 @@ public class PagerImpl<T, I extends Serializable> implements Pager<T> {
       return batchsize;
    }
 
+   @Override
    public boolean hasNext() {
       return (currentRecords < totalRecords) ? true : false;
    }
