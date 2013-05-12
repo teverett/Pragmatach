@@ -137,4 +137,15 @@
 		<url>https://github.com/teverett/Pragmatach</url>
 	  <tag>HEAD</tag>
   </scm>
+  <organization>
+		<name>khubla.com</name>
+		<url>http://www.khubla.com</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 </project>
