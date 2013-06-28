@@ -480,3 +480,7 @@ facebookexample.log
 /contrib/testsupport/.settings/
 /examples/jspexample/pragmatach.log
 /examples/jspexample/logFile.2013-05-08.log
+/plugins/pragmatach-jackson/target/
+/plugins/pragmatach-jackson/.project
+/plugins/pragmatach-jackson/.classpath
+/plugins/pragmatach-jackson/.settings/
