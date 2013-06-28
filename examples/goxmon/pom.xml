@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>examples</artifactId>
-		<version>1.29-SNAPSHOT</version>
+		<version>1.29</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<repositories>
@@ -22,7 +22,7 @@
 		</repository>
 	</repositories>
 	<properties>
-		<pragmatach.version>1.29-SNAPSHOT</pragmatach.version>
+		<pragmatach.version>1.29</pragmatach.version>
 		<timestamp>${maven.build.timestamp}</timestamp>
 	</properties>
 	<dependencies>
