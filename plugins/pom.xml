@@ -31,5 +31,6 @@
 		<module>pragmatach-openjpa</module>
 		<module>pragmatach-statsd</module>
 		<module>pragmatach-jsp</module>
+		<module>pragmatach-jackson</module>
 	</modules>
 </project>
