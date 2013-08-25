@@ -177,7 +177,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          /*
           * get collection
           */
-         DBCollection ret = db.getCollection(collectionName);
+         final DBCollection ret = db.getCollection(collectionName);
          /*
           * done
           */
@@ -206,7 +206,11 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
       try {
          final BasicDBObject query = new BasicDBObject(ID, i);
          final DBCursor cursor = this.dbCollection.find(query);
-         return cursor.next();
+         if (cursor.hasNext()) {
+            return cursor.next();
+         } else {
+            return null;
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getObjectById", e);
       }
