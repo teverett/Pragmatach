@@ -1,16 +1,11 @@
 package com.khubla.pragmatach.plugin.mongodb;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.bson.types.ObjectId;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
@@ -25,7 +20,7 @@ import com.mongodb.MongoClient;
 /**
  * @author tome
  */
-public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
+public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    /**
     * DBCollection
     */
@@ -33,20 +28,20 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * serializer
     */
-   private final MongoDBJSONSerializer<T, I> mongoDBJSONSerializer;
+   private final MongoDBJSONSerializer<T> mongoDBJSONSerializer;
    /**
     * the type
     */
    private final Class<T> typeClazz;
    /**
-    * the identifier
+    * type utils
     */
-   private final Class<I> identifierClazz;
+   private final TypeUtils<T> typeUtils;
 
-   public MongoDBDAO(Class<T> typeClazz, Class<I> identifierClazz) {
+   public MongoDBDAO(Class<T> typeClazz) {
       this.typeClazz = typeClazz;
-      this.identifierClazz = identifierClazz;
-      this.mongoDBJSONSerializer = new MongoDBJSONSerializer<T, I>(this.typeClazz, this.identifierClazz);
+      this.typeUtils = new TypeUtils<T>(this.typeClazz);
+      this.mongoDBJSONSerializer = new MongoDBJSONSerializer<T>(this.typeClazz);
       this.dbCollection = getDBCollection();
    }
 
@@ -72,7 +67,7 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
     * delete
     */
    @Override
-   public void deletebyId(I i) throws PragmatachException {
+   public void deletebyId(String i) throws PragmatachException {
       try {
          final DBObject dbObject = getObjectById(i);
          if (null != dbObject) {
@@ -87,7 +82,7 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
     * find by id
     */
    @Override
-   public T findById(I i) throws PragmatachException {
+   public T findById(String i) throws PragmatachException {
       try {
          final DBObject dbObject = getObjectById(i);
          if (null != dbObject) {
@@ -187,41 +182,17 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
       return this.typeClazz.getAnnotation(Entity.class);
    }
 
-   /**
-    * get id
-    */
-   private String getId(T t) throws PragmatachException {
-      try {
-         final String idField = this.getIdFieldName();
-         return BeanUtils.getProperty(t, idField);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getId", e);
-      }
-   }
-
    @Override
-   public Class<I> getIdentifierClazz() {
-      return identifierClazz;
-   }
-
-   /**
-    * get the id field
-    */
-   private String getIdFieldName() {
-      for (final Field field : this.typeClazz.getDeclaredFields()) {
-         if (null != field.getAnnotation(Id.class)) {
-            return field.getName();
-         }
-      }
-      return null;
+   public Class<String> getIdentifierClazz() {
+      return String.class;
    }
 
    /**
     * get object by id
     */
-   private DBObject getObjectById(I i) throws PragmatachException {
+   private DBObject getObjectById(String i) throws PragmatachException {
       try {
-         final BasicDBObject query = new BasicDBObject(this.getIdFieldName(), i);
+         final BasicDBObject query = new BasicDBObject(typeUtils.getIdFieldName(), i);
          final DBCursor cursor = this.dbCollection.find(query);
          return cursor.next();
       } catch (final Exception e) {
@@ -235,24 +206,9 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    }
 
    /**
-    * is genertedid?
-    */
-   private boolean isGeneratedId() throws PragmatachException {
-      try {
-         final Field field = this.typeClazz.getDeclaredField(getIdFieldName());
-         if (null != field.getAnnotation(GeneratedValue.class)) {
-            return true;
-         }
-         return false;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in isGeneratedId", e);
-      }
-   }
-
-   /**
     * get an instance
     */
-   private T newInstance(DBObject dbObject) throws PragmatachException {
+   public T newInstance(DBObject dbObject) throws PragmatachException {
       try {
          final T t = this.typeClazz.newInstance();
          mongoDBJSONSerializer.deserialize(t, dbObject);
@@ -273,13 +229,14 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    @Override
    public void save(T t) throws PragmatachException {
       try {
-         if (isGeneratedId()) {
+         if (typeUtils.isGeneratedId()) {
             /*
              * check for an id
              */
-            final String id = getId(t);
+            final String id = typeUtils.getId(t);
             if (null == id) {
-               this.setId(t, (I) UUID.randomUUID().toString());
+               final ObjectId objectId = new ObjectId();
+               typeUtils.setId(t, objectId.toString());
             }
          }
          /*
@@ -293,25 +250,12 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    }
 
    /**
-    * set id
-    */
-   private void setId(T t, I i) throws PragmatachException {
-      try {
-         final String idField = this.getIdFieldName();
-         BeanUtils.setProperty(t, idField, i);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in setId", e);
-      }
-   }
-
-   /**
     * update object
     */
    @Override
    public void update(T t) throws PragmatachException {
       try {
-         final BasicDBObject basicDBObject = mongoDBJSONSerializer.serialize(t);
-         this.dbCollection.save(basicDBObject);
+         this.save(t);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in update", e);
       }

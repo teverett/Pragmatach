@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.plugin.mongodb;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -12,22 +11,26 @@ import com.mongodb.DBObject;
 /**
  * @author tom
  */
-public class MongoDBJSONSerializer<T, I extends Serializable> {
+public class MongoDBJSONSerializer<T> {
    /**
     * the type
     */
    private final Class<T> typeClazz;
    /**
-    * the identifier
+    * type utils
     */
-   private final Class<I> identifierClazz;
+   private final TypeUtils<T> typeUtils;
+   /**
+    * _id
+    */
+   private static final String ID = "_id";
 
    /**
     * ctor
     */
-   public MongoDBJSONSerializer(Class<T> typeClazz, Class<I> identifierClazz) {
+   public MongoDBJSONSerializer(Class<T> typeClazz) {
       this.typeClazz = typeClazz;
-      this.identifierClazz = identifierClazz;
+      this.typeUtils = new TypeUtils<T>(this.typeClazz);
    }
 
    /**
@@ -36,18 +39,26 @@ public class MongoDBJSONSerializer<T, I extends Serializable> {
    public void deserialize(T t, DBObject dbObject) throws PragmatachException {
       try {
          /*
+          * get the name of the id field
+          */
+         final String idFieldName = this.typeUtils.getIdFieldName();
+         /*
           * walk the fields
           */
          for (final Field field : this.typeClazz.getDeclaredFields()) {
-            BeanUtils.setProperty(t, field.getName(), dbObject.get(field.getName()));
+            /*
+             * read all fields, treating id as special
+             */
+            if (field.getName().compareTo(idFieldName) != 0) {
+               BeanUtils.setProperty(t, field.getName(), dbObject.get(field.getName()));
+            } else {
+               final String objectId = dbObject.get(ID).toString();
+               this.typeUtils.setId(t, objectId);
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
       }
-   }
-
-   public Class<I> getIdentifierClazz() {
-      return identifierClazz;
    }
 
    public Class<T> getTypeClazz() {
@@ -65,11 +76,23 @@ public class MongoDBJSONSerializer<T, I extends Serializable> {
              */
             final BasicDBObject ret = new BasicDBObject();
             /*
+             * get the name of the id field
+             */
+            final String idFieldName = this.typeUtils.getIdFieldName();
+            /*
              * walk the fields
              */
             for (final Field field : this.typeClazz.getDeclaredFields()) {
-               final String propertyValue = BeanUtils.getProperty(t, field.getName());
-               ret.append(field.getName(), propertyValue);
+               /*
+                * persist all fields, treating id as special
+                */
+               if (field.getName().compareTo(idFieldName) != 0) {
+                  final String propertyValue = BeanUtils.getProperty(t, field.getName());
+                  ret.append(field.getName(), propertyValue);
+               } else {
+                  final String id = typeUtils.getId(t);
+                  ret.append(ID, id);
+               }
             }
             /*
              * done

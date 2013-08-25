@@ -13,7 +13,7 @@ public class TestMongoDBJSONSerializer {
    @Test
    public void testSerializeDeserialize() {
       try {
-         final MongoDBJSONSerializer<ExamplePOJO1, Long> mongoDBJSONSerializer = new MongoDBJSONSerializer<ExamplePOJO1, Long>(ExamplePOJO1.class, Long.class);
+         final MongoDBJSONSerializer<ExamplePOJO1> mongoDBJSONSerializer = new MongoDBJSONSerializer<ExamplePOJO1>(ExamplePOJO1.class);
          /*
           * pojo
           */

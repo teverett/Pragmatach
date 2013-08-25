@@ -10,7 +10,6 @@ import com.khubla.pragmatach.dbtestsuite.pojo.ExamplePOJO;
 import com.khubla.pragmatach.framework.api.Configuration;
 import com.khubla.pragmatach.framework.configuration.HashmapConfigurationImpl;
 import com.khubla.pragmatach.framework.dao.DAO;
-import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
 
 /**
  * @author tome
@@ -38,6 +37,6 @@ public class TestMongoDBPersistence extends AbstractPersistenceTest {
 
    @Override
    public DAO<ExamplePOJO, Long> getDAO() {
-      return new MongoDBDAO<ExamplePOJO, Long>(ExamplePOJO.class, Long.class);
+      return null;
    }
 }
