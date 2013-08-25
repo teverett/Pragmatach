@@ -32,5 +32,6 @@
 		<module>pragmatach-statsd</module>
 		<module>pragmatach-jsp</module>
 		<module>pragmatach-jackson</module>
+		<module>pragmatach-mongodb</module>
 	</modules>
 </project>

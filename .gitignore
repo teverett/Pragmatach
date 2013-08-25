@@ -490,3 +490,4 @@ facebookexample.log
 /plugins/pragmatach-mongodb/.project
 /plugins/pragmatach-mongodb/.settings/
 /plugins/pragmatach-mongodb/target/
+/plugins/pragmatach-mongodb/test-output/
