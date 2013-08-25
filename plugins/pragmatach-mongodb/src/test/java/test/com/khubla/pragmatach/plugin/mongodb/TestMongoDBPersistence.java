@@ -18,10 +18,6 @@ import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
 @Test(enabled = true)
 public class TestMongoDBPersistence extends AbstractPersistenceTest {
    @Override
-   public DAO<ExamplePOJO, Long> getDAO() {
-      return new MongoDBDAO<ExamplePOJO, Long>(ExamplePOJO.class, Long.class);
-   }
-
    public Set<Configuration> getConfigurations() {
       final Set<Configuration> ret = new HashSet<Configuration>();
       /*
@@ -38,5 +34,10 @@ public class TestMongoDBPersistence extends AbstractPersistenceTest {
        * done
        */
       return ret;
+   }
+
+   @Override
+   public DAO<ExamplePOJO, Long> getDAO() {
+      return new MongoDBDAO<ExamplePOJO, Long>(ExamplePOJO.class, Long.class);
    }
 }

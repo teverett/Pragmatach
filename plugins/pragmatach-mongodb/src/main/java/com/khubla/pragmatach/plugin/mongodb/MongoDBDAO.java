@@ -164,7 +164,7 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
           * collection
           */
          String collectionName = this.typeClazz.getSimpleName();
-         if ((null != entity.name() && (entity.name().length() > 0))) {
+         if (((null != entity.name()) && (entity.name().length() > 0))) {
             collectionName = entity.name();
          }
          DBCollection ret = db.getCollection(collectionName);
@@ -185,6 +185,18 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
     */
    private Entity getEntity() {
       return this.typeClazz.getAnnotation(Entity.class);
+   }
+
+   /**
+    * get id
+    */
+   private String getId(T t) throws PragmatachException {
+      try {
+         final String idField = this.getIdFieldName();
+         return BeanUtils.getProperty(t, idField);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getId", e);
+      }
    }
 
    @Override
@@ -223,6 +235,21 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    }
 
    /**
+    * is genertedid?
+    */
+   private boolean isGeneratedId() throws PragmatachException {
+      try {
+         final Field field = this.typeClazz.getDeclaredField(getIdFieldName());
+         if (null != field.getAnnotation(GeneratedValue.class)) {
+            return true;
+         }
+         return false;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in isGeneratedId", e);
+      }
+   }
+
+   /**
     * get an instance
     */
    private T newInstance(DBObject dbObject) throws PragmatachException {
@@ -241,45 +268,6 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    }
 
    /**
-    * get id
-    */
-   private String getId(T t) throws PragmatachException {
-      try {
-         String idField = this.getIdFieldName();
-         return BeanUtils.getProperty(t, idField);
-      } catch (Exception e) {
-         throw new PragmatachException("Exception in getId", e);
-      }
-   }
-
-   /**
-    * set id
-    */
-   private void setId(T t, I i) throws PragmatachException {
-      try {
-         String idField = this.getIdFieldName();
-         BeanUtils.setProperty(t, idField, i);
-      } catch (Exception e) {
-         throw new PragmatachException("Exception in setId", e);
-      }
-   }
-
-   /**
-    * is genertedid?
-    */
-   private boolean isGeneratedId() throws PragmatachException {
-      try {
-         Field field = this.typeClazz.getDeclaredField(getIdFieldName());
-         if (null != field.getAnnotation(GeneratedValue.class)) {
-            return true;
-         }
-         return false;
-      } catch (Exception e) {
-         throw new PragmatachException("Exception in isGeneratedId", e);
-      }
-   }
-
-   /**
     * save object
     */
    @Override
@@ -289,7 +277,7 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
             /*
              * check for an id
              */
-            String id = getId(t);
+            final String id = getId(t);
             if (null == id) {
                this.setId(t, (I) UUID.randomUUID().toString());
             }
@@ -301,6 +289,18 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
          this.dbCollection.save(basicDBObject);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in save", e);
+      }
+   }
+
+   /**
+    * set id
+    */
+   private void setId(T t, I i) throws PragmatachException {
+      try {
+         final String idField = this.getIdFieldName();
+         BeanUtils.setProperty(t, idField, i);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in setId", e);
       }
    }
 
