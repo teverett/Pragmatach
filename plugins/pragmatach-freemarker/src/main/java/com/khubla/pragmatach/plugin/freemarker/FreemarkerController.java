@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.Request;
 import com.khubla.pragmatach.framework.api.Response;
 import com.khubla.pragmatach.framework.controller.impl.AbstractController;
 import com.khubla.pragmatach.framework.controller.impl.FormPostBeanBoundController;
@@ -22,20 +23,32 @@ public class FreemarkerController extends FormPostBeanBoundController {
    }
 
    /**
+    * freemarker config
+    */
+   private Configuration getConfiguration() {
+      final Configuration configuration = new Configuration();
+      configuration.setLocalizedLookup(false);
+      configuration.setTemplateExceptionHandler(new TemplateExceptionHandlerImpl());
+      final Request request = getRequest();
+      if (null != request) {
+         final PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(getRequest().getServletContext());
+         configuration.setTemplateLoader(pragmatachTemplateLoader);
+      } else {
+         throw new RuntimeException();
+      }
+      return configuration;
+   }
+
+   /**
     * get the Freemarker Template
     */
    private Template getFreemarkerTemplate() throws PragmatachException {
       try {
-         final Configuration configuration = new Configuration();
-         configuration.setLocalizedLookup(false);
-         configuration.setTemplateExceptionHandler(new TemplateExceptionHandlerImpl());
-         final PragmatachTemplateLoader pragmatachTemplateLoader = new PragmatachTemplateLoader(getRequest().getServletContext());
-         configuration.setTemplateLoader(pragmatachTemplateLoader);
          final String templateName = getTemplateName();
          if (null != templateName) {
             final InputStream templateInputStream = getResource(templateName);
             if (null != templateInputStream) {
-               return new Template(templateName, new InputStreamReader(templateInputStream), configuration);
+               return new Template(templateName, new InputStreamReader(templateInputStream), getConfiguration());
             } else {
                throw new Exception("Unable to load template '" + templateName + "'");
             }
@@ -53,6 +66,18 @@ public class FreemarkerController extends FormPostBeanBoundController {
    public Response render() throws PragmatachException {
       try {
          final Template template = getFreemarkerTemplate();
+         return new FreemarkerResponse(getCacheHeaders(), template, getTemplateContext());
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in render", e);
+      }
+   }
+
+   /**
+    * render
+    */
+   public Response renderTemplate(String templateString) throws PragmatachException {
+      try {
+         final Template template = new Template("/", templateString, getConfiguration());
          return new FreemarkerResponse(getCacheHeaders(), template, getTemplateContext());
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);

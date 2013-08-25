@@ -484,3 +484,5 @@ facebookexample.log
 /plugins/pragmatach-jackson/.project
 /plugins/pragmatach-jackson/.classpath
 /plugins/pragmatach-jackson/.settings/
+/plugins/pragmatach-adminapp/src/main/resources/public/pragmatach/admin/.DS_Store
+/plugins/pragmatach-adminapp/src/main/resources/public/pragmatach/admin/bootstrap/.DS_Store
