@@ -7,6 +7,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 /**
  * @author tom
@@ -32,13 +33,13 @@ public class MongoDBJSONSerializer<T, I extends Serializable> {
    /**
     * deserialize
     */
-   public void deserialize(T t, BasicDBObject basicDBObject) throws PragmatachException {
+   public void deserialize(T t, DBObject dbObject) throws PragmatachException {
       try {
          /*
           * walk the fields
           */
          for (final Field field : this.typeClazz.getDeclaredFields()) {
-            BeanUtils.setProperty(t, field.getName(), basicDBObject.get(field.getName()));
+            BeanUtils.setProperty(t, field.getName(), dbObject.get(field.getName()));
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
@@ -66,8 +67,7 @@ public class MongoDBJSONSerializer<T, I extends Serializable> {
             /*
              * walk the fields
              */
-            final Field[] fields = this.typeClazz.getDeclaredFields();
-            for (final Field field : fields) {
+            for (final Field field : this.typeClazz.getDeclaredFields()) {
                final String propertyValue = BeanUtils.getProperty(t, field.getName());
                ret.append(field.getName(), propertyValue);
             }

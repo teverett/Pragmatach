@@ -1,22 +1,29 @@
 package com.khubla.pragmatach.plugin.mongodb;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
+import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 /**
  * @author tome
  */
-public class MongoDBDAO<T, I extends Serializable> /* extends AbstractDAO<T, I> */{
+public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * the annotation scanner will have run; we can just query for annotated classes
     */
@@ -48,6 +55,85 @@ public class MongoDBDAO<T, I extends Serializable> /* extends AbstractDAO<T, I> 
    public MongoDBDAO(Class<T> typeClazz, Class<I> identifierClazz) {
       this.typeClazz = typeClazz;
       this.identifierClazz = identifierClazz;
+   }
+
+   @Override
+   public long count() throws PragmatachException {
+      return this.dbCollection.count();
+   }
+
+   /**
+    * delete
+    */
+   @Override
+   public void delete(T t) throws PragmatachException {
+      try {
+         final DBObject dbObject = mongoDBJSONSerializer.serialize(t);
+         this.dbCollection.remove(dbObject);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in delete", e);
+      }
+   }
+
+   /**
+    * delete
+    */
+   @Override
+   public void deletebyId(I i) throws PragmatachException {
+      try {
+         final DBObject dbObject = getObjectById(i);
+         if (null != dbObject) {
+            this.dbCollection.remove(dbObject);
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in deletebyId", e);
+      }
+   }
+
+   /**
+    * find by id
+    */
+   @Override
+   public T findById(I i) throws PragmatachException {
+      try {
+         final DBObject dbObject = getObjectById(i);
+         if (null != dbObject) {
+            final T t = newInstance(dbObject);
+            return t;
+         } else {
+            return null;
+         }
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findById", e);
+      }
+   }
+
+   /**
+    * findall
+    */
+   @Override
+   public List<T> getAll() throws PragmatachException {
+      try {
+         final DBCursor cursor = this.dbCollection.find();
+         final List<T> ret = new ArrayList<T>();
+         try {
+            while (cursor.hasNext()) {
+               final DBObject dbObject = cursor.next();
+               final T t = newInstance(dbObject);
+               ret.add(t);
+            }
+         } finally {
+            cursor.close();
+         }
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getAll", e);
+      }
+   }
+
+   @Override
+   public List<T> getAll(int start, int count) throws PragmatachException {
+      return null;
    }
 
    /**
@@ -100,86 +186,55 @@ public class MongoDBDAO<T, I extends Serializable> /* extends AbstractDAO<T, I> 
       return this.typeClazz.getAnnotation(Entity.class);
    }
 
-   // @Override
-   // public long count() throws PragmatachException {
-   // final CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-   // final CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-   // cq.select(qb.count(cq.from(this.typeClazz)));
-   // return entityManager.createQuery(cq).getSingleResult();
-   // }
-   // /**
-   // * delete
-   // */
-   // public void delete(T t) throws PragmatachException {
-   // EntityTransaction entityTransaction = null;
-   // try {
-   // entityTransaction = entityManager.getTransaction();
-   // entityTransaction.begin();
-   // entityManager.remove(t);
-   // entityTransaction.commit();
-   // } catch (final Exception e) {
-   // if (null != entityTransaction) {
-   // entityTransaction.rollback();
-   // }
-   // throw new PragmatachException("Exception in delete", e);
-   // }
-   // }
-   // /**
-   // * delete
-   // */
-   // public void deletebyId(I i) throws PragmatachException {
-   // EntityTransaction entityTransaction = null;
-   // try {
-   // entityTransaction = entityManager.getTransaction();
-   // entityTransaction.begin();
-   // final T t = entityManager.find(typeClazz, i);
-   // if (null != t) {
-   // entityManager.remove(t);
-   // }
-   // entityTransaction.commit();
-   // } catch (final Exception e) {
-   // if (null != entityTransaction) {
-   // entityTransaction.rollback();
-   // }
-   // throw new PragmatachException("Exception in deletebyId", e);
-   // }
-   // }
-   // /**
-   // * get criteria builder
-   // */
-   // public CriteriaQuery<T> find() throws PragmatachException {
-   // return entityManager.getCriteriaBuilder().createQuery(this.typeClazz);
-   // }
-   // /**
-   // * find by id
-   // */
-   // public T findById(I i) throws PragmatachException {
-   // try {
-   // return entityManager.find(typeClazz, i);
-   // } catch (final Exception e) {
-   // throw new PragmatachException("Exception in findById", e);
-   // }
-   // }
-   // /**
-   // * findall
-   // */
-   // public List<T> getAll() throws PragmatachException {
-   // final CriteriaQuery<T> criteria = entityManager.getCriteriaBuilder().createQuery(typeClazz);
-   // criteria.select(criteria.from(typeClazz));
-   // return entityManager.createQuery(criteria).getResultList();
-   // }
-   // @Override
-   // public List<T> getAll(int start, int count) throws PragmatachException {
-   // return entityManager.createQuery(this.find()).setFirstResult(start).setMaxResults(count).getResultList();
-   // }
+   @Override
    public Class<I> getIdentifierClazz() {
       return identifierClazz;
    }
 
+   /**
+    * get the id field
+    */
+   private String getIdFieldName() {
+      for (final Field field : this.typeClazz.getDeclaredFields()) {
+         if (null != field.getAnnotation(Id.class)) {
+            return field.getName();
+         }
+      }
+      return null;
+   }
+
+   /**
+    * get object by id
+    */
+   private DBObject getObjectById(I i) throws PragmatachException {
+      try {
+         final BasicDBObject query = new BasicDBObject(this.getIdFieldName(), i);
+         final DBCursor cursor = this.dbCollection.find(query);
+         return cursor.next();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getObjectById", e);
+      }
+   }
+
+   @Override
    public Class<T> getTypeClazz() {
       return typeClazz;
    }
 
+   /**
+    * get an instance
+    */
+   private T newInstance(DBObject dbObject) throws PragmatachException {
+      try {
+         final T t = this.typeClazz.newInstance();
+         mongoDBJSONSerializer.deserialize(t, dbObject);
+         return t;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in newInstance", e);
+      }
+   }
+
+   @Override
    public void reloadConfig() {
       this.dbCollection = this.getDBCollection();
    }
@@ -187,6 +242,7 @@ public class MongoDBDAO<T, I extends Serializable> /* extends AbstractDAO<T, I> 
    /**
     * save object
     */
+   @Override
    public void save(T t) throws PragmatachException {
       try {
          final BasicDBObject basicDBObject = mongoDBJSONSerializer.serialize(t);
@@ -199,6 +255,7 @@ public class MongoDBDAO<T, I extends Serializable> /* extends AbstractDAO<T, I> 
    /**
     * update object
     */
+   @Override
    public void update(T t) throws PragmatachException {
       try {
          final BasicDBObject basicDBObject = mongoDBJSONSerializer.serialize(t);
