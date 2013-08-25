@@ -53,7 +53,7 @@ public class TestMongoDBPersistence {
       Application.setConfiguration(getConfiguration());
    }
 
-   @Test(enabled = true)
+   @Test(enabled = false)
    public void testBasicFunctionality() {
       try {
          /*
