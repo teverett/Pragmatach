@@ -15,7 +15,7 @@ import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
 /**
  * @author tome
  */
-@Test(enabled = true)
+@Test(enabled = false)
 public class TestMongoDBPersistence extends AbstractPersistenceTest {
    @Override
    public Set<Configuration> getConfigurations() {
