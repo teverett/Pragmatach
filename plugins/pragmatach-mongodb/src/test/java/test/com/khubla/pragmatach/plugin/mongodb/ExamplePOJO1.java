@@ -14,7 +14,7 @@ public class ExamplePOJO1 {
     */
    @Id
    @GeneratedValue
-   private Long id;
+   private String id;
    /**
     * name
     */
@@ -32,7 +32,7 @@ public class ExamplePOJO1 {
       return doubleNumber;
    }
 
-   public Long getId() {
+   public String getId() {
       return id;
    }
 
@@ -48,7 +48,7 @@ public class ExamplePOJO1 {
       this.doubleNumber = doubleNumber;
    }
 
-   public void setId(Long id) {
+   public void setId(String id) {
       this.id = id;
    }
 

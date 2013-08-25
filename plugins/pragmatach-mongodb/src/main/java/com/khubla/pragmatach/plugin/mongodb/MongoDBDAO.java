@@ -37,6 +37,10 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
     * type utils
     */
    private final TypeUtils<T> typeUtils;
+   /**
+    * _id
+    */
+   public static final String ID = "_id";
 
    public MongoDBDAO(Class<T> typeClazz) {
       this.typeClazz = typeClazz;
@@ -136,7 +140,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          final String database = Application.getConfiguration().getParameter("mongodb.Database");
          final String username = Application.getConfiguration().getParameter("mongodb.Username");
          final String password = Application.getConfiguration().getParameter("mongodb.Password");
-         final boolean autoCreate = Boolean.parseBoolean(Application.getConfiguration().getParameter("mongodb.AutoCreate"));
+         final boolean dropCollection = Boolean.parseBoolean(Application.getConfiguration().getParameter("mongodb.DropCollection"));
          /*
           * client & db
           */
@@ -162,10 +166,18 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          if (((null != entity.name()) && (entity.name().length() > 0))) {
             collectionName = entity.name();
          }
-         DBCollection ret = db.getCollection(collectionName);
-         if ((null == ret) && (true == autoCreate)) {
-            ret = db.createCollection(collectionName, null);
+         /*
+          * drop?
+          */
+         if (true == dropCollection) {
+            if (db.collectionExists(collectionName)) {
+               db.getCollection(collectionName).drop();
+            }
          }
+         /*
+          * get collection
+          */
+         DBCollection ret = db.getCollection(collectionName);
          /*
           * done
           */
@@ -192,7 +204,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
     */
    private DBObject getObjectById(String i) throws PragmatachException {
       try {
-         final BasicDBObject query = new BasicDBObject(typeUtils.getIdFieldName(), i);
+         final BasicDBObject query = new BasicDBObject(ID, i);
          final DBCursor cursor = this.dbCollection.find(query);
          return cursor.next();
       } catch (final Exception e) {

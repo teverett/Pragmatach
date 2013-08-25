@@ -19,13 +19,6 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.khubla.pragmatach</groupId>
-			<artifactId>dbtestsuite</artifactId>
-			<version>1.32-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>2.11.2</version>

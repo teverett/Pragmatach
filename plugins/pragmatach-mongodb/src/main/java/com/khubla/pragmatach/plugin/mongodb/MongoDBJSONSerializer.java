@@ -20,10 +20,6 @@ public class MongoDBJSONSerializer<T> {
     * type utils
     */
    private final TypeUtils<T> typeUtils;
-   /**
-    * _id
-    */
-   private static final String ID = "_id";
 
    /**
     * ctor
@@ -52,7 +48,7 @@ public class MongoDBJSONSerializer<T> {
             if (field.getName().compareTo(idFieldName) != 0) {
                BeanUtils.setProperty(t, field.getName(), dbObject.get(field.getName()));
             } else {
-               final String objectId = dbObject.get(ID).toString();
+               final String objectId = dbObject.get(MongoDBDAO.ID).toString();
                this.typeUtils.setId(t, objectId);
             }
          }
@@ -91,7 +87,7 @@ public class MongoDBJSONSerializer<T> {
                   ret.append(field.getName(), propertyValue);
                } else {
                   final String id = typeUtils.getId(t);
-                  ret.append(ID, id);
+                  ret.append(MongoDBDAO.ID, id);
                }
             }
             /*
