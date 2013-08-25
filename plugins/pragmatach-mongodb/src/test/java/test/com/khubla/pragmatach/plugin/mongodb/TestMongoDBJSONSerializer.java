@@ -13,14 +13,14 @@ public class TestMongoDBJSONSerializer {
    @Test
    public void testSerializeDeserialize() {
       try {
-         final MongoDBJSONSerializer<ExamplePOJO1, Integer> mongoDBJSONSerializer = new MongoDBJSONSerializer<ExamplePOJO1, Integer>(ExamplePOJO1.class, Integer.class);
+         final MongoDBJSONSerializer<ExamplePOJO1, Long> mongoDBJSONSerializer = new MongoDBJSONSerializer<ExamplePOJO1, Long>(ExamplePOJO1.class, Long.class);
          /*
           * pojo
           */
          final ExamplePOJO1 examplePOJO1 = new ExamplePOJO1();
          examplePOJO1.setDoubleNumber(123.4);
-         examplePOJO1.setId(new Long(4));
          examplePOJO1.setIntNumber(5);
+         examplePOJO1.setId(new Long(44));
          examplePOJO1.setName("abc123");
          /*
           * serialize

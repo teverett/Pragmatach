@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
@@ -25,11 +29,11 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * DBCollection
     */
-   private DBCollection dbCollection = getDBCollection();
+   private DBCollection dbCollection;
    /**
     * serializer
     */
-   private final MongoDBJSONSerializer<T, I> mongoDBJSONSerializer = new MongoDBJSONSerializer<T, I>(this.typeClazz, this.identifierClazz);
+   private final MongoDBJSONSerializer<T, I> mongoDBJSONSerializer;
    /**
     * the type
     */
@@ -42,6 +46,8 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    public MongoDBDAO(Class<T> typeClazz, Class<I> identifierClazz) {
       this.typeClazz = typeClazz;
       this.identifierClazz = identifierClazz;
+      this.mongoDBJSONSerializer = new MongoDBJSONSerializer<T, I>(this.typeClazz, this.identifierClazz);
+      this.dbCollection = getDBCollection();
    }
 
    @Override
@@ -135,6 +141,7 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
          final String database = Application.getConfiguration().getParameter("mongodb.Database");
          final String username = Application.getConfiguration().getParameter("mongodb.Username");
          final String password = Application.getConfiguration().getParameter("mongodb.Password");
+         final boolean autoCreate = Boolean.parseBoolean(Application.getConfiguration().getParameter("mongodb.AutoCreate"));
          /*
           * client & db
           */
@@ -157,10 +164,17 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
           * collection
           */
          String collectionName = this.typeClazz.getSimpleName();
-         if (null != entity.name()) {
+         if ((null != entity.name() && (entity.name().length() > 0))) {
             collectionName = entity.name();
          }
-         return db.getCollection(collectionName);
+         DBCollection ret = db.getCollection(collectionName);
+         if ((null == ret) && (true == autoCreate)) {
+            ret = db.createCollection(collectionName, null);
+         }
+         /*
+          * done
+          */
+         return ret;
       } catch (final Exception e) {
          throw new ExceptionInInitializerError(e);
       }
@@ -227,11 +241,62 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    }
 
    /**
+    * get id
+    */
+   private String getId(T t) throws PragmatachException {
+      try {
+         String idField = this.getIdFieldName();
+         return BeanUtils.getProperty(t, idField);
+      } catch (Exception e) {
+         throw new PragmatachException("Exception in getId", e);
+      }
+   }
+
+   /**
+    * set id
+    */
+   private void setId(T t, I i) throws PragmatachException {
+      try {
+         String idField = this.getIdFieldName();
+         BeanUtils.setProperty(t, idField, i);
+      } catch (Exception e) {
+         throw new PragmatachException("Exception in setId", e);
+      }
+   }
+
+   /**
+    * is genertedid?
+    */
+   private boolean isGeneratedId() throws PragmatachException {
+      try {
+         Field field = this.typeClazz.getDeclaredField(getIdFieldName());
+         if (null != field.getAnnotation(GeneratedValue.class)) {
+            return true;
+         }
+         return false;
+      } catch (Exception e) {
+         throw new PragmatachException("Exception in isGeneratedId", e);
+      }
+   }
+
+   /**
     * save object
     */
    @Override
    public void save(T t) throws PragmatachException {
       try {
+         if (isGeneratedId()) {
+            /*
+             * check for an id
+             */
+            String id = getId(t);
+            if (null == id) {
+               this.setId(t, (I) UUID.randomUUID().toString());
+            }
+         }
+         /*
+          * save
+          */
          final BasicDBObject basicDBObject = mongoDBJSONSerializer.serialize(t);
          this.dbCollection.save(basicDBObject);
       } catch (final Exception e) {

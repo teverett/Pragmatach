@@ -32,6 +32,7 @@ public class TestMongoDBPersistence extends AbstractPersistenceTest {
       mongoConfiguration.setParameter("mongodb.Database", "test");
       mongoConfiguration.setParameter("mongodb.ConnectionUserName", "");
       mongoConfiguration.setParameter("mongodb.ConnectionPassword", "");
+      mongoConfiguration.setParameter("mongodb.AutoCreate", "true");
       ret.add(mongoConfiguration);
       /*
        * done
