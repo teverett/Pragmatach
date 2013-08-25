@@ -15,7 +15,7 @@ import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
 /**
  * @author tome
  */
-@Test(enabled = false)
+@Test(enabled = true)
 public class TestMongoDBPersistence extends AbstractPersistenceTest {
    @Override
    public DAO<ExamplePOJO, Long> getDAO() {
@@ -27,11 +27,12 @@ public class TestMongoDBPersistence extends AbstractPersistenceTest {
       /*
        * mongo
        */
-      final HashmapConfigurationImpl h2Configuration = new HashmapConfigurationImpl();
-      h2Configuration.setParameter("openjpa.Hostname", "192.168.77.79");
-      h2Configuration.setParameter("openjpa.Database", "test");
-      h2Configuration.setParameter("openjpa.ConnectionUserName", "");
-      h2Configuration.setParameter("openjpa.ConnectionPassword", "");
+      final HashmapConfigurationImpl mongoConfiguration = new HashmapConfigurationImpl();
+      mongoConfiguration.setParameter("mongodb.Hostname", "192.168.77.79");
+      mongoConfiguration.setParameter("mongodb.Database", "test");
+      mongoConfiguration.setParameter("mongodb.ConnectionUserName", "");
+      mongoConfiguration.setParameter("mongodb.ConnectionPassword", "");
+      ret.add(mongoConfiguration);
       /*
        * done
        */

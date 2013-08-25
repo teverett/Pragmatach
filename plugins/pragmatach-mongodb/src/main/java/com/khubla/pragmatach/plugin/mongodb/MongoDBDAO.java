@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.dao.AbstractDAO;
-import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -24,17 +22,6 @@ import com.mongodb.MongoClient;
  * @author tome
  */
 public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
-   /**
-    * the annotation scanner will have run; we can just query for annotated classes
-    */
-   protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
-      try {
-         return AnnotationScanner.getAll(Entity.class);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in getAnnotatedClasses", e);
-      }
-   }
-
    /**
     * DBCollection
     */
@@ -144,10 +131,10 @@ public class MongoDBDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
          /*
           * params
           */
-         final String hostname = Application.getConfiguration().getParameter("mongo.Hostname");
-         final String database = Application.getConfiguration().getParameter("mongo.Database");
-         final String username = Application.getConfiguration().getParameter("mongo.Username");
-         final String password = Application.getConfiguration().getParameter("mongo.Password");
+         final String hostname = Application.getConfiguration().getParameter("mongodb.Hostname");
+         final String database = Application.getConfiguration().getParameter("mongodb.Database");
+         final String username = Application.getConfiguration().getParameter("mongodb.Username");
+         final String password = Application.getConfiguration().getParameter("mongodb.Password");
          /*
           * client & db
           */
