@@ -12,22 +12,22 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 /**
  * @author tom
  */
-public class TypeUtils<T> {
+public class ClassTypeUtils {
    /**
     * the type
     */
-   private final Class<T> typeClazz;
+   private final Class<?> typeClazz;
 
-   public TypeUtils(Class<T> typeClazz) {
+   public ClassTypeUtils(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
    }
 
    /**
     * get id
     */
-   public String getId(T t) throws PragmatachException {
+   public String getId(Object t) throws PragmatachException {
       try {
-         final String idField = this.getIdFieldName();
+         final String idField = getIdFieldName();
          return BeanUtils.getProperty(t, idField);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getId", e);
@@ -38,7 +38,7 @@ public class TypeUtils<T> {
     * get the id field
     */
    public String getIdFieldName() {
-      for (final Field field : this.typeClazz.getDeclaredFields()) {
+      for (final Field field : typeClazz.getDeclaredFields()) {
          if (null != field.getAnnotation(Id.class)) {
             return field.getName();
          }
@@ -51,7 +51,7 @@ public class TypeUtils<T> {
     */
    public boolean isGeneratedId() throws PragmatachException {
       try {
-         final Field field = this.typeClazz.getDeclaredField(getIdFieldName());
+         final Field field = typeClazz.getDeclaredField(getIdFieldName());
          if (null != field.getAnnotation(GeneratedValue.class)) {
             return true;
          }
@@ -64,9 +64,9 @@ public class TypeUtils<T> {
    /**
     * set id
     */
-   public void setId(T t, String i) throws PragmatachException {
+   public void setId(Object t, String i) throws PragmatachException {
       try {
-         final String idField = this.getIdFieldName();
+         final String idField = getIdFieldName();
          BeanUtils.setProperty(t, idField, i);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in setId", e);

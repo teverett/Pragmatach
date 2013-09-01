@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import org.bson.types.ObjectId;
-
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.dao.AbstractDAO;
@@ -28,7 +26,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    /**
     * serializer
     */
-   private final MongoDBJSONSerializer<T> mongoDBJSONSerializer;
+   private final MongoDBJSONSerializer mongoDBJSONSerializer;
    /**
     * the type
     */
@@ -36,7 +34,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    /**
     * type utils
     */
-   private final TypeUtils<T> typeUtils;
+   private final ClassTypeUtils typeUtils;
    /**
     * _id
     */
@@ -44,8 +42,8 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
 
    public MongoDBDAO(Class<T> typeClazz) {
       this.typeClazz = typeClazz;
-      this.typeUtils = new TypeUtils<T>(this.typeClazz);
-      this.mongoDBJSONSerializer = new MongoDBJSONSerializer<T>(this.typeClazz);
+      this.typeUtils = new ClassTypeUtils(this.typeClazz);
+      this.mongoDBJSONSerializer = new MongoDBJSONSerializer(this.typeClazz);
       this.dbCollection = getDBCollection();
    }
 
@@ -83,6 +81,46 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    }
 
    /**
+    * find
+    */
+   public List<T> find(BasicDBObject query) throws PragmatachException {
+      final DBCursor cursor = this.dbCollection.find(query);
+      if (cursor.hasNext()) {
+         final ArrayList<T> ret = new ArrayList<T>();
+         while (cursor.hasNext()) {
+            ret.add(this.newInstance(cursor.next()));
+         }
+         return ret;
+      } else {
+         return null;
+      }
+   }
+
+   /**
+    * find
+    */
+   public List<T> find(String[][] terms) throws PragmatachException {
+      final BasicDBObject query = new BasicDBObject();
+      for (final String[] term : terms) {
+         if (term[0].compareTo(this.typeUtils.getIdFieldName()) == 0) {
+            query.append(ID, term[1]);
+         } else {
+            query.append(term[0], term[1]);
+         }
+      }
+      final DBCursor cursor = this.dbCollection.find(query);
+      if (cursor.hasNext()) {
+         final ArrayList<T> ret = new ArrayList<T>();
+         while (cursor.hasNext()) {
+            ret.add(this.newInstance(cursor.next()));
+         }
+         return ret;
+      } else {
+         return null;
+      }
+   }
+
+   /**
     * find by id
     */
    @Override
@@ -97,6 +135,38 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in findById", e);
+      }
+   }
+
+   /**
+    * find
+    */
+   public T findOne(BasicDBObject query) throws PragmatachException {
+      final DBCursor cursor = this.dbCollection.find(query);
+      if (cursor.hasNext()) {
+         return this.newInstance(cursor.next());
+      } else {
+         return null;
+      }
+   }
+
+   /**
+    * find
+    */
+   public T findOne(String[][] terms) throws PragmatachException {
+      final BasicDBObject query = new BasicDBObject();
+      for (final String[] term : terms) {
+         if (term[0].compareTo(this.typeUtils.getIdFieldName()) == 0) {
+            query.append(ID, term[1]);
+         } else {
+            query.append(term[0], term[1]);
+         }
+      }
+      final DBCursor cursor = this.dbCollection.find(query);
+      if (cursor.hasNext()) {
+         return this.newInstance(cursor.next());
+      } else {
+         return null;
       }
    }
 
@@ -245,16 +315,6 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    @Override
    public void save(T t) throws PragmatachException {
       try {
-         if (typeUtils.isGeneratedId()) {
-            /*
-             * check for an id
-             */
-            final String id = typeUtils.getId(t);
-            if (null == id) {
-               final ObjectId objectId = new ObjectId();
-               typeUtils.setId(t, objectId.toString());
-            }
-         }
          /*
           * save
           */

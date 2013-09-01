@@ -1,5 +1,6 @@
 package test.com.khubla.pragmatach.plugin.mongodb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
@@ -53,7 +54,7 @@ public class TestMongoDBPersistence {
       Application.setConfiguration(getConfiguration());
    }
 
-   @Test(enabled = false)
+   @Test(enabled = true)
    public void testBasicFunctionality() {
       try {
          /*
@@ -120,6 +121,59 @@ public class TestMongoDBPersistence {
          allObjects = dao.getAll();
          Assert.assertNotNull(allObjects);
          Assert.assertTrue(allObjects.size() == 0);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test(enabled = true)
+   public void testListFunctionality() {
+      try {
+         /*
+          * DAO
+          */
+         final AbstractDAO<ExamplePOJO2, String> dao = new MongoDBDAO<ExamplePOJO2>(ExamplePOJO2.class);
+         /*
+          * empty table
+          */
+         Assert.assertTrue(dao.count() == 0);
+         /*
+          * create and save an object
+          */
+         final ExamplePOJO2 examplePOJO2 = new ExamplePOJO2();
+         examplePOJO2.setName("abc123");
+         final ArrayList<ExamplePOJO1> epo = new ArrayList<ExamplePOJO1>();
+         final ExamplePOJO1 ep1 = new ExamplePOJO1();
+         ep1.setName("one");
+         epo.add(ep1);
+         final ExamplePOJO1 ep2 = new ExamplePOJO1();
+         ep2.setName("two");
+         epo.add(ep2);
+         examplePOJO2.setExamplePOJO1s(epo);
+         dao.save(examplePOJO2);
+         /*
+          * 1 row
+          */
+         Assert.assertTrue(dao.count() == 1);
+         /*
+          * check that the id was generated
+          */
+         Assert.assertNotNull(examplePOJO2.getId());
+         for (ExamplePOJO1 examplePOJO1 : examplePOJO2.getExamplePOJO1s()) {
+            Assert.assertNotNull(examplePOJO1);
+            Assert.assertNotNull(examplePOJO1.getId());
+         }
+         /*
+          * get it back
+          */
+         final ExamplePOJO2 retrievedPojo = dao.findById(examplePOJO2.getId());
+         Assert.assertNotNull(retrievedPojo);
+         /*
+          * there are two contained objects
+          */
+         Assert.assertTrue(retrievedPojo.getExamplePOJO1s() != null);
+         Assert.assertTrue(retrievedPojo.getExamplePOJO1s().size() == 2);
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();
