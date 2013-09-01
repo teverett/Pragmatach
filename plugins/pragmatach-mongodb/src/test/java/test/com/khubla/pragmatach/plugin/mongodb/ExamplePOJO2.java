@@ -1,6 +1,6 @@
 package test.com.khubla.pragmatach.plugin.mongodb;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,9 +24,9 @@ public class ExamplePOJO2 {
    /**
     * pojo1
     */
-   private List<ExamplePOJO1> examplePOJO1s;
+   private Set<ExamplePOJO1> examplePOJO1s;
 
-   public List<ExamplePOJO1> getExamplePOJO1s() {
+   public Set<ExamplePOJO1> getExamplePOJO1s() {
       return examplePOJO1s;
    }
 
@@ -38,7 +38,7 @@ public class ExamplePOJO2 {
       return name;
    }
 
-   public void setExamplePOJO1s(List<ExamplePOJO1> examplePOJO1s) {
+   public void setExamplePOJO1s(Set<ExamplePOJO1> examplePOJO1s) {
       this.examplePOJO1s = examplePOJO1s;
    }
 

@@ -1,6 +1,6 @@
 package test.com.khubla.pragmatach.plugin.mongodb;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.testng.Assert;
@@ -143,7 +143,7 @@ public class TestMongoDBPersistence {
           */
          final ExamplePOJO2 examplePOJO2 = new ExamplePOJO2();
          examplePOJO2.setName("abc123");
-         final ArrayList<ExamplePOJO1> epo = new ArrayList<ExamplePOJO1>();
+         final HashSet<ExamplePOJO1> epo = new HashSet<ExamplePOJO1>();
          final ExamplePOJO1 ep1 = new ExamplePOJO1();
          ep1.setName("one");
          epo.add(ep1);

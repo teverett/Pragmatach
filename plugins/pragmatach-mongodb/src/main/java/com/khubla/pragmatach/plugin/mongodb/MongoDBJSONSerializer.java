@@ -3,10 +3,9 @@ package com.khubla.pragmatach.plugin.mongodb;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -114,16 +113,16 @@ public class MongoDBJSONSerializer {
                   }
                   typeUtils.setId(object, objectId);
                }
-            } else if (field.getType() == List.class) {
+            } else if (field.getType() == Set.class) {
                /*
-                * list
+                * Set
                 */
                final DBObject dbo = (DBObject) dbObject.get(field.getName());
-               Type type = field.getGenericType();
-               ParameterizedType parameterizedType = (ParameterizedType) type;
-               Class<?> containedType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-               final List<?> list = deserializeList(dbo, containedType);
-               BeanUtils.setProperty(object, field.getName(), list);
+               final Type type = field.getGenericType();
+               final ParameterizedType parameterizedType = (ParameterizedType) type;
+               final Class<?> containedType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+               final Set<?> set = deserializeSet(dbo, containedType);
+               BeanUtils.setProperty(object, field.getName(), set);
             } else {
                throw new PragmatachException("Type '" + field.getType() + "' is not supported for deserialization");
             }
@@ -134,11 +133,11 @@ public class MongoDBJSONSerializer {
    }
 
    /**
-    * deserialize list
+    * deserialize Set
     */
-   private List<?> deserializeList(DBObject dbObject, Class<?> containedType) throws PragmatachException {
+   private Set<?> deserializeSet(DBObject dbObject, Class<?> containedType) throws PragmatachException {
       try {
-         final ArrayList ret = new ArrayList();
+         final Set ret = new HashSet();
          if (null != dbObject) {
             int i = 0;
             DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
@@ -146,7 +145,7 @@ public class MongoDBJSONSerializer {
                /*
                 * get an instance
                 */
-               Object instance = containedType.newInstance();
+               final Object instance = containedType.newInstance();
                /*
                 * deserialize
                 */
@@ -161,7 +160,7 @@ public class MongoDBJSONSerializer {
          }
          return ret;
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in deserializeList", e);
+         throw new PragmatachException("Exception in deserializeSet", e);
       }
    }
 
@@ -233,11 +232,11 @@ public class MongoDBJSONSerializer {
                   final String id = typeUtils.getId(object);
                   parentDBObject.append(MongoDBDAO.ID, id);
                }
-            } else if (field.getType() == List.class) {
+            } else if (field.getType() == Set.class) {
                /*
-                * list
+                * Set
                 */
-               final BasicDBObject dbObject = serializeList(object, field);
+               final BasicDBObject dbObject = serializeSet(object, field);
                parentDBObject.append(field.getName(), dbObject);
             } else {
                throw new PragmatachException("Type '" + field.getType() + "' is not supported for serialization");
@@ -249,14 +248,14 @@ public class MongoDBJSONSerializer {
    }
 
    /**
-    * serialize a list
+    * serialize a Set
     */
-   private BasicDBObject serializeList(Object object, Field field) throws PragmatachException {
+   private BasicDBObject serializeSet(Object object, Field field) throws PragmatachException {
       try {
-         final List<?> list = (List<?>) PropertyUtils.getProperty(object, field.getName());
-         if (null != list) {
+         final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
+         if (null != set) {
             final BasicDBObject dbObject = new BasicDBObject();
-            final Iterator<?> iter = list.iterator();
+            final Iterator<?> iter = set.iterator();
             int i = 0;
             while (iter.hasNext()) {
                final Object o = iter.next();
@@ -269,7 +268,7 @@ public class MongoDBJSONSerializer {
             return null;
          }
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in serializeList", e);
+         throw new PragmatachException("Exception in serializeSet", e);
       }
    }
 }
