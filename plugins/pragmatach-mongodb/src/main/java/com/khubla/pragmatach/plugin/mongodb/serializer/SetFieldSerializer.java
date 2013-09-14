@@ -17,10 +17,6 @@ import com.mongodb.DBObject;
  */
 public class SetFieldSerializer implements FieldSerializer {
    /**
-    * id field name
-    */
-   private final String idFieldName;
-   /**
     * type utils
     */
    private final ClassTypeUtils typeUtils;
@@ -35,7 +31,6 @@ public class SetFieldSerializer implements FieldSerializer {
    public SetFieldSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
       typeUtils = new ClassTypeUtils(this.typeClazz);
-      idFieldName = typeUtils.getIdFieldName();
    }
 
    @Override

@@ -15,10 +15,6 @@ import com.mongodb.DBObject;
  */
 public class AtomicFieldSerializer implements FieldSerializer {
    /**
-    * id field name
-    */
-   private final String idFieldName;
-   /**
     * type utils
     */
    private final ClassTypeUtils typeUtils;
@@ -33,7 +29,6 @@ public class AtomicFieldSerializer implements FieldSerializer {
    public AtomicFieldSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
       typeUtils = new ClassTypeUtils(this.typeClazz);
-      idFieldName = typeUtils.getIdFieldName();
    }
 
    @Override
@@ -42,7 +37,7 @@ public class AtomicFieldSerializer implements FieldSerializer {
          /*
           * read all fields, treating id as special
           */
-         if (field.getName().compareTo(idFieldName) != 0) {
+         if (field.getName().compareTo(typeUtils.getIdFieldName()) != 0) {
             BeanUtils.setProperty(object, field.getName(), dbObject.get(field.getName()));
          } else {
             final String objectId = (String) dbObject.get(MongoDBDAO.ID);
@@ -62,7 +57,7 @@ public class AtomicFieldSerializer implements FieldSerializer {
          /*
           * persist all fields, treating id as special
           */
-         if (field.getName().compareTo(idFieldName) != 0) {
+         if (field.getName().compareTo(typeUtils.getIdFieldName()) != 0) {
             final String propertyValue = BeanUtils.getProperty(object, field.getName());
             parentDBObject.append(field.getName(), propertyValue);
          } else {
