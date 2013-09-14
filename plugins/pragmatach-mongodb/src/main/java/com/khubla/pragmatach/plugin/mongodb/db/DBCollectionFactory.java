@@ -57,6 +57,21 @@ public class DBCollectionFactory {
    }
 
    /**
+    * drop the DB, for testing purposes
+    */
+   public void dropDB() throws PragmatachException {
+      try {
+         final String database = Application.getConfiguration().getParameter("mongodb.Database");
+         final String hostname = Application.getConfiguration().getParameter("mongodb.Hostname");
+         final MongoClient mongoClient = new MongoClient(hostname);
+         final DB db = mongoClient.getDB(database);
+         db.dropDatabase();
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in dropDB", e);
+      }
+   }
+
+   /**
     * get the DBCollection
     */
    public <T> DBCollection getDBCollection(Class<T> clazz) {
@@ -78,15 +93,6 @@ public class DBCollectionFactory {
          String collectionName = clazz.getSimpleName();
          if (((null != entity.name()) && (entity.name().length() > 0))) {
             collectionName = entity.name();
-         }
-         /*
-          * drop?
-          */
-         final boolean dropCollection = Boolean.parseBoolean(Application.getConfiguration().getParameter("mongodb.DropCollection"));
-         if (true == dropCollection) {
-            if (db.collectionExists(collectionName)) {
-               db.getCollection(collectionName).drop();
-            }
          }
          /*
           * get collection

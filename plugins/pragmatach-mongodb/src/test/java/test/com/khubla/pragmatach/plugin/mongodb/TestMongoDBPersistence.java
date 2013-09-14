@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.khubla.pragmatach.framework.api.Configuration;
@@ -13,11 +14,16 @@ import com.khubla.pragmatach.framework.configuration.HashmapConfigurationImpl;
 import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.framework.scanner.AnnotationScanner;
 import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
+import com.khubla.pragmatach.plugin.mongodb.db.DBCollectionFactory;
 
 /**
  * @author tome
  */
 public class TestMongoDBPersistence {
+   @BeforeTest
+   public void beforeTest() {
+   }
+
    /**
     * get the test configuration
     */
@@ -30,7 +36,6 @@ public class TestMongoDBPersistence {
       mongoConfiguration.setParameter("mongodb.Database", "test");
       mongoConfiguration.setParameter("mongodb.ConnectionUserName", "");
       mongoConfiguration.setParameter("mongodb.ConnectionPassword", "");
-      mongoConfiguration.setParameter("mongodb.DropCollection", "true");
       /*
        * done
        */
@@ -60,6 +65,10 @@ public class TestMongoDBPersistence {
    @Test(enabled = true)
    public void testBasicFunctionality() {
       try {
+         /*
+          * drop the db
+          */
+         DBCollectionFactory.getInstance().dropDB();
          /*
           * DAO
           */
@@ -135,6 +144,10 @@ public class TestMongoDBPersistence {
    public void testSetFunctionality() {
       try {
          /*
+          * drop the db
+          */
+         DBCollectionFactory.getInstance().dropDB();
+         /*
           * DAO
           */
          final AbstractDAO<ExamplePOJO2, String> pojo2DAO = new MongoDBDAO<ExamplePOJO2>(ExamplePOJO2.class);
@@ -166,6 +179,9 @@ public class TestMongoDBPersistence {
           * 1 row in POJO1
           */
          Assert.assertTrue(pojo2DAO.count() == 1);
+         final List<ExamplePOJO1> allPOJO1s = pojo1DAO.getAll();
+         Assert.assertNotNull(allPOJO1s);
+         Assert.assertTrue(allPOJO1s.size() == 2);
          Assert.assertTrue(pojo1DAO.count() == 2, "Expected 2 POJO1 objects, there are :" + pojo1DAO.count());
          /*
           * check that the id was generated
