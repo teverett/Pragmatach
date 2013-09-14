@@ -150,9 +150,13 @@ public class TestMongoDBPersistence {
          final HashSet<ExamplePOJO1> epo = new HashSet<ExamplePOJO1>();
          final ExamplePOJO1 ep1 = new ExamplePOJO1();
          ep1.setName("one");
+         ep1.setDoubleNumber(44.0);
+         ep1.setIntNumber(3);
          epo.add(ep1);
          final ExamplePOJO1 ep2 = new ExamplePOJO1();
          ep2.setName("two");
+         ep2.setDoubleNumber(66666.9);
+         ep2.setIntNumber(90);
          epo.add(ep2);
          examplePOJO2.setExamplePOJO1s(epo);
          dao.save(examplePOJO2);

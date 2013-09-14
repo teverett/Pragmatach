@@ -17,7 +17,7 @@ public class AtomicFieldSerializer implements FieldSerializer {
    /**
     * type utils
     */
-   private final ClassTypeUtils typeUtils;
+   private final ClassTypeUtils classTypeUtils;
    /**
     * the type
     */
@@ -28,7 +28,7 @@ public class AtomicFieldSerializer implements FieldSerializer {
     */
    public AtomicFieldSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
-      typeUtils = new ClassTypeUtils(this.typeClazz);
+      classTypeUtils = new ClassTypeUtils(this.typeClazz);
    }
 
    @Override
@@ -37,14 +37,14 @@ public class AtomicFieldSerializer implements FieldSerializer {
          /*
           * read all fields, treating id as special
           */
-         if (field.getName().compareTo(typeUtils.getIdFieldName()) != 0) {
+         if (field.getName().compareTo(classTypeUtils.getIdFieldName()) != 0) {
             BeanUtils.setProperty(object, field.getName(), dbObject.get(field.getName()));
          } else {
             final String objectId = (String) dbObject.get(MongoDBDAO.ID);
             if (null == objectId) {
                throw new PragmatachException("Object '" + dbObject.toString() + "' has null id");
             }
-            typeUtils.setId(object, objectId);
+            classTypeUtils.setId(object, objectId);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeField", e);
@@ -57,11 +57,11 @@ public class AtomicFieldSerializer implements FieldSerializer {
          /*
           * persist all fields, treating id as special
           */
-         if (field.getName().compareTo(typeUtils.getIdFieldName()) != 0) {
+         if (field.getName().compareTo(classTypeUtils.getIdFieldName()) != 0) {
             final String propertyValue = BeanUtils.getProperty(object, field.getName());
             parentDBObject.append(field.getName(), propertyValue);
          } else {
-            final String id = typeUtils.getId(object);
+            final String id = classTypeUtils.getId(object);
             parentDBObject.append(MongoDBDAO.ID, id);
          }
       } catch (final Exception e) {

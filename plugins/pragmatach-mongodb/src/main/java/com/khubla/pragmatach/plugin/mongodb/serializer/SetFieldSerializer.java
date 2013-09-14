@@ -3,11 +3,13 @@ package com.khubla.pragmatach.plugin.mongodb.serializer;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
 import com.khubla.pragmatach.plugin.mongodb.util.ClassTypeUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -19,7 +21,7 @@ public class SetFieldSerializer implements FieldSerializer {
    /**
     * type utils
     */
-   private final ClassTypeUtils typeUtils;
+   private final ClassTypeUtils classTypeUtils;
    /**
     * the type
     */
@@ -30,97 +32,88 @@ public class SetFieldSerializer implements FieldSerializer {
     */
    public SetFieldSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
-      typeUtils = new ClassTypeUtils(this.typeClazz);
+      classTypeUtils = new ClassTypeUtils(this.typeClazz);
    }
 
    @Override
    public void deserializeField(Object object, Field field, DBObject dbObject) throws PragmatachException {
       try {
-         /*
-          * Set
-          */
-         final DBObject dbo = (DBObject) dbObject.get(field.getName());
-         final Type type = field.getGenericType();
-         final ParameterizedType parameterizedType = (ParameterizedType) type;
-         final Class<?> containedType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-         final Set<?> set = deserializeSet(dbo, containedType);
-         BeanUtils.setProperty(object, field.getName(), set);
+         if (null != dbObject) {
+            int i = 0;
+            DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
+            while (null != dbo) {
+               /*
+                * get the id
+                */
+               final String id = dbo.toString();
+               System.out.println("id: " + id);
+               /*
+                * next one
+                */
+               dbo = (DBObject) dbObject.get(Integer.toString(i++));
+            }
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeField", e);
       }
    }
 
    /**
-    * deserialize Set
+    * get the interior type of the set
     */
-   private Set<?> deserializeSet(DBObject dbObject, Class<?> containedType) throws PragmatachException {
-      try {
-         // final Set ret = new HashSet();
-         // if (null != dbObject) {
-         // int i = 0;
-         // DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
-         // while (null != dbo) {
-         // /*
-         // * deserialize
-         // */
-         // final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(containedType);
-         // Object instance = mongoDBJSONSerializer.deserialize(dbo, containedType);
-         // ret.add(instance);
-         // /*
-         // * next one
-         // */
-         // dbo = (DBObject) dbObject.get(Integer.toString(i++));
-         // }
-         // }
-         // return ret;
-         return null;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in deserializeSet", e);
-      }
+   private Class<?> getContainedType(Field field) throws PragmatachException {
+      final Type type = field.getGenericType();
+      final ParameterizedType parameterizedType = (ParameterizedType) type;
+      return (Class<?>) parameterizedType.getActualTypeArguments()[0];
    }
 
+   /**
+    * the strategy here is that we store the id's in the parent object, and then use DAOs to persist each contained object.
+    */
    @Override
    public void serializeField(BasicDBObject parentDBObject, Object object, Field field) throws PragmatachException {
       try {
          /*
-          * Set
+          * get the set
           */
-         final BasicDBObject dbObject = serializeSet(object, field);
-         parentDBObject.append(field.getName(), dbObject);
+         final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
+         if (null != set) {
+            /*
+             * get the contained type of the set
+             */
+            Class<?> containedType = this.getContainedType(field);
+            /*
+             * the object for the set id's
+             */
+            final BasicDBObject dbObject = new BasicDBObject();
+            /*
+             * walk the set
+             */
+            int i = 0;
+            final Iterator<?> iter = set.iterator();
+            while (iter.hasNext()) {
+               final Object o = iter.next();
+               /*
+                * save the object. this has to happen first to generate ids
+                */
+               MongoDBDAO<?> dao = new MongoDBDAO(containedType);
+               // dao.save(o);
+               /*
+                * store the id
+                */
+               final String id = classTypeUtils.getId(o);
+               dbObject.append(Integer.toString(i++), id);
+               /*
+                * persist the object
+                */
+            }
+            /*
+             * add the id's to the parent
+             */
+            parentDBObject.append(field.getName(), dbObject);
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serializeField", e);
-      }
-   }
-
-   /**
-    * serialize a Set
-    */
-   private BasicDBObject serializeSet(Object object, Field field) throws PragmatachException {
-      try {
-         // /*
-         // * get the set
-         // */
-         // final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
-         // if (null != set) {
-         // /*
-         // * walk the set members
-         // */
-         // final BasicDBObject dbObject = new BasicDBObject();
-         // final Iterator<?> iter = set.iterator();
-         // int i = 0;
-         // while (iter.hasNext()) {
-         // final Object o = iter.next();
-         // final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(o.getClass());
-         // final BasicDBObject internalObject = mongoDBJSONSerializer.serialize(o);
-         // dbObject.append(Integer.toString(i++), internalObject);
-         // }
-         // return dbObject;
-         // } else {
-         // return null;
-         // }
-         return null;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in serializeSet", e);
       }
    }
 }
