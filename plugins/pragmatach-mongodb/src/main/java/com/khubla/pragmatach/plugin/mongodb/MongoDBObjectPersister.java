@@ -22,14 +22,14 @@ public class MongoDBObjectPersister<T> {
    /**
     * serializer
     */
-   private final MongoDBJSONSerializer mongoDBJSONSerializer;
+   private final ObjectSerializer objectSerializer;
 
    /**
     * ctor
     */
    public MongoDBObjectPersister(Class<T> typeClazz) {
       this.typeClazz = typeClazz;
-      this.mongoDBJSONSerializer = new MongoDBJSONSerializer(this.typeClazz);
+      this.objectSerializer = new BasicObjectSerializer(this.typeClazz);
       this.dbCollection = DBCollectionFactory.getInstance().getDBCollection(typeClazz);
    }
 
@@ -42,7 +42,7 @@ public class MongoDBObjectPersister<T> {
           * deserialize the root object
           */
          final T t = getInstance();
-         this.mongoDBJSONSerializer.deserialize(dbObject, t);
+         this.objectSerializer.deserialize(dbObject, t);
          /*
           * done
           */
@@ -69,7 +69,7 @@ public class MongoDBObjectPersister<T> {
          /*
           * save the main object
           */
-         final BasicDBObject basicDBObject = this.mongoDBJSONSerializer.serialize(t);
+         final BasicDBObject basicDBObject = this.objectSerializer.serialize(t);
          this.dbCollection.save(basicDBObject);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serialize", e);

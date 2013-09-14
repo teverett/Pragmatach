@@ -15,7 +15,7 @@ import com.mongodb.DBObject;
 /**
  * @author tom
  */
-public class MongoDBJSONSerializer {
+public class BasicObjectSerializer implements ObjectSerializer {
    /**
     * the type
     */
@@ -32,7 +32,7 @@ public class MongoDBJSONSerializer {
    /**
     * ctor
     */
-   public MongoDBJSONSerializer(Class<?> typeClazz) {
+   public BasicObjectSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
       typeUtils = new ClassTypeUtils(this.typeClazz);
       idFieldName = typeUtils.getIdFieldName();
@@ -41,6 +41,7 @@ public class MongoDBJSONSerializer {
    /**
     * deserialize
     */
+   @Override
    public void deserialize(DBObject dbObject, Object o) throws PragmatachException {
       try {
          /*
@@ -134,6 +135,7 @@ public class MongoDBJSONSerializer {
    /**
     * serialize
     */
+   @Override
    public BasicDBObject serialize(Object object) throws PragmatachException {
       try {
          if (null != object) {

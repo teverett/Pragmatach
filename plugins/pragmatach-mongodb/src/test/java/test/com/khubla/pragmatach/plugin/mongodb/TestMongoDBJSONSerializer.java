@@ -3,7 +3,8 @@ package test.com.khubla.pragmatach.plugin.mongodb;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.khubla.pragmatach.plugin.mongodb.MongoDBJSONSerializer;
+import com.khubla.pragmatach.plugin.mongodb.BasicObjectSerializer;
+import com.khubla.pragmatach.plugin.mongodb.ObjectSerializer;
 import com.mongodb.BasicDBObject;
 
 /**
@@ -13,7 +14,7 @@ public class TestMongoDBJSONSerializer {
    @Test(enabled = true)
    public void testCompoundSerializeDeserialize() {
       try {
-         final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(ExamplePOJO1.class);
+         final ObjectSerializer mongoDBJSONSerializer = new BasicObjectSerializer(ExamplePOJO1.class);
          /*
           * pojo
           */
@@ -49,7 +50,7 @@ public class TestMongoDBJSONSerializer {
    @Test
    public void testSimpleSerializeDeserialize() {
       try {
-         final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(ExamplePOJO1.class);
+         final ObjectSerializer mongoDBJSONSerializer = new BasicObjectSerializer(ExamplePOJO1.class);
          /*
           * pojo
           */
