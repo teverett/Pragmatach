@@ -137,11 +137,13 @@ public class TestMongoDBPersistence {
          /*
           * DAO
           */
-         final AbstractDAO<ExamplePOJO2, String> dao = new MongoDBDAO<ExamplePOJO2>(ExamplePOJO2.class);
+         final AbstractDAO<ExamplePOJO2, String> pojo2DAO = new MongoDBDAO<ExamplePOJO2>(ExamplePOJO2.class);
+         final AbstractDAO<ExamplePOJO1, String> pojo1DAO = new MongoDBDAO<ExamplePOJO1>(ExamplePOJO1.class);
          /*
           * empty table
           */
-         Assert.assertTrue(dao.count() == 0);
+         Assert.assertTrue(pojo2DAO.count() == 0);
+         Assert.assertTrue(pojo1DAO.count() == 0);
          /*
           * create and save an object
           */
@@ -159,11 +161,12 @@ public class TestMongoDBPersistence {
          ep2.setIntNumber(90);
          epo.add(ep2);
          examplePOJO2.setExamplePOJO1s(epo);
-         dao.save(examplePOJO2);
+         pojo2DAO.save(examplePOJO2);
          /*
-          * 1 row
+          * 1 row in POJO1
           */
-         Assert.assertTrue(dao.count() == 1);
+         Assert.assertTrue(pojo2DAO.count() == 1);
+         Assert.assertTrue(pojo1DAO.count() == 2, "Expected 2 POJO1 objects, there are :" + pojo1DAO.count());
          /*
           * check that the id was generated
           */
@@ -175,7 +178,7 @@ public class TestMongoDBPersistence {
          /*
           * get it back
           */
-         final ExamplePOJO2 retrievedPojo = dao.findById(examplePOJO2.getId());
+         final ExamplePOJO2 retrievedPojo = pojo2DAO.findById(examplePOJO2.getId());
          Assert.assertNotNull(retrievedPojo);
          /*
           * there are two contained objects

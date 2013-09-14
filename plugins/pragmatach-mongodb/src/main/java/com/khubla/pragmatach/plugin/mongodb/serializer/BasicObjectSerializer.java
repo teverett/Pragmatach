@@ -14,11 +14,11 @@ import com.mongodb.DBObject;
 /**
  * @author tom
  */
-public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
+public class BasicObjectSerializer implements ObjectSerializer {
    /**
     * the type
     */
-   private final Class<T> typeClazz;
+   private final Class<?> typeClazz;
    /**
     * type utils
     */
@@ -27,7 +27,7 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
    /**
     * ctor
     */
-   public BasicObjectSerializer(Class<T> typeClazz) {
+   public BasicObjectSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
       typeUtils = new ClassTypeUtils(this.typeClazz);
    }
@@ -36,12 +36,12 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
     * deserialize
     */
    @Override
-   public T deserialize(DBObject dbObject) throws PragmatachException {
+   public Object deserialize(DBObject dbObject) throws PragmatachException {
       try {
          /*
           * instance
           */
-         final T t = getInstance();
+         final Object object = getInstance();
          /*
           * walk the fields
           */
@@ -51,13 +51,13 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
              */
             if (false == java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
                final FieldSerializer fieldSerializer = FieldSerializerFactory.getFieldSerializer(typeClazz, field);
-               fieldSerializer.deserializeField(t, field, dbObject);
+               fieldSerializer.deserializeField(object, field, dbObject);
             }
          }
          /*
           * done
           */
-         return t;
+         return object;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
       }
@@ -66,10 +66,9 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
    /**
     * get instance
     */
-   @SuppressWarnings("unchecked")
-   private T getInstance() throws IllegalAccessException, InstantiationException {
-      final T t = this.typeClazz.newInstance();
-      return (T) Enhancer.create(this.typeClazz, new MongoInterceptor(t));
+   private Object getInstance() throws IllegalAccessException, InstantiationException {
+      final Object object = typeClazz.newInstance();
+      return Enhancer.create(typeClazz, new MongoInterceptor(object));
    }
 
    public Class<?> getTypeClazz() {
@@ -80,9 +79,9 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
     * serialize
     */
    @Override
-   public BasicDBObject serialize(T t) throws PragmatachException {
+   public BasicDBObject serialize(Object object) throws PragmatachException {
       try {
-         if (null != t) {
+         if (null != object) {
             /*
              * id generation
              */
@@ -90,10 +89,10 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
                /*
                 * check for an id
                 */
-               final String id = typeUtils.getId(t);
+               final String id = typeUtils.getId(object);
                if (null == id) {
                   final ObjectId objectId = new ObjectId();
-                  typeUtils.setId(t, objectId.toString());
+                  typeUtils.setId(object, objectId.toString());
                }
             }
             /*
@@ -109,7 +108,7 @@ public class BasicObjectSerializer<T> implements ObjectSerializer<T> {
                 */
                if (false == java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
                   final FieldSerializer fieldSerializer = FieldSerializerFactory.getFieldSerializer(typeClazz, field);
-                  fieldSerializer.serializeField(ret, t, field);
+                  fieldSerializer.serializeField(ret, object, field);
                }
             }
             /*

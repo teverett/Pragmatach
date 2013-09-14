@@ -3,13 +3,14 @@ package com.khubla.pragmatach.plugin.mongodb.serializer;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
+import com.khubla.pragmatach.plugin.mongodb.MongoDBObjectPersister;
 import com.khubla.pragmatach.plugin.mongodb.util.ClassTypeUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -35,10 +36,27 @@ public class SetFieldSerializer implements FieldSerializer {
       classTypeUtils = new ClassTypeUtils(this.typeClazz);
    }
 
+   @SuppressWarnings({ "rawtypes", "unchecked" })
    @Override
    public void deserializeField(Object object, Field field, DBObject dbObject) throws PragmatachException {
       try {
          if (null != dbObject) {
+            /*
+             * create the set
+             */
+            final HashSet ret = new HashSet();
+            object = ret;
+            /*
+             * get the contained type of the set
+             */
+            final Class<?> containedType = getContainedType(field);
+            /*
+             * persister for the contained type
+             */
+            final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
+            /*
+             * walk the ids
+             */
             int i = 0;
             DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
             while (null != dbo) {
@@ -46,7 +64,17 @@ public class SetFieldSerializer implements FieldSerializer {
                 * get the id
                 */
                final String id = dbo.toString();
-               System.out.println("id: " + id);
+               /*
+                * get the object for the id
+                */
+               final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
+               /*
+                * sanity check
+                */
+               if (null != containedObjectJSON) {
+                  final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
+                  ret.add(containedObject);
+               }
                /*
                 * next one
                 */
@@ -81,7 +109,7 @@ public class SetFieldSerializer implements FieldSerializer {
             /*
              * get the contained type of the set
              */
-            Class<?> containedType = this.getContainedType(field);
+            final Class<?> containedType = getContainedType(field);
             /*
              * the object for the set id's
              */
@@ -94,18 +122,15 @@ public class SetFieldSerializer implements FieldSerializer {
             while (iter.hasNext()) {
                final Object o = iter.next();
                /*
-                * save the object. this has to happen first to generate ids
+                * save the object
                 */
-               MongoDBDAO<?> dao = new MongoDBDAO(containedType);
-               // dao.save(o);
+               final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
+               mongoDBObjectPersister.save(o);
                /*
                 * store the id
                 */
                final String id = classTypeUtils.getId(o);
                dbObject.append(Integer.toString(i++), id);
-               /*
-                * persist the object
-                */
             }
             /*
              * add the id's to the parent

@@ -14,7 +14,7 @@ public class TestMongoDBJSONSerializer {
    @Test(enabled = true)
    public void testCompoundSerializeDeserialize() {
       try {
-         final ObjectSerializer<ExamplePOJO1> examplePOJO1ObjectSerializer = new BasicObjectSerializer<ExamplePOJO1>(ExamplePOJO1.class);
+         final ObjectSerializer examplePOJO1ObjectSerializer = new BasicObjectSerializer(ExamplePOJO1.class);
          /*
           * pojo
           */
@@ -32,7 +32,7 @@ public class TestMongoDBJSONSerializer {
          /*
           * deserialize
           */
-         final ExamplePOJO1 examplePOJO2 = examplePOJO1ObjectSerializer.deserialize(basicDBObject);
+         final ExamplePOJO1 examplePOJO2 = (ExamplePOJO1) examplePOJO1ObjectSerializer.deserialize(basicDBObject);
          /*
           * check
           */
@@ -49,7 +49,7 @@ public class TestMongoDBJSONSerializer {
    @Test
    public void testSimpleSerializeDeserialize() {
       try {
-         final ObjectSerializer<ExamplePOJO1> examplePOJO1ObjectSerializer = new BasicObjectSerializer<ExamplePOJO1>(ExamplePOJO1.class);
+         final ObjectSerializer examplePOJO1ObjectSerializer = new BasicObjectSerializer(ExamplePOJO1.class);
          /*
           * pojo
           */
@@ -67,7 +67,7 @@ public class TestMongoDBJSONSerializer {
          /*
           * deserialize
           */
-         final ExamplePOJO1 examplePOJO2 = examplePOJO1ObjectSerializer.deserialize(basicDBObject);
+         final ExamplePOJO1 examplePOJO2 = (ExamplePOJO1) examplePOJO1ObjectSerializer.deserialize(basicDBObject);
          /*
           * check
           */

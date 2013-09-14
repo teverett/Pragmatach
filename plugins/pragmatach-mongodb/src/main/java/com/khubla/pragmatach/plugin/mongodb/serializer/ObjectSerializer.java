@@ -7,8 +7,8 @@ import com.mongodb.DBObject;
 /**
  * @author tom
  */
-public interface ObjectSerializer<T> {
-   T deserialize(DBObject dbObject) throws PragmatachException;
+public interface ObjectSerializer {
+   Object deserialize(DBObject dbObject) throws PragmatachException;
 
-   BasicDBObject serialize(T t) throws PragmatachException;
+   BasicDBObject serialize(Object object) throws PragmatachException;
 }

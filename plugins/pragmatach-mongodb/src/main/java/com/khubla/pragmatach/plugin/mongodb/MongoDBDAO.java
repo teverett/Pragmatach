@@ -6,8 +6,6 @@ import java.util.List;
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.dao.AbstractDAO;
 import com.khubla.pragmatach.plugin.mongodb.db.DBCollectionFactory;
-import com.khubla.pragmatach.plugin.mongodb.serializer.BasicObjectSerializer;
-import com.khubla.pragmatach.plugin.mongodb.serializer.ObjectSerializer;
 import com.khubla.pragmatach.plugin.mongodb.util.ClassTypeUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -37,12 +35,12 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    /**
     * persister
     */
-   private final ObjectSerializer<T> objectSerializer;
+   private final MongoDBObjectPersister mongoDBObjectPersister;
 
    public MongoDBDAO(Class<T> typeClazz) {
       this.typeClazz = typeClazz;
       this.typeUtils = new ClassTypeUtils(this.typeClazz);
-      objectSerializer = new BasicObjectSerializer<T>(typeClazz);
+      mongoDBObjectPersister = new MongoDBObjectPersister(typeClazz);
       this.dbCollection = DBCollectionFactory.getInstance().getDBCollection(typeClazz);
    }
 
@@ -228,9 +226,10 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    /**
     * get an instance
     */
+   @SuppressWarnings("unchecked")
    public T newInstance(DBObject dbObject) throws PragmatachException {
       try {
-         return this.objectSerializer.deserialize(dbObject);
+         return (T) this.mongoDBObjectPersister.load(dbObject);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in newInstance", e);
       }
@@ -250,8 +249,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          /*
           * save
           */
-         final BasicDBObject basicDBOBject = this.objectSerializer.serialize(t);
-         this.dbCollection.save(basicDBOBject);
+         this.mongoDBObjectPersister.save(t);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in save", e);
       }
