@@ -1,5 +1,7 @@
 package com.khubla.pragmatach.plugin.mongodb;
 
+import net.sf.cglib.proxy.Enhancer;
+
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -31,6 +33,9 @@ public class MongoDBObjectPersister<T> {
       this.dbCollection = DBCollectionFactory.getInstance().getDBCollection(typeClazz);
    }
 
+   /**
+    * deserialize
+    */
    public T deserialize(DBObject dbObject) throws PragmatachException {
       try {
          /*
@@ -50,13 +55,15 @@ public class MongoDBObjectPersister<T> {
    /**
     * get instance
     */
+   @SuppressWarnings("unchecked")
    private T getInstance() throws IllegalAccessException, InstantiationException {
-      /*
-       * instance
-       */
-      return typeClazz.newInstance();
+      T t = this.typeClazz.newInstance();
+      return (T) Enhancer.create(this.typeClazz, new MongoInterceptor(t));
    }
 
+   /**
+    * serialize
+    */
    public void serialize(T t) throws PragmatachException {
       try {
          /*
