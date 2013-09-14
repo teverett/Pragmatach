@@ -33,33 +33,22 @@ public class BasicObjectSerializer implements ObjectSerializer {
     * deserialize
     */
    @Override
-   public void deserialize(DBObject dbObject, Object o) throws PragmatachException {
+   public void deserialize(DBObject dbObject, Object object) throws PragmatachException {
       try {
          /*
           * walk the fields
           */
          for (final Field field : typeClazz.getDeclaredFields()) {
-            deserializeField(o, field, dbObject);
+            /*
+             * filter the static ones
+             */
+            if (false == java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+               final FieldSerializer fieldSerializer = FieldSerializerFactory.getFieldSerializer(typeClazz, field);
+               fieldSerializer.deserializeField(object, field, dbObject);
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
-      }
-   }
-
-   /**
-    * deserialize field
-    */
-   private void deserializeField(Object object, Field field, DBObject dbObject) throws PragmatachException {
-      try {
-         /*
-          * filter the static ones
-          */
-         if (false == java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
-            final FieldSerializer fieldSerializer = FieldSerializerFactory.getFieldSerializer(typeClazz, field);
-            fieldSerializer.deserializeField(object, field, dbObject);
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in deserializeField", e);
       }
    }
 
@@ -95,7 +84,13 @@ public class BasicObjectSerializer implements ObjectSerializer {
              * walk the fields
              */
             for (final Field field : typeClazz.getDeclaredFields()) {
-               serializeField(ret, object, field);
+               /*
+                * filter the static ones
+                */
+               if (false == java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+                  final FieldSerializer fieldSerializer = FieldSerializerFactory.getFieldSerializer(typeClazz, field);
+                  fieldSerializer.serializeField(ret, object, field);
+               }
             }
             /*
              * done
@@ -106,23 +101,6 @@ public class BasicObjectSerializer implements ObjectSerializer {
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serialize", e);
-      }
-   }
-
-   /**
-    * serialize a field
-    */
-   private void serializeField(BasicDBObject parentDBObject, Object object, Field field) throws PragmatachException {
-      try {
-         /*
-          * filter the static ones
-          */
-         if (false == java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
-            final FieldSerializer fieldSerializer = FieldSerializerFactory.getFieldSerializer(typeClazz, field);
-            fieldSerializer.serializeField(parentDBObject, object, field);
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in serializeField", e);
       }
    }
 }
