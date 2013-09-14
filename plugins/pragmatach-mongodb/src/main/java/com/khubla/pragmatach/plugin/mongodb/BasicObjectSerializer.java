@@ -24,10 +24,6 @@ public class BasicObjectSerializer implements ObjectSerializer {
     * type utils
     */
    private final ClassTypeUtils typeUtils;
-   /**
-    * id field name
-    */
-   private final String idFieldName;
 
    /**
     * ctor
@@ -35,7 +31,6 @@ public class BasicObjectSerializer implements ObjectSerializer {
    public BasicObjectSerializer(Class<?> typeClazz) {
       this.typeClazz = typeClazz;
       typeUtils = new ClassTypeUtils(this.typeClazz);
-      idFieldName = typeUtils.getIdFieldName();
    }
 
    /**
@@ -68,18 +63,8 @@ public class BasicObjectSerializer implements ObjectSerializer {
              * simple types
              */
             if (AtomicTypeUtil.isSimpleType(field.getType())) {
-               /*
-                * read all fields, treating id as special
-                */
-               if (field.getName().compareTo(idFieldName) != 0) {
-                  BeanUtils.setProperty(object, field.getName(), dbObject.get(field.getName()));
-               } else {
-                  final String objectId = (String) dbObject.get(MongoDBDAO.ID);
-                  if (null == objectId) {
-                     throw new PragmatachException("Object '" + dbObject.toString() + "' has null id");
-                  }
-                  typeUtils.setId(object, objectId);
-               }
+               final AtomicFieldSerializer atomicFieldSerializer = new AtomicFieldSerializer(typeClazz);
+               atomicFieldSerializer.deserializeField(object, field, dbObject);
             } else if (field.getType() == Set.class) {
                /*
                 * Set
@@ -187,16 +172,8 @@ public class BasicObjectSerializer implements ObjectSerializer {
              * simple types
              */
             if (AtomicTypeUtil.isSimpleType(field.getType())) {
-               /*
-                * persist all fields, treating id as special
-                */
-               if (field.getName().compareTo(idFieldName) != 0) {
-                  final String propertyValue = BeanUtils.getProperty(object, field.getName());
-                  parentDBObject.append(field.getName(), propertyValue);
-               } else {
-                  final String id = typeUtils.getId(object);
-                  parentDBObject.append(MongoDBDAO.ID, id);
-               }
+               final AtomicFieldSerializer atomicFieldSerializer = new AtomicFieldSerializer(typeClazz);
+               atomicFieldSerializer.serializeField(parentDBObject, object, field);
             } else if (field.getType() == Set.class) {
                /*
                 * Set
