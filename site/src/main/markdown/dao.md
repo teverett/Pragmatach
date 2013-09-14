@@ -2,13 +2,14 @@
 DAOs
 ------------------------
 
-Relational persistence in Pragmatach is accomplished via plugin [DAOs](http://en.wikipedia.org/wiki/Data_access_object), which support [JPA](http://en.wikipedia.org/wiki/Java_Persistence_API) 1.0.  There are three persistence plugins currently:
+Relational persistence in Pragmatach is accomplished via plugin [DAOs](http://en.wikipedia.org/wiki/Data_access_object), which support [JPA](http://en.wikipedia.org/wiki/Java_Persistence_API) 1.0.  There are four persistence plugins currently:
 
 * pragmatach-hibernate
 * pragmatach-openjpa
 * pragmatach-ebean
+* pragmatach-mongodb
 
-The DAOs provided by these three plugins all implement the interface
+The DAOs provided by the relational plugins (hibernate, openjpa, ebean) all implement the interface
 
 `com.khubla.pragmatach.framework.dao.DAO<T, I extends Serializable>`
 
@@ -43,6 +44,11 @@ public interface DAO&lt;T, I extends Serializable&gt; {
 }
 </code>
 </pre>
+
+
+Because MongoDB only uses String keys, the MongoDB interface is essentially the, with the exception that it specifies String keys.
+
+`class MongoDBDAO<T> extends DAO<T, String>`
 
 JPA annotations are used to build [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping) mappings.  For example:
 
