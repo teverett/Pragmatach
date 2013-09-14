@@ -2,6 +2,7 @@ package test.com.khubla.pragmatach.plugin.mongodb;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -200,7 +201,9 @@ public class TestMongoDBPersistence {
           * there are two contained objects
           */
          Assert.assertTrue(retrievedPojo.getExamplePOJO1s() != null);
-         Assert.assertTrue(retrievedPojo.getExamplePOJO1s().size() == 2);
+         Set<ExamplePOJO1> examplePojo1s = retrievedPojo.getExamplePOJO1s();
+         Assert.assertNotNull(examplePojo1s);
+         Assert.assertTrue(examplePojo1s.size() == 2);
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();

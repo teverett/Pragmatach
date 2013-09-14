@@ -44,8 +44,7 @@ public class SetFieldSerializer implements FieldSerializer {
             /*
              * create the set
              */
-            final HashSet ret = new HashSet();
-            object = ret;
+            final HashSet set = new HashSet();
             /*
              * get the contained type of the set
              */
@@ -73,13 +72,17 @@ public class SetFieldSerializer implements FieldSerializer {
                 */
                if (null != containedObjectJSON) {
                   final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
-                  ret.add(containedObject);
+                  set.add(containedObject);
                }
                /*
                 * next one
                 */
                dbo = (DBObject) dbObject.get(Integer.toString(i++));
             }
+            /*
+             * set the field
+             */
+            PropertyUtils.setProperty(object, field.getName(), set);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeField", e);
