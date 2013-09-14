@@ -201,7 +201,7 @@ public class TestMongoDBPersistence {
           * there are two contained objects
           */
          Assert.assertTrue(retrievedPojo.getExamplePOJO1s() != null);
-         Set<ExamplePOJO1> examplePojo1s = retrievedPojo.getExamplePOJO1s();
+         final Set<ExamplePOJO1> examplePojo1s = retrievedPojo.getExamplePOJO1s();
          Assert.assertNotNull(examplePojo1s);
          Assert.assertTrue(examplePojo1s.size() == 2);
       } catch (final Exception e) {
