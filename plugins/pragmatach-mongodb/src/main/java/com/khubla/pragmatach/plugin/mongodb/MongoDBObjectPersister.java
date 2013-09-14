@@ -57,7 +57,7 @@ public class MongoDBObjectPersister<T> {
     */
    @SuppressWarnings("unchecked")
    private T getInstance() throws IllegalAccessException, InstantiationException {
-      T t = this.typeClazz.newInstance();
+      final T t = this.typeClazz.newInstance();
       return (T) Enhancer.create(this.typeClazz, new MongoInterceptor(t));
    }
 
