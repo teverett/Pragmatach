@@ -10,7 +10,7 @@ import com.mongodb.BasicDBObject;
  * @author tom
  */
 public class TestMongoDBJSONSerializer {
-   @Test(enabled = false)
+   @Test(enabled = true)
    public void testCompoundSerializeDeserialize() {
       try {
          final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(ExamplePOJO1.class);

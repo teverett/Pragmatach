@@ -18,6 +18,9 @@ import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
  * @author tome
  */
 public class TestMongoDBPersistence {
+   /**
+    * get the test configuration
+    */
    public Configuration getConfiguration() {
       final HashmapConfigurationImpl mongoConfiguration = new HashmapConfigurationImpl();
       /*
@@ -128,8 +131,8 @@ public class TestMongoDBPersistence {
       }
    }
 
-   @Test(enabled = false)
-   public void testListFunctionality() {
+   @Test(enabled = true)
+   public void testSetFunctionality() {
       try {
          /*
           * DAO
