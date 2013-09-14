@@ -71,8 +71,13 @@ public class SetFieldSerializer implements FieldSerializer {
                 * sanity check
                 */
                if (null != containedObjectJSON) {
-                  final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
-                  set.add(containedObject);
+                  /*
+                   * eager load?
+                   */
+                  if (ClassTypeUtils.isEagerLoad(field)) {
+                     final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
+                     set.add(containedObject);
+                  }
                }
                /*
                 * next one
@@ -105,40 +110,45 @@ public class SetFieldSerializer implements FieldSerializer {
    public void serializeField(BasicDBObject parentDBObject, Object object, Field field) throws PragmatachException {
       try {
          /*
-          * get the set
+          * check if cascade
           */
-         final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
-         if (null != set) {
+         if (ClassTypeUtils.isCascadeSave(field)) {
             /*
-             * get the contained type of the set
+             * get the set
              */
-            final Class<?> containedType = getContainedType(field);
-            /*
-             * the object for the set id's
-             */
-            final BasicDBObject dbObject = new BasicDBObject();
-            /*
-             * walk the set
-             */
-            int i = 0;
-            final Iterator<?> iter = set.iterator();
-            while (iter.hasNext()) {
-               final Object o = iter.next();
+            final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
+            if (null != set) {
                /*
-                * save the object
+                * get the contained type of the set
                 */
-               final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
-               mongoDBObjectPersister.save(o);
+               final Class<?> containedType = getContainedType(field);
                /*
-                * store the id
+                * the object for the set id's
                 */
-               final String id = classTypeUtils.getId(o);
-               dbObject.append(Integer.toString(i++), id);
+               final BasicDBObject dbObject = new BasicDBObject();
+               /*
+                * walk the set
+                */
+               int i = 0;
+               final Iterator<?> iter = set.iterator();
+               while (iter.hasNext()) {
+                  final Object o = iter.next();
+                  /*
+                   * save the object
+                   */
+                  final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
+                  mongoDBObjectPersister.save(o);
+                  /*
+                   * store the id
+                   */
+                  final String id = classTypeUtils.getId(o);
+                  dbObject.append(Integer.toString(i++), id);
+               }
+               /*
+                * add the id's to the parent
+                */
+               parentDBObject.append(field.getName(), dbObject);
             }
-            /*
-             * add the id's to the parent
-             */
-            parentDBObject.append(field.getName(), dbObject);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serializeField", e);

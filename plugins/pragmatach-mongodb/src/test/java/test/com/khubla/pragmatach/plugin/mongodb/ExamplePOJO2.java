@@ -2,9 +2,11 @@ package test.com.khubla.pragmatach.plugin.mongodb;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * @author tome
@@ -24,6 +26,7 @@ public class ExamplePOJO2 {
    /**
     * pojo1
     */
+   @OneToMany(cascade = CascadeType.PERSIST)
    private Set<ExamplePOJO1> examplePOJO1s;
 
    public Set<ExamplePOJO1> getExamplePOJO1s() {

@@ -20,6 +20,14 @@ public class MongoInterceptor implements MethodInterceptor {
 
    @Override
    public Object intercept(Object object, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+      if (method.getName().startsWith("get")) {
+         return interceptGetter(object, method, objects, methodProxy);
+      } else {
+         return method.invoke(proxiedObject, objects);
+      }
+   }
+
+   private Object interceptGetter(Object object, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
       return method.invoke(proxiedObject, objects);
    }
 }

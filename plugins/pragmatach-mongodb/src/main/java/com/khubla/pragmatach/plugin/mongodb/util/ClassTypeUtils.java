@@ -2,8 +2,11 @@ package com.khubla.pragmatach.plugin.mongodb.util;
 
 import java.lang.reflect.Field;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -13,6 +16,58 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tom
  */
 public class ClassTypeUtils {
+   /**
+    * check if its cascade delete field
+    */
+   public static boolean isCascadeDelete(Field field) {
+      /*
+       * get the column annotation, if it exists
+       */
+      final OneToMany OneToManyAnnotation = field.getAnnotation(OneToMany.class);
+      if (null != OneToManyAnnotation) {
+         final CascadeType[] cascadetypes = OneToManyAnnotation.cascade();
+         for (final CascadeType cascadeType : cascadetypes) {
+            if ((cascadeType == CascadeType.REMOVE) || (cascadeType == CascadeType.ALL)) {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
+   /**
+    * check if its cascade saved field
+    */
+   public static boolean isCascadeSave(Field field) {
+      /*
+       * get the column annotation, if it exists
+       */
+      final OneToMany OneToManyAnnotation = field.getAnnotation(OneToMany.class);
+      if (null != OneToManyAnnotation) {
+         final CascadeType[] cascadetypes = OneToManyAnnotation.cascade();
+         for (final CascadeType cascadeType : cascadetypes) {
+            if ((cascadeType == CascadeType.PERSIST) || (cascadeType == CascadeType.ALL)) {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
+   /**
+    * check if its an eager loaded field
+    */
+   public static boolean isEagerLoad(Field field) {
+      /*
+       * get the column annotation, if it exists
+       */
+      final OneToMany OneToManyAnnotation = field.getAnnotation(OneToMany.class);
+      if (null != OneToManyAnnotation) {
+         return FetchType.EAGER == OneToManyAnnotation.fetch();
+      }
+      return false;
+   }
+
    /**
     * the type
     */
