@@ -1,10 +1,12 @@
-package com.khubla.pragmatach.plugin.mongodb;
+package com.khubla.pragmatach.plugin.mongodb.serializer;
 
 import java.lang.reflect.Field;
 
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.plugin.mongodb.MongoDBDAO;
+import com.khubla.pragmatach.plugin.mongodb.util.ClassTypeUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 

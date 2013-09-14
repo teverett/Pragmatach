@@ -1,9 +1,10 @@
-package com.khubla.pragmatach.plugin.mongodb;
+package com.khubla.pragmatach.plugin.mongodb.serializer;
 
 import java.lang.reflect.Field;
 import java.util.Set;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.plugin.mongodb.util.AtomicTypeUtil;
 
 /**
  * @author tom

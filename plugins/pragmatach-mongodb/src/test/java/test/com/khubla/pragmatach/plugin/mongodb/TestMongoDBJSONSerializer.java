@@ -3,8 +3,8 @@ package test.com.khubla.pragmatach.plugin.mongodb;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.khubla.pragmatach.plugin.mongodb.BasicObjectSerializer;
-import com.khubla.pragmatach.plugin.mongodb.ObjectSerializer;
+import com.khubla.pragmatach.plugin.mongodb.serializer.BasicObjectSerializer;
+import com.khubla.pragmatach.plugin.mongodb.serializer.ObjectSerializer;
 import com.mongodb.BasicDBObject;
 
 /**
@@ -14,7 +14,7 @@ public class TestMongoDBJSONSerializer {
    @Test(enabled = true)
    public void testCompoundSerializeDeserialize() {
       try {
-         final ObjectSerializer mongoDBJSONSerializer = new BasicObjectSerializer(ExamplePOJO1.class);
+         final ObjectSerializer<ExamplePOJO1> examplePOJO1ObjectSerializer = new BasicObjectSerializer<ExamplePOJO1>(ExamplePOJO1.class);
          /*
           * pojo
           */
@@ -26,14 +26,13 @@ public class TestMongoDBJSONSerializer {
          /*
           * serialize
           */
-         final BasicDBObject basicDBObject = mongoDBJSONSerializer.serialize(examplePOJO1);
+         final BasicDBObject basicDBObject = examplePOJO1ObjectSerializer.serialize(examplePOJO1);
          Assert.assertNotNull(basicDBObject);
          Assert.assertTrue(basicDBObject.size() > 0);
          /*
           * deserialize
           */
-         final ExamplePOJO1 examplePOJO2 = new ExamplePOJO1();
-         mongoDBJSONSerializer.deserialize(basicDBObject, examplePOJO2);
+         final ExamplePOJO1 examplePOJO2 = examplePOJO1ObjectSerializer.deserialize(basicDBObject);
          /*
           * check
           */
@@ -50,7 +49,7 @@ public class TestMongoDBJSONSerializer {
    @Test
    public void testSimpleSerializeDeserialize() {
       try {
-         final ObjectSerializer mongoDBJSONSerializer = new BasicObjectSerializer(ExamplePOJO1.class);
+         final ObjectSerializer<ExamplePOJO1> examplePOJO1ObjectSerializer = new BasicObjectSerializer<ExamplePOJO1>(ExamplePOJO1.class);
          /*
           * pojo
           */
@@ -62,14 +61,13 @@ public class TestMongoDBJSONSerializer {
          /*
           * serialize
           */
-         final BasicDBObject basicDBObject = mongoDBJSONSerializer.serialize(examplePOJO1);
+         final BasicDBObject basicDBObject = examplePOJO1ObjectSerializer.serialize(examplePOJO1);
          Assert.assertNotNull(basicDBObject);
          Assert.assertTrue(basicDBObject.size() > 0);
          /*
           * deserialize
           */
-         final ExamplePOJO1 examplePOJO2 = new ExamplePOJO1();
-         mongoDBJSONSerializer.deserialize(basicDBObject, examplePOJO2);
+         final ExamplePOJO1 examplePOJO2 = examplePOJO1ObjectSerializer.deserialize(basicDBObject);
          /*
           * check
           */

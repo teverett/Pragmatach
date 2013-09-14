@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.plugin.mongodb;
+package com.khubla.pragmatach.plugin.mongodb.util;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;

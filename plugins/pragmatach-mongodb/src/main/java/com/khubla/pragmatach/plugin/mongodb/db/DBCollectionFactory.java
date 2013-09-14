@@ -1,4 +1,4 @@
-package com.khubla.pragmatach.plugin.mongodb;
+package com.khubla.pragmatach.plugin.mongodb.db;
 
 import javax.persistence.Entity;
 
