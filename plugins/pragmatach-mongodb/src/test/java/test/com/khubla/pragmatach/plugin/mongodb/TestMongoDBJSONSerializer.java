@@ -10,7 +10,7 @@ import com.mongodb.BasicDBObject;
  * @author tom
  */
 public class TestMongoDBJSONSerializer {
-   @Test
+   @Test(enabled = false)
    public void testCompoundSerializeDeserialize() {
       try {
          final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(ExamplePOJO1.class);
@@ -32,7 +32,7 @@ public class TestMongoDBJSONSerializer {
           * deserialize
           */
          final ExamplePOJO1 examplePOJO2 = new ExamplePOJO1();
-         mongoDBJSONSerializer.deserialize(examplePOJO2, basicDBObject);
+         mongoDBJSONSerializer.deserialize(basicDBObject, examplePOJO2);
          /*
           * check
           */
@@ -68,7 +68,7 @@ public class TestMongoDBJSONSerializer {
           * deserialize
           */
          final ExamplePOJO1 examplePOJO2 = new ExamplePOJO1();
-         mongoDBJSONSerializer.deserialize(examplePOJO2, basicDBObject);
+         mongoDBJSONSerializer.deserialize(basicDBObject, examplePOJO2);
          /*
           * check
           */

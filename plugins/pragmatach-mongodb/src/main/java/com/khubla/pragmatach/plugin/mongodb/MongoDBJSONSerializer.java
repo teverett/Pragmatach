@@ -3,12 +3,9 @@ package com.khubla.pragmatach.plugin.mongodb;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.bson.types.ObjectId;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -19,37 +16,6 @@ import com.mongodb.DBObject;
  * @author tom
  */
 public class MongoDBJSONSerializer {
-   public static class TypeUtil {
-      private static final HashSet<String> WRAPPER_TYPES = getWrapperTypes();
-
-      private static HashSet<String> getWrapperTypes() {
-         final HashSet<String> ret = new HashSet<String>();
-         ret.add(Boolean.class.getName());
-         ret.add(Character.class.getName());
-         ret.add(Byte.class.getName());
-         ret.add(Short.class.getName());
-         ret.add(Integer.class.getName());
-         ret.add(Long.class.getName());
-         ret.add(Float.class.getName());
-         ret.add(Double.class.getName());
-         ret.add(Void.class.getName());
-         return ret;
-      }
-
-      public static boolean isSimpleType(Type type) {
-         if (type.getClass().isInstance(Class.class)) {
-            final Class<?> clazz = (Class<?>) type;
-            return (clazz.isPrimitive() || TypeUtil.isWrapperType(clazz) || (clazz.getName().compareTo("java.lang.String") == 0));
-         } else {
-            return false;
-         }
-      }
-
-      public static boolean isWrapperType(Class<?> clazz) {
-         return WRAPPER_TYPES.contains(clazz.getName());
-      }
-   }
-
    /**
     * the type
     */
@@ -75,13 +41,13 @@ public class MongoDBJSONSerializer {
    /**
     * deserialize
     */
-   public void deserialize(Object object, DBObject dbObject) throws PragmatachException {
+   public void deserialize(DBObject dbObject, Object o) throws PragmatachException {
       try {
          /*
           * walk the fields
           */
          for (final Field field : typeClazz.getDeclaredFields()) {
-            deserializeField(object, field, dbObject);
+            deserializeField(o, field, dbObject);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
@@ -100,7 +66,7 @@ public class MongoDBJSONSerializer {
             /*
              * simple types
              */
-            if (TypeUtil.isSimpleType(field.getType())) {
+            if (AtomicTypeUtil.isSimpleType(field.getType())) {
                /*
                 * read all fields, treating id as special
                 */
@@ -137,28 +103,25 @@ public class MongoDBJSONSerializer {
     */
    private Set<?> deserializeSet(DBObject dbObject, Class<?> containedType) throws PragmatachException {
       try {
-         final Set ret = new HashSet();
-         if (null != dbObject) {
-            int i = 0;
-            DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
-            while (null != dbo) {
-               /*
-                * get an instance
-                */
-               final Object instance = containedType.newInstance();
-               /*
-                * deserialize
-                */
-               final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(containedType);
-               mongoDBJSONSerializer.deserialize(instance, dbo);
-               ret.add(instance);
-               /*
-                * next one
-                */
-               dbo = (DBObject) dbObject.get(Integer.toString(i++));
-            }
-         }
-         return ret;
+         // final Set ret = new HashSet();
+         // if (null != dbObject) {
+         // int i = 0;
+         // DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
+         // while (null != dbo) {
+         // /*
+         // * deserialize
+         // */
+         // final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(containedType);
+         // Object instance = mongoDBJSONSerializer.deserialize(dbo, containedType);
+         // ret.add(instance);
+         // /*
+         // * next one
+         // */
+         // dbo = (DBObject) dbObject.get(Integer.toString(i++));
+         // }
+         // }
+         // return ret;
+         return null;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeSet", e);
       }
@@ -221,7 +184,7 @@ public class MongoDBJSONSerializer {
             /*
              * simple types
              */
-            if (TypeUtil.isSimpleType(field.getType())) {
+            if (AtomicTypeUtil.isSimpleType(field.getType())) {
                /*
                 * persist all fields, treating id as special
                 */
@@ -252,21 +215,28 @@ public class MongoDBJSONSerializer {
     */
    private BasicDBObject serializeSet(Object object, Field field) throws PragmatachException {
       try {
-         final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
-         if (null != set) {
-            final BasicDBObject dbObject = new BasicDBObject();
-            final Iterator<?> iter = set.iterator();
-            int i = 0;
-            while (iter.hasNext()) {
-               final Object o = iter.next();
-               final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(o.getClass());
-               final BasicDBObject internalObject = mongoDBJSONSerializer.serialize(o);
-               dbObject.append(Integer.toString(i++), internalObject);
-            }
-            return dbObject;
-         } else {
-            return null;
-         }
+         // /*
+         // * get the set
+         // */
+         // final Set<?> set = (Set<?>) PropertyUtils.getProperty(object, field.getName());
+         // if (null != set) {
+         // /*
+         // * walk the set members
+         // */
+         // final BasicDBObject dbObject = new BasicDBObject();
+         // final Iterator<?> iter = set.iterator();
+         // int i = 0;
+         // while (iter.hasNext()) {
+         // final Object o = iter.next();
+         // final MongoDBJSONSerializer mongoDBJSONSerializer = new MongoDBJSONSerializer(o.getClass());
+         // final BasicDBObject internalObject = mongoDBJSONSerializer.serialize(o);
+         // dbObject.append(Integer.toString(i++), internalObject);
+         // }
+         // return dbObject;
+         // } else {
+         // return null;
+         // }
+         return null;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serializeSet", e);
       }
