@@ -16,7 +16,7 @@ public class FieldSerializerFactory {
       } else if (field.getType() == Set.class) {
          return new SetFieldSerializer(clazz);
       } else {
-         throw new PragmatachException("Invalid serialization type '" + field.getName() + "'");
+         throw new PragmatachException("Invalid serialization type '" + field.getType().getName() + "' for field '" + field.getName() + "'");
       }
    }
 }
