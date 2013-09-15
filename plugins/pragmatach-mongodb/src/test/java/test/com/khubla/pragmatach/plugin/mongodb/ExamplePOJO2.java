@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -26,7 +27,7 @@ public class ExamplePOJO2 {
    /**
     * pojo1
     */
-   @OneToMany(cascade = CascadeType.PERSIST)
+   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
    private Set<ExamplePOJO1> examplePOJO1s;
 
    public Set<ExamplePOJO1> getExamplePOJO1s() {

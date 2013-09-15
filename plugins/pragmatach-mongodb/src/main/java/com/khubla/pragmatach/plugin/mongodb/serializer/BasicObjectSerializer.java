@@ -2,7 +2,8 @@ package com.khubla.pragmatach.plugin.mongodb.serializer;
 
 import java.lang.reflect.Field;
 
-import net.sf.cglib.proxy.Enhancer;
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 
 import org.bson.types.ObjectId;
 
@@ -67,8 +68,12 @@ public class BasicObjectSerializer implements ObjectSerializer {
     * get instance
     */
    private Object getInstance() throws IllegalAccessException, InstantiationException {
-      final Object object = typeClazz.newInstance();
-      return Enhancer.create(typeClazz, new MongoInterceptor(object));
+      final ProxyFactory proxyFactory = new ProxyFactory();
+      proxyFactory.setSuperclass(typeClazz);
+      final Class<?> clazz = proxyFactory.createClass();
+      final Object instance = clazz.newInstance();
+      ((ProxyObject) instance).setHandler(new MongoMethodHandler());
+      return instance;
    }
 
    public Class<?> getTypeClazz() {

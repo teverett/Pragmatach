@@ -54,35 +54,37 @@ public class SetFieldSerializer implements FieldSerializer {
              */
             final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
             /*
-             * walk the ids
+             * get the set
              */
-            int i = 0;
-            DBObject dbo = (DBObject) dbObject.get(Integer.toString(i++));
-            while (null != dbo) {
+            final DBObject setObject = (DBObject) dbObject.get(field.getName());
+            if (null != setObject) {
                /*
-                * get the id
+                * walk the ids
                 */
-               final String id = dbo.toString();
-               /*
-                * get the object for the id
-                */
-               final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
-               /*
-                * sanity check
-                */
-               if (null != containedObjectJSON) {
+               int i = 0;
+               String id = (String) setObject.get(Integer.toString(i));
+               while (null != id) {
                   /*
-                   * eager load?
+                   * get the object for the id
                    */
-                  if (ClassTypeUtils.isEagerLoad(field)) {
-                     final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
-                     set.add(containedObject);
+                  final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
+                  /*
+                   * sanity check
+                   */
+                  if (null != containedObjectJSON) {
+                     /*
+                      * eager load?
+                      */
+                     if (ClassTypeUtils.isEagerLoad(field)) {
+                        final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
+                        set.add(containedObject);
+                     }
                   }
+                  /*
+                   * next one
+                   */
+                  id = (String) setObject.get(Integer.toString(++i));
                }
-               /*
-                * next one
-                */
-               dbo = (DBObject) dbObject.get(Integer.toString(i++));
             }
             /*
              * set the field

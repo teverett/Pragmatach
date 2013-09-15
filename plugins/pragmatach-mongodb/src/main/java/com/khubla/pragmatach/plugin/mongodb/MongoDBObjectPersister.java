@@ -6,6 +6,7 @@ import com.khubla.pragmatach.plugin.mongodb.serializer.BasicObjectSerializer;
 import com.khubla.pragmatach.plugin.mongodb.serializer.ObjectSerializer;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
@@ -32,7 +33,14 @@ public class MongoDBObjectPersister {
     * @return
     */
    public DBObject find(String id) throws PragmatachException {
-      throw new PragmatachException("not implemented");
+      final BasicDBObject basicDBObject = new BasicDBObject();
+      basicDBObject.append(MongoDBDAO.ID, id);
+      final DBCursor dbCursor = dbCollection.find(basicDBObject);
+      if (dbCursor.hasNext()) {
+         return dbCursor.next();
+      } else {
+         return null;
+      }
    }
 
    public Object load(DBObject dbObject) throws PragmatachException {
