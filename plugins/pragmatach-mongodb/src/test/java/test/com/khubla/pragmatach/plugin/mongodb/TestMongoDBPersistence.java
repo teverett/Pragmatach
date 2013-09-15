@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import test.com.khubla.pragmatach.plugin.mongodb.ExamplePOJO4.EE;
+
 import com.khubla.pragmatach.framework.api.Configuration;
 import com.khubla.pragmatach.framework.application.Application;
 import com.khubla.pragmatach.framework.configuration.HashmapConfigurationImpl;
@@ -188,6 +190,75 @@ public class TestMongoDBPersistence {
          final ExamplePOJO3 retrievedPojo = pojo3DAO.findById(examplePOJO3.getId());
          Assert.assertNotNull(retrievedPojo);
          Assert.assertNotNull(retrievedPojo.getExamplePOJO1());
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test(enabled = true)
+   public void testEnumFunctionality() {
+      try {
+         /*
+          * drop the db
+          */
+         DBCollectionFactory.getInstance().dropDB();
+         /*
+          * DAO
+          */
+         final AbstractDAO<ExamplePOJO4, String> dao = new MongoDBDAO<ExamplePOJO4>(ExamplePOJO4.class);
+         /*
+          * empty table
+          */
+         final long count = dao.count();
+         Assert.assertTrue(count == 0, "Expected 0 items, found " + count);
+         /*
+          * create and save an object
+          */
+         final ExamplePOJO4 examplePOJO4 = new ExamplePOJO4();
+         examplePOJO4.setEe(EE.e2);
+         dao.save(examplePOJO4);
+         /*
+          * 1 row
+          */
+         Assert.assertTrue(dao.count() == 1);
+         /*
+          * check that the id was generated
+          */
+         Assert.assertNotNull(examplePOJO4.getId());
+         /*
+          * get the created object
+          */
+         ExamplePOJO4 retrievedPojo = dao.findById(examplePOJO4.getId());
+         Assert.assertNotNull(retrievedPojo);
+         Assert.assertNotNull(retrievedPojo.getId());
+         Assert.assertTrue(retrievedPojo.getId().compareTo(examplePOJO4.getId()) == 0);
+         Assert.assertTrue(retrievedPojo.getEe() == examplePOJO4.getEe());
+         /*
+          * there is 1 object in the DB table
+          */
+         List<ExamplePOJO4> allObjects = dao.getAll();
+         Assert.assertNotNull(allObjects);
+         Assert.assertTrue(allObjects.size() == 1, "found '" + allObjects.size() + "' objects.");
+         /*
+          * delete it
+          */
+         dao.delete(examplePOJO4);
+         /*
+          * make sure it's gone
+          */
+         retrievedPojo = dao.findById(examplePOJO4.getId());
+         Assert.assertNull(retrievedPojo);
+         /*
+          * count is zero
+          */
+         Assert.assertTrue(dao.count() == 0);
+         /*
+          * no objects
+          */
+         allObjects = dao.getAll();
+         Assert.assertNotNull(allObjects);
+         Assert.assertTrue(allObjects.size() == 0);
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();

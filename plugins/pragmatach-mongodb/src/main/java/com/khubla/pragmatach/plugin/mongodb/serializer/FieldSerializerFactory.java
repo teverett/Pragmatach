@@ -19,6 +19,8 @@ public class FieldSerializerFactory {
          return new SetFieldSerializer(clazz);
       } else if (null != field.getType().getAnnotation(Entity.class)) {
          return new EntityFieldSerializer(clazz);
+      } else if (field.getType().isEnum()) {
+         return new EnumFieldSerializer(clazz);
       } else {
          throw new PragmatachException("Invalid serialization type '" + field.getType().getName() + "' for field '" + field.getName() + "'");
       }
