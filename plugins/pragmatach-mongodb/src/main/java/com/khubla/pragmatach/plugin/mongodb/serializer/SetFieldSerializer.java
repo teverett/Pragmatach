@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.Entity;
+
 import org.apache.commons.beanutils.PropertyUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -49,47 +51,51 @@ public class SetFieldSerializer implements FieldSerializer {
              * get the contained type of the set
              */
             final Class<?> containedType = getContainedType(field);
-            /*
-             * persister for the contained type
-             */
-            final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
-            /*
-             * get the set
-             */
-            final DBObject setObject = (DBObject) dbObject.get(field.getName());
-            if (null != setObject) {
+            if (null != containedType.getAnnotation(Entity.class)) {
                /*
-                * walk the ids
+                * persister for the contained type
                 */
-               int i = 0;
-               String id = (String) setObject.get(Integer.toString(i));
-               while (null != id) {
+               final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(containedType);
+               /*
+                * get the set
+                */
+               final DBObject setObject = (DBObject) dbObject.get(field.getName());
+               if (null != setObject) {
                   /*
-                   * get the object for the id
+                   * walk the ids
                    */
-                  final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
-                  /*
-                   * sanity check
-                   */
-                  if (null != containedObjectJSON) {
+                  int i = 0;
+                  String id = (String) setObject.get(Integer.toString(i));
+                  while (null != id) {
                      /*
-                      * eager load?
+                      * get the object for the id
                       */
-                     if (ClassTypeUtils.isEagerLoad(field)) {
-                        final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
-                        set.add(containedObject);
+                     final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
+                     /*
+                      * sanity check
+                      */
+                     if (null != containedObjectJSON) {
+                        /*
+                         * eager load?
+                         */
+                        if (ClassTypeUtils.isEagerLoad(field)) {
+                           final Object containedObject = mongoDBObjectPersister.load(containedObjectJSON);
+                           set.add(containedObject);
+                        }
                      }
+                     /*
+                      * next one
+                      */
+                     id = (String) setObject.get(Integer.toString(++i));
                   }
-                  /*
-                   * next one
-                   */
-                  id = (String) setObject.get(Integer.toString(++i));
                }
+               /*
+                * set the field
+                */
+               PropertyUtils.setProperty(object, field.getName(), set);
+            } else {
+               throw new Exception("Type '" + containedType.getName() + "' is not an @Entity");
             }
-            /*
-             * set the field
-             */
-            PropertyUtils.setProperty(object, field.getName(), set);
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeField", e);

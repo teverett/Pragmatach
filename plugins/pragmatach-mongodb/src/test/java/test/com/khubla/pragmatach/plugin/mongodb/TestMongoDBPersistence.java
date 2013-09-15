@@ -142,6 +142,59 @@ public class TestMongoDBPersistence {
    }
 
    @Test(enabled = true)
+   public void testEntityInstanceFunctionality() {
+      try {
+         /*
+          * drop the db
+          */
+         DBCollectionFactory.getInstance().dropDB();
+         /*
+          * DAO
+          */
+         final AbstractDAO<ExamplePOJO3, String> pojo3DAO = new MongoDBDAO<ExamplePOJO3>(ExamplePOJO3.class);
+         final AbstractDAO<ExamplePOJO1, String> pojo1DAO = new MongoDBDAO<ExamplePOJO1>(ExamplePOJO1.class);
+         /*
+          * empty table
+          */
+         Assert.assertTrue(pojo3DAO.count() == 0);
+         Assert.assertTrue(pojo1DAO.count() == 0);
+         /*
+          * create and save an object
+          */
+         final ExamplePOJO3 examplePOJO3 = new ExamplePOJO3();
+         examplePOJO3.setName("abc123");
+         final ExamplePOJO1 ep1 = new ExamplePOJO1();
+         ep1.setName("one");
+         ep1.setDoubleNumber(44.0);
+         ep1.setIntNumber(3);
+         examplePOJO3.setExamplePOJO1(ep1);
+         pojo3DAO.save(examplePOJO3);
+         /*
+          * 1 row in POJO1
+          */
+         Assert.assertTrue(pojo3DAO.count() == 1);
+         final List<ExamplePOJO1> allPOJO1s = pojo1DAO.getAll();
+         Assert.assertNotNull(allPOJO1s);
+         Assert.assertTrue(allPOJO1s.size() == 1);
+         Assert.assertTrue(pojo1DAO.count() == 1, "Expected 1 POJO1 objects, there are :" + pojo1DAO.count());
+         /*
+          * check that the id was generated
+          */
+         Assert.assertNotNull(examplePOJO3.getId());
+         Assert.assertNotNull(examplePOJO3.getExamplePOJO1().getId());
+         /*
+          * get it back
+          */
+         final ExamplePOJO3 retrievedPojo = pojo3DAO.findById(examplePOJO3.getId());
+         Assert.assertNotNull(retrievedPojo);
+         Assert.assertNotNull(retrievedPojo.getExamplePOJO1());
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test(enabled = true)
    public void testSetFunctionality() {
       try {
          /*
