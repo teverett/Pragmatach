@@ -39,18 +39,23 @@ public class EntityFieldSerializer implements FieldSerializer {
           */
          final String id = (String) dbObject.get(field.getName());
          /*
-          * get object
+          * if it was null, we didn't save it, so move on
           */
-         final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(field.getType());
-         final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
-         /*
-          * load it
-          */
-         final Object o = mongoDBObjectPersister.load(containedObjectJSON);
-         /*
-          * set
-          */
-         PropertyUtils.setProperty(object, field.getName(), o);
+         if (null != id) {
+            /*
+             * get object
+             */
+            final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(field.getType());
+            final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
+            /*
+             * load it
+             */
+            final Object o = mongoDBObjectPersister.load(containedObjectJSON);
+            /*
+             * set
+             */
+            PropertyUtils.setProperty(object, field.getName(), o);
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeField", e);
       }
@@ -64,14 +69,19 @@ public class EntityFieldSerializer implements FieldSerializer {
           */
          final Object oo = PropertyUtils.getProperty(object, field.getName());
          /*
-          * save the object
+          * if the object is null, don't store it
           */
-         final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(field.getType());
-         mongoDBObjectPersister.save(oo);
-         /*
-          * save the id
-          */
-         parentDBObject.append(field.getName(), classTypeUtils.getId(oo));
+         if (null != oo) {
+            /*
+             * save the object
+             */
+            final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(field.getType());
+            mongoDBObjectPersister.save(oo);
+            /*
+             * save the id
+             */
+            parentDBObject.append(field.getName(), classTypeUtils.getId(oo));
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in serializeField", e);
       }
