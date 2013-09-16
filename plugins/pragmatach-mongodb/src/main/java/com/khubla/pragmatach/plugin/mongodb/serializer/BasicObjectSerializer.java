@@ -40,7 +40,7 @@ public class BasicObjectSerializer implements ObjectSerializer {
          /*
           * instance
           */
-         final Object object = MongoProxyFactory.getProxyObject(this.typeClazz);
+         final Object object = MongoProxyFactory.getProxyObject(typeClazz);
          /*
           * walk the fields
           */

@@ -266,75 +266,6 @@ public class TestMongoDBPersistence {
    }
 
    @Test(enabled = true)
-   public void testSetFunctionality() {
-      try {
-         /*
-          * drop the db
-          */
-         DBCollectionFactory.getInstance().dropDB();
-         /*
-          * DAO
-          */
-         final AbstractDAO<ExamplePOJO2, String> pojo2DAO = new MongoDBDAO<ExamplePOJO2>(ExamplePOJO2.class);
-         final AbstractDAO<ExamplePOJO1, String> pojo1DAO = new MongoDBDAO<ExamplePOJO1>(ExamplePOJO1.class);
-         /*
-          * empty table
-          */
-         Assert.assertTrue(pojo2DAO.count() == 0);
-         Assert.assertTrue(pojo1DAO.count() == 0);
-         /*
-          * create and save an object
-          */
-         final ExamplePOJO2 examplePOJO2 = new ExamplePOJO2();
-         examplePOJO2.setName("abc123");
-         final HashSet<ExamplePOJO1> epo = new HashSet<ExamplePOJO1>();
-         final ExamplePOJO1 ep1 = new ExamplePOJO1();
-         ep1.setName("one");
-         ep1.setDoubleNumber(44.0);
-         ep1.setIntNumber(3);
-         epo.add(ep1);
-         final ExamplePOJO1 ep2 = new ExamplePOJO1();
-         ep2.setName("two");
-         ep2.setDoubleNumber(66666.9);
-         ep2.setIntNumber(90);
-         epo.add(ep2);
-         examplePOJO2.setExamplePOJO1s(epo);
-         pojo2DAO.save(examplePOJO2);
-         /*
-          * 1 row in POJO1
-          */
-         Assert.assertTrue(pojo2DAO.count() == 1);
-         final List<ExamplePOJO1> allPOJO1s = pojo1DAO.getAll();
-         Assert.assertNotNull(allPOJO1s);
-         Assert.assertTrue(allPOJO1s.size() == 2);
-         Assert.assertTrue(pojo1DAO.count() == 2, "Expected 2 POJO1 objects, there are :" + pojo1DAO.count());
-         /*
-          * check that the id was generated
-          */
-         Assert.assertNotNull(examplePOJO2.getId());
-         for (final ExamplePOJO1 examplePOJO1 : examplePOJO2.getExamplePOJO1s()) {
-            Assert.assertNotNull(examplePOJO1);
-            Assert.assertNotNull(examplePOJO1.getId());
-         }
-         /*
-          * get it back
-          */
-         final ExamplePOJO2 retrievedPojo = pojo2DAO.findById(examplePOJO2.getId());
-         Assert.assertNotNull(retrievedPojo);
-         /*
-          * there are two contained objects
-          */
-         Assert.assertTrue(retrievedPojo.getExamplePOJO1s() != null);
-         final Set<ExamplePOJO1> examplePojo1s = retrievedPojo.getExamplePOJO1s();
-         Assert.assertNotNull(examplePojo1s);
-         Assert.assertTrue(examplePojo1s.size() == 2);
-      } catch (final Exception e) {
-         e.printStackTrace();
-         Assert.fail();
-      }
-   }
-
-   @Test(enabled = false)
    public void testLazyLoadFunctionality() {
       try {
          /*
@@ -389,6 +320,75 @@ public class TestMongoDBPersistence {
           * get it back
           */
          final ExamplePOJO5 retrievedPojo = pojo5DAO.findById(examplePOJO5.getId());
+         Assert.assertNotNull(retrievedPojo);
+         /*
+          * there are two contained objects
+          */
+         Assert.assertTrue(retrievedPojo.getExamplePOJO1s() != null);
+         final Set<ExamplePOJO1> examplePojo1s = retrievedPojo.getExamplePOJO1s();
+         Assert.assertNotNull(examplePojo1s);
+         Assert.assertTrue(examplePojo1s.size() == 2);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test(enabled = true)
+   public void testSetFunctionality() {
+      try {
+         /*
+          * drop the db
+          */
+         DBCollectionFactory.getInstance().dropDB();
+         /*
+          * DAO
+          */
+         final AbstractDAO<ExamplePOJO2, String> pojo2DAO = new MongoDBDAO<ExamplePOJO2>(ExamplePOJO2.class);
+         final AbstractDAO<ExamplePOJO1, String> pojo1DAO = new MongoDBDAO<ExamplePOJO1>(ExamplePOJO1.class);
+         /*
+          * empty table
+          */
+         Assert.assertTrue(pojo2DAO.count() == 0);
+         Assert.assertTrue(pojo1DAO.count() == 0);
+         /*
+          * create and save an object
+          */
+         final ExamplePOJO2 examplePOJO2 = new ExamplePOJO2();
+         examplePOJO2.setName("abc123");
+         final HashSet<ExamplePOJO1> epo = new HashSet<ExamplePOJO1>();
+         final ExamplePOJO1 ep1 = new ExamplePOJO1();
+         ep1.setName("one");
+         ep1.setDoubleNumber(44.0);
+         ep1.setIntNumber(3);
+         epo.add(ep1);
+         final ExamplePOJO1 ep2 = new ExamplePOJO1();
+         ep2.setName("two");
+         ep2.setDoubleNumber(66666.9);
+         ep2.setIntNumber(90);
+         epo.add(ep2);
+         examplePOJO2.setExamplePOJO1s(epo);
+         pojo2DAO.save(examplePOJO2);
+         /*
+          * 1 row in POJO1
+          */
+         Assert.assertTrue(pojo2DAO.count() == 1);
+         final List<ExamplePOJO1> allPOJO1s = pojo1DAO.getAll();
+         Assert.assertNotNull(allPOJO1s);
+         Assert.assertTrue(allPOJO1s.size() == 2);
+         Assert.assertTrue(pojo1DAO.count() == 2, "Expected 2 POJO1 objects, there are :" + pojo1DAO.count());
+         /*
+          * check that the id was generated
+          */
+         Assert.assertNotNull(examplePOJO2.getId());
+         for (final ExamplePOJO1 examplePOJO1 : examplePOJO2.getExamplePOJO1s()) {
+            Assert.assertNotNull(examplePOJO1);
+            Assert.assertNotNull(examplePOJO1.getId());
+         }
+         /*
+          * get it back
+          */
+         final ExamplePOJO2 retrievedPojo = pojo2DAO.findById(examplePOJO2.getId());
          Assert.assertNotNull(retrievedPojo);
          /*
           * there are two contained objects
