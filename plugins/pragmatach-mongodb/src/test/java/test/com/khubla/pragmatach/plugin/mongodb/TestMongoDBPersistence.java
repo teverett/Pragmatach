@@ -265,7 +265,7 @@ public class TestMongoDBPersistence {
       }
    }
 
-   @Test(enabled = true)
+   @Test(enabled = false)
    public void testLazyLoadFunctionality() {
       try {
          /*
