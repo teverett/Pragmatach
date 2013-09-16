@@ -69,6 +69,20 @@ public class ClassTypeUtils {
    }
 
    /**
+    * check if its an eager loaded field
+    */
+   public static boolean isLazyLoad(Field field) {
+      /*
+       * get the column annotation, if it exists
+       */
+      final OneToMany OneToManyAnnotation = field.getAnnotation(OneToMany.class);
+      if (null != OneToManyAnnotation) {
+         return FetchType.LAZY == OneToManyAnnotation.fetch();
+      }
+      return false;
+   }
+
+   /**
     * the type
     */
    private final Class<?> typeClazz;

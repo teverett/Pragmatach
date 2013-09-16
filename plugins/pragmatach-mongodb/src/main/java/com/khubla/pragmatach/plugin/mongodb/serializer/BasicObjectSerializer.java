@@ -2,12 +2,10 @@ package com.khubla.pragmatach.plugin.mongodb.serializer;
 
 import java.lang.reflect.Field;
 
-import javassist.util.proxy.ProxyFactory;
-import javassist.util.proxy.ProxyObject;
-
 import org.bson.types.ObjectId;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.plugin.mongodb.proxy.MongoProxyFactory;
 import com.khubla.pragmatach.plugin.mongodb.util.ClassTypeUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -42,7 +40,7 @@ public class BasicObjectSerializer implements ObjectSerializer {
          /*
           * instance
           */
-         final Object object = getInstance();
+         final Object object = MongoProxyFactory.getProxyObject(this.typeClazz);
          /*
           * walk the fields
           */
@@ -62,18 +60,6 @@ public class BasicObjectSerializer implements ObjectSerializer {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserialize", e);
       }
-   }
-
-   /**
-    * get instance
-    */
-   private Object getInstance() throws IllegalAccessException, InstantiationException {
-      final ProxyFactory proxyFactory = new ProxyFactory();
-      proxyFactory.setSuperclass(typeClazz);
-      final Class<?> clazz = proxyFactory.createClass();
-      final Object instance = clazz.newInstance();
-      ((ProxyObject) instance).setHandler(new MongoMethodHandler());
-      return instance;
    }
 
    public Class<?> getTypeClazz() {
