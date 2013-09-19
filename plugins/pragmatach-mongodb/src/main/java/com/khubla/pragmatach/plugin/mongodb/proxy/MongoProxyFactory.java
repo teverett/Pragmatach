@@ -42,7 +42,7 @@ public class MongoProxyFactory {
    /**
     * get proxy
     */
-   private static Class<?> getProxy(Class<?> clazz) throws NotFoundException, CannotCompileException {
+   private static Class<?> getProxyClass(Class<?> clazz) throws NotFoundException, CannotCompileException {
       Class<?> ret = lazyProxies.get(clazz);
       if (null == ret) {
          ret = createProxyClass(clazz);
@@ -66,7 +66,7 @@ public class MongoProxyFactory {
       /*
        * create the superclass
        */
-      final Class<?> superClass = getProxy(typeClazz);
+      final Class<?> superClass = getProxyClass(typeClazz);
       /*
        * set the super class
        */
