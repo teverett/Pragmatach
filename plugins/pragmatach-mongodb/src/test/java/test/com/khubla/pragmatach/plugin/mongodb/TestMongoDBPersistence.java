@@ -266,7 +266,7 @@ public class TestMongoDBPersistence {
    }
 
    @Test(enabled = false)
-   public void testLazyLoadFunctionality() {
+   public void testLazyLoadCollectionFunctionality() {
       try {
          /*
           * drop the db
@@ -328,6 +328,59 @@ public class TestMongoDBPersistence {
          final Set<ExamplePOJO1> examplePojo1s = retrievedPojo.getExamplePOJO1s();
          Assert.assertNotNull(examplePojo1s);
          Assert.assertTrue(examplePojo1s.size() == 2);
+      } catch (final Exception e) {
+         e.printStackTrace();
+         Assert.fail();
+      }
+   }
+
+   @Test(enabled = false)
+   public void testLazyLoadEntityInstanceFunctionality() {
+      try {
+         /*
+          * drop the db
+          */
+         DBCollectionFactory.getInstance().dropDB();
+         /*
+          * DAO
+          */
+         final AbstractDAO<ExamplePOJO6, String> pojo6DAO = new MongoDBDAO<ExamplePOJO6>(ExamplePOJO6.class);
+         final AbstractDAO<ExamplePOJO1, String> pojo1DAO = new MongoDBDAO<ExamplePOJO1>(ExamplePOJO1.class);
+         /*
+          * empty table
+          */
+         Assert.assertTrue(pojo6DAO.count() == 0);
+         Assert.assertTrue(pojo1DAO.count() == 0);
+         /*
+          * create and save an object
+          */
+         final ExamplePOJO6 examplePOJO6 = new ExamplePOJO6();
+         examplePOJO6.setName("abc123");
+         final ExamplePOJO1 ep1 = new ExamplePOJO1();
+         ep1.setName("one");
+         ep1.setDoubleNumber(44.0);
+         ep1.setIntNumber(3);
+         examplePOJO6.setExamplePOJO1(ep1);
+         pojo6DAO.save(examplePOJO6);
+         /*
+          * 1 row in POJO1
+          */
+         Assert.assertTrue(pojo6DAO.count() == 1);
+         final List<ExamplePOJO1> allPOJO1s = pojo1DAO.getAll();
+         Assert.assertNotNull(allPOJO1s);
+         Assert.assertTrue(allPOJO1s.size() == 1);
+         Assert.assertTrue(pojo1DAO.count() == 1, "Expected 1 POJO1 objects, there are :" + pojo1DAO.count());
+         /*
+          * check that the id was generated
+          */
+         Assert.assertNotNull(examplePOJO6.getId());
+         Assert.assertNotNull(examplePOJO6.getExamplePOJO1().getId());
+         /*
+          * get it back
+          */
+         final ExamplePOJO6 retrievedPojo = pojo6DAO.findById(examplePOJO6.getId());
+         Assert.assertNotNull(retrievedPojo);
+         Assert.assertNotNull(retrievedPojo.getExamplePOJO1());
       } catch (final Exception e) {
          e.printStackTrace();
          Assert.fail();

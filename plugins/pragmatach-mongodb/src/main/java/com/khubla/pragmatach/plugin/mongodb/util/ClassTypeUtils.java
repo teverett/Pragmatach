@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -32,6 +33,15 @@ public class ClassTypeUtils {
             }
          }
       }
+      final ManyToOne ManyToOneAnnotation = field.getAnnotation(ManyToOne.class);
+      if (null != ManyToOneAnnotation) {
+         final CascadeType[] cascadetypes = ManyToOneAnnotation.cascade();
+         for (final CascadeType cascadeType : cascadetypes) {
+            if ((cascadeType == CascadeType.REMOVE) || (cascadeType == CascadeType.ALL)) {
+               return true;
+            }
+         }
+      }
       return false;
    }
 
@@ -45,6 +55,15 @@ public class ClassTypeUtils {
       final OneToMany OneToManyAnnotation = field.getAnnotation(OneToMany.class);
       if (null != OneToManyAnnotation) {
          final CascadeType[] cascadetypes = OneToManyAnnotation.cascade();
+         for (final CascadeType cascadeType : cascadetypes) {
+            if ((cascadeType == CascadeType.PERSIST) || (cascadeType == CascadeType.ALL)) {
+               return true;
+            }
+         }
+      }
+      final ManyToOne ManyToOneAnnotation = field.getAnnotation(ManyToOne.class);
+      if (null != ManyToOneAnnotation) {
+         final CascadeType[] cascadetypes = ManyToOneAnnotation.cascade();
          for (final CascadeType cascadeType : cascadetypes) {
             if ((cascadeType == CascadeType.PERSIST) || (cascadeType == CascadeType.ALL)) {
                return true;
@@ -65,6 +84,12 @@ public class ClassTypeUtils {
       if (null != OneToManyAnnotation) {
          return FetchType.EAGER == OneToManyAnnotation.fetch();
       }
+      final ManyToOne ManyToOneAnnotation = field.getAnnotation(ManyToOne.class);
+      if (null != ManyToOneAnnotation) {
+         if (FetchType.EAGER == ManyToOneAnnotation.fetch()) {
+            return true;
+         }
+      }
       return false;
    }
 
@@ -77,7 +102,15 @@ public class ClassTypeUtils {
        */
       final OneToMany OneToManyAnnotation = field.getAnnotation(OneToMany.class);
       if (null != OneToManyAnnotation) {
-         return FetchType.LAZY == OneToManyAnnotation.fetch();
+         if (FetchType.LAZY == OneToManyAnnotation.fetch()) {
+            return true;
+         }
+      }
+      final ManyToOne ManyToOneAnnotation = field.getAnnotation(ManyToOne.class);
+      if (null != ManyToOneAnnotation) {
+         if (FetchType.LAZY == ManyToOneAnnotation.fetch()) {
+            return true;
+         }
       }
       return false;
    }
