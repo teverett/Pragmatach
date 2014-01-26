@@ -54,9 +54,10 @@ public class MongoMethodHandler implements MethodHandler, MethodFilter {
     * lazy load
     */
    private void lazyLoad(Object object, Method thisMethod, Method proceed, Object[] args) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-      final Object o = proceed.invoke(object, args);
-      if (null == o) {
-         System.out.println("Need Lazy load");
+      boolean fetched = MongoProxyFactory.getFetched(object);
+      if (false == fetched) {
+         String lazyLoadid = MongoProxyFactory.getId(object);
+         System.out.println(lazyLoadid);
       }
    }
 }

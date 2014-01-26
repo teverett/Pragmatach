@@ -22,6 +22,7 @@ import com.khubla.pragmatach.plugin.mongodb.db.DBCollectionFactory;
 /**
  * @author tome
  */
+@Test(enabled = false)
 public class TestMongoDBPersistence {
    @BeforeTest
    public void beforeTest() {
@@ -334,7 +335,7 @@ public class TestMongoDBPersistence {
       }
    }
 
-   @Test(enabled = false)
+   @Test(enabled = true)
    public void testLazyLoadEntityInstanceFunctionality() {
       try {
          /*

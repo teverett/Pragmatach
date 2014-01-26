@@ -6,9 +6,12 @@ import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
+import javassist.Modifier;
 import javassist.NotFoundException;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
+
+import org.apache.commons.lang.reflect.FieldUtils;
 
 /**
  * @author tom
@@ -17,8 +20,8 @@ public class MongoProxyFactory {
    /**
     * some special names
     */
-   public static final String LAZYID = "_lazyid";
-   public static final String LAZYFETCHED = "_lazyfetched";
+   public static final String LAZYID = "mongolazyid";
+   public static final String LAZYFETCHED = "mongolazyfetched";
    /**
     * static registry of lazy loading proxies
     */
@@ -33,8 +36,10 @@ public class MongoProxyFactory {
       ctClass.setSuperclass(classPool.getCtClass(typeClazz.getName()));
       final CtClass ctStringClass = ClassPool.getDefault().get("java.lang.String");
       final CtField ctIdField = new CtField(ctStringClass, LAZYID, ctClass);
+      ctIdField.setModifiers(Modifier.PUBLIC);
       ctClass.addField(ctIdField);
       final CtField ctFetchedField = new CtField(CtClass.booleanType, LAZYFETCHED, ctClass);
+      ctFetchedField.setModifiers(Modifier.PUBLIC);
       ctClass.addField(ctFetchedField);
       return ctClass.toClass();
    }
@@ -91,5 +96,22 @@ public class MongoProxyFactory {
        * done
        */
       return instance;
+   }
+
+   public static void setID(Object o, String id) throws IllegalAccessException {
+      FieldUtils.writeField(o, MongoProxyFactory.LAZYID, id);
+   }
+
+   public static void setFetched(Object o, boolean fetched) throws IllegalAccessException {
+      FieldUtils.writeField(o, MongoProxyFactory.LAZYFETCHED, false);
+   }
+
+   public static String getId(Object o) throws IllegalAccessException {
+      return (String) FieldUtils.readField(o, MongoProxyFactory.LAZYID);
+   }
+
+   public static boolean getFetched(Object o) throws IllegalAccessException {
+      Boolean b = (Boolean) FieldUtils.readField(o, MongoProxyFactory.LAZYFETCHED);
+      return b.booleanValue();
    }
 }

@@ -6,6 +6,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.plugin.mongodb.MongoDBObjectPersister;
+import com.khubla.pragmatach.plugin.mongodb.proxy.MongoProxyFactory;
 import com.khubla.pragmatach.plugin.mongodb.util.ClassTypeUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -43,18 +44,37 @@ public class EntityFieldSerializer implements FieldSerializer {
           */
          if (null != id) {
             /*
-             * get object
+             * lazy load?
              */
-            final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(field.getType());
-            final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
-            /*
-             * load it
-             */
-            final Object o = mongoDBObjectPersister.load(containedObjectJSON);
-            /*
-             * set
-             */
-            PropertyUtils.setProperty(object, field.getName(), o);
+            if (true == ClassTypeUtils.isLazyLoad(field)) {
+               /*
+                * create an empty object
+                */
+               Object o = MongoProxyFactory.getProxyObject(field.getType());
+               /*
+                * set the id and fetched properties
+                */
+               MongoProxyFactory.setID(o, id);
+               MongoProxyFactory.setFetched(o, false);
+               /*
+                * set
+                */
+               PropertyUtils.setProperty(object, field.getName(), o);
+            } else {
+               /*
+                * get object
+                */
+               final MongoDBObjectPersister mongoDBObjectPersister = new MongoDBObjectPersister(field.getType());
+               final DBObject containedObjectJSON = mongoDBObjectPersister.find(id);
+               /*
+                * load it
+                */
+               final Object o = mongoDBObjectPersister.load(containedObjectJSON);
+               /*
+                * set
+                */
+               PropertyUtils.setProperty(object, field.getName(), o);
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in deserializeField", e);
