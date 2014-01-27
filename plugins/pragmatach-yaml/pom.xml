@@ -27,9 +27,7 @@
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
-			<version>1.8</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>1.13</version>
 		</dependency>
 	</dependencies>
 </project>

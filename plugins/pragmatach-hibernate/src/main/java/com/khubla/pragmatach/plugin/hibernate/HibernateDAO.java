@@ -10,10 +10,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Projections;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 import com.khubla.pragmatach.framework.application.Application;
@@ -92,7 +92,7 @@ public class HibernateDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
          /*
           * go for it
           */
-         serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
          return configuration.buildSessionFactory(serviceRegistry);
       } catch (final Exception e) {
          throw new ExceptionInInitializerError(e);
