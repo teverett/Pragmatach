@@ -3,11 +3,15 @@ package com.khubla.pragmatach.framework.router;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.khubla.pragmatach.framework.annotation.AfterInvoke;
+import com.khubla.pragmatach.framework.annotation.BeforeInvoke;
 import com.khubla.pragmatach.framework.annotation.Route;
 import com.khubla.pragmatach.framework.annotation.RouteParameter;
 import com.khubla.pragmatach.framework.annotation.View;
@@ -101,6 +105,14 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
     */
    private final Method method;
    /**
+    * methods to call before the method
+    */
+   private final Set<Method> beforeMethods;
+   /**
+    * methods to call after the method
+    */
+   private final Set<Method> afterMethods;
+   /**
     * route specification
     */
    private final RouteSpecification routeSpecification;
@@ -121,6 +133,8 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
       view = findView();
       route = method.getAnnotation(Route.class);
       routeSpecification = new RouteSpecification(route.uri());
+      beforeMethods = findBeforeMethods();
+      afterMethods = findAfterMethods();
       /*
        * check the route
        */
@@ -198,6 +212,100 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
    }
 
    /**
+    * find the after methods
+    */
+   private Set<Method> findAfterMethods() throws PragmatachException {
+      try {
+         final Class<?> controllerClass = method.getDeclaringClass();
+         return findAfterMethods(controllerClass);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findBeforeMethods", e);
+      }
+   }
+
+   /**
+    * recursively find all after methods
+    */
+   private Set<Method> findAfterMethods(Class<?> clazz) throws PragmatachException {
+      try {
+         /*
+          * ret
+          */
+         final Set<Method> ret = new HashSet<Method>();
+         /*
+          * walk the methods
+          */
+         for (final Method method : clazz.getDeclaredMethods()) {
+            for (final Annotation annotation : method.getAnnotations()) {
+               if (annotation.annotationType() == AfterInvoke.class) {
+                  ret.add(method);
+               }
+            }
+         }
+         /*
+          * superclass
+          */
+         final Class<?> superClass = clazz.getSuperclass();
+         if (null != superClass) {
+            ret.addAll(findBeforeMethods(superClass));
+         }
+         /*
+          * done
+          */
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findBeforeMethods", e);
+      }
+   }
+
+   /**
+    * find the before methods
+    */
+   private Set<Method> findBeforeMethods() throws PragmatachException {
+      try {
+         final Class<?> controllerClass = method.getDeclaringClass();
+         return findBeforeMethods(controllerClass);
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findBeforeMethods", e);
+      }
+   }
+
+   /**
+    * recursively find all before methods
+    */
+   private Set<Method> findBeforeMethods(Class<?> clazz) throws PragmatachException {
+      try {
+         /*
+          * ret
+          */
+         final Set<Method> ret = new HashSet<Method>();
+         /*
+          * walk the methods
+          */
+         for (final Method method : clazz.getDeclaredMethods()) {
+            for (final Annotation annotation : method.getAnnotations()) {
+               if (annotation.annotationType() == BeforeInvoke.class) {
+                  ret.add(method);
+               }
+            }
+         }
+         /*
+          * superclass
+          */
+         final Class<?> superClass = clazz.getSuperclass();
+         if (null != superClass) {
+            ret.addAll(findBeforeMethods(superClass));
+         }
+         /*
+          * done
+          */
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in findBeforeMethods", e);
+      }
+   }
+
+   /**
     * find the view declaration for the route
     * <p>
     * Firstly, look for an annotation on the method, then the class.
@@ -219,6 +327,14 @@ public class PragmatachRoute implements Comparable<PragmatachRoute> {
       } catch (final Exception e) {
          throw new PragmatachException("Exception in findView", e);
       }
+   }
+
+   public Set<Method> getAfterMethods() {
+      return afterMethods;
+   }
+
+   public Set<Method> getBeforeMethods() {
+      return beforeMethods;
    }
 
    /**

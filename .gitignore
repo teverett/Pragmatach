@@ -491,3 +491,9 @@ facebookexample.log
 /plugins/pragmatach-mongodb/.settings/
 /plugins/pragmatach-mongodb/target/
 /plugins/pragmatach-mongodb/test-output/
+/examples/beforeexample/.project
+/examples/beforeexample/.settings/
+
+/examples/beforeexample/.classpath
+
+/examples/beforeexample/pragmatach.log
