@@ -77,7 +77,7 @@ public class ClusteredControllers {
     */
    private Set<Class<?>> findClusteredControllerClasses() throws PragmatachException {
       try {
-         return AnnotationScanner.getAll(Clustered.class);
+         return AnnotationScanner.getAllClasses(Clustered.class);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in findClusteredControllerClasses", e);
       }

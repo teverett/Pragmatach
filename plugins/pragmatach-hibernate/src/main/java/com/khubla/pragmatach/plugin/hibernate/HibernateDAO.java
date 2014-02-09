@@ -104,7 +104,7 @@ public class HibernateDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
     */
    protected static Set<Class<?>> getEntityClasses() throws PragmatachException {
       try {
-         return AnnotationScanner.getAll(Entity.class);
+         return AnnotationScanner.getAllClasses(Entity.class);
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getAnnotatedClasses", e);
       }

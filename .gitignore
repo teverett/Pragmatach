@@ -497,3 +497,9 @@ facebookexample.log
 /examples/beforeexample/.classpath
 
 /examples/beforeexample/pragmatach.log
+
+/examples/startupexample/.classpath
+/examples/startupexample/.gitignore
+/examples/startupexample/.project
+
+/examples/startupexample/.settings/

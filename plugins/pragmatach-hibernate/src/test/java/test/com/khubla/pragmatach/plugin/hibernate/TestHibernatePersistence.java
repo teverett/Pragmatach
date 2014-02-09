@@ -61,8 +61,10 @@ public class TestHibernatePersistence extends AbstractPersistenceTest {
       /*
        * mysql (embedded)
        */
+      // TODO fix this
       File ourAppDir = new File(System.getProperty("java.io.tmpdir"));
       File databaseDir = new File(ourAppDir, "test-mxj");
+      databaseDir.delete();
       final HashmapConfigurationImpl mysqlConfiguration = new HashmapConfigurationImpl();
       mysqlConfiguration.setParameter("hibernate.driver", "com.mysql.jdbc.Driver");
       mysqlConfiguration.setParameter("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
@@ -70,7 +72,7 @@ public class TestHibernatePersistence extends AbstractPersistenceTest {
       mysqlConfiguration.setParameter("hibernate.connection.username", "");
       mysqlConfiguration.setParameter("hibernate.connection.password", "");
       mysqlConfiguration.setParameter("hibernate.hbm2ddl.auto", "create-drop");
-      ret.add(mysqlConfiguration);
+      // ret.add(mysqlConfiguration);
       /*
        * done
        */

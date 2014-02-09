@@ -37,7 +37,7 @@ public class ControllerClasses {
          /*
           * controllers
           */
-         final Set<Class<?>> annotatedControllers = AnnotationScanner.getAll(Controller.class);
+         final Set<Class<?>> annotatedControllers = AnnotationScanner.getAllClasses(Controller.class);
          for (final Class<?> clazz : annotatedControllers) {
             controllers.add(clazz);
             logger.info("Found controller '" + clazz.getName() + "'");
@@ -45,7 +45,7 @@ public class ControllerClasses {
          /*
           * routes
           */
-         final Set<Class<?>> controllersWithRoutes = AnnotationScanner.getAll(Route.class);
+         final Set<Class<?>> controllersWithRoutes = AnnotationScanner.getAllClasses(Route.class);
          for (final Class<?> clazz : controllersWithRoutes) {
             final Method[] methods = clazz.getMethods();
             if (null != methods) {
