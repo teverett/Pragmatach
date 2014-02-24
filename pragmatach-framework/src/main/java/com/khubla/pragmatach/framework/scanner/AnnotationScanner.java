@@ -1,5 +1,7 @@
 package com.khubla.pragmatach.framework.scanner;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +26,7 @@ public class AnnotationScanner {
    /**
     * get classes with annotation
     */
-   public static Set<Class<?>> getAll(Class<?> annotationClass) throws PragmatachException {
+   public static Set<Class<?>> getAllClasses(Class<?> annotationClass) throws PragmatachException {
       try {
          final Set<Class<?>> ret = new HashSet<Class<?>>();
          final Set<String> classNames = annotationDB.getAnnotationIndex().get(annotationClass.getCanonicalName());
@@ -36,7 +38,34 @@ public class AnnotationScanner {
          }
          return ret;
       } catch (final Exception e) {
-         throw new PragmatachException("Exception in getAll", e);
+         throw new PragmatachException("Exception in getAllClasses", e);
+      }
+   }
+
+   /**
+    * get classes with annotation
+    */
+   public static Set<Method> getAllMethods(Class<?> annotationClass) throws PragmatachException {
+      try {
+         final Set<Method> ret = new HashSet<Method>();
+         final Set<String> classNames = annotationDB.getAnnotationIndex().get(annotationClass.getCanonicalName());
+         if (null != classNames) {
+            for (final String name : classNames) {
+               final Class<?> clazz = Class.forName(name);
+               for (final Method method : clazz.getMethods()) {
+                  for (final Annotation annotation : method.getDeclaredAnnotations()) {
+                     System.out.println(annotation.getClass().getCanonicalName());
+                     System.out.println(annotationClass.getCanonicalName());
+                     if (0 == annotation.getClass().getCanonicalName().compareTo(annotationClass.getCanonicalName())) {
+                        ret.add(method);
+                     }
+                  }
+               }
+            }
+         }
+         return ret;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getAllMethods", e);
       }
    }
 

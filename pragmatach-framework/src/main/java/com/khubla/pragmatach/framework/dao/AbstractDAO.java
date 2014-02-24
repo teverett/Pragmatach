@@ -1,13 +1,11 @@
 package com.khubla.pragmatach.framework.dao;
 
-import java.io.Serializable;
-
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * @author tome
  */
-public abstract class AbstractDAO<T, I extends Serializable> implements DAO<T, I> {
+public abstract class AbstractDAO<T, I> implements DAO<T, I> {
    /**
     * get a pager
     */

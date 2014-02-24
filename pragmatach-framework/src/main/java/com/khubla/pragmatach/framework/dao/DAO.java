@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.framework.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -8,7 +7,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 /**
  * @author tome
  */
-public interface DAO<T, I extends Serializable> {
+public interface DAO<T, I> {
    /**
     * get the count of rows in table
     */

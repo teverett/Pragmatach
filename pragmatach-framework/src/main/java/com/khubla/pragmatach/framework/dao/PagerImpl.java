@@ -1,6 +1,5 @@
 package com.khubla.pragmatach.framework.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
@@ -8,7 +7,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 /**
  * @author tome
  */
-public class PagerImpl<T, I extends Serializable> implements Pager<T> {
+public class PagerImpl<T, I> implements Pager<T> {
    /**
     * number of records to return at a time
     */

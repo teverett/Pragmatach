@@ -58,15 +58,17 @@ public class TestOpenJPAPersistence extends AbstractPersistenceTest {
       /*
        * mysql (embedded)
        */
+      // TODO fix this
       File ourAppDir = new File(System.getProperty("java.io.tmpdir"));
       File databaseDir = new File(ourAppDir, "test-mxj");
+      databaseDir.delete();
       final HashmapConfigurationImpl mysqlConfiguration = new HashmapConfigurationImpl();
       mysqlConfiguration.setParameter("openjpa.ConnectionDriverName", "com.mysql.jdbc.Driver");
       mysqlConfiguration.setParameter("openjpa.ConnectionURL", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
       mysqlConfiguration.setParameter("openjpa.ConnectionUserName", "");
       mysqlConfiguration.setParameter("openjpa.ConnectionPassword", "");
       mysqlConfiguration.setParameter("openjpa.jdbc.SynchronizeMappings", "buildSchema(SchemaAction='add,deleteTableContents')");
-      ret.add(mysqlConfiguration);
+      // ret.add(mysqlConfiguration);
       /*
        * done
        */

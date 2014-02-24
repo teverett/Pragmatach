@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>contrib</artifactId>
-		<version>1.31</version>
+		<version>1.32</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
@@ -26,6 +26,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -46,7 +47,7 @@
 						</goals>
 						<configuration>
 							<appendAssemblyId>false</appendAssemblyId>
-							<finalName>${artifactId}</finalName>
+							<finalName>${project.artifactId}</finalName>
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
 							</descriptorRefs>

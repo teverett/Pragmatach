@@ -92,7 +92,7 @@ public class Router {
    }
 
    /**
-    * get instance of Pragmatatch controller. Either a new request controller or an existing session controller
+    * get instance of Pragmatawch controller. Either a new request controller or an existing session controller
     */
    private PragmatachController getPragmatachControllerInstance(PragmatachRoute pragmatachRoute, Request request) throws PragmatachException {
       try {
@@ -147,6 +147,10 @@ public class Router {
    private Response invoke(PragmatachRoute pragmatachRoute, Request request, LinkedHashMap<String, String> parameterMap) throws PragmatachException {
       try {
          /*
+          * ret
+          */
+         Response ret = null;
+         /*
           * get the controller
           */
          final PragmatachController pragmatachController = getPragmatachControllerInstance(pragmatachRoute, request);
@@ -169,6 +173,12 @@ public class Router {
             processFormData(pragmatachController);
          }
          /*
+          * call the before methods
+          */
+         for (final Method beforeMethod : pragmatachRoute.getBeforeMethods()) {
+            beforeMethod.invoke(pragmatachController, (Object[]) null);
+         }
+         /*
           * method and types
           */
          final Method method = pragmatachRoute.getMethod();
@@ -181,7 +191,7 @@ public class Router {
                /*
                 * method takes no parameters
                 */
-               return (Response) method.invoke(pragmatachController);
+               ret = (Response) method.invoke(pragmatachController);
             } else {
                /*
                 * parameters to pass
@@ -211,7 +221,7 @@ public class Router {
                /*
                 * invoke the method
                 */
-               return (Response) method.invoke(pragmatachController, params);
+               ret = (Response) method.invoke(pragmatachController, params);
             }
          } else {
             /*
@@ -227,8 +237,18 @@ public class Router {
             /*
              * invoke the method
              */
-            return (Response) method.invoke(pragmatachController, params);
+            ret = (Response) method.invoke(pragmatachController, params);
          }
+         /*
+          * call the after methods
+          */
+         for (final Method afterMethod : pragmatachRoute.getAfterMethods()) {
+            afterMethod.invoke(pragmatachController, (Object[]) null);
+         }
+         /*
+          * done
+          */
+         return ret;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in invoke", e);
       }

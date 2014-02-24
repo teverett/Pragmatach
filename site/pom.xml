@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach-site</artifactId>
-	<version>1.31</version>
+	<version>1.32</version>
 	<packaging>pom</packaging>
 	<name>Khubla.com Pragmatach Site</name>
 	<build>
