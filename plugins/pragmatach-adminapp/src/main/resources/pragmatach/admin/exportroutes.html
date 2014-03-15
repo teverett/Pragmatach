@@ -1,5 +1,2 @@
-# method, route, routepart1, routepart2,...routepartN
-<#list controller.routes as route>
-${route.getRoute().method()},${route.getRoute().uri()},<#list route.getRouteSpecification().getSegments() as routeSpecificationSegment>${routeSpecificationSegment.getPath()},</#list>
-</#list>
+# method, route, routepart1, routepart2,...routepartN <#list controller.routes as route> ${route.getRoute().method()},${route.getRoute().uri()},<#list route.getRouteSpecification().getSegments() as routeSpecificationSegment>${routeSpecificationSegment.getPath()},</#list> </#list>
 

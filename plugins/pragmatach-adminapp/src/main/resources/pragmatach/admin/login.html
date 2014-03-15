@@ -5,7 +5,7 @@
 	<#include "adminheader.html">
 	<div class="container">
 		<h1>Administration</h1>
-		<form action="${session.getServletContext().getContextPath()}/pragmatach/admin/login/doLogin" method="post" enctype="multipart/form-data">
+		<form action="${controller.url_for('/pragmatach/admin/login/doLogin')}" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<legend>Login</legend>
 				<label>Username</label> <input name="username" type="text"> <label>Password</label> <input name="password" type="text">
