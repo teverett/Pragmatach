@@ -11,8 +11,8 @@
 				<a class="brand" href="#">${i8n.text("en_us","rssviewer")}</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li><a href="${session.getServletContext().getContextPath()}/">${i8n.text("en_us","home")}</a></li>
-						<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin">${i8n.text("en_us","admin")}</a></li>
+						<li><a href="${controller.url_for('/')}">${i8n.text("en_us","home")}</a></li>
+						<li><a href="${controller.url_for('pragmatach/admin')}">${i8n.text("en_us","admin")}</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -21,14 +21,14 @@
 	</div>
 
 	<div class="container">
-		<form action="${session.getServletContext().getContextPath()}/showfeed" method="post" enctype="multipart/form-data">
+		<form action="${controller.url_for('showfeed')}" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<legend>RSS</legend>
 				<label>RSS Feed URL</label> <input name="feedURL" type="text" placeholder="Type url here" value="http://www.reddit.com/.rss">
 				<button type="submit" class="btn">Submit</button>
 			</fieldset>
 		</form>
-		<img src="${session.getServletContext().getContextPath()}/public/logo.png" />
+		<img src="${controller.url_for('public/logo.png')}" />
 	</div>
 	<!-- /container -->
 
