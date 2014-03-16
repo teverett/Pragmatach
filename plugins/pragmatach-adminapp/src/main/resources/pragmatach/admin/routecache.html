@@ -25,7 +25,7 @@
 			</tr>
 		</table>
 		<h2>Clear Cache</h2>
-		<form action="${session.getServletContext().getContextPath()}/pragmatach/admin/routecache/clear" method="post" enctype="multipart/form-data">
+		<form action="${controller.url_for('/pragmatach/admin/routecache/clear')}" method="post" enctype="multipart/form-data">
 			<button type="submit" class="btn">Clear</button>
 		</form>
 	</div>

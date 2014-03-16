@@ -4,7 +4,7 @@
    <groupId>com.khubla.pragmatach</groupId>
    <artifactId>pragmatach</artifactId>
    <packaging>pom</packaging>
-   <version>1.32</version>
+   <version>1.33-SNAPSHOT</version>
    <name>khubla.com Pragmatach</name>
    <prerequisites>
       <maven>3.1.0</maven>
@@ -138,7 +138,7 @@
       <connection>scm:git:git@github.com:teverett/Pragmatach.git</connection>
       <developerConnection>scm:git:git@github.com:teverett/Pragmatach.git</developerConnection>
       <url>https://github.com/teverett/Pragmatach</url>
-      <tag>pragmatach-1.32</tag>
+      <tag>pragmatach-1.31-SNAPSHOT</tag>
    </scm>
    <organization>
       <name>khubla.com</name>

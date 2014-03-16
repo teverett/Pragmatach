@@ -2,10 +2,13 @@ package com.khubla.pragmatach.framework.controller.impl.template;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 
@@ -117,6 +120,19 @@ public class AbstractTemplateEngineController extends AbstractController {
             return view.view();
          }
          return null;
+      } catch (final Exception e) {
+         throw new PragmatachException("Exception in getTemplateName", e);
+      }
+   }
+
+   /**
+    * get properly qualified url given the http, the context, etc
+    */
+   public String url_for(String page) throws PragmatachException {
+      try {
+         final HttpServletRequest httpServletRequest = getRequest().getHttpServletRequest();
+         final URI uri = new URI(httpServletRequest.getRequestURL().toString()).resolve(page);
+         return uri.toString();
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getTemplateName", e);
       }

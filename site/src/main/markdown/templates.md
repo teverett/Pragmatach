@@ -20,3 +20,9 @@ or to access the current Controller in Velocity
 To access the Session-scoped controller declared with `@Controller(name="userController", scope = Controller.Scope.session)` in FreeMarker:
 
 `${userController}`
+
+There is a controller API "url_for" that can be used to build URLs relative to the current URL. For example:
+
+`
+<a href="${controller.url_for('pragmatach/admin')}">Admin</a>
+`

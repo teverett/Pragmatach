@@ -19,11 +19,9 @@
 			</tr>
 			</#list>
 		</table>
-		<#else>
-		No cookies found
-		</#if>
+		<#else> No cookies found </#if>
 		<h2>Clear Cookies</h2>
-		<form action="${session.getServletContext().getContextPath()}/pragmatach/admin/cookies/clearCookies" method="post" enctype="multipart/form-data">
+		<form action="${controller.url_for('/pragmatach/admin/cookies/clearCookies')}" method="post" enctype="multipart/form-data">
 			<button type="submit" class="btn">Clear</button>
 		</form>
 	</div>

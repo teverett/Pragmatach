@@ -9,6 +9,7 @@ import com.khubla.pragmatach.plugin.freemarker.FreemarkerController;
 
 @Controller()
 public class IndexController extends FreemarkerController {
+   @Override
    @View(view = "index.html")
    @Route(uri = "/")
    public Response render() throws PragmatachException {

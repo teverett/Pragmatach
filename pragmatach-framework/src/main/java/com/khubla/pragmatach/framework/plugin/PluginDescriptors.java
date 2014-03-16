@@ -44,15 +44,21 @@ public class PluginDescriptors {
 
    private static void scanURLs(URL[] urls, ServletContext servletContext) throws PragmatachException {
       try {
-         final PluginFilter pluginFilter = new PluginFilter();
-         for (final URL url : urls) {
-            final StreamIterator streamIterator = IteratorFactory.create(url, pluginFilter);
-            InputStream inputStream;
-            while (null != (inputStream = streamIterator.next())) {
-               final PluginDescriptor plugin = new PluginDescriptor(url, inputStream, servletContext);
-               logger.info("Found plugin: " + plugin.getName());
-               plugins.put(plugin.getName(), plugin);
-               inputStream.close();
+         if (null != servletContext) {
+            final PluginFilter pluginFilter = new PluginFilter();
+            if ((null != urls) && (urls.length > 0)) {
+               for (final URL url : urls) {
+                  if (null != url) {
+                     final StreamIterator streamIterator = IteratorFactory.create(url, pluginFilter);
+                     InputStream inputStream;
+                     while (null != (inputStream = streamIterator.next())) {
+                        final PluginDescriptor plugin = new PluginDescriptor(url, inputStream, servletContext);
+                        logger.info("Found plugin: " + plugin.getName());
+                        plugins.put(plugin.getName(), plugin);
+                        inputStream.close();
+                     }
+                  }
+               }
             }
          }
       } catch (final Exception e) {

@@ -1,35 +1,64 @@
- <ul class="nav navbar-nav">
-	<li><a href="${session.getServletContext().getContextPath()}/">Home</a></li> 
+
+<ul class="nav navbar-nav">
+	<li>
+		<a href="${controller.url_for('/')}">Home</a>
+	</li>
 	<#if true==controller.loggedIn>
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Application<b class="caret"></b></a>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/configuration">Configuration</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/controllers">Controllers</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/routes">Routes</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/routecache">Route Cache</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/plugins">Plugins</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/cookies">Cookies</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/i8n">i8n</a></li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/configuration')}">Configuration</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/controllers')}">Controllers</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/routes')}">Routes</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/routecache')}">Route Cache</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/plugins')}">Plugins</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/cookies')}">Cookies</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/i8n')}">i8n</a>
+			</li>
 		</ul>
 	</li>
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Debug<b class="caret"></b></a>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/application">Application</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/server">Server</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/network">Network</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/jvm">JVM</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/environment">Environment</a></li>
-			<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/exportroutes">Export Routes</a></li>		
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/application')}">Application</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/server')}">Server</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/network')}">Network</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/jvm')}">JVM</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/environment')}">Environment</a>
+			</li>
+			<li>
+				<a href="${controller.url_for('/pragmatach/admin/exportroutes')}">Export Routes</a>
+			</li>
 		</ul>
-	</li> 
+	</li>
 	</#if>
 </ul>
 <#if true==controller.loggedIn>
- <ul class="nav navbar-nav navbar-right">
-	<li><a href="${session.getServletContext().getContextPath()}/pragmatach/admin/logout">Logout</a></li>
+<ul class="nav navbar-nav navbar-right">
+	<li>
+		<a href="${controller.url_for('/pragmatach/admin/logout')}">Logout</a>
+	</li>
 </ul>
 </#if>
-
-
