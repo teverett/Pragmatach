@@ -4,7 +4,7 @@
    <groupId>com.khubla.pragmatach</groupId>
    <artifactId>pragmatach</artifactId>
    <packaging>pom</packaging>
-   <version>1.36-SNAPSHOT</version>
+   <version>1.37-SNAPSHOT</version>
    <name>khubla.com Pragmatach</name>
    <prerequisites>
       <maven>3.1.0</maven>
