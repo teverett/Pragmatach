@@ -11,6 +11,8 @@ import javax.servlet.ServletContext;
 import org.scannotation.AnnotationDB;
 import org.scannotation.ClasspathUrlFinder;
 import org.scannotation.WarUrlFinder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
 
@@ -18,6 +20,10 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class AnnotationScanner {
+   /**
+    * logger
+    */
+   private static final Logger logger = LoggerFactory.getLogger(AnnotationScanner.class);
    /**
     * the DB
     */
@@ -54,8 +60,6 @@ public class AnnotationScanner {
                final Class<?> clazz = Class.forName(name);
                for (final Method method : clazz.getMethods()) {
                   for (final Annotation annotation : method.getDeclaredAnnotations()) {
-                     System.out.println(annotation.getClass().getCanonicalName());
-                     System.out.println(annotationClass.getCanonicalName());
                      if (0 == annotation.getClass().getCanonicalName().compareTo(annotationClass.getCanonicalName())) {
                         ret.add(method);
                      }
@@ -95,8 +99,16 @@ public class AnnotationScanner {
          if (null != servletContext) {
             final URL[] libURLs = WarUrlFinder.findWebInfLibClasspaths(servletContext);
             final URL classesURL = WarUrlFinder.findWebInfClassesPath(servletContext);
-            annotationDB.scanArchives(libURLs);
-            annotationDB.scanArchives(classesURL);
+            if ((null != libURLs) && (libURLs.length > 0)) {
+               annotationDB.scanArchives(libURLs);
+            } else {
+               logger.error("Unable to get WebInfLibClasspaths");
+            }
+            if (null != classesURL) {
+               annotationDB.scanArchives(classesURL);
+            } else {
+               logger.error("Unable to get WebInfClassesPath");
+            }
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in scanWar", e);
