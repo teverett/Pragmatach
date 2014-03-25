@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,10 +43,10 @@ public class SimpleTemplateResponse extends AbstractResponse {
 			 */
 			String renderedTemplate = baos.toString("UTF-8");
 			if (null != substitutions) {
-				for (final String key : substitutions.keySet()) {
-					final String v = substitutions.get(key);
+				for (final Entry<String, String> entry : substitutions
+						.entrySet()) {
 					renderedTemplate = StringUtils.replace(renderedTemplate,
-							ESCAPE + key, v);
+							ESCAPE + entry.getKey(), entry.getValue());
 				}
 			}
 			/*
