@@ -3,4 +3,19 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
+env:
+  global:
+   # The next declration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "y+rIAeprJN5ofYMXZUcDuVNheIasdTsf/jYEKSRXsr5DJs+cxtokIm5SAgfp9iQGykjFAEFb9TCyjnAWLzS+BUJW3s6B8zVDksGDeNjD28UNOb8SzSsYdZ12Law1ljpJN1WeG8K7G9OrsZz217GZAUwSvcEpLNYiDra/QqG7Ysg="
+
+addons:
+  coverity_scan:
+    project:
+      name: "teverett/Pragmatach"
+      description: "Pragmatach Framework"
+    notification_email: tom@khubla.com
+    build_command_prepend:
+    build_command:
+    branch_pattern: coverity_scan
   
