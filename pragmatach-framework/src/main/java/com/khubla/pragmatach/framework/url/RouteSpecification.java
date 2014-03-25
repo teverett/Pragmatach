@@ -17,116 +17,125 @@ import com.khubla.pragmatach.framework.uri.antlr.RouteSpecificationParser;
  * @author tome
  */
 public class RouteSpecification {
-   /**
-    * id fields
-    */
-   private final List<String> ids;
-   /**
-    * segments
-    */
-   private final List<RouteSpecificationSegment> segments;
+	/**
+	 * id fields
+	 */
+	private final List<String> ids;
+	/**
+	 * segments
+	 */
+	private final List<RouteSpecificationSegment> segments;
 
-   /**
-    * ctor
-    */
-   public RouteSpecification(String uri) throws PragmatachException {
-      String fixedUri = uri;
-      if (false == uri.startsWith("/")) {
-         fixedUri = "/" + uri;
-      }
-      segments = parse(fixedUri);
-      if ((null != segments) && (segments.size() > 0)) {
-         ids = new ArrayList<String>();
-         for (final RouteSpecificationSegment routeSpecificationSegment : segments) {
-            if (null != routeSpecificationSegment.getVariableId()) {
-               ids.add(routeSpecificationSegment.getVariableId());
-            }
-         }
-      } else {
-         ids = null;
-      }
-   }
+	/**
+	 * ctor
+	 */
+	public RouteSpecification(String uri) throws PragmatachException {
+		String fixedUri = uri;
+		if (false == uri.startsWith("/")) {
+			fixedUri = "/" + uri;
+		}
+		segments = parse(fixedUri);
+		if ((null != segments) && (segments.size() > 0)) {
+			ids = new ArrayList<String>();
+			for (final RouteSpecificationSegment routeSpecificationSegment : segments) {
+				if (null != routeSpecificationSegment.getVariableId()) {
+					ids.add(routeSpecificationSegment.getVariableId());
+				}
+			}
+		} else {
+			ids = null;
+		}
+	}
 
-   public List<String> getIds() {
-      return ids;
-   }
+	public List<String> getIds() {
+		return ids;
+	}
 
-   public List<RouteSpecificationSegment> getSegments() {
-      return segments;
-   }
+	public List<RouteSpecificationSegment> getSegments() {
+		return segments;
+	}
 
-   /**
-    * parse an inputstream
-    */
-   private CommonTree parse(InputStream inputStream) throws PragmatachException {
-      try {
-         if (null != inputStream) {
-            final RouteSpecificationLexer routeSpecificationLexer = new RouteSpecificationLexer(new ANTLRInputStream(inputStream));
-            final CommonTokenStream tokens = new CommonTokenStream(routeSpecificationLexer);
-            final RouteSpecificationParser routeSpecificationParser = new RouteSpecificationParser(tokens);
-            final RouteSpecificationParser.routespecification_return ret = routeSpecificationParser.routespecification();
-            final CommonTree tree = ret.getTree();
-            return tree;
-         } else {
-            throw new IllegalArgumentException();
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in parse", e);
-      }
-   }
+	/**
+	 * parse an inputstream
+	 */
+	private CommonTree parse(InputStream inputStream)
+			throws PragmatachException {
+		try {
+			if (null != inputStream) {
+				final RouteSpecificationLexer routeSpecificationLexer = new RouteSpecificationLexer(
+						new ANTLRInputStream(inputStream));
+				final CommonTokenStream tokens = new CommonTokenStream(
+						routeSpecificationLexer);
+				final RouteSpecificationParser routeSpecificationParser = new RouteSpecificationParser(
+						tokens);
+				final RouteSpecificationParser.routespecification_return ret = routeSpecificationParser
+						.routespecification();
+				final CommonTree tree = ret.getTree();
+				return tree;
+			} else {
+				throw new IllegalArgumentException();
+			}
+		} catch (final Exception e) {
+			throw new PragmatachException("Exception in parse", e);
+		}
+	}
 
-   /**
-    * parse a URI into parts.
-    */
-   private List<RouteSpecificationSegment> parse(String uri) throws PragmatachException {
-      try {
-         final List<RouteSpecificationSegment> ret = new ArrayList<RouteSpecificationSegment>();
-         final CommonTree commonTree = parse(new ByteArrayInputStream(uri.getBytes()));
-         if (null != commonTree) {
-            if (commonTree.getType() != RouteSpecificationParser.AMPER) {
-               if (commonTree.getChildCount() > 0) {
-                  for (int i = 0; i < commonTree.getChildCount(); i++) {
-                     final CommonTree n = (CommonTree) commonTree.getChild(i);
-                     final RouteSpecificationSegment rss = parseNode(n);
-                     if (null != rss) {
-                        ret.add(parseNode(n));
-                     }
-                  }
-               } else {
-                  final RouteSpecificationSegment rss = parseNode(commonTree);
-                  ret.add(rss);
-               }
-            } else {
-               final RouteSpecificationSegment rss = parseNode(commonTree);
-               ret.add(rss);
-            }
-         } else {
-            ret.add(new RouteSpecificationSegment("/", null));
-         }
-         return ret;
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in parse", e);
-      }
-   }
+	/**
+	 * parse a URI into parts.
+	 */
+	private List<RouteSpecificationSegment> parse(String uri)
+			throws PragmatachException {
+		try {
+			final List<RouteSpecificationSegment> ret = new ArrayList<RouteSpecificationSegment>();
+			final CommonTree commonTree = parse(new ByteArrayInputStream(
+					uri.getBytes("UTF-8")));
+			if (null != commonTree) {
+				if (commonTree.getType() != RouteSpecificationParser.AMPER) {
+					if (commonTree.getChildCount() > 0) {
+						for (int i = 0; i < commonTree.getChildCount(); i++) {
+							final CommonTree n = (CommonTree) commonTree
+									.getChild(i);
+							final RouteSpecificationSegment rss = parseNode(n);
+							if (null != rss) {
+								ret.add(parseNode(n));
+							}
+						}
+					} else {
+						final RouteSpecificationSegment rss = parseNode(commonTree);
+						ret.add(rss);
+					}
+				} else {
+					final RouteSpecificationSegment rss = parseNode(commonTree);
+					ret.add(rss);
+				}
+			} else {
+				ret.add(new RouteSpecificationSegment("/", null));
+			}
+			return ret;
+		} catch (final Exception e) {
+			throw new PragmatachException("Exception in parse", e);
+		}
+	}
 
-   private RouteSpecificationSegment parseNode(CommonTree commonTree) throws PragmatachException {
-      try {
-         if (commonTree.getType() == RouteSpecificationParser.ALPHANUM) {
-            return new RouteSpecificationSegment(commonTree.getText(), null);
-         } else {
-            final CommonTree m = (CommonTree) commonTree.getChild(0);
-            if (null != m) {
-               if (m.getType() == RouteSpecificationParser.ALPHANUM) {
-                  return new RouteSpecificationSegment(null, m.getText());
-               } else {
-                  return null;
-               }
-            } else {
-               return null;
-            }
-         }
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in parseNode", e);
-      }
-   }
+	private RouteSpecificationSegment parseNode(CommonTree commonTree)
+			throws PragmatachException {
+		try {
+			if (commonTree.getType() == RouteSpecificationParser.ALPHANUM) {
+				return new RouteSpecificationSegment(commonTree.getText(), null);
+			} else {
+				final CommonTree m = (CommonTree) commonTree.getChild(0);
+				if (null != m) {
+					if (m.getType() == RouteSpecificationParser.ALPHANUM) {
+						return new RouteSpecificationSegment(null, m.getText());
+					} else {
+						return null;
+					}
+				} else {
+					return null;
+				}
+			}
+		} catch (final Exception e) {
+			throw new PragmatachException("Exception in parseNode", e);
+		}
+	}
 }

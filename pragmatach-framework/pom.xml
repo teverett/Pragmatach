@@ -63,9 +63,9 @@
 			<version>3.12.1.GA</version>
 		</dependency>
 		<dependency>
-		   <groupId>org.scannotation</groupId>
-		   <artifactId>scannotation</artifactId>
-		   <version>1.0.3</version>
+			<groupId>org.scannotation</groupId>
+			<artifactId>scannotation</artifactId>
+			<version>1.0.3</version>
 		</dependency>
 	</dependencies>
 	<build>
