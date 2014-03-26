@@ -9,6 +9,9 @@
 		<version>1.37-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<properties>
+		<antlr.version>4.1</antlr.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -40,8 +43,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
-			<artifactId>antlr</artifactId>
-			<version>3.5.1</version>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>${antlr.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -72,18 +75,18 @@
 		<plugins>
 			<plugin>
 				<groupId>org.antlr</groupId>
-				<artifactId>antlr3-maven-plugin</artifactId>
-				<version>3.5</version>
+				<artifactId>antlr4-maven-plugin</artifactId>
+				<version>${antlr.version}</version>
 				<executions>
 					<execution>
 						<phase>process-sources</phase>
 						<goals>
-							<goal>antlr</goal>
+							<goal>antlr4</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<grammars>RouteSpecification.g</grammars>
+					<grammars>RouteSpecification.g4</grammars>
 					<outputDirectory>src/main/java</outputDirectory>
 				</configuration>
 			</plugin>

@@ -5,13 +5,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.tree.CommonTree;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.uri.antlr.RouteSpecificationLexer;
-import com.khubla.pragmatach.framework.uri.antlr.RouteSpecificationParser;
+import com.khubla.pragmatach.framework.uri.antlr4.RouteSpecificationLexer;
+import com.khubla.pragmatach.framework.uri.antlr4.RouteSpecificationParser;
+import com.khubla.pragmatach.framework.uri.antlr4.RouteSpecificationParser.IdsegmentContext;
+import com.khubla.pragmatach.framework.uri.antlr4.RouteSpecificationParser.PathsegmentContext;
+import com.khubla.pragmatach.framework.uri.antlr4.RouteSpecificationParser.RoutespecificationContext;
+import com.khubla.pragmatach.framework.uri.antlr4.RouteSpecificationParser.SegmentContext;
 
 /**
  * @author tome
@@ -58,7 +61,7 @@ public class RouteSpecification {
 	/**
 	 * parse an inputstream
 	 */
-	private CommonTree parse(InputStream inputStream)
+	private RoutespecificationContext parse(InputStream inputStream)
 			throws PragmatachException {
 		try {
 			if (null != inputStream) {
@@ -68,10 +71,7 @@ public class RouteSpecification {
 						routeSpecificationLexer);
 				final RouteSpecificationParser routeSpecificationParser = new RouteSpecificationParser(
 						tokens);
-				final RouteSpecificationParser.routespecification_return ret = routeSpecificationParser
-						.routespecification();
-				final CommonTree tree = ret.getTree();
-				return tree;
+				return routeSpecificationParser.routespecification();
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -87,53 +87,49 @@ public class RouteSpecification {
 			throws PragmatachException {
 		try {
 			final List<RouteSpecificationSegment> ret = new ArrayList<RouteSpecificationSegment>();
-			final CommonTree commonTree = parse(new ByteArrayInputStream(
-					uri.getBytes("UTF-8")));
-			if (null != commonTree) {
-				if (commonTree.getType() != RouteSpecificationParser.AMPER) {
-					if (commonTree.getChildCount() > 0) {
-						for (int i = 0; i < commonTree.getChildCount(); i++) {
-							final CommonTree n = (CommonTree) commonTree
-									.getChild(i);
-							final RouteSpecificationSegment rss = parseNode(n);
-							if (null != rss) {
-								ret.add(parseNode(n));
-							}
-						}
-					} else {
-						final RouteSpecificationSegment rss = parseNode(commonTree);
-						ret.add(rss);
-					}
-				} else {
-					final RouteSpecificationSegment rss = parseNode(commonTree);
-					ret.add(rss);
-				}
+			/*
+			 * special case for "/"
+			 */
+			if (uri.compareTo("/") == 0) {
+				RouteSpecificationSegment routeSpecificationSegment = new RouteSpecificationSegment(
+						"/", null);
+				ret.add(routeSpecificationSegment);
+
 			} else {
-				ret.add(new RouteSpecificationSegment("/", null));
+				final RoutespecificationContext routespecificationContext = parse(new ByteArrayInputStream(
+						uri.getBytes("UTF-8")));
+				for (SegmentContext segmentContext : routespecificationContext
+						.segment()) {
+					RouteSpecificationSegment routeSpecificationSegment = parseSegment(segmentContext);
+					ret.add(routeSpecificationSegment);
+				}
 			}
+
 			return ret;
 		} catch (final Exception e) {
 			throw new PragmatachException("Exception in parse", e);
 		}
 	}
 
-	private RouteSpecificationSegment parseNode(CommonTree commonTree)
+	private RouteSpecificationSegment parseSegment(SegmentContext segmentContext)
 			throws PragmatachException {
 		try {
-			if (commonTree.getType() == RouteSpecificationParser.ALPHANUM) {
-				return new RouteSpecificationSegment(commonTree.getText(), null);
+			PathsegmentContext pathsegmentContext = segmentContext.getChild(
+					PathsegmentContext.class, 0);
+
+			if (null != pathsegmentContext) {
+				return new RouteSpecificationSegment(
+						pathsegmentContext.getText(), null);
 			} else {
-				final CommonTree m = (CommonTree) commonTree.getChild(0);
-				if (null != m) {
-					if (m.getType() == RouteSpecificationParser.ALPHANUM) {
-						return new RouteSpecificationSegment(null, m.getText());
-					} else {
-						return null;
-					}
-				} else {
-					return null;
+				IdsegmentContext idsegmentContext = segmentContext.getChild(
+						IdsegmentContext.class, 0);
+				if (null != idsegmentContext) {
+					String id = idsegmentContext.getChild(1).getText();
+					return new RouteSpecificationSegment(null, id);
 				}
 			}
+			return null;
+
 		} catch (final Exception e) {
 			throw new PragmatachException("Exception in parseNode", e);
 		}
