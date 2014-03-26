@@ -11,7 +11,7 @@
 	</prerequisites>
 	<properties>
 		<target.jvm>1.6</target.jvm>
-		<testng.version>6.8.7</testng.version>
+		<testng.version>6.8.8</testng.version>
 		<servlet.version>2.5</servlet.version>
 		<logback.version>1.0.13</logback.version>
 	</properties>
@@ -68,6 +68,9 @@
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>findbugs-maven-plugin</artifactId>
 							<version>2.5.3</version>
+							<configuration>
+								<effort>Max</effort>
+							</configuration>
 						</plugin>
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
@@ -117,7 +120,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>2.5</version>
 			</plugin>
 		</plugins>
 	</build>

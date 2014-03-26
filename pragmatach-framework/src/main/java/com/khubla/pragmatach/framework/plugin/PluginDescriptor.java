@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.AccessController;
+import java.security.PrivilegedExceptionAction;
 import java.util.Properties;
 import java.util.jar.Manifest;
 
@@ -98,9 +100,20 @@ public class PluginDescriptor {
 	 */
 	public InputStream getResource(String name) throws PragmatachException {
 		try {
-			final ClassLoader classLoader = new URLClassLoader(
-					new URL[] { url });
-			return classLoader.getResourceAsStream(name);
+			ClassLoader classLoader = null;
+			classLoader = AccessController
+					.doPrivileged(new PrivilegedExceptionAction<ClassLoader>() {
+
+						@Override
+						public ClassLoader run() throws Exception {
+							return new URLClassLoader(new URL[] { url });
+						}
+					});
+			if (null != classLoader) {
+				return classLoader.getResourceAsStream(name);
+			} else {
+				return null;
+			}
 		} catch (final Exception e) {
 			throw new PragmatachException("Exception in getResource", e);
 		}
