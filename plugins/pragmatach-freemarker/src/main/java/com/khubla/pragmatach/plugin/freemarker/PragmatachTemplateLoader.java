@@ -16,40 +16,41 @@ import freemarker.cache.TemplateLoader;
  * @author tome
  */
 public class PragmatachTemplateLoader implements TemplateLoader {
-   /**
-    * ServletContext
-    */
-   private final ServletContext servletContext;
+	/**
+	 * ServletContext
+	 */
+	private final ServletContext servletContext;
 
-   public PragmatachTemplateLoader(ServletContext servletContext) {
-      this.servletContext = servletContext;
-   }
+	public PragmatachTemplateLoader(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 
-   @Override
-   public void closeTemplateSource(Object object) throws IOException {
-      final InputStream inputStream = (InputStream) object;
-      inputStream.close();
-   }
+	@Override
+	public void closeTemplateSource(Object object) throws IOException {
+		final InputStream inputStream = (InputStream) object;
+		inputStream.close();
+	}
 
-   @Override
-   public Object findTemplateSource(String template) throws IOException {
-      try {
-         final ResourceLoader resourceLoader = new DefaultResourceLoaderImpl(servletContext);
-         final InputStream is = resourceLoader.getResource(template);
-         return is;
-      } catch (final Exception e) {
-         throw new IOException(e);
-      }
-   }
+	@Override
+	public Object findTemplateSource(String template) throws IOException {
+		try {
+			final ResourceLoader resourceLoader = new DefaultResourceLoaderImpl(
+					servletContext);
+			final InputStream is = resourceLoader.getResource(template);
+			return is;
+		} catch (final Exception e) {
+			throw new IOException(e);
+		}
+	}
 
-   @Override
-   public long getLastModified(Object object) {
-      return 0;
-   }
+	@Override
+	public long getLastModified(Object object) {
+		return 0;
+	}
 
-   @Override
-   public Reader getReader(Object object, String string) throws IOException {
-      final InputStream inputStream = (InputStream) object;
-      return new InputStreamReader(inputStream);
-   }
+	@Override
+	public Reader getReader(Object object, String string) throws IOException {
+		final InputStream inputStream = (InputStream) object;
+		return new InputStreamReader(inputStream, "UTF-8");
+	}
 }
