@@ -1,6 +1,5 @@
 package test.com.khubla.pragmatach.plugin.ebean;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,15 +50,15 @@ public class TestEBeanPersistence extends AbstractPersistenceTest {
       /*
        * mysql (embedded)
        */
-      File ourAppDir = new File(System.getProperty("java.io.tmpdir"));
-      File databaseDir = new File(ourAppDir, "test-mxj");
-      final HashmapConfigurationImpl mysqlConfiguration = new HashmapConfigurationImpl();
-      mysqlConfiguration.setParameter("ebean.driver", "com.mysql.jdbc.Driver");
-      mysqlConfiguration.setParameter("ebean.url", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
-      mysqlConfiguration.setParameter("ebean.username", "");
-      mysqlConfiguration.setParameter("ebean.password", "");
-      mysqlConfiguration.setParameter("ebean.autocreate", "true");
-      ret.add(mysqlConfiguration);
+      // File ourAppDir = new File(System.getProperty("java.io.tmpdir"));
+      // File databaseDir = new File(ourAppDir, "test-mxj");
+      // final HashmapConfigurationImpl mysqlConfiguration = new HashmapConfigurationImpl();
+      // mysqlConfiguration.setParameter("ebean.driver", "com.mysql.jdbc.Driver");
+      // mysqlConfiguration.setParameter("ebean.url", "jdbc:mysql:mxj://localhost:3336/sm?server.basedir=" + databaseDir + "&createDatabaseIfNotExist=true&server.initialize-user=true");
+      // mysqlConfiguration.setParameter("ebean.username", "");
+      // mysqlConfiguration.setParameter("ebean.password", "");
+      // mysqlConfiguration.setParameter("ebean.autocreate", "true");
+      // ret.add(mysqlConfiguration);
       /*
        * done
        */
