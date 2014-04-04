@@ -503,3 +503,7 @@ facebookexample.log
 /examples/startupexample/.project
 
 /examples/startupexample/.settings/
+
+/examples/startupexample/target/
+
+/site/src/main/site/slideshow/plugin/.DS_Store
