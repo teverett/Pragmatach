@@ -4,7 +4,7 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.38</version>
+	<version>1.39-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
 	<prerequisites>
 		<maven>3.1.0</maven>
@@ -103,6 +103,16 @@
 								</reportSet>
 							</reportSets>
 						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-pmd-plugin</artifactId>
+							<version>3.1</version>
+							<configuration>
+								<linkXref>true</linkXref>
+								<sourceEncoding>utf-8</sourceEncoding>
+								<targetJdk>${target.jvm>}</targetJdk>
+							</configuration>
+						</plugin>
 					</reportPlugins>
 				</configuration>
 			</plugin>
@@ -146,7 +156,7 @@
 		<connection>scm:git:git@github.com:teverett/Pragmatach.git</connection>
 		<developerConnection>scm:git:git@github.com:teverett/Pragmatach.git</developerConnection>
 		<url>https://github.com/teverett/Pragmatach</url>
-		<tag>pragmatach-1.38</tag>
+		<tag>pragmatach-1.31-SNAPSHOT</tag>
 	</scm>
 	<organization>
 		<name>khubla.com</name>
