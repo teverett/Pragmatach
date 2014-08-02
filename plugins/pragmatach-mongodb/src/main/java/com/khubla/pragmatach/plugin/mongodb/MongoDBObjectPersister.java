@@ -29,7 +29,7 @@ public class MongoDBObjectPersister {
 
    /**
     * find an instance by an id
-    * 
+    *
     * @return
     */
    public DBObject find(String id) throws PragmatachException {

@@ -18,16 +18,6 @@ import org.apache.commons.lang.reflect.FieldUtils;
  */
 public class MongoProxyFactory {
    /**
-    * some special names
-    */
-   public static final String LAZYID = "mongolazyid";
-   public static final String LAZYFETCHED = "mongolazyfetched";
-   /**
-    * static registry of lazy loading proxies
-    */
-   private static final Hashtable<Class<?>, Class<?>> lazyProxies = new Hashtable<Class<?>, Class<?>>();
-
-   /**
     * create a class which extends the typeClazz with some new members
     */
    private static Class<?> createProxyClass(Class<?> typeClazz) throws NotFoundException, CannotCompileException {
@@ -42,6 +32,15 @@ public class MongoProxyFactory {
       ctFetchedField.setModifiers(Modifier.PUBLIC);
       ctClass.addField(ctFetchedField);
       return ctClass.toClass();
+   }
+
+   public static boolean getFetched(Object o) throws IllegalAccessException {
+      final Boolean b = (Boolean) FieldUtils.readField(o, MongoProxyFactory.LAZYFETCHED);
+      return b.booleanValue();
+   }
+
+   public static String getId(Object o) throws IllegalAccessException {
+      return (String) FieldUtils.readField(o, MongoProxyFactory.LAZYID);
    }
 
    /**
@@ -98,20 +97,21 @@ public class MongoProxyFactory {
       return instance;
    }
 
-   public static void setID(Object o, String id) throws IllegalAccessException {
-      FieldUtils.writeField(o, MongoProxyFactory.LAZYID, id);
-   }
-
    public static void setFetched(Object o, boolean fetched) throws IllegalAccessException {
       FieldUtils.writeField(o, MongoProxyFactory.LAZYFETCHED, false);
    }
 
-   public static String getId(Object o) throws IllegalAccessException {
-      return (String) FieldUtils.readField(o, MongoProxyFactory.LAZYID);
+   public static void setID(Object o, String id) throws IllegalAccessException {
+      FieldUtils.writeField(o, MongoProxyFactory.LAZYID, id);
    }
 
-   public static boolean getFetched(Object o) throws IllegalAccessException {
-      Boolean b = (Boolean) FieldUtils.readField(o, MongoProxyFactory.LAZYFETCHED);
-      return b.booleanValue();
-   }
+   /**
+    * some special names
+    */
+   public static final String LAZYID = "mongolazyid";
+   public static final String LAZYFETCHED = "mongolazyfetched";
+   /**
+    * static registry of lazy loading proxies
+    */
+   private static final Hashtable<Class<?>, Class<?>> lazyProxies = new Hashtable<Class<?>, Class<?>>();
 }

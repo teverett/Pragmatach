@@ -43,7 +43,9 @@ public class AbstractTemplateEngineController extends AbstractController {
          if ((null != templateName) && (templateName.length() > 0)) {
             final InputStream templateInputStream = getResource(templateName);
             if (null != templateInputStream) {
-               return getTemplateAsString(templateInputStream);
+               String template = getTemplateAsString(templateInputStream);
+               templateInputStream.close();
+               return template;
             } else {
                throw new Exception("Unable to load template '" + templateName + "' for controller '" + AbstractController.getControllerName(this) + "'");
             }

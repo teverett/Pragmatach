@@ -12,11 +12,6 @@ import com.mongodb.MongoClient;
  * @author tom
  */
 public class DBCollectionFactory {
-   /**
-    * singleton
-    */
-   private static DBCollectionFactory instance = null;
-
    private static DB getDB() throws PragmatachException {
       try {
          /*
@@ -49,6 +44,11 @@ public class DBCollectionFactory {
       }
       return instance;
    }
+
+   /**
+    * singleton
+    */
+   private static DBCollectionFactory instance = null;
 
    /**
     * ctor
