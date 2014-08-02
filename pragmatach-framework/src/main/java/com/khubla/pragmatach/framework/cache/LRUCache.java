@@ -42,7 +42,7 @@ public class LRUCache<K, V> {
          private static final long serialVersionUID = 1;
 
          @Override
-         protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+         protected synchronized boolean removeEldestEntry(Map.Entry<K, V> eldest) {
             return map.size() > LRUCache.this.cacheSize;
          }
       };
