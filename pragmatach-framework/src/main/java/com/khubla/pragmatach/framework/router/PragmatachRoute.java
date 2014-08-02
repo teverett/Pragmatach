@@ -22,7 +22,7 @@ import com.khubla.pragmatach.framework.url.RouteSpecification;
 
 /**
  * a specific route
- * 
+ *
  * @author tome
  */
 public class PragmatachRoute implements Comparable<PragmatachRoute> {

@@ -16,11 +16,6 @@ import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
  */
 public class I8NProviders {
    /**
-    * instance
-    */
-   private static I8NProviders instance = null;
-
-   /**
     * singleton
     */
    public static I8NProviders getInstance() {
@@ -30,6 +25,10 @@ public class I8NProviders {
       return instance;
    }
 
+   /**
+    * instance
+    */
+   private static I8NProviders instance = null;
    /**
     * logger
     */

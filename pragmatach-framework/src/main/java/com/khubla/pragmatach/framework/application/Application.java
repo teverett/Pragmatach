@@ -10,15 +10,6 @@ import com.khubla.pragmatach.framework.router.PragmatachRoutes;
  * @author tome
  */
 public class Application {
-   /**
-    * configuration
-    */
-   private static Configuration configuration;
-   /**
-    * lifecycle listeners
-    */
-   private static final LifecycleListeners lifecycleListeners = new LifecycleListeners();
-
    public static Configuration getConfiguration() {
       return configuration;
    }
@@ -44,4 +35,13 @@ public class Application {
    public static void setConfiguration(Configuration configuration) {
       Application.configuration = configuration;
    }
+
+   /**
+    * configuration
+    */
+   private static Configuration configuration;
+   /**
+    * lifecycle listeners
+    */
+   private static final LifecycleListeners lifecycleListeners = new LifecycleListeners();
 }

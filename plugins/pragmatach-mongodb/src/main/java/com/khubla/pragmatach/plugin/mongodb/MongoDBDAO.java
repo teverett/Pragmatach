@@ -88,6 +88,7 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          while (cursor.hasNext()) {
             ret.add(this.newInstance(cursor.next()));
          }
+         cursor.close();
          return ret;
       } else {
          return null;
@@ -142,7 +143,9 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
    public T findOne(BasicDBObject query) throws PragmatachException {
       final DBCursor cursor = this.dbCollection.find(query);
       if (cursor.hasNext()) {
-         return this.newInstance(cursor.next());
+         T ret = this.newInstance(cursor.next());
+         cursor.close();
+         return ret;
       } else {
          return null;
       }
@@ -209,7 +212,9 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
          final BasicDBObject query = new BasicDBObject(ID, i);
          final DBCursor cursor = this.dbCollection.find(query);
          if (cursor.hasNext()) {
-            return cursor.next();
+            DBObject ret = cursor.next();
+            cursor.close();
+            return ret;
          } else {
             return null;
          }
