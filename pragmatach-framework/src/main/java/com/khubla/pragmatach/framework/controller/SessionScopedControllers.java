@@ -12,11 +12,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class SessionScopedControllers {
-   /***
-    * Session key for session scoped controllers
-    */
-   private static final String SESSION_CONTROLLERS = "Session-Scoped-Controllers";
-
    /**
     * get controller with clazz
     */
@@ -65,4 +60,9 @@ public class SessionScopedControllers {
       final Hashtable<Class<?>, PragmatachController> map = getMap(httpSession);
       map.put(pragmatachController.getClass(), pragmatachController);
    }
+
+   /***
+    * Session key for session scoped controllers
+    */
+   private static final String SESSION_CONTROLLERS = "Session-Scoped-Controllers";
 }

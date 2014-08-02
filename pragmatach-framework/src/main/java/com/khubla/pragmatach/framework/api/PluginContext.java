@@ -4,7 +4,7 @@ import com.khubla.pragmatach.framework.resourceloader.ResourceLoader;
 
 /**
  * The plug-in context is passed to every plug-in. It contains methods which enable the plug-in to access framework services
- * 
+ *
  * @author tome
  */
 public interface PluginContext {

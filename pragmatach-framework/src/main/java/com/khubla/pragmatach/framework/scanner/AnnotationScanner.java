@@ -21,15 +21,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  */
 public class AnnotationScanner {
    /**
-    * logger
-    */
-   private static final Logger logger = LoggerFactory.getLogger(AnnotationScanner.class);
-   /**
-    * the DB
-    */
-   private static AnnotationDB annotationDB = new AnnotationDB();
-
-   /**
     * get classes with annotation
     */
    public static Set<Class<?>> getAllClasses(Class<?> annotationClass) throws PragmatachException {
@@ -114,4 +105,13 @@ public class AnnotationScanner {
          throw new PragmatachException("Exception in scanWar", e);
       }
    }
+
+   /**
+    * logger
+    */
+   private static final Logger logger = LoggerFactory.getLogger(AnnotationScanner.class);
+   /**
+    * the DB
+    */
+   private static AnnotationDB annotationDB = new AnnotationDB();
 }

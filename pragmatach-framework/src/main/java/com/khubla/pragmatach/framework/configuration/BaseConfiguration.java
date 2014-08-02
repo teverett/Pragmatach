@@ -10,11 +10,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  */
 public abstract class BaseConfiguration implements Configuration {
    /**
-    * jndi strings start with this
-    */
-   private final static String JAVA = "java:";
-
-   /**
     * resolve an object
     */
    public static Object resolveObject(String value) throws PragmatachException {
@@ -53,4 +48,9 @@ public abstract class BaseConfiguration implements Configuration {
          throw new PragmatachException("Exception in resolveString: '" + value + "'", e);
       }
    }
+
+   /**
+    * jndi strings start with this
+    */
+   private final static String JAVA = "java:";
 }

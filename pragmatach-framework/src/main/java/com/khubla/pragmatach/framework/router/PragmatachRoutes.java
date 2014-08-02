@@ -12,15 +12,10 @@ import com.khubla.pragmatach.framework.controller.ControllerClasses;
 
 /**
  * all routes, both GET and POST, sorted.
- * 
+ *
  * @author tome
  */
 public class PragmatachRoutes {
-   /**
-    * singleton
-    */
-   private static PragmatachRoutes instance = null;
-
    /**
     * getter
     */
@@ -35,6 +30,10 @@ public class PragmatachRoutes {
       }
    }
 
+   /**
+    * singleton
+    */
+   private static PragmatachRoutes instance = null;
    /**
     * GET routes
     */

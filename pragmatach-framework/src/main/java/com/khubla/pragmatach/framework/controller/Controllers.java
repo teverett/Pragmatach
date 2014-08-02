@@ -9,11 +9,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  */
 public class Controllers {
    /**
-    * instance
-    */
-   private static Controllers instance;
-
-   /**
     * singleton
     */
    public static Controllers getInstance() {
@@ -34,6 +29,10 @@ public class Controllers {
       }
    }
 
+   /**
+    * instance
+    */
+   private static Controllers instance;
    private final Set<Class<?>> controllers;
 
    /**

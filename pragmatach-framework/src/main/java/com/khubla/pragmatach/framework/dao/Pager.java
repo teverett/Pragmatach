@@ -6,7 +6,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * an iterator for objects, produced by a DAO
- * 
+ *
  * @author tome
  */
 public interface Pager<T> {
