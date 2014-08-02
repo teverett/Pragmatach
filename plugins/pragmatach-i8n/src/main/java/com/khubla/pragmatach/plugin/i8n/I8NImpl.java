@@ -58,6 +58,7 @@ public class I8NImpl implements I8NProvider {
                properties = new Properties();
                properties.load(inputStream);
                localeData.put(locale, properties);
+               inputStream.close();
                return properties;
             } else {
                return null;
