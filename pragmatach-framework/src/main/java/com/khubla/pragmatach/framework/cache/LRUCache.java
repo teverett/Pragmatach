@@ -67,11 +67,11 @@ public class LRUCache<K, V> {
       return new ArrayList<Map.Entry<K, V>>(map.entrySet());
    }
 
-   public long getTotalHits() {
+   public synchronized long getTotalHits() {
       return totalHits;
    }
 
-   public long getTotalRequests() {
+   public synchronized long getTotalRequests() {
       return totalRequests;
    }
 

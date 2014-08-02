@@ -53,17 +53,23 @@ public class JCRSessionFactory {
                /*
                 * login to workspace
                 */
-               final SimpleCredentials credentials = new SimpleCredentials(getUsername(), getPassword());
-               final String workspace = getWorkspace();
-               final Session session = repository.login(credentials, workspace);
-               /*
-                * log
-                */
-               logger.info("Logged into workspace '" + workspace + "'");
-               /*
-                * done
-                */
-               return session;
+               char[] password = getPassword();
+               String username = getUsername();
+               if ((null != password) && (null != username)) {
+                  final SimpleCredentials credentials = new SimpleCredentials(username, password);
+                  final String workspace = getWorkspace();
+                  final Session session = repository.login(credentials, workspace);
+                  /*
+                   * log
+                   */
+                  logger.info("Logged into workspace '" + workspace + "'");
+                  /*
+                   * done
+                   */
+                  return session;
+               } else {
+                  throw new PragmatachException("Invalid username or password for repository '" + repositoryURL + "'");
+               }
             } else {
                throw new PragmatachException("Unable to connect to repository '" + repositoryURL + "'");
             }
