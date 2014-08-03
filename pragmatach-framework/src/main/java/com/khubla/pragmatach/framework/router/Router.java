@@ -2,6 +2,7 @@ package com.khubla.pragmatach.framework.router;
 
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -202,22 +203,25 @@ public class Router {
                 * walk the annotations
                 */
                int i = 0;
-               for (final RouteParameter routeParameter : pragmatachRoute.getBoundRouteParameters()) {
-                  /*
-                   * get the name to bind
-                   */
-                  final String boundName = routeParameter.name();
-                  /*
-                   * that name is there?
-                   */
-                  if (parameterMap.containsKey(boundName)) {
+               final List<RouteParameter> routeParameters = pragmatachRoute.getBoundRouteParameters();
+               if (null != routeParameters) {
+                  for (final RouteParameter routeParameter : routeParameters) {
                      /*
-                      * set the value in the array
+                      * get the name to bind
                       */
-                     final String parameterValue = parameterMap.get(boundName);
-                     params[i] = ConvertUtils.convert(parameterValue, methodParameterTypes[i]);
+                     final String boundName = routeParameter.name();
+                     /*
+                      * that name is there?
+                      */
+                     if (parameterMap.containsKey(boundName)) {
+                        /*
+                         * set the value in the array
+                         */
+                        final String parameterValue = parameterMap.get(boundName);
+                        params[i] = ConvertUtils.convert(parameterValue, methodParameterTypes[i]);
+                     }
+                     i++;
                   }
-                  i++;
                }
                /*
                 * invoke the method

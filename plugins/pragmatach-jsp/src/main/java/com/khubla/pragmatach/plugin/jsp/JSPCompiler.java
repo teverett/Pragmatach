@@ -240,11 +240,13 @@ public class JSPCompiler {
              * get it
              */
             final URLClassLoader jspClassLoader = createJSPClassLoader();
-            ret = jspClassLoader.loadClass(fullyQualifiedClassName);
-            /*
-             * cache it
-             */
-            jspClassCache.add(ret, fullyQualifiedClassName);
+            if (null != jspClassLoader) {
+               ret = jspClassLoader.loadClass(fullyQualifiedClassName);
+               /*
+                * cache it
+                */
+               jspClassCache.add(ret, fullyQualifiedClassName);
+            }
          }
          /*
           * done
