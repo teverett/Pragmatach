@@ -43,7 +43,7 @@ public class JCRJSONController extends JCRController {
          if (null != node) {
             return new JCRResponse(getCacheHeaders(), PragmatachJCRToJSON.renderSubnodeNames(node));
          } else {
-            throw new Exception("Unable to get node '" + nodeName + "'");
+            throw new Exception("Unable to get node");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
@@ -59,7 +59,7 @@ public class JCRJSONController extends JCRController {
          if (null != node) {
             return new JCRResponse(getCacheHeaders(), PragmatachJCRToJSON.renderNodeProperties(node));
          } else {
-            throw new Exception("Unable to get node '" + nodeName + "'");
+            throw new Exception("Unable to get node");
          }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
