@@ -39,7 +39,7 @@ public class ClientGenerator {
          /*
           * writer
           */
-         OutputStreamWriter osw = new OutputStreamWriter(fos);
+         OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
          /*
           * package
           */

@@ -34,9 +34,15 @@ public class JGroupsSenderReceiver extends ReceiverAdapter {
    /**
     * message
     */
+   @Override
    public void receive(Message message) {
       try {
-         MulticastMessage.deserialize(message.getBuffer());
+         if (null != message) {
+            byte[] buffer = message.getBuffer();
+            if (null != buffer) {
+               MulticastMessage.deserialize(message.getBuffer());
+            }
+         }
       } catch (final Exception e) {
          logger.error("Exception in receive", e);
       }
@@ -78,6 +84,7 @@ public class JGroupsSenderReceiver extends ReceiverAdapter {
    /**
     * accepted
     */
+   @Override
    public void viewAccepted(View view) {
    }
 }

@@ -115,6 +115,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * delete
     */
+   @Override
    public void delete(T t) throws PragmatachException {
       try {
          ebeanServer.delete(t);
@@ -126,6 +127,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * delete
     */
+   @Override
    public void deletebyId(I i) throws PragmatachException {
       try {
          ebeanServer.delete(typeClazz, i);
@@ -144,6 +146,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * find by id
     */
+   @Override
    public T findById(I i) throws PragmatachException {
       try {
          return ebeanServer.find(typeClazz, i);
@@ -155,6 +158,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * findall
     */
+   @Override
    public List<T> getAll() throws PragmatachException {
       return ebeanServer.find(this.typeClazz).findList();
    }
@@ -164,14 +168,17 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
       return this.find().setFirstRow(start).setMaxRows(count).findList();
    }
 
+   @Override
    public Class<I> getIdentifierClazz() {
       return identifierClazz;
    }
 
+   @Override
    public Class<T> getTypeClazz() {
       return typeClazz;
    }
 
+   @Override
    public void reloadConfig() {
       ebeanServer = getEBeanServer();
    }
@@ -179,6 +186,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * save object
     */
+   @Override
    public void save(T t) throws PragmatachException {
       try {
          ebeanServer.save(t);
@@ -190,6 +198,7 @@ public class EBeanDAO<T, I extends Serializable> extends AbstractDAO<T, I> {
    /**
     * update object
     */
+   @Override
    public void update(T t) throws PragmatachException {
       try {
          ebeanServer.update(t);

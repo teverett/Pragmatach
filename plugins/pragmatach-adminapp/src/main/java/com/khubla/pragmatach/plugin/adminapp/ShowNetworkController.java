@@ -27,13 +27,15 @@ public class ShowNetworkController extends SecuredAdminController {
       try {
          final List<String> ret = new ArrayList<String>();
          final Enumeration<NetworkInterface> enumer = NetworkInterface.getNetworkInterfaces();
-         while (enumer.hasMoreElements()) {
-            final NetworkInterface networkInterface = enumer.nextElement();
-            for (final InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-               if (false == interfaceAddress.getAddress().isLoopbackAddress()) {
-                  final String ip = interfaceAddress.getAddress().getHostAddress();
-                  if (false == ip.contains(":")) {
-                     ret.add(ip);
+         if (null != enumer) {
+            while (enumer.hasMoreElements()) {
+               final NetworkInterface networkInterface = enumer.nextElement();
+               for (final InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+                  if (false == interfaceAddress.getAddress().isLoopbackAddress()) {
+                     final String ip = interfaceAddress.getAddress().getHostAddress();
+                     if (false == ip.contains(":")) {
+                        ret.add(ip);
+                     }
                   }
                }
             }
@@ -48,6 +50,7 @@ public class ShowNetworkController extends SecuredAdminController {
       return ips;
    }
 
+   @Override
    @Route(uri = "/pragmatach/admin/network")
    public Response render() throws PragmatachException {
       ips = findIPs();

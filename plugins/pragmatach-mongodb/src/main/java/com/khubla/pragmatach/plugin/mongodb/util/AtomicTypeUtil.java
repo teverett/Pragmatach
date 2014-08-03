@@ -5,12 +5,10 @@ import java.util.HashSet;
 
 /**
  * TypeUtil for identifying atomic types
- * 
+ *
  * @author tom
  */
 public class AtomicTypeUtil {
-   private static final HashSet<String> WRAPPER_TYPES = getWrapperTypes();
-
    private static HashSet<String> getWrapperTypes() {
       final HashSet<String> ret = new HashSet<String>();
       ret.add(Boolean.class.getName());
@@ -37,4 +35,6 @@ public class AtomicTypeUtil {
    public static boolean isWrapperType(Class<?> clazz) {
       return WRAPPER_TYPES.contains(clazz.getName());
    }
+
+   private static final HashSet<String> WRAPPER_TYPES = getWrapperTypes();
 }

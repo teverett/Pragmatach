@@ -50,7 +50,9 @@ public class PagerImpl<T, I> implements Pager<T> {
           * query
           */
          final List<T> ret = dao.getAll(currentRecords, batchsize);
-         currentRecords += ret.size();
+         if (null != ret) {
+            currentRecords += ret.size();
+         }
          return ret;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in next", e);

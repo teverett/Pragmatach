@@ -25,11 +25,13 @@ public class ControllerTestSupport {
           * mock up a servlet context
           */
          final ServletConfig servletConfig = mock(ServletConfig.class);
-         when(servletConfig.getInitParameterNames()).thenReturn(new Vector<String>().elements());
-         final ServletContext servletContext = mock(ServletContext.class);
-         final PragmatachServlet pragmatachServlet = new PragmatachServlet();
-         pragmatachServlet.init(servletConfig);
-         when(servletConfig.getServletContext()).thenReturn(servletContext);
+         if (null != servletConfig) {
+            when(servletConfig.getInitParameterNames()).thenReturn(new Vector<String>().elements());
+            final ServletContext servletContext = mock(ServletContext.class);
+            final PragmatachServlet pragmatachServlet = new PragmatachServlet();
+            pragmatachServlet.init(servletConfig);
+            when(servletConfig.getServletContext()).thenReturn(servletContext);
+         }
          /*
           * hm
           */

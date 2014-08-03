@@ -82,16 +82,16 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
     * find
     */
    public List<T> find(BasicDBObject query) throws PragmatachException {
+      ArrayList<T> ret = null;
       final DBCursor cursor = this.dbCollection.find(query);
       if (cursor.hasNext()) {
-         final ArrayList<T> ret = new ArrayList<T>();
+         ret = new ArrayList<T>();
          while (cursor.hasNext()) {
             ret.add(this.newInstance(cursor.next()));
          }
-         return ret;
-      } else {
-         return null;
       }
+      cursor.close();
+      return ret;
    }
 
    /**
@@ -106,16 +106,16 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
             query.append(term[0], term[1]);
          }
       }
+      ArrayList<T> ret = null;
       final DBCursor cursor = this.dbCollection.find(query);
       if (cursor.hasNext()) {
-         final ArrayList<T> ret = new ArrayList<T>();
+         ret = new ArrayList<T>();
          while (cursor.hasNext()) {
             ret.add(this.newInstance(cursor.next()));
          }
-         return ret;
-      } else {
-         return null;
       }
+      cursor.close();
+      return ret;
    }
 
    /**
@@ -140,12 +140,13 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
     * find
     */
    public T findOne(BasicDBObject query) throws PragmatachException {
+      T ret = null;
       final DBCursor cursor = this.dbCollection.find(query);
       if (cursor.hasNext()) {
-         return this.newInstance(cursor.next());
-      } else {
-         return null;
+         ret = this.newInstance(cursor.next());
       }
+      cursor.close();
+      return ret;
    }
 
    /**
@@ -160,12 +161,13 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
             query.append(term[0], term[1]);
          }
       }
+      T ret = null;
       final DBCursor cursor = this.dbCollection.find(query);
       if (cursor.hasNext()) {
-         return this.newInstance(cursor.next());
-      } else {
-         return null;
+         ret = this.newInstance(cursor.next());
       }
+      cursor.close();
+      return ret;
    }
 
    /**
@@ -206,13 +208,14 @@ public class MongoDBDAO<T> extends AbstractDAO<T, String> {
     */
    private DBObject getObjectById(String i) throws PragmatachException {
       try {
+         DBObject ret = null;
          final BasicDBObject query = new BasicDBObject(ID, i);
          final DBCursor cursor = this.dbCollection.find(query);
          if (cursor.hasNext()) {
-            return cursor.next();
-         } else {
-            return null;
+            ret = cursor.next();
          }
+         cursor.close();
+         return ret;
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getObjectById", e);
       }

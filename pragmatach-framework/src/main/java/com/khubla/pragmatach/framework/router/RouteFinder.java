@@ -139,9 +139,9 @@ public class RouteFinder {
    /**
     * Match route. Returns true if a matching route was found.
     * <p>
-    * 
+    *
     * <pre>
-    * There are multiple criteria for matching.  
+    * There are multiple criteria for matching.
     * 1 - Every part of the URI must match the name or regex
     * 2 - Values must be provided for each method signature variable
     * </pre>

@@ -20,15 +20,6 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class PluginDescriptors {
-   /**
-    * logger
-    */
-   private static final Logger logger = LoggerFactory.getLogger(PluginDescriptors.class);
-   /**
-    * plugin jars
-    */
-   private static Map<String, PluginDescriptor> plugins = new HashMap<String, PluginDescriptor>();
-
    public static Map<String, PluginDescriptor> getPlugins() {
       return plugins;
    }
@@ -65,4 +56,13 @@ public class PluginDescriptors {
          throw new PragmatachException("Exception in scanURLs", e);
       }
    }
+
+   /**
+    * logger
+    */
+   private static final Logger logger = LoggerFactory.getLogger(PluginDescriptors.class);
+   /**
+    * plugin jars
+    */
+   private static Map<String, PluginDescriptor> plugins = new HashMap<String, PluginDescriptor>();
 }

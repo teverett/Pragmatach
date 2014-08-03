@@ -7,7 +7,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
 
 /**
  * a configuration class mainly useful for testing
- * 
+ *
  * @author tome
  */
 public class HashmapConfigurationImpl extends BaseConfiguration {

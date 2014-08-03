@@ -50,7 +50,7 @@ public class EntityFieldSerializer implements FieldSerializer {
                /*
                 * create an empty object
                 */
-               Object o = MongoProxyFactory.getProxyObject(field.getType());
+               final Object o = MongoProxyFactory.getProxyObject(field.getType());
                /*
                 * set the id and fetched properties
                 */

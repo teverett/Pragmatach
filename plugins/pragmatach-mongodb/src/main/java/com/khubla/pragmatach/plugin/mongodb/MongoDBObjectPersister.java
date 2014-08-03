@@ -29,18 +29,17 @@ public class MongoDBObjectPersister {
 
    /**
     * find an instance by an id
-    * 
-    * @return
     */
    public DBObject find(String id) throws PragmatachException {
+      DBObject ret = null;
       final BasicDBObject basicDBObject = new BasicDBObject();
       basicDBObject.append(MongoDBDAO.ID, id);
       final DBCursor dbCursor = dbCollection.find(basicDBObject);
       if (dbCursor.hasNext()) {
-         return dbCursor.next();
-      } else {
-         return null;
+         ret = dbCursor.next();
       }
+      dbCursor.close();
+      return ret;
    }
 
    public Object load(DBObject dbObject) throws PragmatachException {

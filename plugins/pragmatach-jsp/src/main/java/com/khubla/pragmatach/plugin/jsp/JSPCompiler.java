@@ -240,11 +240,13 @@ public class JSPCompiler {
              * get it
              */
             final URLClassLoader jspClassLoader = createJSPClassLoader();
-            ret = jspClassLoader.loadClass(fullyQualifiedClassName);
-            /*
-             * cache it
-             */
-            jspClassCache.add(ret, fullyQualifiedClassName);
+            if (null != jspClassLoader) {
+               ret = jspClassLoader.loadClass(fullyQualifiedClassName);
+               /*
+                * cache it
+                */
+               jspClassCache.add(ret, fullyQualifiedClassName);
+            }
          }
          /*
           * done
@@ -288,8 +290,12 @@ public class JSPCompiler {
    public HttpJspBase getServlet() throws PragmatachException {
       try {
          final Class<?> clazz = getClazz();
-         final Object o = clazz.newInstance();
-         return (HttpJspBase) o;
+         if (null != clazz) {
+            final Object o = clazz.newInstance();
+            return (HttpJspBase) o;
+         } else {
+            return null;
+         }
       } catch (final Exception e) {
          throw new PragmatachException("Exception in getServlet", e);
       }

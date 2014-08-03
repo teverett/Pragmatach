@@ -9,7 +9,7 @@ import com.khubla.pragmatach.framework.api.Response;
  * <p>
  * Controller to redirect root requests to /public/. Such as favicon.ico.
  * </p>
- * 
+ *
  * @author tome
  */
 @Controller(name = "pragmatachDefaultContextRootController")
