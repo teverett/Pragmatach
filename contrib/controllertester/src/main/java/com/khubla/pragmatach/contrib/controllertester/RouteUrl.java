@@ -17,7 +17,7 @@ public class RouteUrl {
    public static List<RouteUrl> readRoutes(InputStream inputStream) throws Exception {
       try {
          final List<RouteUrl> ret = new ArrayList<RouteUrl>();
-         final CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
+         final CSVReader reader = new CSVReader(new InputStreamReader(inputStream, "UTF-8"));
          String[] nextLine;
          while ((nextLine = reader.readNext()) != null) {
             if (nextLine[0].charAt(0) != '#') {
