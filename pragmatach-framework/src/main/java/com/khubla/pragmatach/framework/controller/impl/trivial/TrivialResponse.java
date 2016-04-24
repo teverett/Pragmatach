@@ -20,6 +20,10 @@ public class TrivialResponse extends AbstractResponse {
     * response
     */
    private final String response;
+   /**
+    * content type
+    */
+   private final String contentType;
 
    /**
     * ctor
@@ -28,21 +32,22 @@ public class TrivialResponse extends AbstractResponse {
       super(cacheHeaders);
       response = null;
       this.httpCode = httpCode;
+      this.contentType = null;
    }
 
    /**
     * ctor
     */
-   public TrivialResponse(Map<String, String> cacheHeaders, String response, int httpCode) {
+   public TrivialResponse(Map<String, String> cacheHeaders, String response, int httpCode, String contentType) {
       super(cacheHeaders);
       this.response = response;
       this.httpCode = httpCode;
+      this.contentType = contentType;
    }
 
    @Override
    public String getContentType() throws PragmatachException {
-      // dunno
-      return null;
+      return contentType;
    }
 
    @Override

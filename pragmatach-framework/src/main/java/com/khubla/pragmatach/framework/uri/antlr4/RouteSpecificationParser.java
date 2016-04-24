@@ -48,11 +48,11 @@ public class RouteSpecificationParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class RoutespecificationContext extends ParserRuleContext {
-		public List<SegmentContext> segment() {
-			return getRuleContexts(SegmentContext.class);
-		}
 		public SegmentContext segment(int i) {
 			return getRuleContext(SegmentContext.class,i);
+		}
+		public List<SegmentContext> segment() {
+			return getRuleContexts(SegmentContext.class);
 		}
 		public RoutespecificationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -110,11 +110,11 @@ public class RouteSpecificationParser extends Parser {
 	}
 
 	public static class SegmentContext extends ParserRuleContext {
-		public PathsegmentContext pathsegment() {
-			return getRuleContext(PathsegmentContext.class,0);
-		}
 		public IdsegmentContext idsegment() {
 			return getRuleContext(IdsegmentContext.class,0);
+		}
+		public PathsegmentContext pathsegment() {
+			return getRuleContext(PathsegmentContext.class,0);
 		}
 		public SegmentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);

@@ -17,19 +17,6 @@ public class RouteSpecificationBaseListener implements RouteSpecificationListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(@NotNull RouteSpecificationParser.IdContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId(@NotNull RouteSpecificationParser.IdContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIdsegment(@NotNull RouteSpecificationParser.IdsegmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -37,6 +24,19 @@ public class RouteSpecificationBaseListener implements RouteSpecificationListene
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIdsegment(@NotNull RouteSpecificationParser.IdsegmentContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -56,13 +56,13 @@ public class RouteSpecificationBaseListener implements RouteSpecificationListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx) { }
+	@Override public void enterId(@NotNull RouteSpecificationParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx) { }
+	@Override public void exitId(@NotNull RouteSpecificationParser.IdContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

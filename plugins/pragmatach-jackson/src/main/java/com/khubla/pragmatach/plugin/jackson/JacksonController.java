@@ -61,7 +61,7 @@ public class JacksonController extends AbstractController {
          /*
           * done
           */
-         return new TrivialResponse(null, baos.toString(), 200);
+         return new TrivialResponse(null, baos.toString(), 200, "application/json");
       } catch (final Exception e) {
          throw new PragmatachException("Exception in render", e);
       }

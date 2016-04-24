@@ -9,17 +9,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface RouteSpecificationListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link RouteSpecificationParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void enterId(@NotNull RouteSpecificationParser.IdContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link RouteSpecificationParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void exitId(@NotNull RouteSpecificationParser.IdContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link RouteSpecificationParser#idsegment}.
 	 * @param ctx the parse tree
 	 */
@@ -29,6 +18,17 @@ public interface RouteSpecificationListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdsegment(@NotNull RouteSpecificationParser.IdsegmentContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link RouteSpecificationParser#routespecification}.
+	 * @param ctx the parse tree
+	 */
+	void enterRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RouteSpecificationParser#routespecification}.
+	 * @param ctx the parse tree
+	 */
+	void exitRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link RouteSpecificationParser#segment}.
@@ -42,15 +42,15 @@ public interface RouteSpecificationListener extends ParseTreeListener {
 	void exitSegment(@NotNull RouteSpecificationParser.SegmentContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link RouteSpecificationParser#routespecification}.
+	 * Enter a parse tree produced by {@link RouteSpecificationParser#id}.
 	 * @param ctx the parse tree
 	 */
-	void enterRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx);
+	void enterId(@NotNull RouteSpecificationParser.IdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link RouteSpecificationParser#routespecification}.
+	 * Exit a parse tree produced by {@link RouteSpecificationParser#id}.
 	 * @param ctx the parse tree
 	 */
-	void exitRoutespecification(@NotNull RouteSpecificationParser.RoutespecificationContext ctx);
+	void exitId(@NotNull RouteSpecificationParser.IdContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link RouteSpecificationParser#pathsegment}.
