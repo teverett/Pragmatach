@@ -5,6 +5,7 @@
 /**/.settings/
 /**/target
 /**/test-output
+/**/*.versionsBackup
 /examples/ebeanexample/pragmatach-create.sql
 /examples/ebeanexample/pragmatach-drop.sql
 /plugins/pragmatach-ebean/pragmatach-create.sql
