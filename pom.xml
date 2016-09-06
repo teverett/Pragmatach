@@ -33,7 +33,7 @@
 		<maven>3.1.0</maven>
 	</prerequisites>
 	<properties>
-		<target.jvm>1.6</target.jvm>
+		<target.jvm>1.7</target.jvm>
 		<testng.version>6.9.10</testng.version>
 		<servlet.version>2.5</servlet.version>
 		<logback.version>1.0.13</logback.version>
