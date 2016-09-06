@@ -6,6 +6,29 @@
 	<packaging>pom</packaging>
 	<version>1.40-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
+	<description>Pragmatach site framework</description>
+	<url>https://github.com/teverett/Pragmatach</url>
+	<developers>
+		<developer>
+			<id>teverett</id>
+			<name>Tom Everett</name>
+			<email>tom@khubla.com</email>
+		</developer>
+	</developers>
+	<organization>
+		<name>khubla.com</name>
+		<url>http://www.khubla.com</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/teverett/Pragmatach.git</url>
+	</scm>
 	<prerequisites>
 		<maven>3.1.0</maven>
 	</prerequisites>
@@ -134,39 +157,74 @@
 			</plugin>
 		</plugins>
 	</build>
-	<developers>
-		<developer>
-			<email>tom@khubla.com</email>
-			<name>Tom Everett</name>
-			<id>khubla</id>
-			<roles>
-				<role>Original developer</role>
-			</roles>
-		</developer>
-	</developers>
+	<profiles>
+		<profile>
+			<id>deploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.4</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.3</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 		<repository>
-			<id>pragmatach</id>
-			<name>Pragmatach Repository</name>
-			<url>file://repo</url>
-			<layout>default</layout>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<scm>
-		<connection>scm:git:git@github.com:teverett/Pragmatach.git</connection>
-		<developerConnection>scm:git:git@github.com:teverett/Pragmatach.git</developerConnection>
-		<url>https://github.com/teverett/Pragmatach</url>
-		<tag>pragmatach-1.31-SNAPSHOT</tag>
-	</scm>
-	<organization>
-		<name>khubla.com</name>
-		<url>http://www.khubla.com</url>
-	</organization>
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
 </project>
