@@ -6,24 +6,24 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>plugins</artifactId>
-		<version>1.39</version>
+		<version>1.40-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
-		<tomcat.version>6.0.36</tomcat.version>
+		<tomcat.version>6.0.44</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.39</version>
+			<version>1.40-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>testsupport</artifactId>
-			<version>1.39</version>
+			<version>1.40-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

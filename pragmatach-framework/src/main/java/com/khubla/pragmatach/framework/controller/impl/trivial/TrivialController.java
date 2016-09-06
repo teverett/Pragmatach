@@ -30,6 +30,6 @@ public class TrivialController extends AbstractController {
    }
 
    public Response render() throws PragmatachException {
-      return new TrivialResponse(getCacheHeaders(), message, httpCode);
+      return new TrivialResponse(getCacheHeaders(), message, httpCode, null);
    }
 }

@@ -6,14 +6,14 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>plugins</artifactId>
-		<version>1.39</version>
+		<version>1.40-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.39</version>
+			<version>1.40-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -27,26 +27,26 @@
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>dbtestsuite</artifactId>
-			<version>1.39</version>
+			<version>1.40-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.3.2</version>
+			<version>2.3.3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>10.10.2.0</version>
+			<version>10.11.1.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.180</version>
+			<version>1.4.188</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

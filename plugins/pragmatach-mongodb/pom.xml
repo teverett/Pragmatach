@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.khubla.pragmatach</groupId>
 		<artifactId>plugins</artifactId>
-		<version>1.39</version>
+		<version>1.40-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>com.khubla.pragmatach</groupId>
 			<artifactId>pragmatach-framework</artifactId>
-			<version>1.39</version>
+			<version>1.40-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.1</version>
+			<version>1.9.2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
