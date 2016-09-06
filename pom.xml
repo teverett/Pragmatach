@@ -34,9 +34,12 @@
 	</prerequisites>
 	<properties>
 		<target.jvm>1.6</target.jvm>
-		<testng.version>6.8.8</testng.version>
+		<testng.version>6.9.10</testng.version>
 		<servlet.version>2.5</servlet.version>
 		<logback.version>1.0.13</logback.version>
+		<h2.version>1.4.192</h2.version>
+		<hsqldb.version>2.3.4</hsqldb.version>
+		<derby.version>10.12.1.1</derby.version>
 	</properties>
 	<modules>
 		<module>pragmatach-archetype</module>
