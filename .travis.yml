@@ -1,6 +1,25 @@
 language: java
-sudo: false
+sudo: required
 jdk:
   - oraclejdk7
   - openjdk7
   - oraclejdk8
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "HyI6mQMEVlpJG+Xk3VilrIr5bYw6318Cfb3gLzjDr57P8UMmGj2M07WTCW8QSHhmTKYRkZ+EoEuAdkSqX1D6HQMLsQ2irhRtbzDE3urpvnlpEVpxDfDKXIvrDtPwGsOqQzl4IlASGtycrerYzZO3gauWX2ScZLKA8PxiZIHl9ZM="
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "teverett/Pragmatach"
+      description: "Build submitted via Travis CI"
+    notification_email: tom@khubla.com
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile"
+    branch_pattern: coverity_scan
