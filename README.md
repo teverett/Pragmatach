@@ -9,5 +9,11 @@ Build Status
 
 <a href="https://travis-ci.org/"><img src="https://api.travis-ci.org/teverett/Pragmatach.png"></a>
 
+Coverity Status
+-----------
+
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/1641/badge.svg"/>
+</a>
 
 
