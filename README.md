@@ -12,8 +12,7 @@ Build Status
 Coverity Status
 -----------
 
+<a href="https://scan.coverity.com/projects/teverett-pragmatach">
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/1641/badge.svg"/>
 </a>
-
-
