@@ -1,3 +1,5 @@
+#!/bin/sh
+
 rm -rf ../pragmatach-site/*
 mkdir ../pragmatach-site
 cd site
