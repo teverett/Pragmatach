@@ -12,12 +12,7 @@ import com.khubla.pragmatach.framework.api.Response;
 @Controller(name = "pragmatachAdminController")
 @View(view = "pragmatach/admin/admin.html")
 public class AdminController extends SecuredAdminController {
-   /**
-    * ctor
-    */
-   public AdminController() {
-   }
-
+   @Override
    @Route(uri = "/pragmatach/admin")
    public Response render() throws PragmatachException {
       return super.render();

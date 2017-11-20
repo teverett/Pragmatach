@@ -39,5 +39,6 @@ public class PluginImpl implements Plugin {
 
    @Override
    public void startup() throws PragmatachException {
+      // no startup code
    }
 }
