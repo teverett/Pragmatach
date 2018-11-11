@@ -4,6 +4,8 @@ jdk:
 #  - oraclejdk7
 #  - openjdk7
   - oraclejdk8
+script:
+  - sudo /usr/local/maven/bin/mvn clean package
 
 env:
   global:
