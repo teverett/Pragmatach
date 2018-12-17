@@ -90,7 +90,7 @@
 					<plugin>
 						<groupId>org.mortbay.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
-						<version>7.6.10.v20130312</version>
+						<version>${jetty7-maven-plugin.version}</version>
 						<configuration>
 							<scanIntervalSeconds>10</scanIntervalSeconds>
 							<webAppConfig>

@@ -14,6 +14,7 @@
 		<maven-embedded-glassfish-plugin.version>5.0</maven-embedded-glassfish-plugin.version>
 		<jboss-as-maven-plugin.version>7.9.Final</jboss-as-maven-plugin.version>
 		<jetty8-maven-plugin.version>8.1.16.v20140903</jetty8-maven-plugin.version>
+		<jetty7-maven-plugin.version>7.6.10.v20130312</jetty7-maven-plugin.version>
 	</properties>
 	<modules>
 		<module>rssviewer</module>
