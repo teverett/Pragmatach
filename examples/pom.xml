@@ -11,6 +11,7 @@
 	</parent>
 	<properties>
 		<tomee-maven-plugin.version>1.7.5</tomee-maven-plugin.version>
+		<maven-embedded-glassfish-plugin.version>5.0</maven-embedded-glassfish-plugin.version>
 	</properties>
 	<modules>
 		<module>rssviewer</module>

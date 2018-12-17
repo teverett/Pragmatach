@@ -155,7 +155,7 @@
 					<plugin>
 						<groupId>org.glassfish.embedded</groupId>
 						<artifactId>maven-embedded-glassfish-plugin</artifactId>
-						<version>4.0</version>
+						<version>${maven-embedded-glassfish-plugin.version}</version>
 						<configuration>
 							<port>8080</port>
 						</configuration>
