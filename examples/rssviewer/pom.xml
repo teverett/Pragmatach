@@ -176,7 +176,7 @@
 					<plugin>
 						<groupId>org.apache.openejb.maven</groupId>
 						<artifactId>tomee-maven-plugin</artifactId>
-						<version>1.6.0</version>
+						<version>${tomee-maven-plugin.version}</version>
 						<configuration>
 							<tomeeVersion>1.5.1</tomeeVersion>
 							<tomeeClassifier>plus</tomeeClassifier>

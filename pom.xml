@@ -30,7 +30,7 @@
 		<url>https://github.com/teverett/Pragmatach.git</url>
 	</scm>
 	<prerequisites>
-		<maven>3.1.0</maven>
+		<maven>3.3.0</maven>
 	</prerequisites>
 	<properties>
 		<target.jvm>1.7</target.jvm>

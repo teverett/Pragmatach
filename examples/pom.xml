@@ -9,6 +9,9 @@
 		<version>1.41-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<properties>
+		<tomee-maven-plugin.version>1.7.5</tomee-maven-plugin.version>
+	</properties>
 	<modules>
 		<module>rssviewer</module>
 		<module>velocityexample</module>
@@ -27,7 +30,7 @@
 		<module>ebeanexample</module>
 		<module>goxmon</module>
 		<module>jspexample</module>
-                <module>beforeexample</module>
-                <module>startupexample</module>
+		<module>beforeexample</module>
+		<module>startupexample</module>
 	</modules>
 </project>	
