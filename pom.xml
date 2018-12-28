@@ -4,7 +4,7 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.41-SNAPSHOT</version>
+	<version>1.41.0-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
 	<description>Pragmatach site framework</description>
 	<url>https://github.com/teverett/Pragmatach</url>
@@ -29,9 +29,6 @@
 	<scm>
 		<url>https://github.com/teverett/Pragmatach.git</url>
 	</scm>
-	<prerequisites>
-		<maven>3.3.0</maven>
-	</prerequisites>
 	<properties>
 		<target.jvm>1.7</target.jvm>
 		<testng.version>6.9.10</testng.version>
@@ -41,6 +38,9 @@
 		<hsqldb.version>2.3.4</hsqldb.version>
 		<derby.version>10.12.1.1</derby.version>
 		<commons-io.version>2.6</commons-io.version>
+		<required-maven-version>3.3.1</required-maven-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spotless.version>1.16.0</spotless.version>
 	</properties>
 	<modules>
 		<module>pragmatach-archetype</module>
@@ -158,6 +158,45 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.3</version>
+			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless.version}</version>
+				<configuration>
+					<lineEndings>UNIX</lineEndings>
+					<encoding>UTF-8</encoding>
+					<java>
+						<eclipse>
+							<file>${maven.multiModuleProjectDirectory}/format.eclipse.xml</file>
+							<version>4.7.1</version>
+						</eclipse>
+						<removeUnusedImports />
+						<importOrder>
+							<file>${maven.multiModuleProjectDirectory}/format.importorder</file>
+						</importOrder>
+					</java>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M2</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>${required-maven-version}</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
