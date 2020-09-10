@@ -194,7 +194,7 @@
 		<profile>
 			<id>geronimo3</id>
 			<properties>
-				<geronimoVersion>3.0.1-SNAPSHOT</geronimoVersion>
+				<geronimoVersion>3.0.1</geronimoVersion>
 				<jetty>jetty8</jetty>
 			</properties>
 			<pluginRepositories>
