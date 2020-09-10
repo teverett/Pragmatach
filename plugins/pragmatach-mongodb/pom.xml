@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
-		<mongodb.version>2.11.3</mongodb.version>
+		<mongodb.version>3.12.7</mongodb.version>
 	</properties>
 	<dependencies>
 		<dependency>
