@@ -55,9 +55,9 @@
 			<version>${logback.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.scannotation</groupId>
-			<artifactId>scannotation</artifactId>
-			<version>1.0.3</version>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.javassist</groupId>
