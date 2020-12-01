@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
-		<xstream.version>1.4.13-java7</xstream.version>
+		<xstream.version>1.4.14-jdk7</xstream.version>
 	</properties>
 	<dependencies>
 		<dependency>
