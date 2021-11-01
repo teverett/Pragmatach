@@ -10,7 +10,7 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
    <properties>
-      <jackrabbit.version>2.21.7</jackrabbit.version>
+      <jackrabbit.version>2.21.8</jackrabbit.version>
    </properties>
    <dependencies>
       <dependency>
