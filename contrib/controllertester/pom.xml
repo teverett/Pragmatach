@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
-		<commons-cli.version>1.4</commons-cli.version>
+		<commons-cli.version>1.5.0</commons-cli.version>
 	</properties>
 	<dependencies>
 		<dependency>
