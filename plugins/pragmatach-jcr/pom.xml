@@ -10,7 +10,7 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
    <properties>
-      <jackrabbit.version>2.21.8</jackrabbit.version>
+      <jackrabbit.version>2.21.9</jackrabbit.version>
    </properties>
    <dependencies>
       <dependency>
@@ -30,7 +30,7 @@
       <dependency>
          <groupId>org.json</groupId>
          <artifactId>json</artifactId>
-         <version>20210307</version>
+         <version>20211205</version>
          <type>jar</type>
          <scope>compile</scope>
       </dependency>
