@@ -20,12 +20,12 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20211205</version>
+			<version>20220320</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jgroups</groupId>
 			<artifactId>jgroups</artifactId>
-			<version>5.2.0.Final</version>
+			<version>5.2.2.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>javassist</groupId>
