@@ -117,7 +117,7 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>3.4.0</version>
+							<version>3.4.1</version>
 							<configuration>
 								<aggregate>true</aggregate>
 								<linksource>true</linksource>
@@ -147,7 +147,7 @@
 				<!-- configuration for standalone javadoc generation -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.4.0</version>
+				<version>3.4.1</version>
 				<configuration>
 					<stylesheetfile>javadocstyle/javadoc.css</stylesheetfile>
 					<aggregate>true</aggregate>
@@ -232,7 +232,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.4.0</version>
+						<version>3.4.1</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
