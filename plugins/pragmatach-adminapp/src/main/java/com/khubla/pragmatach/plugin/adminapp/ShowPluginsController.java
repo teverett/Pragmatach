@@ -1,14 +1,10 @@
 package com.khubla.pragmatach.plugin.adminapp;
 
-import java.util.Map;
+import java.util.*;
 
-import com.khubla.pragmatach.framework.annotation.Controller;
-import com.khubla.pragmatach.framework.annotation.Route;
-import com.khubla.pragmatach.framework.annotation.View;
-import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.framework.api.Response;
-import com.khubla.pragmatach.framework.plugin.PluginDescriptor;
-import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
+import com.khubla.pragmatach.framework.annotation.*;
+import com.khubla.pragmatach.framework.api.*;
+import com.khubla.pragmatach.framework.plugin.*;
 
 /**
  * @author tome
@@ -16,22 +12,22 @@ import com.khubla.pragmatach.framework.plugin.PluginDescriptors;
 @Controller(name = "pragmatachShowPluginsController")
 @View(view = "pragmatach/admin/plugins.html")
 public class ShowPluginsController extends SecuredAdminController {
-   /**
-    * plugins
-    */
-   private Map<String, PluginDescriptor> plugins;
+	/**
+	 * plugins
+	 */
+	private Map<String, Plugin> plugins;
 
-   public Map<String, PluginDescriptor> getPlugins() {
-      return plugins;
-   }
+	public Map<String, Plugin> getPlugins() {
+		return plugins;
+	}
 
-   @Route(uri = "/pragmatach/admin/plugins")
-   public Response render() throws PragmatachException {
-      plugins = PluginDescriptors.getPlugins();
-      return super.render();
-   }
+	@Route(uri = "/pragmatach/admin/plugins")
+	public Response render() throws PragmatachException {
+		plugins = PluginsRegistry.getPlugins();
+		return super.render();
+	}
 
-   public void setPlugins(Map<String, PluginDescriptor> plugins) {
-      this.plugins = plugins;
-   }
+	public void setPlugins(Map<String, Plugin> plugins) {
+		this.plugins = plugins;
+	}
 }

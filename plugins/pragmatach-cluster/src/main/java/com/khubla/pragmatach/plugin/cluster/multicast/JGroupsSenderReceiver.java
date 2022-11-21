@@ -1,13 +1,10 @@
 package com.khubla.pragmatach.plugin.cluster.multicast;
 
-import org.jgroups.JChannel;
-import org.jgroups.Message;
-import org.jgroups.ReceiverAdapter;
-import org.jgroups.View;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jgroups.*;
+import org.jgroups.blocks.cs.*;
+import org.slf4j.*;
 
-import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.*;
 
 /**
  * The broadcast sender and reciever
@@ -15,76 +12,76 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public class JGroupsSenderReceiver extends ReceiverAdapter {
-   /**
-    * logger
-    */
-   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-   /**
-    * the channel
-    */
-   private JChannel jChannel;
-   /**
-    * cluster name
-    */
-   private final static String CLUSTER_NAME = "PragmatachSesion";
+	/**
+	 * logger
+	 */
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	/**
+	 * the channel
+	 */
+	private JChannel jChannel;
+	/**
+	 * cluster name
+	 */
+	private final static String CLUSTER_NAME = "PragmatachSesion";
 
-   public JGroupsSenderReceiver() {
-   }
+	public JGroupsSenderReceiver() {
+	}
 
-   /**
-    * message
-    */
-   @Override
-   public void receive(Message message) {
-      try {
-         if (null != message) {
-            byte[] buffer = message.getBuffer();
-            if (null != buffer) {
-               MulticastMessage.deserialize(message.getBuffer());
-            }
-         }
-      } catch (final Exception e) {
-         logger.error("Exception in receive", e);
-      }
-   }
+	/**
+	 * message
+	 */
+	public void receive(Message message) {
+		try {
+			if (null != message) {
+				byte[] buffer = message.getArray();
+				if (null != buffer) {
+					MulticastMessage.deserialize(message.getArray());
+				}
+			}
+		} catch (final Exception e) {
+			logger.error("Exception in receive", e);
+		}
+	}
 
-   /**
-    * send message
-    */
-   public void send(MulticastMessage multicastMessage) throws PragmatachException {
-      try {
-         final Message msg = new Message();
-         msg.setBuffer(MulticastMessage.serialize(multicastMessage));
-         jChannel.send(msg);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in send", e);
-      }
-   }
+	/**
+	 * send message
+	 */
+	public void send(MulticastMessage multicastMessage) throws PragmatachException {
+		try {
+			// final Message msg = new Message();
+			// msg.setArray(MulticastMessage.serialize(multicastMessage));
+			// jChannel.send(msg);
+			throw new PragmatachException("not implemented");
+		} catch (final Exception e) {
+			throw new PragmatachException("Exception in send", e);
+		}
+	}
 
-   public void shutdown() {
-      if (null != jChannel) {
-         jChannel.close();
-         jChannel = null;
-      }
-   }
+	public void shutdown() {
+		if (null != jChannel) {
+			jChannel.close();
+			jChannel = null;
+		}
+	}
 
-   public void startup() throws PragmatachException {
-      try {
-         /*
-          * the channel
-          */
-         jChannel = new JChannel();
-         jChannel.setReceiver(this);
-         jChannel.connect(CLUSTER_NAME);
-      } catch (final Exception e) {
-         throw new PragmatachException("Exception in startup", e);
-      }
-   }
+	public void startup() throws PragmatachException {
+		try {
+			/*
+			 * the channel
+			 */
+			// jChannel = new JChannel();
+			// jChannel.setReceiver(this);
+			// jChannel.connect(CLUSTER_NAME);
+			throw new PragmatachException("not implemented");
+		} catch (final Exception e) {
+			throw new PragmatachException("Exception in startup", e);
+		}
+	}
 
-   /**
-    * accepted
-    */
-   @Override
-   public void viewAccepted(View view) {
-   }
+	/**
+	 * accepted
+	 */
+	public void viewAccepted(View view) {
+	}
 }

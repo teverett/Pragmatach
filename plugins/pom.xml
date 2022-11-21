@@ -13,7 +13,7 @@
 	<modules>
 		<module>dbtestsuite</module>
 		<module>pragmatach-freemarker</module>
-		<module>pragmatach-thymeleaf</module>
+	<!--	<module>pragmatach-thymeleaf</module> -->
 		<module>pragmatach-responsive</module>
 		<module>pragmatach-jasper</module>
 		<module>pragmatach-velocity</module>

@@ -1,44 +1,42 @@
 package com.khubla.pragmatach.plugin.i8n.plugin;
 
-import java.util.Map;
+import java.util.*;
 
-import com.khubla.pragmatach.framework.api.I8NProvider;
-import com.khubla.pragmatach.framework.api.Plugin;
-import com.khubla.pragmatach.framework.api.PluginContext;
-import com.khubla.pragmatach.framework.api.PragmatachException;
-import com.khubla.pragmatach.plugin.i8n.I8NImpl;
+import com.khubla.pragmatach.framework.api.*;
+import com.khubla.pragmatach.plugin.i8n.*;
 
 /**
  * @author tome
  */
+@PragmatatchPlugin
 public class PluginImpl implements Plugin {
-   private PluginContext pluginContext;
+	private PluginContext pluginContext;
 
-   @Override
-   public I8NProvider getI8NProvider() {
-      return new I8NImpl(this);
-   }
+	@Override
+	public I8NProvider getI8NProvider() {
+		return new I8NImpl(this);
+	}
 
-   @Override
-   public String getName() {
-      return "i8n";
-   }
+	@Override
+	public String getName() {
+		return "i8n";
+	}
 
-   public PluginContext getPluginContext() {
-      return pluginContext;
-   }
+	public PluginContext getPluginContext() {
+		return pluginContext;
+	}
 
-   @Override
-   public void setPluginContext(PluginContext pluginContext) {
-      this.pluginContext = pluginContext;
-   }
+	@Override
+	public void setPluginContext(PluginContext pluginContext) {
+		this.pluginContext = pluginContext;
+	}
 
-   @Override
-   public void startup() throws PragmatachException {
-   }
+	@Override
+	public void startup() throws PragmatachException {
+	}
 
-   @Override
-   public Map<String, Object> getTemplateVariables() {
-      return null;
-   }
+	@Override
+	public Map<String, Object> getTemplateVariables() {
+		return null;
+	}
 }
