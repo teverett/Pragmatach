@@ -48,7 +48,7 @@ public class StartupListener implements ServletContextListener {
 			/*
 			 * scan the annotations (@Route and @Controller, and everything else)
 			 */
-			AnnotationScanner.scan(servletContextEvent.getServletContext());
+			AnnotationScanner.scan();
 			/*
 			 * find the controllers and routes
 			 */
