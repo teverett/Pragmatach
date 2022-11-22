@@ -4,7 +4,7 @@
 	<groupId>com.khubla.pragmatach</groupId>
 	<artifactId>pragmatach</artifactId>
 	<packaging>pom</packaging>
-	<version>1.41.0-SNAPSHOT</version>
+	<version>1.42.0-SNAPSHOT</version>
 	<name>khubla.com Pragmatach</name>
 	<description>Pragmatach site framework</description>
 	<url>https://github.com/teverett/Pragmatach</url>
