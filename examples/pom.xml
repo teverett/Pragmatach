@@ -19,7 +19,7 @@
 	<modules>
 		<module>rssviewer</module>
 		<module>velocityexample</module>
-		<module>thymeleafexample</module>
+<!--		<module>thymeleafexample</module>-->
 		<module>jsonexample</module>
 		<module>cacheexample</module>
 		<module>xstreamexample</module>
@@ -37,4 +37,16 @@
 		<module>beforeexample</module>
 		<module>startupexample</module>
 	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>	

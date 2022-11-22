@@ -11,3 +11,7 @@
 /plugins/pragmatach-ebean/pragmatach-create.sql
 /plugins/pragmatach-ebean/pragmatach-drop.sql
 /.vscode
+/pragmatach-framework/src/main/java/com/khubla/pragmatach/framework/uri/antlr4/RouteSpecificationBaseListener.java
+/pragmatach-framework/src/main/java/com/khubla/pragmatach/framework/uri/antlr4/RouteSpecificationLexer.java
+/pragmatach-framework/src/main/java/com/khubla/pragmatach/framework/uri/antlr4/RouteSpecificationListener.java
+/pragmatach-framework/src/main/java/com/khubla/pragmatach/framework/uri/antlr4/RouteSpecificationParser.java
