@@ -46,7 +46,7 @@
 		<module>pragmatach-archetype</module>
 		<module>pragmatach-framework</module>
 		<module>plugins</module>
-		<module>examples</module>
+	<!--	<module>examples</module>-->
 		<module>contrib</module>
 		<!-- <module>site</module> -->
 	</modules>
