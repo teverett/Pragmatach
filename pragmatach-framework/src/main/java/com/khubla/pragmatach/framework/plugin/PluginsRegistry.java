@@ -2,10 +2,11 @@ package com.khubla.pragmatach.framework.plugin;
 
 import java.util.*;
 
-import org.reflections.*;
 import org.slf4j.*;
 
+import com.khubla.pragmatach.framework.annotation.*;
 import com.khubla.pragmatach.framework.api.*;
+import com.khubla.pragmatach.framework.scanner.*;
 
 /**
  * @author tome
@@ -29,11 +30,10 @@ public class PluginsRegistry {
 	 */
 	public static void scan() throws PragmatachException {
 		try {
-			final Reflections reflections = new Reflections("com.khubla.pragmatach");
-			final Set<Class<? extends Plugin>> pluginClasses = reflections.getSubTypesOf(Plugin.class);
+			Set<Class<?>> pluginClasses = AnnotationScanner.getAllClasses(PluginExtension.class);
 			if ((null != pluginClasses) && (pluginClasses.size() > 0)) {
-				for (final Class<? extends Plugin> clazz : pluginClasses) {
-					final Plugin plugin = clazz.getDeclaredConstructor().newInstance();
+				for (final Class<?> clazz : pluginClasses) {
+					final Plugin plugin = (Plugin) clazz.getDeclaredConstructor().newInstance();
 					if (null != plugin) {
 						logger.info("Found plugin: " + plugin.getName());
 						plugins.put(plugin.getName(), plugin);

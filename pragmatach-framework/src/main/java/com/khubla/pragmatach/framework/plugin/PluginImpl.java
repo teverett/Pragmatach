@@ -2,11 +2,13 @@ package com.khubla.pragmatach.framework.plugin;
 
 import java.util.*;
 
+import com.khubla.pragmatach.framework.annotation.*;
 import com.khubla.pragmatach.framework.api.*;
 
 /**
  * @author tome
  */
+@PluginExtension
 public class PluginImpl implements Plugin {
 	private PluginContext pluginContext;
 

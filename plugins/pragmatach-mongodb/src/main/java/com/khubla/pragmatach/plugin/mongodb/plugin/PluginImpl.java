@@ -1,43 +1,42 @@
 package com.khubla.pragmatach.plugin.mongodb.plugin;
 
-import java.util.Map;
+import java.util.*;
 
-import com.khubla.pragmatach.framework.api.I8NProvider;
-import com.khubla.pragmatach.framework.api.Plugin;
-import com.khubla.pragmatach.framework.api.PluginContext;
-import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.annotation.*;
+import com.khubla.pragmatach.framework.api.*;
 
 /**
  * @author tome
  */
+@PluginExtension
 public class PluginImpl implements Plugin {
-   private PluginContext pluginContext;
+	private PluginContext pluginContext;
 
-   @Override
-   public I8NProvider getI8NProvider() {
-      return null;
-   }
+	@Override
+	public I8NProvider getI8NProvider() {
+		return null;
+	}
 
-   @Override
-   public String getName() {
-      return "MongoDB";
-   }
+	@Override
+	public String getName() {
+		return "MongoDB";
+	}
 
-   public PluginContext getPluginContext() {
-      return pluginContext;
-   }
+	public PluginContext getPluginContext() {
+		return pluginContext;
+	}
 
-   @Override
-   public Map<String, Object> getTemplateVariables() {
-      return null;
-   }
+	@Override
+	public Map<String, Object> getTemplateVariables() {
+		return null;
+	}
 
-   @Override
-   public void setPluginContext(PluginContext pluginContext) {
-      this.pluginContext = pluginContext;
-   }
+	@Override
+	public void setPluginContext(PluginContext pluginContext) {
+		this.pluginContext = pluginContext;
+	}
 
-   @Override
-   public void startup() throws PragmatachException {
-   }
+	@Override
+	public void startup() throws PragmatachException {
+	}
 }
