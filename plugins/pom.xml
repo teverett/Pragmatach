@@ -28,10 +28,10 @@
 		<module>pragmatach-google</module>
 		<module>pragmatach-ebean</module>
 	<!--	<module>pragmatach-hibernate</module>-->
-		<module>pragmatach-openjpa</module>
+	<!--	<module>pragmatach-openjpa</module>-->
 		<module>pragmatach-statsd</module>
 		<module>pragmatach-jsp</module>
 		<module>pragmatach-jackson</module>
-		<module>pragmatach-mongodb</module>
+	<!--	<module>pragmatach-mongodb</module>-->
 	</modules>
 </project>
