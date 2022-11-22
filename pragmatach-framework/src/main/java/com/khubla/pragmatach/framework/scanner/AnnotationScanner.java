@@ -14,6 +14,15 @@ import com.khubla.pragmatach.framework.api.*;
  */
 public class AnnotationScanner {
 	/**
+	 * logger
+	 */
+	private static final Logger logger = LoggerFactory.getLogger(AnnotationScanner.class);
+	/**
+	 * the DB
+	 */
+	private static Reflections reflections = new Reflections();
+
+	/**
 	 * get classes with annotation
 	 */
 	public static Set<Class<?>> getAllClasses(Class<? extends Annotation> annotationClass) throws PragmatachException {
@@ -43,20 +52,11 @@ public class AnnotationScanner {
 	 * do the scan
 	 */
 	public static void scan() throws PragmatachException {
-		Reflections classPathReflections = new Reflections(System.getProperty("java.class.path"));
+		final Reflections classPathReflections = new Reflections(System.getProperty("java.class.path"));
 		reflections.merge(classPathReflections);
-		Reflections servletReflections = new Reflections("com.khubla.pragmatach");
+		final Reflections servletReflections = new Reflections("com.khubla.pragmatach");
 		reflections.merge(servletReflections);
-		Reflections servletTestReflections = new Reflections("test.com.khubla.pragmatach");
+		final Reflections servletTestReflections = new Reflections("test.com.khubla.pragmatach");
 		reflections.merge(servletTestReflections);
 	}
-
-	/**
-	 * logger
-	 */
-	private static final Logger logger = LoggerFactory.getLogger(AnnotationScanner.class);
-	/**
-	 * the DB
-	 */
-	private static Reflections reflections = new Reflections();
 }

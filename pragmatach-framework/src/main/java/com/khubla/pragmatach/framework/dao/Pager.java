@@ -1,8 +1,8 @@
 package com.khubla.pragmatach.framework.dao;
 
-import java.util.List;
+import java.util.*;
 
-import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.*;
 
 /**
  * an iterator for objects, produced by a DAO
@@ -10,7 +10,7 @@ import com.khubla.pragmatach.framework.api.PragmatachException;
  * @author tome
  */
 public interface Pager<T> {
-   boolean hasNext();
+	boolean hasNext();
 
-   List<T> next() throws PragmatachException;
+	List<T> next() throws PragmatachException;
 }

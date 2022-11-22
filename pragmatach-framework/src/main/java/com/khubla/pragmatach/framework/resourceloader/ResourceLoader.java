@@ -1,12 +1,12 @@
 package com.khubla.pragmatach.framework.resourceloader;
 
-import java.io.InputStream;
+import java.io.*;
 
-import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.*;
 
 public interface ResourceLoader {
-   /**
-    * get a resource using the servlet's class loader
-    */
-   InputStream getResource(String resource) throws PragmatachException;
+	/**
+	 * get a resource using the servlet's class loader
+	 */
+	InputStream getResource(String resource) throws PragmatachException;
 }

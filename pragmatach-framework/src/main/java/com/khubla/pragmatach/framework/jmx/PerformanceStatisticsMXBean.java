@@ -4,9 +4,9 @@ package com.khubla.pragmatach.framework.jmx;
  * @author tome
  */
 public interface PerformanceStatisticsMXBean {
-   public long getLastRenderTime();
+	public long getLastRenderTime();
 
-   public String getServerStartTime();
+	public String getServerStartTime();
 
-   public long getTotalRequests();
+	public long getTotalRequests();
 }

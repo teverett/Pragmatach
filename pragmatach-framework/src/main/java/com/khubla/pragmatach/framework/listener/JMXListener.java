@@ -1,68 +1,62 @@
 package com.khubla.pragmatach.framework.listener;
 
-import java.lang.management.ManagementFactory;
+import java.lang.management.*;
 
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.management.*;
+import javax.servlet.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import com.khubla.pragmatach.framework.jmx.PerformanceStatisticsMXBean;
-import com.khubla.pragmatach.framework.jmx.RouteCacheStatusMXBean;
-import com.khubla.pragmatach.framework.jmx.SystemStatusMXBean;
-import com.khubla.pragmatach.framework.jmx.impl.RouteCacheStatus;
-import com.khubla.pragmatach.framework.jmx.impl.SystemStatus;
-import com.khubla.pragmatach.framework.servlet.PragmatachServlet;
+import com.khubla.pragmatach.framework.jmx.*;
+import com.khubla.pragmatach.framework.jmx.impl.*;
+import com.khubla.pragmatach.framework.servlet.*;
 
 /**
  * @author tome
  */
 public class JMXListener implements ServletContextListener {
-   /**
-    * logger
-    */
-   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	/**
+	 * logger
+	 */
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-   @Override
-   public void contextDestroyed(ServletContextEvent servletContextEvent) {
-   }
+	@Override
+	public void contextDestroyed(ServletContextEvent servletContextEvent) {
+	}
 
-   @Override
-   public void contextInitialized(ServletContextEvent servletContextEvent) {
-      try {
-         final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-         /*
-          * system status bean
-          */
-         final ObjectName systemStatusBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=SystemStatus");
-         final SystemStatusMXBean systemStatusMBean = new SystemStatus();
-         if (mBeanServer.isRegistered(systemStatusBeanName)) {
-            mBeanServer.unregisterMBean(systemStatusBeanName);
-         }
-         mBeanServer.registerMBean(systemStatusMBean, systemStatusBeanName);
-         /*
-          * performance statistics
-          */
-         final ObjectName performanceStatisticsBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=PerformanceStatistics");
-         final PerformanceStatisticsMXBean performanceStatisticsMXBean = PragmatachServlet.getPerformancestatistics();
-         if (mBeanServer.isRegistered(performanceStatisticsBeanName)) {
-            mBeanServer.unregisterMBean(performanceStatisticsBeanName);
-         }
-         mBeanServer.registerMBean(performanceStatisticsMXBean, performanceStatisticsBeanName);
-         /*
-          * route cache
-          */
-         final ObjectName routeCacheStatusBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=RouteCacheStatus");
-         final RouteCacheStatusMXBean routeCacheStatusMXBean = new RouteCacheStatus();
-         if (mBeanServer.isRegistered(routeCacheStatusBeanName)) {
-            mBeanServer.unregisterMBean(routeCacheStatusBeanName);
-         }
-         mBeanServer.registerMBean(routeCacheStatusMXBean, routeCacheStatusBeanName);
-      } catch (final Exception e) {
-         logger.error("Exception in contextInitialized", e);
-      }
-   }
+	@Override
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		try {
+			final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+			/*
+			 * system status bean
+			 */
+			final ObjectName systemStatusBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=SystemStatus");
+			final SystemStatusMXBean systemStatusMBean = new SystemStatus();
+			if (mBeanServer.isRegistered(systemStatusBeanName)) {
+				mBeanServer.unregisterMBean(systemStatusBeanName);
+			}
+			mBeanServer.registerMBean(systemStatusMBean, systemStatusBeanName);
+			/*
+			 * performance statistics
+			 */
+			final ObjectName performanceStatisticsBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=PerformanceStatistics");
+			final PerformanceStatisticsMXBean performanceStatisticsMXBean = PragmatachServlet.getPerformancestatistics();
+			if (mBeanServer.isRegistered(performanceStatisticsBeanName)) {
+				mBeanServer.unregisterMBean(performanceStatisticsBeanName);
+			}
+			mBeanServer.registerMBean(performanceStatisticsMXBean, performanceStatisticsBeanName);
+			/*
+			 * route cache
+			 */
+			final ObjectName routeCacheStatusBeanName = new ObjectName("com.khubla.pragmatach.framework.jmx.impl:type=RouteCacheStatus");
+			final RouteCacheStatusMXBean routeCacheStatusMXBean = new RouteCacheStatus();
+			if (mBeanServer.isRegistered(routeCacheStatusBeanName)) {
+				mBeanServer.unregisterMBean(routeCacheStatusBeanName);
+			}
+			mBeanServer.registerMBean(routeCacheStatusMXBean, routeCacheStatusBeanName);
+		} catch (final Exception e) {
+			logger.error("Exception in contextInitialized", e);
+		}
+	}
 }

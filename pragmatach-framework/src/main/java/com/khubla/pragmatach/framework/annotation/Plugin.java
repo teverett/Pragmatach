@@ -6,9 +6,8 @@ import java.lang.annotation.*;
  * @author tome
  */
 @Documented
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface View {
-	String view() default "";
+public @interface Plugin {
 }

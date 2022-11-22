@@ -9,6 +9,7 @@ import org.slf4j.*;
 
 import com.khubla.pragmatach.framework.annotation.*;
 import com.khubla.pragmatach.framework.api.*;
+import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.application.*;
 import com.khubla.pragmatach.framework.controller.*;
 import com.khubla.pragmatach.framework.i8n.*;
@@ -21,13 +22,13 @@ import com.khubla.pragmatach.framework.scanner.*;
  */
 public class StartupListener implements ServletContextListener {
 	/**
-	 * logger
-	 */
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	/**
 	 * configuration
 	 */
 	private static final String CONFIGURATION = "configuration";
+	/**
+	 * logger
+	 */
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {

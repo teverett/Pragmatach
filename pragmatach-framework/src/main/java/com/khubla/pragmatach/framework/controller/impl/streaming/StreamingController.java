@@ -1,13 +1,12 @@
 package com.khubla.pragmatach.framework.controller.impl.streaming;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
-import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.*;
 
 /**
  * @author tome
  */
 public interface StreamingController {
-   void render(InputStream httpInputStream, OutputStream httpOutputStream) throws PragmatachException;
+	void render(InputStream httpInputStream, OutputStream httpOutputStream) throws PragmatachException;
 }

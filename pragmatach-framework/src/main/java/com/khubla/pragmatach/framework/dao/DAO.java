@@ -1,64 +1,64 @@
 package com.khubla.pragmatach.framework.dao;
 
-import java.util.List;
+import java.util.*;
 
-import com.khubla.pragmatach.framework.api.PragmatachException;
+import com.khubla.pragmatach.framework.api.*;
 
 /**
  * @author tome
  */
 public interface DAO<T, I> {
-   /**
-    * get the count of rows in table
-    */
-   long count() throws PragmatachException;
+	/**
+	 * get the count of rows in table
+	 */
+	long count() throws PragmatachException;
 
-   /**
-    * delete
-    */
-   void delete(T t) throws PragmatachException;
+	/**
+	 * delete
+	 */
+	void delete(T t) throws PragmatachException;
 
-   /**
-    * delete
-    */
-   void deletebyId(I i) throws PragmatachException;
+	/**
+	 * delete
+	 */
+	void deletebyId(I i) throws PragmatachException;
 
-   /**
-    * find by id
-    */
-   T findById(I i) throws PragmatachException;
+	/**
+	 * find by id
+	 */
+	T findById(I i) throws PragmatachException;
 
-   /**
-    * get all
-    */
-   List<T> getAll() throws PragmatachException;
+	/**
+	 * get all
+	 */
+	List<T> getAll() throws PragmatachException;
 
-   /**
-    * get all
-    */
-   List<T> getAll(int start, int count) throws PragmatachException;
+	/**
+	 * get all
+	 */
+	List<T> getAll(int start, int count) throws PragmatachException;
 
-   Class<I> getIdentifierClazz();
+	Class<I> getIdentifierClazz();
 
-   /**
-    * get pager
-    */
-   Pager<T> getPager(int batchsize) throws PragmatachException;
+	/**
+	 * get pager
+	 */
+	Pager<T> getPager(int batchsize) throws PragmatachException;
 
-   Class<T> getTypeClazz();
+	Class<T> getTypeClazz();
 
-   /**
-    * do a config reload
-    */
-   void reloadConfig();
+	/**
+	 * do a config reload
+	 */
+	void reloadConfig();
 
-   /**
-    * save object
-    */
-   void save(T t) throws PragmatachException;
+	/**
+	 * save object
+	 */
+	void save(T t) throws PragmatachException;
 
-   /**
-    * update object
-    */
-   void update(T t) throws PragmatachException;
+	/**
+	 * update object
+	 */
+	void update(T t) throws PragmatachException;
 }

@@ -15,6 +15,11 @@ import org.apache.commons.io.*;
  */
 public class AES {
 	/**
+	 * keyspec
+	 */
+	private final static String KEYSPEC = "AES/ECB/ISO10126Padding";
+
+	/**
 	 * decrypt
 	 */
 	public static String decrypt(String encryptedPayload, String key) throws Exception {
@@ -60,9 +65,4 @@ public class AES {
 			throw new Exception("Exception in makeAESKey", e);
 		}
 	}
-
-	/**
-	 * keyspec
-	 */
-	private final static String KEYSPEC = "AES/ECB/ISO10126Padding";
 }

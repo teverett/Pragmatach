@@ -10,6 +10,7 @@ import org.apache.commons.io.*;
 
 import com.khubla.pragmatach.framework.annotation.*;
 import com.khubla.pragmatach.framework.api.*;
+import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.controller.*;
 import com.khubla.pragmatach.framework.controller.impl.*;
 import com.khubla.pragmatach.framework.i8n.*;

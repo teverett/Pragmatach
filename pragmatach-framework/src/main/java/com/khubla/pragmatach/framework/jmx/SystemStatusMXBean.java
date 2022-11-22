@@ -4,11 +4,11 @@ package com.khubla.pragmatach.framework.jmx;
  * @author tome
  */
 public interface SystemStatusMXBean {
-   String[] getConfiguration();
+	String[] getConfiguration();
 
-   String[] getControllers();
+	String[] getControllers();
 
-   String[] getPlugins();
+	String[] getPlugins();
 
-   String[] getRouters();
+	String[] getRouters();
 }

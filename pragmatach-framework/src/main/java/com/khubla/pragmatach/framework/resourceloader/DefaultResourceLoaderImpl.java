@@ -40,7 +40,7 @@ public class DefaultResourceLoaderImpl implements ResourceLoader {
 				return null;
 			} else {
 				String resourcePath = resource;
-				if (false == resourcePath.startsWith("/")) {
+				if (!resourcePath.startsWith("/")) {
 					resourcePath = "/" + resourcePath;
 				}
 				/*

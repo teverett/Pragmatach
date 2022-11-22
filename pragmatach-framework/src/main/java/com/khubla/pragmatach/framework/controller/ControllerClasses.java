@@ -14,6 +14,19 @@ import com.khubla.pragmatach.framework.scanner.*;
  */
 public class ControllerClasses {
 	/**
+	 * logger
+	 */
+	private static Logger logger = LoggerFactory.getLogger(ControllerClasses.class);
+	/**
+	 * routes
+	 */
+	private static Set<Method> routerMethods = new HashSet<Method>();
+	/**
+	 * controllers
+	 */
+	private static Set<Class<?>> controllers = new HashSet<Class<?>>();
+
+	/**
 	 * do the annotations scan
 	 */
 	public static void buildDB() throws PragmatachException {
@@ -63,17 +76,4 @@ public class ControllerClasses {
 	public static void setRouterMethods(Set<Method> routerMethods) {
 		ControllerClasses.routerMethods = routerMethods;
 	}
-
-	/**
-	 * logger
-	 */
-	private static Logger logger = LoggerFactory.getLogger(ControllerClasses.class);
-	/**
-	 * routes
-	 */
-	private static Set<Method> routerMethods = new HashSet<Method>();
-	/**
-	 * controllers
-	 */
-	private static Set<Class<?>> controllers = new HashSet<Class<?>>();
 }

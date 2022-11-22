@@ -1,23 +1,23 @@
 package com.khubla.pragmatach.framework.api;
 
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author tome
  */
 public interface I8NProvider {
-   /**
-    * get localized date
-    */
-   String getDate(String locale, Date date) throws PragmatachException;
+	/**
+	 * get localized date
+	 */
+	String getDate(String locale, Date date) throws PragmatachException;
 
-   /**
-    * provider name
-    */
-   String getName();
+	/**
+	 * provider name
+	 */
+	String getName();
 
-   /**
-    * get localized string.
-    */
-   String getString(String locale, String name) throws PragmatachException;
+	/**
+	 * get localized string.
+	 */
+	String getString(String locale, String name) throws PragmatachException;
 }
