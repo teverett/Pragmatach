@@ -64,5 +64,5 @@ public class AES {
 	/**
 	 * keyspec
 	 */
-	private final static String KEYSPEC = "AES/CBC/ISO10126Padding";
+	private final static String KEYSPEC = "AES/ECB/ISO10126Padding";
 }
