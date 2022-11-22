@@ -89,7 +89,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
-				<configuration>
+				<reporting>
 					<reportPlugins>
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
@@ -141,7 +141,7 @@
 							</configuration>
 						</plugin>
 					</reportPlugins>
-				</configuration>
+				</reporting>
 			</plugin>
 			<plugin>
 				<!-- configuration for standalone javadoc generation -->
@@ -158,25 +158,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.3</version>
-			</plugin>
-			<plugin>
-				<groupId>com.diffplug.spotless</groupId>
-				<artifactId>spotless-maven-plugin</artifactId>
-				<version>${spotless.version}</version>
-				<configuration>
-					<lineEndings>UNIX</lineEndings>
-					<encoding>UTF-8</encoding>
-					<java>
-						<eclipse>
-							<file>${maven.multiModuleProjectDirectory}/format.eclipse.xml</file>
-							<version>4.7.1</version>
-						</eclipse>
-						<removeUnusedImports />
-						<importOrder>
-							<file>${maven.multiModuleProjectDirectory}/format.importorder</file>
-						</importOrder>
-					</java>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
