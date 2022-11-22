@@ -27,7 +27,7 @@
 		<module>pragmatach-facebook</module>
 		<module>pragmatach-google</module>
 		<module>pragmatach-ebean</module>
-		<module>pragmatach-hibernate</module>
+	<!--	<module>pragmatach-hibernate</module>-->
 		<module>pragmatach-openjpa</module>
 		<module>pragmatach-statsd</module>
 		<module>pragmatach-jsp</module>
