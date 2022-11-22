@@ -8,7 +8,7 @@
 	<repositories>
 		<repository>
 			<id>pragmatach</id>
-			<url>http://www.pragmatach.com/repo/</url>
+			<url>https://www.pragmatach.com/repo/</url>
 		</repository>
 	</repositories>
 	<properties>
@@ -182,7 +182,7 @@
 				<pluginRepository>
 					<id>apache.snapshots</id>
 					<name>Apache Snapshots Repository</name>
-					<url>http://repository.apache.org/snapshots</url>
+					<url>https://repository.apache.org/snapshots</url>
 					<layout>default</layout>
 					<snapshots>
 						<enabled>true</enabled>
