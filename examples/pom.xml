@@ -19,7 +19,6 @@
 	<modules>
 		<module>rssviewer</module>
 		<module>velocityexample</module>
-<!--		<module>thymeleafexample</module>-->
 		<module>jsonexample</module>
 		<module>cacheexample</module>
 		<module>xstreamexample</module>
