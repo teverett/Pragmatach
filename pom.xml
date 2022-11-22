@@ -85,11 +85,52 @@
 					<target>${target.jvm}</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<!-- configuration for standalone javadoc generation -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.4.1</version>
+				<configuration>
+					<stylesheetfile>javadocstyle/javadoc.css</stylesheetfile>
+					<aggregate>true</aggregate>
+					<linksource>true</linksource>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>${required-maven-version}</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
-				<reporting>
+				<configuration>
 					<reportPlugins>
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
@@ -141,46 +182,10 @@
 							</configuration>
 						</plugin>
 					</reportPlugins>
-				</reporting>
-			</plugin>
-			<plugin>
-				<!-- configuration for standalone javadoc generation -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.4.1</version>
-				<configuration>
-					<stylesheetfile>javadocstyle/javadoc.css</stylesheetfile>
-					<aggregate>true</aggregate>
-					<linksource>true</linksource>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>enforce-maven</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireMavenVersion>
-									<version>${required-maven-version}</version>
-								</requireMavenVersion>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
-	</build>
+	</reporting>
 	<profiles>
 		<profile>
 			<id>deploy</id>
