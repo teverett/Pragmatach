@@ -9,7 +9,6 @@ import org.slf4j.*;
 
 import com.khubla.pragmatach.framework.annotation.*;
 import com.khubla.pragmatach.framework.api.*;
-import com.khubla.pragmatach.framework.api.Plugin;
 import com.khubla.pragmatach.framework.application.*;
 import com.khubla.pragmatach.framework.controller.*;
 import com.khubla.pragmatach.framework.i8n.*;
@@ -57,7 +56,7 @@ public class StartupListener implements ServletContextListener {
 			/*
 			 * scan the plugins
 			 */
-			PluginsRegistry.scan();
+			PluginsRegistry.scan(servletContextEvent.getServletContext());
 			/*
 			 * start all the plugins
 			 */
