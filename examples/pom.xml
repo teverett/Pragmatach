@@ -13,8 +13,7 @@
 		<tomee-maven-plugin.version>1.7.5</tomee-maven-plugin.version>
 		<maven-embedded-glassfish-plugin.version>5.1</maven-embedded-glassfish-plugin.version>
 		<jboss-as-maven-plugin.version>7.9.Final</jboss-as-maven-plugin.version>
-		<jetty8-maven-plugin.version>8.1.16.v20140903</jetty8-maven-plugin.version>
-		<jetty7-maven-plugin.version>7.6.10.v20130312</jetty7-maven-plugin.version>
+		<jetty-maven-plugin.version>10.0.12</jetty-maven-plugin.version>
 	</properties>
 	<modules>
 		<module>rssviewer</module>
@@ -59,64 +58,17 @@
 		</resources>
 	</build>
 	<profiles>
-		<profile>
-			<id>jetty8</id>
+	<profile>
+			<id>jetty</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.mortbay.jetty</groupId>
-						<artifactId>jetty-maven-plugin</artifactId>
-						<version>${jetty8-maven-plugin.version}</version>
-						<configuration>
-							<scanIntervalSeconds>10</scanIntervalSeconds>
-							<webAppConfig>
-								<contextPath>/</contextPath>
-								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
-							</webAppConfig>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jetty7</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.mortbay.jetty</groupId>
-						<artifactId>jetty-maven-plugin</artifactId>
-						<version>${jetty7-maven-plugin.version}</version>
-						<configuration>
-							<scanIntervalSeconds>10</scanIntervalSeconds>
-							<webAppConfig>
-								<contextPath>/</contextPath>
-								<descriptor>src/main/webapp/WEB-INF/web.xml</descriptor>
-							</webAppConfig>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jetty9</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.10.1</version>
-						<configuration>
-							<source>${target.jvm}</source>
-							<target>1.7</target>
-						</configuration>
-					</plugin>
-					<plugin>
 						<groupId>org.eclipse.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
-						<version>11.0.12</version>
+						<version>${jetty-maven-plugin.version}</version>
 						<configuration>
 							<scanIntervalSeconds>10</scanIntervalSeconds>
 							<webAppConfig>
