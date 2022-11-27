@@ -17,7 +17,7 @@ public class AES {
 	/**
 	 * keyspec
 	 */
-	private final static String KEYSPEC = "AES/ECB/ISO10126Padding";
+	private final static String KEYSPEC = "AES/ECB/PKCS5Padding";
 
 	/**
 	 * decrypt
