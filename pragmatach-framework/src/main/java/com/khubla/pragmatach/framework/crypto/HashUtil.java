@@ -11,7 +11,7 @@ import com.khubla.pragmatach.framework.api.*;
 public class HashUtil {
 	public static String MD5(String str) throws PragmatachException {
 		try {
-			final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+			final MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 			messageDigest.reset();
 			messageDigest.update(str.getBytes("UTF-8"));
 			final byte[] digest = messageDigest.digest();
