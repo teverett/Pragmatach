@@ -13,7 +13,7 @@
 		<tomee-maven-plugin.version>1.7.5</tomee-maven-plugin.version>
 		<maven-embedded-glassfish-plugin.version>5.1</maven-embedded-glassfish-plugin.version>
 		<jboss-as-maven-plugin.version>7.9.Final</jboss-as-maven-plugin.version>
-		<jetty-maven-plugin.version>10.0.12</jetty-maven-plugin.version>
+		<jetty-maven-plugin.version>11.0.14</jetty-maven-plugin.version>
 	</properties>
 	<modules>
 		<module>rssviewer</module>
