@@ -31,7 +31,7 @@
 	</scm>
 	<properties>
 		<target.jvm>16</target.jvm>
-		<testng.version>7.6.1</testng.version>
+		<testng.version>7.7.0</testng.version>
 		<servlet.version>4.0.1</servlet.version>
 		<logback.version>1.4.4</logback.version>
 		<h2.version>2.1.214</h2.version>
