@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
-		<snakeyaml.version>1.33</snakeyaml.version>
+		<snakeyaml.version>2.0</snakeyaml.version>
 	</properties>
 	<dependencies>
 		<dependency>
