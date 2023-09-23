@@ -33,7 +33,7 @@
 		<target.jvm>16</target.jvm>
 		<testng.version>7.7.0</testng.version>
 		<servlet.version>4.0.1</servlet.version>
-		<logback.version>1.4.4</logback.version>
+		<logback.version>1.4.11</logback.version>
 		<h2.version>2.1.214</h2.version>
 		<hsqldb.version>2.7.1</hsqldb.version>
 		<derby.version>10.16.1.1</derby.version>
